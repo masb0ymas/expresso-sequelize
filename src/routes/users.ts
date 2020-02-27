@@ -1,9 +1,11 @@
-import express, { Request, Response, NextFunction } from "express";
-var router = express.Router();
+/* eslint-disable no-unused-vars */
+import express, { Request, Response, NextFunction } from 'express'
+
+const router = express.Router()
 
 /* GET user page. */
-router.get("/", function(req: Request, res: Response, next: NextFunction) {
-  res.send("respond with a resource");
-});
+router.get('/', function(req: Request, res: Response, next: NextFunction) {
+  res.send('respond with a resource')
+})
 
-module.exports = router;
+export default router

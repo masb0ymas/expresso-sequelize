@@ -1,14 +1,16 @@
+/* eslint-disable no-unused-vars */
 import createError from 'http-errors'
 import express, { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-let logger = require('morgan')
+import models from './models'
+import indexRouter from './routes/index'
+import usersRouter from './routes/users'
 
-let indexRouter = require('./routes/index')
-let usersRouter = require('./routes/users')
+const logger = require('morgan')
 
-let app = express()
+const app = express()
 
 // view engine setup
 app.set('views', path.join(`${__dirname}/../`, 'views'))
@@ -19,6 +21,16 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(`${__dirname}/../`, 'public')))
+
+// Initial DB
+models.sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.')
+  })
+  .catch((err: any) => {
+    console.error('Unable to connect to the database:', err)
+  })
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
