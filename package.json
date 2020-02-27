@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon ./src/bin/server.ts",
     "build": "tsc -p .",
-    "serve": "NODE_ENV=production ts-node ./dist/bin/server.js"
+    "serve:staging": "NODE_ENV=staging ts-node ./dist/bin/server.js",
+    "serve:production": "NODE_ENV=production ts-node ./dist/bin/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "masb0ymas",
   "license": "MIT",

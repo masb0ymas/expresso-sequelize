@@ -4,6 +4,13 @@ import db from '.'
 
 const { sequelize } = db
 
+export interface iRole {
+  id?: string
+  nama: string
+  createdAt?: Date
+  updatedAt?: Date
+}
+
 class Role extends Model {
   public id!: string
 

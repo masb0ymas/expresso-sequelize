@@ -5,8 +5,7 @@ import path from 'path'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import models from './models'
-import indexRouter from './routes/index'
-import usersRouter from './routes/users'
+import route from './routes'
 
 const logger = require('morgan')
 
@@ -32,8 +31,8 @@ models.sequelize
     console.error('Unable to connect to the database:', err)
   })
 
-app.use('/', indexRouter)
-app.use('/users', usersRouter)
+// Initial Route
+app.use(route)
 
 // catch 404 and forward to error handler
 app.use(function(req: Request, res: Response, next: NextFunction) {
