@@ -53,7 +53,7 @@ yarn run test
 * Website: http://minangitcamp.com
 * Twitter: [@fajriajjha1](https://twitter.com/fajriajjha1)
 * Github: [@masb0ymas](https://github.com/masb0ymas)
-* LinkedIn: [@aji-ajjha-58a248b7](https://linkedin.com/in/aji-ajjha-58a248b7)
+* LinkedIn: [@aji-ajjha](https://linkedin.com/in/aji-ajjha-58a248b7)
 
 ## Show your support
 

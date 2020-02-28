@@ -1,15 +1,12 @@
-/* eslint-disable no-unused-vars */
-import express, { Request, Response, NextFunction } from 'express'
+import express from 'express'
 /* Declare Controllers */
 import RoleController from '../controllers/RoleController'
 
 const router = express.Router()
 
-/* GET home page. */
-router.get('/', function(req: Request, res: Response, next: NextFunction) {
-  res.render('index', { title: 'Express' })
-})
-
+/* Role */
 router.post('/role', RoleController.create)
+router.put('/role/:id', RoleController.update)
+router.delete('/role/:id', RoleController.destroy)
 
 export default router
