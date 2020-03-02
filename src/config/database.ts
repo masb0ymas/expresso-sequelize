@@ -8,6 +8,7 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: process.env.DB_CONNECTION,
     operatorsAliases: process.env.DB_OPERATOR_ALIAS,
+    timezone: process.env.DB_TIMEZONE,
   },
   staging: {
     username: process.env.STAGING_DB_USERNAME,
@@ -16,6 +17,7 @@ module.exports = {
     host: process.env.STAGING_DB_HOST,
     dialect: process.env.STAGING_DB_CONNECTION,
     operatorsAliases: process.env.STAGING_OPERATOR_ALIAS,
+    timezone: process.env.STAGING_TIMEZONE,
   },
   production: {
     username: process.env.PROD_DB_USERNAME,
@@ -24,5 +26,6 @@ module.exports = {
     host: process.env.PROD_DB_HOST,
     dialect: process.env.PROD_DB_CONNECTION,
     operatorsAliases: process.env.PROD_OPERATOR_ALIAS,
+    timezone: process.env.PROD_TIMEZONE,
   },
 }
