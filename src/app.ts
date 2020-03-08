@@ -3,6 +3,7 @@ import createError from 'http-errors'
 import express, { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import cors from 'cors'
+import helmet from 'helmet'
 import bodyParser from 'body-parser'
 import models from './models'
 import route from './routes'
@@ -15,6 +16,7 @@ const app = express()
 app.set('views', path.join(`${__dirname}/../`, 'views'))
 app.set('view engine', 'pug')
 
+app.use(helmet())
 app.all('*', cors())
 app.use(logger('dev'))
 app.use(bodyParser.json())

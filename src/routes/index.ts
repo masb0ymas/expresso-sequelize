@@ -5,14 +5,24 @@ import privateRoute from './private'
 
 const router = express.Router()
 
-/* GET home page. */
+/* Home Page. */
 router.get('/', function(req: Request, res: Response, next: NextFunction) {
   res.render('index', {
-    title: 'Express TypeScript',
-    description: 'Powered By Nusantech',
+    title: 'Express TS',
+    description: 'Powered by Nusantech',
   })
 })
 
+/* Forbidden Page. */
+router.get('/v1', function(req: Request, res: Response, next: NextFunction) {
+  res.render('index', {
+    title: 'Hayo Mau ngapain ??',
+    description: 'Forbidden Access',
+    code: '403',
+  })
+})
+
+/* Declare Route */
 router.use('/v1', publicRoute)
 router.use('/v1', privateRoute)
 
