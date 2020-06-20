@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
-import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize'
-import db from '.'
+import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize';
+import db from '.';
 
-const { sequelize } = db
+const { sequelize } = db;
 
 export interface iRole {
-  id?: string
-  nama: string
-  createdAt?: Date
-  updatedAt?: Date
+  id?: string;
+  nama: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 class Role extends Model {
-  public id!: string
+  public id!: string;
 
-  public nama!: string | null
+  public nama!: string | null;
 
-  public readonly createdAt!: Date
+  public readonly createdAt!: Date;
 
-  public readonly updatedAt!: Date
+  public readonly updatedAt!: Date;
 }
 
 Role.init(
@@ -36,6 +36,6 @@ Role.init(
     sequelize,
     tableName: 'Roles',
   }
-)
+);
 
-export default Role
+export default Role;

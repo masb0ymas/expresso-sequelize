@@ -1,36 +1,36 @@
 /* eslint-disable no-unused-vars */
-import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize'
-import db from '.'
+import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize';
+import db from '.';
 
-const { sequelize } = db
+const { sequelize } = db;
 
 export interface iUser {
-  id?: string
-  fullName: string
-  email: string
-  password: string
-  phone: string
-  RoleId: string
-  createdAt?: Date
-  updatedAt?: Date
+  id?: string;
+  fullName: string;
+  email: string;
+  password: string;
+  phone: string;
+  RoleId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 class User extends Model {
-  public id!: string
+  public id!: string;
 
-  public fullName!: string | null
+  public fullName!: string | null;
 
-  public email!: string | null
+  public email!: string | null;
 
-  public password!: string | null
+  public password!: string | null;
 
-  public phone!: string | null
+  public phone!: string | null;
 
-  public RoleId!: string | null
+  public RoleId!: string | null;
 
-  public readonly createdAt!: Date
+  public readonly createdAt!: Date;
 
-  public readonly updatedAt!: Date
+  public readonly updatedAt!: Date;
 }
 
 User.init(
@@ -52,6 +52,6 @@ User.init(
     sequelize,
     tableName: 'Users',
   }
-)
+);
 
-export default User
+export default User;

@@ -1,17 +1,17 @@
 // eslint-disable-next-line no-unused-vars
-import express, { Request, Response, NextFunction } from 'express'
-import publicRoute from './public'
-import privateRoute from './private'
+import express, { Request, Response, NextFunction } from 'express';
+import publicRoute from './public';
+import privateRoute from './private';
 
-const router = express.Router()
+const router = express.Router();
 
 /* Home Page. */
 router.get('/', function(req: Request, res: Response, next: NextFunction) {
   res.render('index', {
     title: 'Express TS',
     description: 'Powered by Nusantech',
-  })
-})
+  });
+});
 
 /* Forbidden Page. */
 router.get('/v1', function(req: Request, res: Response, next: NextFunction) {
@@ -19,12 +19,12 @@ router.get('/v1', function(req: Request, res: Response, next: NextFunction) {
     title: 'Hayo Mau ngapain ??',
     description: 'Forbidden Access',
     code: '403',
-  })
-})
+  });
+});
 
 /* Declare Route */
-router.use('/v1', publicRoute)
-router.use('/v1', privateRoute)
+router.use('/v1', publicRoute);
+router.use('/v1', privateRoute);
 
 /* Not Found Page. */
 router.get('*', function(req: Request, res: Response, next: NextFunction) {
@@ -32,7 +32,7 @@ router.get('*', function(req: Request, res: Response, next: NextFunction) {
     title: 'Oops, Halaman tidak ditemukan!',
     description: 'Not Found',
     code: '404',
-  })
-})
+  });
+});
 
-export default router
+export default router;

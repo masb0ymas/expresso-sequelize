@@ -1,12 +1,12 @@
-import express from 'express'
-import wrapperRequest from '../helpers/ExpressHelpers'
+import express from 'express';
+import wrapperRequest from '../helpers/ExpressHelpers';
 /* Declare Controllers */
-import RoleController from '../controllers/RoleController'
+import RoleController from '../controllers/RoleController';
 
-const router = express.Router()
+const router = express.Router();
 
 /* Role */
-router.get('/role', wrapperRequest(RoleController.getAll))
-router.get('/role/:id', wrapperRequest(RoleController.getOne))
+router.get('/role', wrapperRequest(RoleController.getAll));
+router.get('/role/:id', wrapperRequest(RoleController.getOne));
 
-export default router
+export default router;

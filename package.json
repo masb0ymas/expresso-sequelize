@@ -6,14 +6,23 @@
   "scripts": {
     "start": "nodemon ./src/bin/server.ts",
     "start:babel": "nodemon --exec babel-node --extensions \".ts\" ./src/bin/server.ts",
+    "lint": "npx eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "clean": "rm -rf ./dist",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run type-check && npm run clean && tsc -p .",
+    "build": "npm run lint && npm run type-check && npm run clean && tsc -p .",
     "build:babel": "npm run type-check && npm run clean && babel src --out-dir dist --extensions \".ts\"",
     "serve:staging": "NODE_ENV=staging ts-node ./dist/bin/server.js",
     "serve:production": "NODE_ENV=production ts-node ./dist/bin/server.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "author": "masb0ymas",
   "license": "MIT",
@@ -75,8 +84,10 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^26.0.1",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
+    "supertest": "^4.0.2",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.2"
   }
