@@ -35,7 +35,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.21.3",
-    "http-errors": "~1.6.3",
+    "http-errors": "~1.8.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mariadb": "^2.2.0",
