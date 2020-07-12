@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon ./src/bin/server.ts",
     "start:babel": "nodemon --exec babel-node --extensions \".ts\" ./src/bin/server.ts",
-    "lint": "npx eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "lint": "npx eslint '*/**/*.{js,jsx,ts,tsx}' --quiet --fix",
     "clean": "rm -rf ./dist",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
@@ -15,10 +15,10 @@
     "serve:staging": "NODE_ENV=staging ts-node ./dist/bin/server.js",
     "serve:production": "NODE_ENV=production ts-node ./dist/bin/server.js",
     "db:migrate": "npx sequelize-cli db:migrate",
-    "db:migrate:fresh": "npx sequelize-cli db:migrate:undo:all && npm db:migrate",
+    "db:migrate:fresh": "npx sequelize-cli db:migrate:undo:all && npm run db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:drop": "npx sequelize-cli db:drop",
-    "db:reset": "npm db:drop && npx sequelize-cli db:create && npm db:migrate && npm db:seed",
+    "db:reset": "npm run db:drop && npx sequelize-cli db:create && npm run db:migrate && npm run db:seed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "jest": {
