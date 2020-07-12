@@ -1,6 +1,6 @@
-import Role from '../models/role';
-import createBaseController from './base/BaseController';
+import Role from '../models/role'
+import createBaseController from './base/BaseController'
 
-const baseController = createBaseController(Role, null, null);
+const baseController = createBaseController(Role, null, null)
 
-export default baseController;
+export default baseController

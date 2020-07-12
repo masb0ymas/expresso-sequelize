@@ -8,7 +8,7 @@
   },
   "rules": {
     "prettier/prettier": "error",
-    // "semi": "off",
+    "semi": "off",
     "radix": "off",
     "func-names": "off",
     "no-console": "off",

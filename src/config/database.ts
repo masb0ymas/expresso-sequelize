@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 
 module.exports = {
   development: {
@@ -28,4 +28,4 @@ module.exports = {
     operatorsAliases: process.env.PROD_OPERATOR_ALIAS,
     timezone: process.env.PROD_TIMEZONE,
   },
-};
+}
