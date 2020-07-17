@@ -79,7 +79,7 @@
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
     "@types/sequelize": "^4.28.8",
-    "@types/yup": "^0.26.32",
+    "@types/yup": "^0.29.3",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
     "eslint": "^7.4.0",
