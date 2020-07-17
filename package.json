@@ -50,7 +50,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
-    "pug": "^2.0.4",
+    "pug": "^3.0.0",
     "sequelize": "^6.3.3",
     "sequelize-cli": "^6.2.0",
     "yup": "^0.29.1"
