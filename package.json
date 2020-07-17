@@ -1,12 +1,13 @@
 {
   "name": "boilerplate-express-typescript",
-  "version": "1.0.0",
+  "version": "0.2.1",
   "description": "just boilerplate express, typescript and Sequelize ORM",
   "private": true,
   "scripts": {
     "start": "nodemon ./src/bin/server.ts",
     "start:babel": "nodemon --exec babel-node --extensions \".ts\" ./src/bin/server.ts",
     "lint": "npx eslint '*/**/*.{js,jsx,ts,tsx}' --quiet --fix",
+    "refresh:env-jwt": "node ./src/scripts/generateEnvJWT.ts",
     "clean": "rm -rf ./dist",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",

@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to boilerplate-express-typescript-sequelize 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-0.2.1-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/npm-%3E%3D6.10.0-blue.svg" />
   <img src="https://img.shields.io/badge/node-%3E%3D12.13.0-blue.svg" />
   <a href="https://github.com/masb0ymas/boilerplate-express-typescript-sequelize#readme" target="_blank">
@@ -50,14 +50,15 @@ yarn run test
 
 👤 **masb0ymas**
 
-* Website: http://minangitcamp.com
-* Twitter: [@fajriajjha1](https://twitter.com/fajriajjha1)
-* Github: [@masb0ymas](https://github.com/masb0ymas)
-* LinkedIn: [@aji-ajjha](https://linkedin.com/in/aji-ajjha-58a248b7)
+- Website: http://minangitcamp.com
+- Twitter: [@fajriajjha1](https://twitter.com/fajriajjha1)
+- Github: [@masb0ymas](https://github.com/masb0ymas)
+- LinkedIn: [@aji-ajjha](https://linkedin.com/in/aji-ajjha-58a248b7)
 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
