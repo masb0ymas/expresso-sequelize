@@ -4,7 +4,6 @@ import SequelizeAttributes from '../utils/SequelizeAttributes'
 
 import db from './_instance'
 
-// console.log(Object.keys(SequelizeAttributes.current.Provinsis))
 interface RoleAttributes {
   id: string
   nama: string

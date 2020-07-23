@@ -4,7 +4,6 @@ import SequelizeAttributes from '../utils/SequelizeAttributes'
 
 import db from './_instance'
 
-// console.log(Object.keys(SequelizeAttributes.current.Provinsis))
 interface UserAttributes {
   id: string
   fullName: string
@@ -12,8 +11,8 @@ interface UserAttributes {
   password: string
   phone: string
   RoleId: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
