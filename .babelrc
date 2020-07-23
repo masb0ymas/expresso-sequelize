@@ -3,6 +3,25 @@
   "plugins": [
     ["@babel/transform-runtime"],
     "@babel/proposal-class-properties",
-    "@babel/proposal-object-rest-spread"
+    "@babel/proposal-object-rest-spread",
+    [
+      "module-resolver",
+      {
+        "root": ["./src/"],
+        "alias": {
+          "bin": "./src/bin",
+          "config": "./src/config",
+          "controllers": "./src/controllers",
+          "helpers": "./src/helpers",
+          "middlewares": "./src/middlewares",
+          "migrations": "./src/migrations",
+          "models": "./src/models",
+          "modules": "./src/modules",
+          "routes": "./src/routes",
+          "utils": "./src/utils",
+          "views": "./src/views"
+        }
+      }
+    ]
   ]
 }

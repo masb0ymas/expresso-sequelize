@@ -1,57 +1,29 @@
-/* eslint-disable no-unused-vars */
-import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize'
-import db from '.'
+// eslint-disable-next-line no-unused-vars
+import { Model, Optional } from 'sequelize'
+import SequelizeAttributes from '../utils/SequelizeAttributes'
 
-const { sequelize } = db
+import db from './_instance'
 
-export interface iUser {
-  id?: string
+// console.log(Object.keys(SequelizeAttributes.current.Provinsis))
+interface UserAttributes {
+  id: string
   fullName: string
   email: string
   password: string
   phone: string
   RoleId: string
-  createdAt?: Date
-  updatedAt?: Date
+  createdAt: Date
+  updatedAt: Date
 }
 
-class User extends Model {
-  public id!: string
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
-  public fullName!: string | null
+interface UserInstance
+  extends Model<UserAttributes, UserCreationAttributes>,
+    UserAttributes {}
 
-  public email!: string | null
-
-  public password!: string | null
-
-  public phone!: string | null
-
-  public RoleId!: string | null
-
-  public readonly createdAt!: Date
-
-  public readonly updatedAt!: Date
-}
-
-User.init(
-  {
-    id: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      autoIncrement: false,
-    },
-    fullName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    RoleId: DataTypes.UUID,
-  },
-  {
-    sequelize,
-    tableName: 'Users',
-  }
-)
+const User = db.sequelize.define<UserInstance>('Users', {
+  ...SequelizeAttributes.Users,
+})
 
 export default User

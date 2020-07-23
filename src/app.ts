@@ -5,8 +5,10 @@ import path from 'path'
 import cors from 'cors'
 import helmet from 'helmet'
 import bodyParser from 'body-parser'
-import models from './models'
-import route from './routes'
+import { ValidationError } from 'yup'
+import indexRouter from 'routes'
+import withState from 'helpers/withState'
+import models from 'models/_instance'
 
 const logger = require('morgan')
 
@@ -23,6 +25,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(`${__dirname}/../`, 'public')))
 
+app.use((req: Request, res, next) => {
+  new withState(req)
+  next()
+})
+
 // Initial DB
 models.sequelize
   .authenticate()
@@ -34,7 +41,32 @@ models.sequelize
   })
 
 // Initial Route
-app.use(route)
+app.use(indexRouter)
+
+app.use('/v1', async function (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  await req.rollbackTransactions()
+
+  if (err instanceof ValidationError) {
+    const error = {
+      message: err.errors.join('<br/>') || 'Yup Validation Error !',
+      errors:
+        err.inner.length > 0
+          ? err.inner.reduce((acc: any, curVal: any) => {
+              acc[`${curVal.path}`] = curVal.message || curVal.type
+              return acc
+            }, {})
+          : { [`${err.path}`]: err.message || err.type },
+    }
+    return res.status(422).json(error)
+  }
+
+  next(err)
+})
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {

@@ -1,41 +1,25 @@
-/* eslint-disable no-unused-vars */
-import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize'
-import db from '.'
+// eslint-disable-next-line no-unused-vars
+import { Model, Optional } from 'sequelize'
+import SequelizeAttributes from '../utils/SequelizeAttributes'
 
-const { sequelize } = db
+import db from './_instance'
 
-export interface iRole {
-  id?: string
+// console.log(Object.keys(SequelizeAttributes.current.Provinsis))
+interface RoleAttributes {
+  id: string
   nama: string
   createdAt?: Date
   updatedAt?: Date
 }
 
-class Role extends Model {
-  public id!: string
+interface RoleCreationAttributes extends Optional<RoleAttributes, 'id'> {}
 
-  public nama!: string | null
+interface RoleInstance
+  extends Model<RoleAttributes, RoleCreationAttributes>,
+    RoleAttributes {}
 
-  public readonly createdAt!: Date
-
-  public readonly updatedAt!: Date
-}
-
-Role.init(
-  {
-    id: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      autoIncrement: false,
-    },
-    nama: DataTypes.STRING,
-  },
-  {
-    sequelize,
-    tableName: 'Roles',
-  }
-)
+const Role = db.sequelize.define<RoleInstance>('Roles', {
+  ...SequelizeAttributes.Roles,
+})
 
 export default Role

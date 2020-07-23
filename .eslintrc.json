@@ -17,7 +17,7 @@
     "consistent-return": "off",
     "no-underscore-dangle": "off",
     "import/prefer-default-export": "off",
-    "import/no-unresolved": 0,
+    "import/no-unresolved": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -44,7 +44,8 @@
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
+      },
+      "babel-module": {}
     }
   }
 }
