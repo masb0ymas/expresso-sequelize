@@ -18,6 +18,8 @@
     "no-underscore-dangle": "off",
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
+    "new-cap": "off",
+    "no-new": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

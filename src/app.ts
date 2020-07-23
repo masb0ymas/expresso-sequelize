@@ -10,6 +10,8 @@ import indexRouter from 'routes'
 import withState from 'helpers/withState'
 import models from 'models/_instance'
 
+const GenerateDoc = require('utils/GenerateDocs')
+
 const logger = require('morgan')
 
 const app = express()
@@ -29,6 +31,9 @@ app.use((req: Request, res, next) => {
   new withState(req)
   next()
 })
+
+// Initial Docs Swagger
+GenerateDoc(app)
 
 // Initial DB
 models.sequelize
