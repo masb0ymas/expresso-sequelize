@@ -78,7 +78,7 @@
     "@types/helmet": "^0.0.47",
     "@types/http-errors": "^1.6.3",
     "@types/jsonwebtoken": "^8.3.7",
-    "@types/lodash": "^4.14.149",
+    "@types/lodash": "^4.14.158",
     "@types/multer": "^1.4.3",
     "@types/node": "^14.0.23",
     "@types/passport": "^1.0.2",
