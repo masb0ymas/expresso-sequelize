@@ -16,7 +16,7 @@ module.exports = {
     database: process.env.STAGING_DB_DATABASE,
     host: process.env.STAGING_DB_HOST,
     dialect: process.env.STAGING_DB_CONNECTION,
-    operatorsAliases: process.env.STAGING_OPERATOR_ALIAS,
+    operatorsAliases: process.env.STAGING_DB_OPERATOR_ALIAS,
     timezone: process.env.STAGING_DB_TIMEZONE,
   },
   production: {
@@ -25,7 +25,7 @@ module.exports = {
     database: process.env.PROD_DB_DATABASE,
     host: process.env.PROD_DB_HOST,
     dialect: process.env.PROD_DB_CONNECTION,
-    operatorsAliases: process.env.PROD_OPERATOR_ALIAS,
+    operatorsAliases: process.env.PROD_DB_OPERATOR_ALIAS,
     timezone: process.env.PROD_DB_TIMEZONE,
   },
 }
