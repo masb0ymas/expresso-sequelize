@@ -1,6 +1,6 @@
 {
   "name": "boilerplate-express-typescript",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "description": "just boilerplate express, typescript and Sequelize ORM",
   "private": true,
   "scripts": {
