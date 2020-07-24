@@ -4,6 +4,7 @@ import { Request, Response } from 'express'
 import useValidation from 'helpers/useValidation'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
+import client from 'config/redis'
 import schema from './schema'
 
 const { Role } = models
@@ -11,10 +12,24 @@ const { Role } = models
 routes.get(
   '/role',
   asyncHandler(async function getAll(req: Request, res: Response) {
-    const data = await Role.findAll()
+    const keyRoleGetAll = 'role:getAll'
+
     const total = await Role.count()
 
-    return res.status(200).json({ data, total })
+    client.get(keyRoleGetAll, async (err: any, rowData: any) => {
+      if (err) {
+        console.log(err)
+      }
+
+      if (rowData) {
+        const data = JSON.parse(rowData)
+        return res.status(200).json({ data, total })
+      }
+
+      const data = await Role.findAll()
+      client.setex(keyRoleGetAll, 8600, JSON.stringify(data))
+      return res.status(200).json({ data, total })
+    })
   })
 )
 
