@@ -16,7 +16,7 @@ routes.get(
 
     const total = await Role.count()
 
-    client.get(keyRoleGetAll, async (err: any, rowData: any) => {
+    client.get(keyRoleGetAll, async (err: any, rowData: string | null) => {
       if (err) {
         console.log(err)
       }
