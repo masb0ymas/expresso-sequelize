@@ -5,13 +5,15 @@ import path from 'path'
 import cors from 'cors'
 import helmet from 'helmet'
 import bodyParser from 'body-parser'
-import { ValidationError } from 'yup'
+import * as yup from 'yup'
+import { get, isObject } from 'lodash'
+import Sequelize from 'sequelize'
 import indexRouter from 'routes'
 import withState from 'helpers/withState'
 import models from 'models/_instance'
+import ResponseError from 'modules/ResponseError'
 
 const GenerateDoc = require('utils/GenerateDocs')
-
 const logger = require('morgan')
 
 const app = express()
@@ -48,6 +50,10 @@ models.sequelize
 // Initial Route
 app.use(indexRouter)
 
+function generateErrorResponseError(e: Error) {
+  return isObject(e.message) ? e.message : { message: e.message }
+}
+
 app.use('/v1', async function (
   err: any,
   req: Request,
@@ -56,7 +62,12 @@ app.use('/v1', async function (
 ) {
   await req.rollbackTransactions()
 
-  if (err instanceof ValidationError) {
+  if (err instanceof ResponseError.BaseResponse) {
+    return res.status(err.statusCode).json(generateErrorResponseError(err))
+  }
+
+  if (err instanceof yup.ValidationError) {
+    console.log('ERROR YUP VALIDATION!!!')
     const error = {
       message: err.errors.join('<br/>') || 'Yup Validation Error !',
       errors:
@@ -68,6 +79,24 @@ app.use('/v1', async function (
           : { [`${err.path}`]: err.message || err.type },
     }
     return res.status(422).json(error)
+  }
+
+  if (err instanceof Sequelize.ValidationError) {
+    console.log('ERROR SEQUELIZE VALIDATION!!!')
+    const errors: any[] = get(err, 'errors', [])
+    const errorMessage = get(errors, '0.message', null)
+
+    const dataError = {
+      message: errorMessage ? `Validation error: ${errorMessage}` : err.message,
+      errors: errors.reduce<any>((acc, curVal) => {
+        acc[curVal.path] = curVal.message
+        return acc
+      }, {}),
+    }
+
+    console.log(dataError.message, dataError.errors)
+
+    return res.status(400).json(dataError)
   }
 
   next(err)
