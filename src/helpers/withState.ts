@@ -16,7 +16,7 @@ class withState {
     this.req.getState = this.getState.bind(this)
     this.req.getBody = this.getBody.bind(this)
     this.req.setBody = this.setBody.bind(this)
-    // this.req.getSingleArrayFile = this.getSingleArrayFile.bind(this)
+    this.req.getSingleArrayFile = this.getSingleArrayFile.bind(this)
     this.req.getTransaction = this.getTransaction.bind(this)
     this.req.rollbackTransactions = this.rollbackTransactions.bind(this)
     this.req._transaction = {}
@@ -48,15 +48,15 @@ class withState {
     return getterObject(this.req.body, path, defaultValue)
   }
 
-  // getSingleArrayFile(name: string) {
-  //   const data = (getterObject(
-  //     this.req,
-  //     ['files', name, '0'].join('.')
-  //   ) as unknown) as Express.Multer.File
-  //   if (data) {
-  //     return data.filename
-  //   }
-  // }
+  getSingleArrayFile(name: string) {
+    const data = (getterObject(
+      this.req,
+      ['files', name, '0'].join('.')
+    ) as unknown) as Express.Multer.File
+    if (data) {
+      return data.filename
+    }
+  }
 
   async getTransaction(id?: any): Promise<Transaction> {
     id = id === undefined ? 1 : id
