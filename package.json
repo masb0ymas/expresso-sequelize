@@ -82,7 +82,7 @@
     "@types/jsonwebtoken": "^8.3.7",
     "@types/lodash": "^4.14.158",
     "@types/multer": "^1.4.3",
-    "@types/node": "^14.0.24",
+    "@types/node": "^14.0.26",
     "@types/passport": "^1.0.2",
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
