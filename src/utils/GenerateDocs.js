@@ -4,10 +4,10 @@ import fs from 'fs'
 import _path from 'path'
 
 const baseRoutes = _path.resolve('./docs/swagger/routes')
-const baseSchemas = _path.resolve('./docs/swagger/schemas')
+// const baseSchemas = _path.resolve('./docs/swagger/schemas')
 
 const getPathRoutes = (path) => `${baseRoutes}${path}`
-const getPathSchemes = (path) => `${baseSchemas}${path}`
+// const getPathSchemes = (path) => `${baseSchemas}${path}`
 
 const getDocs = (basePath, getPath) => {
   return fs.readdirSync(basePath).reduce((acc, file) => {
@@ -23,7 +23,7 @@ const getDocs = (basePath, getPath) => {
 }
 
 const docsSources = getDocs(baseRoutes, getPathRoutes)
-const docsSchemes = getDocs(baseSchemas, getPathSchemes)
+// const docsSchemes = getDocs(baseSchemas, getPathSchemes)
 
 module.exports = function generateDocs(app) {
   const swaggerOptions = {
@@ -56,7 +56,7 @@ module.exports = function generateDocs(app) {
             name: 'Authorization',
           },
         },
-        schemas: docsSchemes,
+        // schemas: docsSchemes,
         parameters: {
           page: {
             in: 'query',
@@ -87,7 +87,7 @@ module.exports = function generateDocs(app) {
         },
       },
       info: {
-        title: 'BeyondRun New Documentation',
+        title: 'Api Documentation',
         version: '1.0.0',
       },
       paths: docsSources,
