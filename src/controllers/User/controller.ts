@@ -31,10 +31,7 @@ routes.get(
 
       if (rowData) {
         const data = JSON.parse(rowData)
-        return res.status(200).json({
-          data,
-          total,
-        })
+        return res.status(200).json({ data, total })
       }
 
       const data = await User.findAll({
@@ -42,10 +39,7 @@ routes.get(
       })
       // Cache Redis
       redisCache(keyGetAll, data)
-      return res.status(200).json({
-        data,
-        total,
-      })
+      return res.status(200).json({ data, total })
     })
   })
 )
