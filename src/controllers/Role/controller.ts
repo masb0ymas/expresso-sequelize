@@ -2,21 +2,22 @@
 import models from 'models'
 import { Request, Response } from 'express'
 import useValidation from 'helpers/useValidation'
-import routes from 'routes/public'
+import routes, { AuthMiddleware } from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
-import client from 'config/redis'
+import client, { redisCache, redisDeleteCache } from 'config/redis'
 import schema from './schema'
 
 const { Role } = models
+const { APP_NAME } = process.env
+// Key Redis Cache
+const keyGetAll = `${APP_NAME}_role:getAll`
 
 routes.get(
   '/role',
   asyncHandler(async function getAll(req: Request, res: Response) {
-    const keyRoleGetAll = 'role:getAll'
-
     const total = await Role.count()
 
-    client.get(keyRoleGetAll, async (err: any, rowData: string | null) => {
+    client.get(keyGetAll, async (err: any, rowData: string | null) => {
       if (err) {
         console.log(err)
       }
@@ -27,7 +28,9 @@ routes.get(
       }
 
       const data = await Role.findAll()
-      client.setex(keyRoleGetAll, 8600, JSON.stringify(data))
+      // Cache Redis
+      redisCache(keyGetAll, data)
+
       return res.status(200).json({ data, total })
     })
   })
@@ -51,17 +54,23 @@ routes.get(
 
 routes.post(
   '/role',
-  asyncHandler(async function createRole(req: Request, res: Response) {
+  AuthMiddleware,
+  asyncHandler(async function createData(req: Request, res: Response) {
     const value = useValidation(schema.create, req.getBody())
     const data = await Role.create(value)
+    // Delete Cache By Key
+    redisDeleteCache(keyGetAll)
 
-    return res.status(201).json({ data })
+    return res.status(201).json({
+      data,
+    })
   })
 )
 
 routes.put(
   '/role/:id',
-  asyncHandler(async function updateRole(req: Request, res: Response) {
+  AuthMiddleware,
+  asyncHandler(async function updateData(req: Request, res: Response) {
     const { id } = req.params
 
     const data = await Role.findByPk(id)
@@ -78,13 +87,17 @@ routes.put(
     })
 
     await data.update(value || {})
+    // Delete Cache By Key
+    redisDeleteCache(keyGetAll)
+
     return res.status(200).json({ data })
   })
 )
 
 routes.delete(
   '/role/:id',
-  asyncHandler(async function deleteRole(req: Request, res: Response) {
+  AuthMiddleware,
+  asyncHandler(async function deleteData(req: Request, res: Response) {
     const { id } = req.params
     const data = await Role.findByPk(id)
 
@@ -95,6 +108,9 @@ routes.delete(
     }
 
     await data.destroy()
+    // Delete Cache By Key
+    redisDeleteCache(keyGetAll)
+
     return res.status(200).json({
       message: 'Data berhasil dihapus!',
     })
