@@ -8,19 +8,29 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       fullName: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       email: {
-        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+        type: Sequelize.STRING('191'),
       },
       password: {
         type: Sequelize.STRING,
       },
       phone: {
+        defaultValue: null,
         type: Sequelize.STRING,
       },
-      RoleId: {
-        type: Sequelize.UUID,
+      active: {
+        allowNull: false,
+        defaultValue: false,
+        type: Sequelize.BOOLEAN,
+      },
+      tokenVerify: {
+        defaultValue: null,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
