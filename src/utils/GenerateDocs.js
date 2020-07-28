@@ -3,6 +3,8 @@ import swaggerUI from 'swagger-ui-express'
 import fs from 'fs'
 import _path from 'path'
 
+const { APP_NAME } = process.env
+
 const baseRoutes = _path.resolve('./docs/swagger/routes')
 // const baseSchemas = _path.resolve('./docs/swagger/schemas')
 
@@ -32,11 +34,11 @@ module.exports = function generateDocs(app) {
       servers: [
         {
           url: 'http://localhost:8000/v1',
-          description: 'Local server',
+          description: 'Development server',
         },
         {
-          url: 'https://api.example.com/v1',
-          description: 'Testing server',
+          url: 'https://api-staging.example.com/v1',
+          description: 'Staging server',
         },
         {
           url: 'https://api.example.com/v1',
@@ -45,7 +47,7 @@ module.exports = function generateDocs(app) {
       ],
       // security: [  //Set GLOBAL
       //   {
-      //     ApiKeyAuth: []
+      //     auth_token: []
       //   }
       // ],
       components: {
@@ -54,6 +56,8 @@ module.exports = function generateDocs(app) {
             type: 'apiKey',
             in: 'header',
             name: 'Authorization',
+            description:
+              'JWT Authorization header using the JWT scheme. Example: “Authorization: JWT {token}”',
           },
         },
         // schemas: docsSchemes,
@@ -87,7 +91,7 @@ module.exports = function generateDocs(app) {
         },
       },
       info: {
-        title: 'Api Documentation',
+        title: `Api ${APP_NAME} Documentation`,
         version: '1.0.0',
       },
       paths: docsSources,
