@@ -2,20 +2,34 @@ module.exports = {
   '/role': {
     get: {
       tags: ['Role'],
-      summary: 'Get Role',
+      summary: 'Get All Role',
       produces: ['application/json'],
+      parameters: [
+        {
+          $ref: '#/components/parameters/page',
+        },
+        {
+          $ref: '#/components/parameters/pageSize',
+        },
+        {
+          $ref: '#/components/parameters/filtered',
+        },
+        {
+          $ref: '#/components/parameters/sorted',
+        },
+      ],
       responses: {
         '200': {
-          description: 'Get Role',
+          description: 'Get All Role',
         },
       },
     },
     post: {
       tags: ['Role'],
-      summary: 'Create new Data to Role',
+      summary: 'Create New Role',
       security: [
         {
-          ApiKeyAuth: [],
+          auth_token: [],
         },
       ],
       requestBody: {
@@ -36,7 +50,7 @@ module.exports = {
       },
       responses: {
         '200': {
-          description: 'Create new Data to Role',
+          description: 'Create New Role',
         },
       },
     },
@@ -65,10 +79,10 @@ module.exports = {
     },
     put: {
       tags: ['Role'],
-      summary: 'Update data Role',
+      summary: 'Update Data Role',
       security: [
         {
-          ApiKeyAuth: [],
+          auth_token: [],
         },
       ],
       parameters: [
@@ -100,13 +114,18 @@ module.exports = {
       },
       responses: {
         '200': {
-          description: 'Update data Role',
+          description: 'Update Data Role',
         },
       },
     },
     delete: {
       tags: ['Role'],
       summary: 'Delete Role By Id',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
       produces: ['application/json'],
       parameters: [
         {
