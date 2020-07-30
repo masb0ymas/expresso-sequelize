@@ -8,6 +8,7 @@ import asyncHandler from 'helpers/asyncHandler'
 import createDirNotExist from 'utils/Directory'
 import { getUniqueCodev2, getToken } from 'helpers/CommonHelper'
 import { LoginInterface } from 'models/user'
+import ResponseError from 'modules/ResponseError'
 import schema from '../User/schema'
 
 const { User, Role } = models
@@ -68,9 +69,7 @@ routes.post(
     })
 
     if (!userData) {
-      return res.status(404).json({
-        message: 'Data tidak ditemukan!',
-      })
+      throw new ResponseError.NotFound('Data tidak ditemukan!')
     }
 
     /* User active proses login */
@@ -98,16 +97,13 @@ routes.post(
         })
       }
 
-      return res.status(400).json({
-        message: 'Email atau password salah!',
-      })
+      throw new ResponseError.BadRequest('Email atau password salah!')
     }
 
     /* User not active return error confirm email */
-    return res.status(400).json({
-      message:
-        'Please check your email account to verify your email and continue the registration process.',
-    })
+    throw new ResponseError.BadRequest(
+      'Please check your email account to verify your email and continue the registration process.'
+    )
   })
 )
 
@@ -125,8 +121,6 @@ routes.get(
       return res.status(200).json({ data })
     }
 
-    return res.status(403).json({
-      message: 'Unauthorized. Please Re-login...',
-    })
+    throw new ResponseError.Forbidden('Unauthorized. Please Re-login...')
   })
 )
