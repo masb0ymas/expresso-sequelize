@@ -5,6 +5,7 @@ class BaseResponse extends Error {
     super(message)
     this.message = message
     this.statusCode = statusCode
+    Object.setPrototypeOf(this, BaseResponse.prototype)
   }
 }
 
