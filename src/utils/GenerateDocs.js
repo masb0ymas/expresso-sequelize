@@ -3,7 +3,7 @@ import swaggerUI from 'swagger-ui-express'
 import fs from 'fs'
 import _path from 'path'
 
-const { APP_NAME } = process.env
+const { APP_NAME, PORT } = process.env
 
 const baseRoutes = _path.resolve('./docs/swagger/routes')
 // const baseSchemas = _path.resolve('./docs/swagger/schemas')
@@ -33,7 +33,7 @@ module.exports = function generateDocs(app) {
       openapi: '3.0.1',
       servers: [
         {
-          url: 'http://localhost:8000/v1',
+          url: `http://localhost:${PORT}/v1`,
           description: 'Development server',
         },
         {
