@@ -9,6 +9,7 @@ import asyncHandler from 'helpers/asyncHandler'
 import client, { redisCache, redisDeleteCache } from 'config/redis'
 import UserRole from 'models/userrole'
 import db from 'models/_instance'
+import ResponseError from 'modules/ResponseError'
 import schema from './schema'
 
 const { Sequelize } = db
@@ -51,9 +52,9 @@ routes.get(
     const data = await User.findByPk(id)
 
     if (!data) {
-      return res.status(404).json({
-        message: 'Data tidak ditemukan atau sudah terhapus!',
-      })
+      throw new ResponseError.NotFound(
+        'Data tidak ditemukan atau sudah terhapus!'
+      )
     }
 
     return res.status(200).json({ data })
@@ -109,9 +110,9 @@ routes.put(
     })
 
     if (!data) {
-      return res.status(404).json({
-        message: 'Data tidak ditemukan atau sudah terhapus!',
-      })
+      throw new ResponseError.NotFound(
+        'Data tidak ditemukan atau sudah terhapus!'
+      )
     }
 
     // Check Roles is Array
@@ -166,9 +167,9 @@ routes.delete(
     const data = await User.findByPk(id)
 
     if (!data) {
-      return res.status(404).json({
-        message: 'Data tidak ditemukan atau sudah terhapus!',
-      })
+      throw new ResponseError.NotFound(
+        'Data tidak ditemukan atau sudah terhapus!'
+      )
     }
 
     // Destroy user data in UserRole
