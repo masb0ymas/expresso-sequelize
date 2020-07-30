@@ -5,6 +5,7 @@ import useValidation from 'helpers/useValidation'
 import routes, { AuthMiddleware } from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import client, { redisCache, redisDeleteCache } from 'config/redis'
+import ResponseError from 'modules/ResponseError'
 import schema from './schema'
 
 const { Role } = models
@@ -43,9 +44,9 @@ routes.get(
     const data = await Role.findByPk(id)
 
     if (!data) {
-      return res.status(404).json({
-        message: 'Data tidak ditemukan atau sudah terhapus!',
-      })
+      throw new ResponseError.NotFound(
+        'Data tidak ditemukan atau sudah terhapus!'
+      )
     }
 
     return res.status(200).json({ data })
@@ -76,9 +77,9 @@ routes.put(
     const data = await Role.findByPk(id)
 
     if (!data) {
-      return res.status(404).json({
-        message: 'Data tidak ditemukan atau sudah terhapus!',
-      })
+      throw new ResponseError.NotFound(
+        'Data tidak ditemukan atau sudah terhapus!'
+      )
     }
 
     const value = useValidation(schema.create, {
@@ -102,9 +103,9 @@ routes.delete(
     const data = await Role.findByPk(id)
 
     if (!data) {
-      return res.status(404).json({
-        message: 'Data tidak ditemukan atau sudah terhapus!',
-      })
+      throw new ResponseError.NotFound(
+        'Data tidak ditemukan atau sudah terhapus!'
+      )
     }
 
     await data.destroy()
