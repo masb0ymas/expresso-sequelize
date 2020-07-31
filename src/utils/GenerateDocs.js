@@ -100,11 +100,31 @@ module.exports = function generateDocs(app) {
   }
 
   const swaggerSpec = swaggerJSDoc(swaggerOptions)
+  const optionsSwaggerUI = {
+    explorer: true,
+    swaggerOptions: {
+      urls: [
+        {
+          url: `http://localhost:${PORT}/v1/api-docs.json`,
+          name: 'Development Server',
+        },
+        {
+          url: 'http://api-staging.example.com/v1/api-docs.json',
+          name: 'Staging Server',
+        },
+        {
+          url: 'http://api.example.com/v1/api-docs.json',
+          name: 'Production Server',
+        },
+      ],
+    },
+  }
 
   app.get('/v1/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(swaggerSpec)
   })
 
-  app.use('/v1/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
+  app.use('/v1/api-docs', swaggerUI.serve)
+  app.get('/v1/api-docs', swaggerUI.setup(swaggerSpec, optionsSwaggerUI))
 }
