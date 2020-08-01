@@ -40,7 +40,7 @@ routes.get(
 routes.get(
   '/role/:id',
   asyncHandler(async function getOne(req: Request, res: Response) {
-    const { id } = req.params
+    const { id } = req.getParams()
     const data = await Role.findByPk(id)
 
     if (!data) {
@@ -72,7 +72,7 @@ routes.put(
   '/role/:id',
   AuthMiddleware,
   asyncHandler(async function updateData(req: Request, res: Response) {
-    const { id } = req.params
+    const { id } = req.getParams()
 
     const data = await Role.findByPk(id)
 
@@ -99,7 +99,7 @@ routes.delete(
   '/role/:id',
   AuthMiddleware,
   asyncHandler(async function deleteData(req: Request, res: Response) {
-    const { id } = req.params
+    const { id } = req.getParams()
     const data = await Role.findByPk(id)
 
     if (!data) {
