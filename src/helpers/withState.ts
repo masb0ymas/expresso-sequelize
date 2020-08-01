@@ -14,6 +14,9 @@ class withState {
     this.req.setState = this.setState.bind(this)
     this.req.setFieldState = this.setFieldState.bind(this)
     this.req.getState = this.getState.bind(this)
+    this.req.getHeaders = this.getHeaders.bind(this)
+    this.req.getQuery = this.getQuery.bind(this)
+    this.req.getParams = this.getParams.bind(this)
     this.req.getBody = this.getBody.bind(this)
     this.req.setBody = this.setBody.bind(this)
     this.req.getSingleArrayFile = this.getSingleArrayFile.bind(this)
@@ -46,6 +49,18 @@ class withState {
 
   getBody(path?: any, defaultValue?: any): any {
     return getterObject(this.req.body, path, defaultValue)
+  }
+
+  getHeaders(path?: any, defaultValue?: any): any {
+    return getterObject(this.req.headers, path, defaultValue)
+  }
+
+  getQuery(path?: any, defaultValue?: any): any {
+    return getterObject(this.req.query, path, defaultValue)
+  }
+
+  getParams(path?: any, defaultValue?: any): any {
+    return getterObject(this.req.params, path, defaultValue)
   }
 
   getSingleArrayFile(name: string) {
