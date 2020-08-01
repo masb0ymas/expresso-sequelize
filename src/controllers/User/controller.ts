@@ -48,7 +48,7 @@ routes.get(
 routes.get(
   '/user/:id',
   asyncHandler(async function getOne(req: Request, res: Response) {
-    const { id } = req.params
+    const { id } = req.getParams()
     const data = await User.findByPk(id)
 
     if (!data) {
@@ -64,20 +64,18 @@ routes.get(
 routes.post(
   '/user',
   asyncHandler(async function createData(req: Request, res: Response) {
-    const { body } = req
+    const { Roles } = req.getBody()
     const value = useValidation(schema.create, req.getBody())
 
     const dataUser = await User.create(value, {
       transaction: await req.getTransaction(),
     })
 
-    // Check Roles is Array
-    const Roles = Array.isArray(body.Roles)
-      ? body.Roles
-      : JSON.parse(body.Roles)
+    // Check Roles is Array, format = ['id_1', 'id_2']
+    const arrayRoles = Array.isArray(Roles) ? Roles : JSON.parse(Roles)
 
-    for (let i = 0; i < Roles.length; i += 1) {
-      const RoleId = Roles[i]
+    for (let i = 0; i < arrayRoles.length; i += 1) {
+      const RoleId = arrayRoles[i]
       const formRole = {
         UserId: dataUser.id,
         RoleId,
@@ -102,8 +100,8 @@ routes.post(
 routes.put(
   '/user/:id',
   asyncHandler(async function updateData(req: Request, res: Response) {
-    const { body } = req
-    const { id } = req.params
+    const { Roles } = req.getBody()
+    const { id } = req.getParams()
 
     const data = await User.findByPk(id, {
       transaction: await req.getTransaction(),
@@ -115,23 +113,21 @@ routes.put(
       )
     }
 
-    // Check Roles is Array
-    const Roles = Array.isArray(body.Roles)
-      ? body.Roles
-      : JSON.parse(body.Roles)
+    // Check Roles is Array, format = ['id_1', 'id_2']
+    const arrayRoles = Array.isArray(Roles) ? Roles : JSON.parse(Roles)
 
     // Destroy data not in UserRole
     await UserRole.destroy({
       where: {
         UserId: id,
         RoleId: {
-          [Op.notIn]: Roles,
+          [Op.notIn]: arrayRoles,
         },
       },
     })
 
-    for (let i = 0; i < Roles.length; i += 1) {
-      const RoleId = Roles[i]
+    for (let i = 0; i < arrayRoles.length; i += 1) {
+      const RoleId = arrayRoles[i]
       const formRole = {
         UserId: id,
         RoleId,
@@ -163,7 +159,7 @@ routes.put(
 routes.delete(
   '/user/:id',
   asyncHandler(async function deleteData(req: Request, res: Response) {
-    const { id } = req.params
+    const { id } = req.getParams()
     const data = await User.findByPk(id)
 
     if (!data) {
