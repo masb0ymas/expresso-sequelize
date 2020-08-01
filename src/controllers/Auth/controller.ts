@@ -61,8 +61,7 @@ routes.post(
 routes.post(
   '/auth/sign-in',
   asyncHandler(async function signIn(req: Request, res: Response) {
-    const { body } = req
-    const { email, password }: LoginInterface = body
+    const { email, password }: LoginInterface = req.getBody()
 
     const userData = await User.scope('withPassword').findOne({
       where: { email },
@@ -110,8 +109,7 @@ routes.post(
 routes.get(
   '/profile',
   asyncHandler(async function getProfile(req: Request, res: Response) {
-    const { headers } = req
-    const token = getToken(headers)
+    const token = getToken(req.getHeaders())
 
     if (token) {
       const decodeToken: any = jwt.decode(token)
