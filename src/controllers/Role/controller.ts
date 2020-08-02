@@ -9,9 +9,9 @@ import ResponseError from 'modules/ResponseError'
 import schema from './schema'
 
 const { Role } = models
-const { APP_NAME } = process.env
+const { APP_KEY_REDIS } = process.env
 // Key Redis Cache
-const keyGetAll = `${APP_NAME}_role:getAll`
+const keyGetAll = `${APP_KEY_REDIS}_role:getAll`
 
 routes.get(
   '/role',
@@ -62,9 +62,7 @@ routes.post(
     // Delete Cache By Key
     redisDeleteCache(keyGetAll)
 
-    return res.status(201).json({
-      data,
-    })
+    return res.status(201).json({ data })
   })
 )
 
@@ -73,7 +71,6 @@ routes.put(
   AuthMiddleware,
   asyncHandler(async function updateData(req: Request, res: Response) {
     const { id } = req.getParams()
-
     const data = await Role.findByPk(id)
 
     if (!data) {
@@ -112,8 +109,6 @@ routes.delete(
     // Delete Cache By Key
     redisDeleteCache(keyGetAll)
 
-    return res.status(200).json({
-      message: 'Data berhasil dihapus!',
-    })
+    return res.status(200).json({ message: 'Data berhasil dihapus!' })
   })
 )
