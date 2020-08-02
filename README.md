@@ -73,6 +73,37 @@ yarn run serve:production
 yarn run test
 ```
 
+## SMTP Email
+
+```sh
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailgun.org
+MAIL_PORT=465
+MAIL_AUTH_TYPE=
+MAIL_USERNAME=your_mail@domain.com
+MAIL_PASSWORD=your_password
+MAIL_ENCRYPTION=null
+```
+
+## SMTP Google Oauth Email ( Gmail )
+
+```sh
+MAIL_DRIVER=gmail
+MAIL_HOST=null
+MAIL_PORT=null
+MAIL_AUTH_TYPE=OAuth2
+MAIL_USERNAME=your_account@gmail.com
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+
+OAUTH_CLIENT_ID=your_client_id
+OAUTH_CLIENT_SECRET=your_client_secret
+OAUTH_REDIRECT_URL=https://developers.google.com/oauthplayground
+OAUTH_REFRESH_TOKEN=your_refresh_token
+```
+
+[Setup Google Oauth](https://medium.com/@nickroach_50526/sending-emails-with-node-js-using-smtp-gmail-and-oauth2-316fe9c790a1)
+
 ## Author
 
 👤 **masb0ymas**
