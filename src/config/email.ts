@@ -21,7 +21,7 @@ class EmailProvider {
     subject: string,
     template: string
   ): void | string[] => {
-    const dest: string = to.join(',')
+    const dest: string = Array.isArray(to) ? to.join(',') : to
     const text: string = template
     // send an e-mail
     this.sendMail(dest, subject, text)
@@ -46,7 +46,7 @@ class EmailProvider {
     text: string
   ): nodemailer.SendMailOptions => {
     return {
-      from: `No Reply ${APP_NAME} <${MAIL_USERNAME}>`,
+      from: `${APP_NAME} <${MAIL_USERNAME}>`,
       to: dest,
       subject,
       html: text,
