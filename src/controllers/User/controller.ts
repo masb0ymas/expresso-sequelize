@@ -16,8 +16,9 @@ const { Sequelize } = db
 const { Op } = Sequelize
 
 const { User, Role } = models
-const { APP_NAME } = process.env
-const keyGetAll = `${APP_NAME}_user:getAll`
+const { APP_KEY_REDIS } = process.env
+// Key Redis Cache
+const keyGetAll = `${APP_KEY_REDIS}_user:getAll`
 
 routes.get(
   '/user',
@@ -91,9 +92,8 @@ routes.post(
     await txn.commit()
     // Delete Cache By Key
     redisDeleteCache(keyGetAll)
-    return res.status(201).json({
-      data: dataUser,
-    })
+
+    return res.status(201).json({ data: dataUser })
   })
 )
 
@@ -150,9 +150,8 @@ routes.put(
     await txn.commit()
     // Delete Cache By Key
     redisDeleteCache(keyGetAll)
-    return res.status(200).json({
-      data,
-    })
+
+    return res.status(200).json({ data })
   })
 )
 
@@ -180,8 +179,7 @@ routes.delete(
     await data.destroy()
     // Delete Cache By Key
     redisDeleteCache(keyGetAll)
-    return res.status(200).json({
-      message: 'Data berhasil dihapus!',
-    })
+
+    return res.status(200).json({ message: 'Data berhasil dihapus!' })
   })
 )
