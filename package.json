@@ -44,7 +44,7 @@
     "express-async-handler": "^1.1.4",
     "googleapis": "^58.0.0",
     "handlebars": "^4.7.6",
-    "helmet": "^3.21.3",
+    "helmet": "^4.0.0",
     "http-errors": "~1.8.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.19",
