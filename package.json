@@ -12,7 +12,7 @@
     "clean": "rm -rf ./dist",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "before-build": "npm run lint && npm run type-check && npm run clean",
+    "before-build": "yarn && npm run lint && npm run type-check && npm run clean",
     "build": "npm run before-build && tsc -p .",
     "build:babel": "npm run before-build && babel src --out-dir dist --extensions \".ts\",\".js\"",
     "serve:staging": "NODE_ENV=staging node ./dist/bin/server.js",
