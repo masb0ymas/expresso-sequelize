@@ -6,8 +6,9 @@ import useValidation from 'helpers/useValidation'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import createDirNotExist from 'utils/Directory'
-import { getUniqueCodev2, getToken } from 'helpers/Common'
+import { getUniqueCodev2, getToken, verifyToken } from 'helpers/Common'
 import ResponseError from 'modules/ResponseError'
+import { isObject } from 'lodash'
 import schema from '../User/schema'
 
 const { User, Role } = models
@@ -108,16 +109,19 @@ routes.post(
 routes.get(
   '/profile',
   asyncHandler(async function getProfile(req: Request, res: Response) {
-    const token = getToken(req.getHeaders())
+    const token = verifyToken(req.getHeaders())
 
-    if (token) {
-      const decodeToken: any = jwt.decode(token)
+    if (isObject(token?.data)) {
+      const decodeToken = token?.data
       const including = [{ model: Role }]
 
+      // @ts-ignore
       const data = await User.findByPk(decodeToken?.id, { include: including })
       return res.status(200).json({ data })
     }
 
-    throw new ResponseError.Unauthorized('Unauthorized. Please Re-login...')
+    throw new ResponseError.Unauthorized(
+      `${token?.message}. Please Re-login...`
+    )
   })
 )

@@ -1,4 +1,11 @@
 import fs from 'fs'
+import jwt, {
+  TokenExpiredError,
+  JsonWebTokenError,
+  NotBeforeError,
+} from 'jsonwebtoken'
+
+const { JWT_SECRET }: any = process.env
 
 // Generate Unique Code ( default length 32 )
 function getUniqueCodev2(length = 32) {
@@ -24,6 +31,32 @@ function getToken(headers: any) {
   return null
 }
 
+// Verify Token
+function verifyToken(header: any) {
+  const token = getToken(header)
+
+  try {
+    if (!token) {
+      return { data: null, message: 'Token not found!' }
+    }
+
+    const data = jwt.verify(token, JWT_SECRET)
+    return { data, message: 'Token is verify' }
+  } catch (err) {
+    if (err instanceof TokenExpiredError) {
+      return { data: null, message: `Token ${err.message}` }
+    }
+
+    if (err instanceof JsonWebTokenError) {
+      return { data: null, message: `Token ${err.message}` }
+    }
+
+    if (err instanceof NotBeforeError) {
+      return { data: null, message: `Token ${err.message}` }
+    }
+  }
+}
+
 // Read HTML File
 function readHTMLFile(path: any, callback: any) {
   fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
@@ -35,4 +68,4 @@ function readHTMLFile(path: any, callback: any) {
   })
 }
 
-export { getUniqueCodev2, getToken, readHTMLFile }
+export { getUniqueCodev2, getToken, verifyToken, readHTMLFile }
