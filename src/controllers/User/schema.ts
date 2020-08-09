@@ -45,6 +45,20 @@ const createPassword = yup.object().shape({
     .oneOf([yup.ref('newPassword')], 'Password tidak sama'),
 })
 
+const login = yup
+  .object()
+  .shape({
+    email: yup
+      .string()
+      .email('Email tidak valid')
+      .required('Email wajib diisi'),
+    password: yup
+      .string()
+      .min(8, 'Minimal 8 karakter')
+      .required('Password wajib diisi'),
+  })
+  .required()
+
 const createUserRole = yup.object().shape({
   UserId: yup.string().required('User wajib diisi'),
   RoleId: yup.string().required('Role wajib diisi'),
@@ -55,4 +69,5 @@ export default {
   createPassword,
   createUserRole,
   update,
+  login,
 }
