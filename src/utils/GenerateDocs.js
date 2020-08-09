@@ -91,7 +91,7 @@ module.exports = function generateDocs(app) {
         },
       },
       info: {
-        title: `Api ${APP_NAME} Documentation`,
+        title: `${APP_NAME} Documentation`,
         version: '1.0.0',
       },
       paths: docsSources,
