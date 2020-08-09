@@ -61,7 +61,7 @@ routes.post(
 routes.post(
   '/auth/sign-in',
   asyncHandler(async function signIn(req: Request, res: Response) {
-    const { email, password }: LoginInterface = req.getBody()
+    const { email, password } = useValidation(schema.login, req.getBody())
 
     const userData = await User.scope('withPassword').findOne({
       where: { email },
@@ -119,6 +119,6 @@ routes.get(
       return res.status(200).json({ data })
     }
 
-    throw new ResponseError.Forbidden('Unauthorized. Please Re-login...')
+    throw new ResponseError.Unauthorized('Unauthorized. Please Re-login...')
   })
 )
