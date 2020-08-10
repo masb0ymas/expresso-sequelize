@@ -33,7 +33,7 @@ module.exports = function generateDocs(app) {
       openapi: '3.0.1',
       servers: [
         {
-          url: `http://localhost:${PORT}/v1`,
+          url: `http://localhost:${PORT || 8000}/v1`,
           description: 'Development server',
         },
         {
@@ -105,7 +105,7 @@ module.exports = function generateDocs(app) {
     swaggerOptions: {
       urls: [
         {
-          url: `http://localhost:${PORT}/v1/api-docs.json`,
+          url: `http://localhost:${PORT || 8000}/v1/api-docs.json`,
           name: 'Development Server',
         },
         {
