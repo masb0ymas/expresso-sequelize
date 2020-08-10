@@ -92,6 +92,8 @@ routes.post(
 
         return res.status(200).json({
           token: `JWT ${token}`,
+          expiresIn: expiresToken,
+          tokenType: 'JWT',
           uid: userData.id,
         })
       }
