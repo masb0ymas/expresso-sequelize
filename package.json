@@ -47,7 +47,7 @@
     "helmet": "^4.0.0",
     "http-errors": "~1.8.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "mariadb": "^2.2.0",
     "morgan": "~1.10.0",
     "mysql2": "^2.1.0",
