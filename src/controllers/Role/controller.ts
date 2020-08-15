@@ -4,8 +4,8 @@ import { Request, Response } from 'express'
 import useValidation from 'helpers/useValidation'
 import routes, { AuthMiddleware } from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
-import client, { redisCache, redisDeleteCache } from 'config/redis'
 import ResponseError from 'modules/ResponseError'
+import { filterQueryObject, iFilterQuery } from 'helpers/Common'
 import schema from './schema'
 
 const { Role } = models
@@ -16,24 +16,26 @@ const keyGetAll = `${APP_KEY_REDIS}_role:getAll`
 routes.get(
   '/role',
   asyncHandler(async function getAll(req: Request, res: Response) {
-    const total = await Role.count()
+    // eslint-disable-next-line prefer-const
+    let { page, pageSize, filtered, sorted }: iFilterQuery = req.getQuery()
 
-    client.get(keyGetAll, async (err: any, rowData: string | null) => {
-      if (err) {
-        console.log(err)
-      }
+    let filterObject = {}
+    if (!page) page = 0
+    if (!pageSize) pageSize = 10
 
-      if (rowData) {
-        const data = JSON.parse(rowData)
-        return res.status(200).json({ data, total })
-      }
+    filterObject = filtered ? filterQueryObject(JSON.parse(filtered)) : []
 
-      const data = await Role.findAll()
-      // Cache Redis
-      redisCache(keyGetAll, data)
-
-      return res.status(200).json({ data, total })
+    const data = await Role.findAll({
+      where: filterObject,
+      offset: Number(pageSize) * Number(page),
+      limit: Number(pageSize),
+      order: [['createdAt', 'desc']],
     })
+    const total = await Role.count({
+      where: filterObject,
+    })
+
+    return res.status(200).json({ data, total })
   })
 )
 
@@ -59,8 +61,6 @@ routes.post(
   asyncHandler(async function createData(req: Request, res: Response) {
     const value = useValidation(schema.create, req.getBody())
     const data = await Role.create(value)
-    // Delete Cache By Key
-    redisDeleteCache(keyGetAll)
 
     return res.status(201).json({ data })
   })
@@ -85,8 +85,6 @@ routes.put(
     })
 
     await data.update(value || {})
-    // Delete Cache By Key
-    redisDeleteCache(keyGetAll)
 
     return res.status(200).json({ data })
   })
@@ -106,8 +104,6 @@ routes.delete(
     }
 
     await data.destroy()
-    // Delete Cache By Key
-    redisDeleteCache(keyGetAll)
 
     return res.status(200).json({ message: 'Data berhasil dihapus!' })
   })
