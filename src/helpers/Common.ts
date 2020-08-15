@@ -4,9 +4,31 @@ import jwt, {
   JsonWebTokenError,
   NotBeforeError,
 } from 'jsonwebtoken'
+import db from 'models/_instance'
+
+require('dotenv').config()
 
 const { JWT_SECRET }: any = process.env
+const { Sequelize } = db
+const { Op } = Sequelize
+const invalidValues = [null, undefined, '', false, 0]
 
+interface iFiltered {
+  id: string
+  value: string
+}
+
+interface iSorted {
+  id: string
+  desc: string
+}
+
+export interface iFilterQuery {
+  page: string | number
+  pageSize: string | number
+  filtered: string
+  sorted: iSorted[]
+}
 // Generate Unique Code ( default length 32 )
 function getUniqueCodev2(length = 32) {
   let result = ''
@@ -17,6 +39,26 @@ function getUniqueCodev2(length = 32) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength))
   }
   return result
+}
+
+// Filter Query Object
+function filterQueryObject(filtered: iFiltered[]) {
+  const resultObject = {}
+  if (typeof filtered !== 'object') {
+    throw new Error(`Filtered must be an object, expected ${typeof filtered}`)
+  }
+
+  for (let i = 0; i < filtered.length; i += 1) {
+    // eslint-disable-next-line prefer-const
+    let { id, value } = filtered[i]
+    if (id.split('.').length > 1) {
+      id = `$${id}$`
+    }
+    // @ts-ignore
+    resultObject[id] = { [Op.like]: `%${value}%` }
+  }
+
+  return resultObject
 }
 
 // Get Token from headers
@@ -68,4 +110,11 @@ function readHTMLFile(path: any, callback: any) {
   })
 }
 
-export { getUniqueCodev2, getToken, verifyToken, readHTMLFile }
+export {
+  getUniqueCodev2,
+  getToken,
+  verifyToken,
+  readHTMLFile,
+  filterQueryObject,
+  invalidValues,
+}
