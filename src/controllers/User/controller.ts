@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 import models from 'models'
 import { Request, Response } from 'express'
-import * as yup from 'yup'
 import useValidation from 'helpers/useValidation'
 import routes from 'routes/private'
 import asyncHandler from 'helpers/asyncHandler'
