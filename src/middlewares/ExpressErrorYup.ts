@@ -8,8 +8,6 @@ async function ExpressErrorYup(
   res: Response,
   next: NextFunction
 ) {
-  await req.rollbackTransactions()
-
   if (err instanceof ValidationError) {
     console.log('ERROR YUP VALIDATION!!!')
     const error = {
