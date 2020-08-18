@@ -90,9 +90,10 @@ class withState {
     const entryTransactions = Object.entries(_transaction)
 
     for (let i = 0; i < entryTransactions.length; i += 1) {
-      const [, value] = entryTransactions[i] as [any, Transaction]
+      const [id, value] = entryTransactions[i] as [any, Transaction]
       // eslint-disable-next-line no-await-in-loop
       await value.rollback()
+      delete _transaction[id]
     }
   }
 }
