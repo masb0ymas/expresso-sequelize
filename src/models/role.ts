@@ -4,7 +4,7 @@ import SequelizeAttributes from '../utils/SequelizeAttributes'
 
 import db from './_instance'
 
-interface RoleAttributes {
+export interface RoleAttributes {
   id: string
   nama: string
   createdAt?: Date
