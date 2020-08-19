@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import fs from 'fs'
 import jwt, {
   TokenExpiredError,
@@ -5,6 +6,7 @@ import jwt, {
   NotBeforeError,
 } from 'jsonwebtoken'
 import db from 'models/_instance'
+import { FilterAttributes } from 'models'
 
 require('dotenv').config()
 
@@ -13,22 +15,6 @@ const { Sequelize } = db
 const { Op } = Sequelize
 const invalidValues = [null, undefined, '', false, 0]
 
-interface iFiltered {
-  id: string
-  value: string
-}
-
-interface iSorted {
-  id: string
-  desc: string
-}
-
-export interface iFilterQuery {
-  page: string | number
-  pageSize: string | number
-  filtered: string
-  sorted: iSorted[]
-}
 // Generate Unique Code ( default length 32 )
 function getUniqueCodev2(length = 32) {
   let result = ''
@@ -42,7 +28,7 @@ function getUniqueCodev2(length = 32) {
 }
 
 // Filter Query Object
-function filterQueryObject(filtered: iFiltered[]) {
+function filterQueryObject(filtered: FilterAttributes[]) {
   const resultObject = {}
   if (typeof filtered !== 'object') {
     throw new Error(`Filtered must be an object, expected ${typeof filtered}`)
