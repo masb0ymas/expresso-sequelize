@@ -6,7 +6,6 @@ const create = yup.object().shape({
   phone: yup.string().required('Phone wajib diisi'),
   active: yup.boolean().nullable(),
   tokenVerify: yup.string().nullable(),
-  // password: yup.string().defined(),
   newPassword: yup
     .string()
     .min(8, 'Minimal 8 karakter')
@@ -23,7 +22,6 @@ const update = yup.object().shape({
   phone: yup.string().required('Phone wajib diisi'),
   active: yup.boolean().nullable(),
   tokenVerify: yup.string().nullable(),
-  // password: yup.string().defined(),
   newPassword: yup
     .string()
     .min(8, 'Minimal 8 karakter')
@@ -59,15 +57,9 @@ const login = yup
   })
   .required()
 
-const createUserRole = yup.object().shape({
-  UserId: yup.string().required('User wajib diisi'),
-  RoleId: yup.string().required('Role wajib diisi'),
-})
-
 export default {
   create,
   createPassword,
-  createUserRole,
   update,
   login,
 }
