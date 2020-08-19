@@ -1,11 +1,12 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 import { Model, Optional, DataTypes } from 'sequelize'
 import bcrypt from 'bcrypt'
 import SequelizeAttributes from 'utils/SequelizeAttributes'
 import schemaUser from 'controllers/User/schema'
 import db from './_instance'
+import { RoleAttributes } from './role'
 
-interface UserAttributes {
+export interface UserAttributes {
   id: string
   fullName: string
   email: string
@@ -19,7 +20,12 @@ interface UserAttributes {
   updatedAt?: Date
 }
 
-export interface LoginInterface {
+export interface TokenAttributes {
+  data: UserAttributes
+  message: string
+}
+
+export interface LoginAttributes {
   email: string
   password: string
 }
