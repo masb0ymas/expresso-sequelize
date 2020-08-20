@@ -2,7 +2,7 @@
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
-import { getToken } from 'helpers/Common'
+import { verifyToken } from 'helpers/Common'
 import AuthService from './service'
 
 routes.post(
@@ -29,7 +29,8 @@ routes.post(
 routes.get(
   '/profile',
   asyncHandler(async function getProfile(req: Request, res: Response) {
-    const token = getToken(req.getHeaders())
+    const token = verifyToken(req.getHeaders())
+    // @ts-ignore
     const data = await AuthService.profile(token)
 
     return res.status(200).json({ data })
