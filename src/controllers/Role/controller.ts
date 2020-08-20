@@ -55,7 +55,7 @@ routes.put(
   asyncHandler(async function updateData(req: Request, res: Response) {
     const { id } = req.getParams()
     const formData = req.getBody()
-    const { data, message } = await RoleService.update(id, formData)
+    const { message, data } = await RoleService.update(id, formData)
 
     return res.status(200).json({ message, data })
   })

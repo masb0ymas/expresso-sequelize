@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { NextFunction, Request, Response } from 'express'
 import { EmptyResultError, BaseError, ValidationError } from 'sequelize'
 import { get } from 'lodash'
@@ -14,6 +15,7 @@ async function ExpressErrorSequelize(
 ) {
   try {
     await req.rollbackTransactions()
+    // eslint-disable-next-line no-empty
   } catch (e) {}
 
   if (err instanceof BaseError) {
