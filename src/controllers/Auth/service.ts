@@ -57,27 +57,27 @@ class AuthService {
     const value = useValidation(schema.create, req.getBody())
     const data = await User.create(value)
 
-    // /*
-    //   Initial Send an e-mail
-    // */
-    // const pathTemplate = path.resolve(
-    //   __dirname,
-    //   `../../../public/templates/emails/register.html`
-    // )
-    // const subject = 'Verifikasi Email'
-    // const urlToken = `${BASE_URL_CLIENT}/email/verify?token=${tokenVerify}`
-    // const dataTemplate = { fullName, urlToken }
-    // const Email = new EmailProvider()
+    /*
+      Initial Send an e-mail
+    */
+    const pathTemplate = path.resolve(
+      __dirname,
+      `../../../public/templates/emails/register.html`
+    )
+    const subject = 'Verifikasi Email'
+    const urlToken = `${BASE_URL_CLIENT}/email/verify?token=${tokenVerify}`
+    const dataTemplate = { fullName, urlToken }
+    const Email = new EmailProvider()
 
-    // readHTMLFile(pathTemplate, (error: Error, html: any) => {
-    //   if (error) {
-    //     throw new ResponseError.NotFound('Email Template tidak ditemukan!')
-    //   }
+    readHTMLFile(pathTemplate, (error: Error, html: any) => {
+      if (error) {
+        throw new ResponseError.NotFound('Email Template tidak ditemukan!')
+      }
 
-    //   const template = handlebars.compile(html)
-    //   const htmlToSend = template(dataTemplate)
-    //   Email.send(email, subject, htmlToSend)
-    // })
+      const template = handlebars.compile(html)
+      const htmlToSend = template(dataTemplate)
+      Email.send(email, subject, htmlToSend)
+    })
 
     return {
       message:
