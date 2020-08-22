@@ -12,7 +12,7 @@ import useValidation from 'helpers/useValidation'
 import ResponseError from 'modules/ResponseError'
 import { BASE_URL_CLIENT } from 'config/baseClient'
 import { getUniqueCodev2, readHTMLFile } from 'helpers/Common'
-import { LoginAttributes, TokenAttributes } from 'models/user'
+import { UserAttributes, LoginAttributes, TokenAttributes } from 'models/user'
 
 const { User, Role } = models
 
@@ -35,12 +35,16 @@ async function createDirectory(UserId: string) {
   pathDirectory.map((x) => createDirNotExist(x))
 }
 
+interface EmailAttributes {
+  email: string | any
+  fullName: string
+}
+
 class AuthService {
   /**
    * Sign Up
    */
-  public static async signUp(req: Request) {
-    const { email, fullName } = req.getBody()
+  public static async signUp(formData: UserAttributes) {
     const generateToken = {
       code: getUniqueCodev2(),
     }
@@ -53,13 +57,14 @@ class AuthService {
       }
     ) // 1 Days
 
-    req.setBody({ tokenVerify })
-    const value = useValidation(schema.create, req.getBody())
+    const newFormData = { ...formData, tokenVerify }
+    const value = useValidation(schema.create, newFormData)
     const data = await User.create(value)
 
     /*
       Initial Send an e-mail
     */
+    const { email, fullName }: EmailAttributes = formData
     const pathTemplate = path.resolve(
       __dirname,
       `../../../public/templates/emails/register.html`
