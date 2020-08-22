@@ -4,6 +4,9 @@ services:
     build:
       context: .
     container_name: express_app
+    depends_on:
+      - db
+      - redis
     restart: always
     ports:
       - "7000:7000"
@@ -25,7 +28,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     restart: always
     ports:
-      - "3307:3306"
+      - "3306:3306"
     networks:
       private_network:
         ipv4_address: 172.16.235.11
