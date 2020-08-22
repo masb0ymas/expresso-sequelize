@@ -6,3 +6,4 @@ build/*
 !build/index.js
 
 dist/*
+storage/*
