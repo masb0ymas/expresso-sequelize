@@ -10,6 +10,7 @@ package-lock.json
 /coverage
 
 # production
+/storage
 /dist
 /build
 /public/uploads
