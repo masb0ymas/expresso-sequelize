@@ -8,7 +8,8 @@ import AuthService from './service'
 routes.post(
   '/auth/sign-up',
   asyncHandler(async function signUp(req: Request, res: Response) {
-    const { message, data } = await AuthService.signUp(req)
+    const formData = req.getBody()
+    const { message, data } = await AuthService.signUp(formData)
 
     return res.status(201).json({ message, data })
   })
