@@ -1,4 +1,4 @@
-version: "3.3"
+version: '3.3'
 services:
   app:
     build:
@@ -9,7 +9,7 @@ services:
       - redis
     restart: always
     ports:
-      - "7000:7000"
+      - '7000:7000'
     volumes:
       - .:/var/www
     working_dir: /var/www
@@ -22,22 +22,22 @@ services:
     volumes:
       - ./storage/mariadb-volume:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${PROD_DB_PASSWORD}
+      MYSQL_DATABASE: ${PROD_DB_DATABASE}
+      MYSQL_USER: ${PROD_DB_USERNAME}
+      MYSQL_PASSWORD: ${PROD_DB_PASSWORD}
     restart: always
     ports:
-      - "3306:3306"
+      - '3307:3306'
     networks:
       private_network:
         ipv4_address: 172.16.235.11
   redis:
-    image: "redis:alpine"
+    image: 'redis:alpine'
     container_name: express_redis
     command: redis-server --requirepass ${REDIS_PASSWORD}
     ports:
-      - "6380:6379"
+      - '${REDIS_PORT}:6379'
     volumes:
       - ./storage/redis-data:/var/lib/redis
     restart: always
@@ -53,7 +53,7 @@ services:
     environment:
       ADMINER_DESIGN: arcs-material
     ports:
-      - "8080:8080"
+      - '8080:8080'
     networks:
       private_network:
         ipv4_address: 172.16.235.13
@@ -64,4 +64,3 @@ networks:
       driver: default
       config:
         - subnet: 172.16.235.0/24
-
