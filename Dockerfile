@@ -9,4 +9,4 @@ RUN yarn
 RUN npm run build
 
 # EXPOSE 7000
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "serve:production-docker"]

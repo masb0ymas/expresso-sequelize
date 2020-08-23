@@ -17,6 +17,7 @@
     "build:babel": "npm run before-build && babel src --out-dir dist --extensions \".ts\",\".js\"",
     "serve:staging": "NODE_ENV=staging node ./dist/bin/server.js",
     "serve:production": "NODE_ENV=production node ./dist/bin/server.js",
+    "serve:production-docker": "NODE_ENV=production pm2-runtime ./dist/bin/server.js",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:fresh": "npx sequelize-cli db:migrate:undo:all && npm run db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
