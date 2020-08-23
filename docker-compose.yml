@@ -51,7 +51,7 @@ services:
     depends_on:
       - db
     environment:
-      ADMINER_DESIGN: arcs-material
+      ADMINER_DESIGN: flat
     ports:
       - '${ADMINER_PORT}:8080'
     networks:
