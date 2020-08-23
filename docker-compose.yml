@@ -53,7 +53,7 @@ services:
     environment:
       ADMINER_DESIGN: arcs-material
     ports:
-      - '8080:8080'
+      - '${ADMINER_PORT}:8080'
     networks:
       private_network:
         ipv4_address: 172.16.235.13
