@@ -1,6 +1,12 @@
 FROM node:12.18.3-alpine3.12
 # LABEL author="masb0ymas"
 
+# Setup Timezone
+RUN	apk add tzdata
+ENV TZ=Asia/Jakarta
+
+RUN apk add nano
+
 COPY . /var/www
 WORKDIR /var/www
 
