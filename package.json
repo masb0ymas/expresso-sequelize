@@ -93,7 +93,7 @@
     "@types/passport": "^1.0.2",
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
-    "@types/redis": "^2.8.25",
+    "@types/redis": "^2.8.27",
     "@types/sequelize": "^4.28.8",
     "@types/swagger-jsdoc": "^3.0.2",
     "@types/swagger-ui-express": "^4.1.2",
