@@ -4,8 +4,8 @@
   "description": "Just Boilerplate Express with TypeScript ( 🦊 )",
   "private": true,
   "scripts": {
-    "start": "npm run dev",
-    "dev": "nodemon ./src/bin/server.ts",
+    "dev": "npm run start:babel",
+    "start": "nodemon ./src/bin/server.ts",
     "start:babel": "nodemon --exec babel-node --extensions \".ts\" ./src/bin/server.ts",
     "lint": "npx eslint '*/**/*.{js,jsx,ts,tsx}' --quiet --fix",
     "refresh:env-jwt": "node ./src/scripts/generateEnvJWT.ts",
