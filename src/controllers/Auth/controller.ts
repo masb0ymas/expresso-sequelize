@@ -2,7 +2,8 @@
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
-import { verifyToken } from 'helpers/Common'
+import { verifyToken } from 'helpers/Token'
+import Authorization from 'middlewares/Authorization'
 import AuthService from './service'
 
 routes.post(
@@ -29,6 +30,7 @@ routes.post(
 
 routes.get(
   '/profile',
+  Authorization,
   asyncHandler(async function getProfile(req: Request, res: Response) {
     const token = verifyToken(req.getHeaders())
     // @ts-ignore

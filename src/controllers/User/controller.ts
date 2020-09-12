@@ -3,6 +3,7 @@ import { FilterQueryAttributes } from 'models'
 import { Request, Response } from 'express'
 import routes from 'routes/private'
 import asyncHandler from 'helpers/asyncHandler'
+import Authorization from 'middlewares/Authorization'
 import UserService from './service'
 
 const { APP_KEY_REDIS } = process.env
@@ -11,6 +12,7 @@ const keyGetAll = `${APP_KEY_REDIS}_user:getAll`
 
 routes.get(
   '/user',
+  Authorization,
   asyncHandler(async function getAll(req: Request, res: Response) {
     const {
       page,
@@ -32,6 +34,7 @@ routes.get(
 
 routes.get(
   '/user/:id',
+  Authorization,
   asyncHandler(async function getOne(req: Request, res: Response) {
     const { id } = req.getParams()
     const data = await UserService.getOne(id)
@@ -42,6 +45,7 @@ routes.get(
 
 routes.post(
   '/user',
+  Authorization,
   asyncHandler(async function createData(req: Request, res: Response) {
     const txn = await req.getTransaction()
     const formData = req.getBody()
@@ -58,6 +62,7 @@ routes.post(
 
 routes.put(
   '/user/:id',
+  Authorization,
   asyncHandler(async function updateData(req: Request, res: Response) {
     const txn = await req.getTransaction()
     const formData = req.getBody()
@@ -76,6 +81,7 @@ routes.put(
 
 routes.delete(
   '/user/:id',
+  Authorization,
   asyncHandler(async function deleteData(req: Request, res: Response) {
     const { id } = req.getParams()
     const { message } = await UserService.delete(id)
