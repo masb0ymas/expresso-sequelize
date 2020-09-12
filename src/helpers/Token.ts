@@ -26,7 +26,7 @@ function verifyToken(header: any) {
 
   try {
     if (!token) {
-      return { data: null, message: 'Token not found!' }
+      return { data: null, message: 'Unauthorized!' }
     }
 
     const data = jwt.verify(token, JWT_SECRET)
