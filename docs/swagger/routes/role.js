@@ -19,7 +19,7 @@ module.exports = {
         },
       ],
       responses: {
-        '200': {
+        200: {
           description: 'Get All Role',
         },
       },
@@ -49,7 +49,7 @@ module.exports = {
         },
       },
       responses: {
-        '200': {
+        200: {
           description: 'Create New Role',
         },
       },
@@ -72,7 +72,7 @@ module.exports = {
         },
       ],
       responses: {
-        '200': {
+        200: {
           description: 'Get Role By Id',
         },
       },
@@ -113,7 +113,7 @@ module.exports = {
         },
       },
       responses: {
-        '200': {
+        200: {
           description: 'Update Data Role',
         },
       },
@@ -139,7 +139,7 @@ module.exports = {
         },
       ],
       responses: {
-        '200': {
+        200: {
           description: 'Delete Role By Id',
         },
       },

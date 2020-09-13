@@ -24,7 +24,7 @@ module.exports = {
         },
       ],
       responses: {
-        '200': {
+        200: {
           description: 'Get All User',
         },
       },
@@ -69,7 +69,7 @@ module.exports = {
         },
       },
       responses: {
-        '200': {
+        200: {
           description: 'Create New User',
         },
       },
@@ -97,7 +97,7 @@ module.exports = {
         },
       ],
       responses: {
-        '200': {
+        200: {
           description: 'Get User By Id',
         },
       },
@@ -153,7 +153,7 @@ module.exports = {
         },
       },
       responses: {
-        '200': {
+        200: {
           description: 'Update Data User',
         },
       },
@@ -179,7 +179,7 @@ module.exports = {
         },
       ],
       responses: {
-        '200': {
+        200: {
           description: 'Delete User By Id',
         },
       },
