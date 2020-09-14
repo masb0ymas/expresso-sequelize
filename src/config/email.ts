@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer'
+import mg from 'nodemailer-mailgun-transport'
 import { google } from 'googleapis'
+import { isEmpty } from 'lodash'
 
 require('dotenv').config()
 
@@ -11,11 +13,15 @@ const {
   MAIL_USERNAME,
   MAIL_PASSWORD,
   MAIL_AUTH_TYPE,
+  MAILGUN_API_KEY,
+  MAILGUN_DOMAIN,
   OAUTH_CLIENT_ID,
   OAUTH_CLIENT_SECRET,
   OAUTH_REFRESH_TOKEN,
   OAUTH_REDIRECT_URL,
 } = process.env
+
+const isMailgunAPI = !isEmpty(MAILGUN_API_KEY) || !isEmpty(MAILGUN_DOMAIN)
 
 class EmailProvider {
   private mailConfig: nodemailer.SentMessageInfo
@@ -36,9 +42,6 @@ class EmailProvider {
   private setMailConfig = (): nodemailer.SentMessageInfo => {
     const configTransport: nodemailer.SentMessageInfo = {
       service: MAIL_DRIVER,
-      auth: {
-        user: MAIL_USERNAME,
-      },
     }
 
     // Use Google OAuth
@@ -63,10 +66,15 @@ class EmailProvider {
       configTransport.auth.clientSecret = OAUTH_CLIENT_SECRET
       configTransport.auth.refreshToken = OAUTH_REFRESH_TOKEN
       configTransport.auth.accessToken = accessToken()
+    } else if (isMailgunAPI) {
+      // SMPT with Mailgun API
+      configTransport.auth.api_key = MAILGUN_API_KEY
+      configTransport.auth.domain = MAILGUN_DOMAIN
     } else {
       // SMTP Default
       configTransport.host = MAIL_HOST
       configTransport.port = MAIL_PORT
+      configTransport.auth.user = MAIL_USERNAME
       configTransport.auth.pass = MAIL_PASSWORD
     }
 
@@ -91,7 +99,9 @@ class EmailProvider {
     subject: string,
     text: string
   ): void | string[] => {
-    this.mailConfig = this.setMailConfig()
+    this.mailConfig = isMailgunAPI
+      ? mg(this.setMailConfig())
+      : this.setMailConfig()
     this.mailOptions = this.setMailOptions(dest, subject, text)
     // Nodemailer Transport
     const transporter: nodemailer.Transporter = nodemailer.createTransport(
