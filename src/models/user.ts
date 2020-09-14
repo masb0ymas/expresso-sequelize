@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt'
 import SequelizeAttributes from 'utils/SequelizeAttributes'
 import schemaUser from 'controllers/User/schema'
 import db from './_instance'
-import { RoleAttributes } from './role'
 
 export interface UserAttributes {
   id: string
