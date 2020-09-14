@@ -3,6 +3,7 @@ import { FilterQueryAttributes } from 'models'
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
+import Authorization from 'middlewares/Authorization'
 import RoleService from './service'
 
 const { APP_KEY_REDIS } = process.env
@@ -42,6 +43,7 @@ routes.get(
 
 routes.post(
   '/role',
+  Authorization,
   asyncHandler(async function createData(req: Request, res: Response) {
     const formData = req.getBody()
     const { message, data } = await RoleService.create(formData)
@@ -52,6 +54,7 @@ routes.post(
 
 routes.put(
   '/role/:id',
+  Authorization,
   asyncHandler(async function updateData(req: Request, res: Response) {
     const { id } = req.getParams()
     const formData = req.getBody()
@@ -63,6 +66,7 @@ routes.put(
 
 routes.delete(
   '/role/:id',
+  Authorization,
   asyncHandler(async function deleteData(req: Request, res: Response) {
     const { id } = req.getParams()
     const { message } = await RoleService.delete(id)
