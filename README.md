@@ -177,6 +177,13 @@ MAIL_PASSWORD=your_password
 MAIL_ENCRYPTION=null
 ```
 
+## SMTP with Mailgun API
+
+```sh
+MAILGUN_API_KEY=your_api_key_mailgun
+MAILGUN_DOMAIN=your_domain
+```
+
 ## SMTP Google Oauth Email ( Gmail )
 
 ```sh
