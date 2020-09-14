@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { FilterQueryAttributes } from 'models'
 import { Request, Response } from 'express'
-import routes from 'routes/private'
+import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
 import UserService from './service'
