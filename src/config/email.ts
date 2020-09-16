@@ -42,6 +42,9 @@ class EmailProvider {
   private setMailConfig = (): nodemailer.SentMessageInfo => {
     const configTransport: nodemailer.SentMessageInfo = {
       service: MAIL_DRIVER,
+      auth: {
+        user: '',
+      },
     }
 
     // Use Google OAuth
@@ -61,6 +64,7 @@ class EmailProvider {
         return result
       }
 
+      configTransport.auth.user = MAIL_USERNAME
       configTransport.auth.type = MAIL_AUTH_TYPE
       configTransport.auth.clientId = OAUTH_CLIENT_ID
       configTransport.auth.clientSecret = OAUTH_CLIENT_SECRET
