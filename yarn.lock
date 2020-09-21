@@ -5581,10 +5581,10 @@ multer@^1.4.2:
     type-is "^1.6.4"
     xtend "^4.0.0"
 
-mysql2@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/mysql2/-/mysql2-2.2.1.tgz#2ae95be607231c5a68695646198be0aa73388534"
-  integrity sha512-15V3jAvxkxdApCoTUbO0p07/R6XAbtWZ75Be0MF70bN7i7zojk+cKxKlodmACZCbifLimxxqihrsNycKVxRuxg==
+mysql2@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/mysql2/-/mysql2-2.2.2.tgz#496b4ff87cfb609b055ad822e261182bd956f9aa"
+  integrity sha512-ah5+q525gmcQ/wfZExkFTSvajjAyje3PS4OAgWS2JyU8FOgUFJFQ3aitgRoZjhOW4fbIMI6RYkWtW7Yk0uK9vw==
   dependencies:
     "@types/mysql" "^2.15.7"
     denque "^1.4.1"
