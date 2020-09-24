@@ -52,7 +52,7 @@
     "mariadb": "^2.2.0",
     "morgan": "~1.10.0",
     "multer": "^1.4.2",
-    "mysql2": "^2.2.2",
+    "mysql2": "^2.2.5",
     "nodemailer": "^6.4.11",
     "nodemailer-mailgun-transport": "^2.0.0",
     "passport": "^0.4.1",
