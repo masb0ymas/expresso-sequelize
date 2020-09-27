@@ -132,7 +132,6 @@ class AuthService {
           token: `JWT ${token}`,
           expiresIn: expiresToken,
           tokenType: 'JWT',
-          uid: userData.id,
         }
       }
 
