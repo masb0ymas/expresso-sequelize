@@ -64,7 +64,7 @@
     "redis": "^3.0.2",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
-    "swagger-jsdoc": "^4.2.3",
+    "swagger-jsdoc": "^4.3.0",
     "swagger-ui-express": "^4.1.4",
     "yup": "^0.29.3"
   },
