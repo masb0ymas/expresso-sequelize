@@ -19,14 +19,19 @@ export interface FilterQueryAttributes {
   sorted: string
 }
 
-export default {
+const models = {
   Role,
   User,
   UserRole,
 }
 
-/*
-  Models Association
-*/
+export default models
 
-User.belongsToMany(Role, { through: UserRole })
+export type MyModels = typeof models
+
+Object.entries(models).map(([, model]) => {
+  if (model?.associate) {
+    model.associate(models)
+  }
+  return model
+})
