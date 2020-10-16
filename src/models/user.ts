@@ -93,4 +93,8 @@ User.prototype.comparePassword = function (candidatePassword: string) {
   })
 }
 
+User.associate = (models) => {
+  User.belongsToMany(models.Role, { through: models.UserRole })
+}
+
 export default User
