@@ -2,13 +2,13 @@
 /* eslint-disable no-param-reassign */
 import models from 'models'
 import db from 'models/_instance'
-import { filterQueryObject } from 'helpers/Common'
 import ResponseError from 'modules/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { UserAttributes } from 'models/user'
 import UserRole from 'models/userrole'
 import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
+import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from './schema'
 
 const { Sequelize } = db
@@ -21,26 +21,20 @@ class UserService {
   /**
    * Get All User
    */
-  public static async getAll(
-    page: string | number,
-    pageSize: string | number,
-    filtered: string,
-    sorted: string
-  ) {
-    if (!page) page = 0
-    if (!pageSize) pageSize = 10
-
-    const filterObject = filtered ? filterQueryObject(JSON.parse(filtered)) : []
+  public static async getAll(req: any) {
+    const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
+      req,
+      User,
+      including
+    )
 
     const data = await User.findAll({
-      where: filterObject,
-      include: including,
-      offset: Number(pageSize) * Number(page),
-      limit: Number(pageSize),
-      order: [['createdAt', 'desc']],
+      ...queryFind,
+      order: order.length ? order : [['createdAt', 'desc']],
     })
     const total = await User.count({
-      where: filterObject,
+      include: includeCount,
+      where: queryFind.where,
     })
 
     return { data, total }
