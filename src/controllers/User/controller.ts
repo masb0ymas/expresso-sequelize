@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { FilterQueryAttributes } from 'models'
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
@@ -14,20 +13,7 @@ routes.get(
   '/user',
   Authorization,
   asyncHandler(async function getAll(req: Request, res: Response) {
-    const {
-      page,
-      pageSize,
-      filtered,
-      sorted,
-    }: FilterQueryAttributes = req.getQuery()
-
-    const { data, total } = await UserService.getAll(
-      page,
-      pageSize,
-      filtered,
-      sorted
-    )
-
+    const { data, total } = await UserService.getAll(req)
     return res.status(200).json({ data, total })
   })
 )
