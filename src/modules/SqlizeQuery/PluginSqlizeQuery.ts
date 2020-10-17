@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import SqlizeQuery from 'modules/SqlizeQuery/index'
 import {
   getPrimitiveDataType,
