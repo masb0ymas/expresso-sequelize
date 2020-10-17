@@ -20,11 +20,9 @@ routes.post(
   '/auth/sign-in',
   asyncHandler(async function signIn(req: Request, res: Response) {
     const formData = req.getBody()
-    const { token, expiresIn, tokenType, uid } = await AuthService.signIn(
-      formData
-    )
+    const { token, expiresIn, tokenType } = await AuthService.signIn(formData)
 
-    return res.status(200).json({ token, expiresIn, tokenType, uid })
+    return res.status(200).json({ token, expiresIn, tokenType })
   })
 )
 
