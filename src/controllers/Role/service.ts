@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-param-reassign */
 import models from 'models'
-import { filterQueryObject } from 'helpers/Common'
 import ResponseError from 'modules/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { RoleAttributes } from 'models/role'
+import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from './schema'
 
 const { Role } = models
@@ -13,25 +12,20 @@ class RoleService {
   /**
    * Get All Role
    */
-  public static async getAll(
-    page: string | number,
-    pageSize: string | number,
-    filtered: string,
-    sorted: string
-  ) {
-    if (!page) page = 0
-    if (!pageSize) pageSize = 10
-
-    const filterObject = filtered ? filterQueryObject(JSON.parse(filtered)) : []
+  public static async getAll(req: any) {
+    const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
+      req,
+      Role,
+      []
+    )
 
     const data = await Role.findAll({
-      where: filterObject,
-      offset: Number(pageSize) * Number(page),
-      limit: Number(pageSize),
-      order: [['createdAt', 'desc']],
+      ...queryFind,
+      order: order.length ? order : [['createdAt', 'desc']],
     })
     const total = await Role.count({
-      where: filterObject,
+      include: includeCount,
+      where: queryFind.where,
     })
 
     return { data, total }
