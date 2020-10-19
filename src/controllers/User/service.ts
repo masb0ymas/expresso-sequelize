@@ -21,10 +21,11 @@ class UserService {
    * Get All User
    */
   public static async getAll(req: any) {
+    const { filtered } = req.query
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
       req,
       User,
-      including
+      PluginSqlizeQuery.makeIncludeQueryable(filtered, including)
     )
 
     const data = await User.findAll({
