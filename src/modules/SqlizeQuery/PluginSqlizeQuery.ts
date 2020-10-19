@@ -183,7 +183,7 @@ function filterIncludeHandledOnly({
 
 function injectRequireInclude(include: Includeable[]) {
   function test(dataInclude: Includeable[]) {
-    for (let i = 0; i < dataInclude.length; i += 1) {
+    for (let i = 0; i < (dataInclude?.length || 0); i += 1) {
       const optionInclude = dataInclude[i] as IncludeOptions
       let data
       if (optionInclude.include) {
