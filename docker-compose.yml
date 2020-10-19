@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 services:
   app:
     build:
@@ -14,8 +14,8 @@ services:
       - .:/var/www
     working_dir: /var/www
     networks:
-      private_network:
-        ipv4_address: 172.16.235.10
+      - express_network
+
   db:
     image: mariadb
     container_name: express_db
@@ -30,8 +30,8 @@ services:
     ports:
       - '3307:3306'
     networks:
-      private_network:
-        ipv4_address: 172.16.235.11
+      - express_network
+
   redis:
     image: 'redis:alpine'
     container_name: express_redis
@@ -42,8 +42,8 @@ services:
       - ./storage/redis-data:/var/lib/redis
     restart: always
     networks:
-      private_network:
-        ipv4_address: 172.16.235.12
+      - express_network
+
   adminer:
     image: adminer
     container_name: express_adminer
@@ -55,12 +55,8 @@ services:
     ports:
       - '${ADMINER_PORT}:8080'
     networks:
-      private_network:
-        ipv4_address: 172.16.235.13
+      - express_network
+
 networks:
-  private_network:
+  express_network:
     driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.235.0/24
