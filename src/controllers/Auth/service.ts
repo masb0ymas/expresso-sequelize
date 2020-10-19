@@ -2,7 +2,6 @@
 import path from 'path'
 import models from 'models'
 import jwt from 'jsonwebtoken'
-import { Request } from 'express'
 import { isObject } from 'lodash'
 import handlebars from 'handlebars'
 import EmailProvider from 'config/email'

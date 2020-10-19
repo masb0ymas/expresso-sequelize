@@ -5,7 +5,6 @@ import db from 'models/_instance'
 import ResponseError from 'modules/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { UserAttributes } from 'models/user'
-import UserRole from 'models/userrole'
 import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
@@ -14,7 +13,7 @@ import schema from './schema'
 const { Sequelize } = db
 const { Op } = Sequelize
 
-const { User, Role } = models
+const { User, Role, UserRole } = models
 const including = [{ model: Role }]
 
 class UserService {

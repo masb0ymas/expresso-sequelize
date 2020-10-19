@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { FilterQueryAttributes } from 'models'
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
@@ -13,20 +12,7 @@ const keyGetAll = `${APP_KEY_REDIS}_role:getAll`
 routes.get(
   '/role',
   asyncHandler(async function getAll(req: Request, res: Response) {
-    const {
-      page,
-      pageSize,
-      filtered,
-      sorted,
-    }: FilterQueryAttributes = req.getQuery()
-
-    const { data, total } = await RoleService.getAll(
-      page,
-      pageSize,
-      filtered,
-      sorted
-    )
-
+    const { data, total } = await RoleService.getAll(req)
     return res.status(200).json({ data, total })
   })
 )

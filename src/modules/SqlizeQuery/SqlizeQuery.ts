@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { DataTypes, Includeable, IncludeOptions, Model } from 'sequelize'
+import QueryHelper from 'modules/SqlizeQuery/QueryHelper'
+import TransformHelper from 'modules/SqlizeQuery/TransformHelper'
 
 type ValueParsers = (value: any) => any
 type TransformBuild = (value: any, transformHelper: TransformHelper) => any
@@ -80,54 +83,11 @@ export function getPrimitiveDataType<T>(dataType: T) {
   return 'string'
 }
 
-class TransformHelper<T = any> {
-  private value: T | undefined
-
-  constructor(initialValue: any) {
-    this.setValue(initialValue)
-  }
-
-  setValue(value: any) {
-    this.value = value
-  }
-
-  getValue() {
-    return this.value
-  }
-}
-
-class QueryHelper {
-  private valueQuery: any = {}
-  private data: any[]
-  constructor(data: any[]) {
-    this.data = data
-  }
-
-  getDataValueById(id: any) {
-    return this.data.find((x) => x.id === id)?.value
-  }
-
-  setQuery(id: any, value: any) {
-    // set(this.valueQuery, id, value)
-    this.valueQuery[id] = value
-  }
-
-  getQuery() {
-    return this.valueQuery
-  }
-
-  getQueryById(id: any) {
-    return this.valueQuery[id]
-  }
-
-  deleteQuery(id: any) {
-    return delete this.valueQuery[id]
-  }
-}
-
 class SqlizeQuery {
   private valueParsers: ValueParsers[] = []
+
   private transformBuilds: TransformBuild[] = []
+
   private queryBuilders: QueryBuilders[] = []
 
   addValueParser(fn: ValueParsers) {
@@ -144,24 +104,24 @@ class SqlizeQuery {
 
   build(value: any) {
     let parserValue = value as any[]
-    for (let i = 0; i < this.valueParsers.length; i++) {
+    for (let i = 0; i < this.valueParsers.length; i += 1) {
       const getterValue = this.valueParsers[i]
       parserValue = getterValue(value)
     }
 
     const queryHelper = new QueryHelper(parserValue)
     // executed queryBuilder min 1, when parserValue no data
-    for (let i = 0; i < (parserValue.length || 1); i++) {
+    for (let i = 0; i < (parserValue.length || 1); i += 1) {
       const valueP = parserValue[i]
-      for (let k = 0; k < this.queryBuilders.length; k++) {
+      for (let k = 0; k < this.queryBuilders.length; k += 1) {
         const queryBuilder = this.queryBuilders[k]
         queryBuilder(valueP, queryHelper)
       }
     }
 
-    let result = queryHelper.getQuery()
+    const result = queryHelper.getQuery()
     const transformHelper = new TransformHelper(result)
-    for (let i = 0; i < this.transformBuilds.length; i++) {
+    for (let i = 0; i < this.transformBuilds.length; i += 1) {
       const transformBuild = this.transformBuilds[i]
       transformBuild(result, transformHelper)
     }
@@ -184,7 +144,7 @@ export function transfromIncludeToQueryable(
       return value
     }
   function wrapFiltered(includes: Includeable[], parent?: IncludeOptions) {
-    for (let i = 0; i < includes.length; i++) {
+    for (let i = 0; i < includes.length; i += 1) {
       const include = includes[i] as CustomIncludeOptions
 
       const { model, key, include: oriInclude, ...restInclude } = include
@@ -200,6 +160,7 @@ export function transfromIncludeToQueryable(
       } as IncludeOptions)
 
       if (parent) {
+        // eslint-disable-next-line no-param-reassign
         parent.include = parent.include || []
         parent.include.push(data)
       } else {
