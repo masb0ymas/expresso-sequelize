@@ -1,5 +1,5 @@
 FROM node:12.18.3-alpine3.12
-# LABEL author="masb0ymas"
+LABEL author="masb0ymas"
 
 # Setup Timezone
 RUN	apk add tzdata
@@ -7,12 +7,20 @@ ENV TZ=Asia/Jakarta
 
 RUN apk add nano
 
-COPY . /var/www
+# Create app directory
 WORKDIR /var/www
 
+COPY package.json /var/www
+COPY yarn.lock /var/www
+
+# Set config npm & install dependencies
+RUN npm config set scripts-prepend-node-path true
 RUN npm install pm2 -g
 RUN yarn
-RUN npm run build
+# RUN yarn build
 
-# EXPOSE 7000
-CMD ["npm", "run", "serve:production-docker"]
+# Bundle app source
+COPY . .
+
+EXPOSE 7000
+CMD ["yarn", "start"]
