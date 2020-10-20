@@ -24,7 +24,7 @@ routes.post(
 
     return res
       .cookie('token', token, {
-        maxAge: expiresIn,
+        maxAge: 7 * Number(expiresIn) * 1000, // 7 Days
         httpOnly: true,
         path: '/v1',
         secure: process.env.NODE_ENV === 'production',
