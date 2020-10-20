@@ -2,7 +2,7 @@
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
-import { verifyToken } from 'helpers/Token'
+import { currentToken, verifyToken } from 'helpers/Token'
 import Authorization from 'middlewares/Authorization'
 import AuthService from './service'
 
@@ -22,7 +22,14 @@ routes.post(
     const formData = req.getBody()
     const { token, expiresIn, tokenType } = await AuthService.signIn(formData)
 
-    return res.status(200).json({ token, expiresIn, tokenType })
+    return res
+      .cookie('token', token, {
+        maxAge: expiresIn,
+        httpOnly: true,
+        path: '/v1',
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .json({ token, expiresIn, tokenType })
   })
 )
 
@@ -30,7 +37,8 @@ routes.get(
   '/profile',
   Authorization,
   asyncHandler(async function getProfile(req: Request, res: Response) {
-    const token = verifyToken(req.getHeaders())
+    const getToken = currentToken(req)
+    const token = verifyToken(getToken)
     // @ts-ignore
     const data = await AuthService.profile(token)
 
