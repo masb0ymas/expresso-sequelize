@@ -1,8 +1,11 @@
+// eslint-disable-next-line no-unused-vars
+import { Request } from 'express'
 import jwt, {
   TokenExpiredError,
   JsonWebTokenError,
   NotBeforeError,
 } from 'jsonwebtoken'
+import { isEmpty } from 'lodash'
 
 require('dotenv').config()
 
@@ -20,10 +23,22 @@ function getToken(headers: any) {
   return null
 }
 
-// Verify Token
-function verifyToken(header: any) {
-  const token = getToken(header)
+function currentToken(req: Request) {
+  const getCookie = req.getCookies()
+  const getHeaders = req.getHeaders()
 
+  let curToken = ''
+  if (!isEmpty(getCookie.token)) {
+    curToken = getCookie.token
+  } else {
+    curToken = getToken(getHeaders)
+  }
+
+  return curToken
+}
+
+// Verify Token
+function verifyToken(token: string) {
   try {
     if (!token) {
       return { data: null, message: 'Unauthorized!' }
@@ -46,4 +61,4 @@ function verifyToken(header: any) {
   }
 }
 
-export { getToken, verifyToken }
+export { getToken, currentToken, verifyToken }
