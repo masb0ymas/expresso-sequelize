@@ -17,6 +17,7 @@ class withState {
     this.req.getHeaders = this.getHeaders.bind(this)
     this.req.getQuery = this.getQuery.bind(this)
     this.req.getParams = this.getParams.bind(this)
+    this.req.getCookies = this.getCookies.bind(this)
     this.req.getBody = this.getBody.bind(this)
     this.req.setBody = this.setBody.bind(this)
     this.req.getSingleArrayFile = this.getSingleArrayFile.bind(this)
@@ -45,6 +46,10 @@ class withState {
 
   getState(path: any, defaultValue?: any): any {
     return get(this.req.state, path, defaultValue)
+  }
+
+  getCookies(path?: any, defaultValue?: any): any {
+    return getterObject(this.req.cookies, path, defaultValue)
   }
 
   getBody(path?: any, defaultValue?: any): any {
