@@ -128,7 +128,7 @@ class AuthService {
         await createDirectory(userData.id)
 
         return {
-          token: `JWT ${token}`,
+          token,
           expiresIn: expiresToken,
           tokenType: 'JWT',
         }
