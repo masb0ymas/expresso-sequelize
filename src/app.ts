@@ -5,6 +5,7 @@ import path from 'path'
 import cors from 'cors'
 import helmet from 'helmet'
 import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 import indexRouter from 'routes'
 import withState from 'helpers/withState'
 import models from 'models/_instance'
@@ -26,6 +27,7 @@ app.use(cors())
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
 app.use(express.static(path.join(`${__dirname}/../`, 'public')))
 
 app.use((req: Request, res, next) => {
