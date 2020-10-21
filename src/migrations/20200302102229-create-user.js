@@ -1,6 +1,6 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -13,8 +13,7 @@ module.exports = {
       },
       email: {
         allowNull: false,
-        unique: true,
-        type: Sequelize.STRING('191'),
+        type: Sequelize.STRING,
       },
       password: {
         type: Sequelize.STRING,
@@ -41,8 +40,15 @@ module.exports = {
         type: Sequelize.DATE,
       },
     })
+
+    await queryInterface.addConstraint('Users', {
+      type: 'unique',
+      fields: ['email'],
+      name: 'UNIQUE_USERS_EMAIL',
+    })
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users')
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('Users')
   },
 }
