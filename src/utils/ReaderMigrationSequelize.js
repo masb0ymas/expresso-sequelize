@@ -61,6 +61,10 @@ class MockQueryInterface {
 
     delete this.attributeTables[before]
   }
+
+  addConstraint() {
+    return this
+  }
 }
 
 const fs = require('fs')
