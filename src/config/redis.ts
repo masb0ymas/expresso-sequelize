@@ -1,6 +1,14 @@
 import redis from 'redis'
 
-const client = redis.createClient()
+require('dotenv').config()
+
+const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env
+
+const client = redis.createClient({
+  host: REDIS_HOST,
+  port: Number(REDIS_PORT),
+  password: REDIS_PASSWORD,
+})
 
 client.on('connect', function () {
   console.log('Redis client connected')
