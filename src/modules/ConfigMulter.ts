@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import multer from 'multer'
-import { Request } from 'express'
+import { Request, Express } from 'express'
 
 const storage = multer.diskStorage({
   destination: 'public/uploads/',

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
-import { Request } from 'express'
+import { Request, Express } from 'express'
 import { set, get } from 'lodash'
 import { Transaction } from 'sequelize'
 import db from '../models/_instance'
