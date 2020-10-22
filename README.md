@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to boilerplate-express-typescript-sequelize 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-2.1.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-2.2.0-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/npm-%3E%3D6.10.0-blue.svg" />
   <img src="https://img.shields.io/badge/node-%3E%3D10.x-blue.svg" />
   <a href="https://github.com/masb0ymas/boilerplate-express-typescript-sequelize#readme" target="_blank">
@@ -25,7 +25,7 @@
 
 ## Feature
 
-- [TypeScript](https://github.com/microsoft/TypeScript) v3.8.2
+- [TypeScript](https://github.com/microsoft/TypeScript) v4.0.3
 - [Sequelize ORM](https://github.com/sequelize/sequelize) v6
 - Middleware Auth with [Passport](https://github.com/jaredhanson/passport)
 - [Nodemailer](https://github.com/nodemailer/nodemailer)
