@@ -7,3 +7,4 @@ build/*
 
 dist/*
 storage/*
+src/types/sequelize/index.d.ts

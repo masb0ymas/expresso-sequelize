@@ -31,7 +31,9 @@
         "tsx": "never",
         "mjs": "never"
       }
-    ]
+    ],
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-useless-constructor": "error"
   },
   "env": {
     "browser": true,
