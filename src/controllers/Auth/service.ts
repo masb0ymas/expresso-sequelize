@@ -130,7 +130,7 @@ class AuthService {
         return {
           token,
           expiresIn: expiresToken,
-          tokenType: 'JWT',
+          tokenType: 'Bearer',
         }
       }
 
