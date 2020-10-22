@@ -146,6 +146,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: ValidationOptions) => void
     ): void
+
     public static beforeValidate(
       fn: (instance: Model, options: ValidationOptions) => void
     ): void
@@ -160,6 +161,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: ValidationOptions) => void
     ): void
+
     public static afterValidate(
       fn: (instance: Model, options: ValidationOptions) => void
     ): void
@@ -174,6 +176,7 @@ declare module 'sequelize' {
       name: string,
       fn: (attributes: Model, options: CreateOptions<any>) => void
     ): void
+
     public static beforeCreate(
       fn: (attributes: Model, options: CreateOptions<any>) => void
     ): void
@@ -188,6 +191,7 @@ declare module 'sequelize' {
       name: string,
       fn: (attributes: Model, options: CreateOptions<any>) => void
     ): void
+
     public static afterCreate(
       fn: (attributes: Model, options: CreateOptions<any>) => void
     ): void
@@ -202,6 +206,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: InstanceDestroyOptions) => void
     ): void
+
     public static beforeDestroy(
       fn: (instance: Model, options: InstanceDestroyOptions) => void
     ): void
@@ -216,6 +221,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: InstanceDestroyOptions) => void
     ): void
+
     public static afterDestroy(
       fn: (instance: Model, options: InstanceDestroyOptions) => void
     ): void
@@ -230,6 +236,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: UpdateOptions<any>) => void
     ): void
+
     public static beforeUpdate(
       fn: (instance: Model, options: UpdateOptions<any>) => void
     ): void
@@ -244,6 +251,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: UpdateOptions<any>) => void
     ): void
+
     public static afterUpdate(
       fn: (instance: Model, options: UpdateOptions<any>) => void
     ): void
@@ -261,6 +269,7 @@ declare module 'sequelize' {
         options: UpdateOptions<any> | CreateOptions<any>
       ) => void
     ): void
+
     public static beforeSave(
       fn: (
         instance: Model,
@@ -281,6 +290,7 @@ declare module 'sequelize' {
         options: UpdateOptions<any> | CreateOptions<any>
       ) => void
     ): void
+
     public static afterSave(
       fn: (
         instance: Model,
@@ -298,6 +308,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instances: Model[], options: BulkCreateOptions<any>) => void
     ): void
+
     public static beforeBulkCreate(
       fn: (instances: Model[], options: BulkCreateOptions<any>) => void
     ): void
@@ -312,6 +323,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instances: Model[], options: BulkCreateOptions<any>) => void
     ): void
+
     public static afterBulkCreate(
       fn: (instances: Model[], options: BulkCreateOptions<any>) => void
     ): void
@@ -326,6 +338,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: BulkCreateOptions<any>) => void
     ): void
+
     public static beforeBulkDestroy(
       fn: (options: BulkCreateOptions<any>) => void
     ): void
@@ -340,6 +353,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: DestroyOptions<any>) => void
     ): void
+
     public static afterBulkDestroy(
       fn: (options: DestroyOptions<any>) => void
     ): void
@@ -354,6 +368,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: UpdateOptions<any>) => void
     ): void
+
     public static beforeBulkUpdate(
       fn: (options: UpdateOptions<any>) => void
     ): void
@@ -368,6 +383,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: UpdateOptions<any>) => void
     ): void
+
     public static afterBulkUpdate(
       fn: (options: UpdateOptions<any>) => void
     ): void
@@ -382,6 +398,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: FindOptions<any>) => void
     ): void
+
     public static beforeFind(fn: (options: FindOptions<any>) => void): void
 
     /**
@@ -394,6 +411,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: Config) => void
     ): void
+
     public static beforeConnect(fn: (options: Config) => void): void
 
     /**
@@ -406,6 +424,7 @@ declare module 'sequelize' {
       name: string,
       fn: (connection: unknown, options: Config) => void
     ): void
+
     public static afterConnect(
       fn: (connection: unknown, options: Config) => void
     ): void
@@ -420,6 +439,7 @@ declare module 'sequelize' {
       name: string,
       fn: (connection: unknown) => void
     ): void
+
     public static beforeDisconnect(fn: (connection: unknown) => void): void
 
     /**
@@ -432,6 +452,7 @@ declare module 'sequelize' {
       name: string,
       fn: (connection: unknown) => void
     ): void
+
     public static afterDisconnect(fn: (connection: unknown) => void): void
 
     /**
@@ -444,6 +465,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: FindOptions<any>) => void
     ): void
+
     public static beforeFindAfterExpandIncludeAll(
       fn: (options: FindOptions<any>) => void
     ): void
@@ -458,6 +480,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: FindOptions<any>) => void
     ): void
+
     public static beforeFindAfterOptions(
       fn: (options: FindOptions<any>) => void
     ): void
@@ -475,6 +498,7 @@ declare module 'sequelize' {
         options: FindOptions<any>
       ) => void
     ): void
+
     public static afterFind(
       fn: (
         instancesOrInstance: Model[] | Model | null,
@@ -495,6 +519,7 @@ declare module 'sequelize' {
         options: ModelOptions<M>
       ) => void
     ): void
+
     public static beforeDefine<M extends Model>(
       fn: (
         attributes: ModelAttributes<M, M['_creationAttributes']>,
@@ -512,6 +537,7 @@ declare module 'sequelize' {
       name: string,
       fn: (model: typeof Model) => void
     ): void
+
     public static afterDefine(fn: (model: typeof Model) => void): void
 
     /**
@@ -524,6 +550,7 @@ declare module 'sequelize' {
       name: string,
       fn: (config: Config, options: Options) => void
     ): void
+
     public static beforeInit(
       fn: (config: Config, options: Options) => void
     ): void
@@ -538,6 +565,7 @@ declare module 'sequelize' {
       name: string,
       fn: (sequelize: Sequelize) => void
     ): void
+
     public static afterInit(fn: (sequelize: Sequelize) => void): void
 
     /**
@@ -548,6 +576,7 @@ declare module 'sequelize' {
       dname: string,
       fn: (options: SyncOptions) => HookReturn
     ): void
+
     public static beforeBulkSync(fn: (options: SyncOptions) => HookReturn): void
 
     /**
@@ -558,6 +587,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: SyncOptions) => HookReturn
     ): void
+
     public static afterBulkSync(fn: (options: SyncOptions) => HookReturn): void
 
     /**
@@ -568,6 +598,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: SyncOptions) => HookReturn
     ): void
+
     public static beforeSync(fn: (options: SyncOptions) => HookReturn): void
 
     /**
@@ -578,6 +609,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: SyncOptions) => HookReturn
     ): void
+
     public static afterSync(fn: (options: SyncOptions) => HookReturn): void
 
     /**
@@ -645,7 +677,9 @@ declare module 'sequelize' {
       password?: string,
       options?: Options
     )
+
     constructor(database: string, username: string, options?: Options)
+
     constructor(options?: Options)
 
     /**
@@ -665,6 +699,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: ValidationOptions) => void
     ): void
+
     public beforeValidate(
       fn: (instance: Model, options: ValidationOptions) => void
     ): void
@@ -679,6 +714,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: ValidationOptions) => void
     ): void
+
     public afterValidate(
       fn: (instance: Model, options: ValidationOptions) => void
     ): void
@@ -693,6 +729,7 @@ declare module 'sequelize' {
       name: string,
       fn: (attributes: Model, options: CreateOptions<any>) => void
     ): void
+
     public beforeCreate(
       fn: (attributes: Model, options: CreateOptions<any>) => void
     ): void
@@ -707,6 +744,7 @@ declare module 'sequelize' {
       name: string,
       fn: (attributes: Model, options: CreateOptions<any>) => void
     ): void
+
     public afterCreate(
       fn: (attributes: Model, options: CreateOptions<any>) => void
     ): void
@@ -721,6 +759,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: InstanceDestroyOptions) => void
     ): void
+
     public beforeDestroy(
       fn: (instance: Model, options: InstanceDestroyOptions) => void
     ): void
@@ -735,6 +774,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: InstanceDestroyOptions) => void
     ): void
+
     public afterDestroy(
       fn: (instance: Model, options: InstanceDestroyOptions) => void
     ): void
@@ -749,6 +789,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: UpdateOptions<any>) => void
     ): void
+
     public beforeUpdate(
       fn: (instance: Model, options: UpdateOptions<any>) => void
     ): void
@@ -763,6 +804,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instance: Model, options: UpdateOptions<any>) => void
     ): void
+
     public afterUpdate(
       fn: (instance: Model, options: UpdateOptions<any>) => void
     ): void
@@ -777,6 +819,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instances: Model[], options: BulkCreateOptions<any>) => void
     ): void
+
     public beforeBulkCreate(
       fn: (instances: Model[], options: BulkCreateOptions<any>) => void
     ): void
@@ -791,6 +834,7 @@ declare module 'sequelize' {
       name: string,
       fn: (instances: Model[], options: BulkCreateOptions<any>) => void
     ): void
+
     public afterBulkCreate(
       fn: (instances: Model[], options: BulkCreateOptions<any>) => void
     ): void
@@ -805,6 +849,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: BulkCreateOptions<any>) => void
     ): void
+
     public beforeBulkDestroy(
       fn: (options: BulkCreateOptions<any>) => void
     ): void
@@ -819,6 +864,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: DestroyOptions<any>) => void
     ): void
+
     public afterBulkDestroy(fn: (options: DestroyOptions<any>) => void): void
 
     /**
@@ -831,6 +877,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: UpdateOptions<any>) => void
     ): void
+
     public beforeBulkUpdate(fn: (options: UpdateOptions<any>) => void): void
 
     /**
@@ -843,6 +890,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: UpdateOptions<any>) => void
     ): void
+
     public afterBulkUpdate(fn: (options: UpdateOptions<any>) => void): void
 
     /**
@@ -855,6 +903,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: FindOptions<any>) => void
     ): void
+
     public beforeFind(fn: (options: FindOptions<any>) => void): void
 
     /**
@@ -867,6 +916,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: FindOptions<any>) => void
     ): void
+
     public beforeFindAfterExpandIncludeAll(
       fn: (options: FindOptions<any>) => void
     ): void
@@ -881,6 +931,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: FindOptions<any>) => void
     ): void
+
     public beforeFindAfterOptions(fn: (options: FindOptions<any>) => void): void
 
     /**
@@ -896,6 +947,7 @@ declare module 'sequelize' {
         options: FindOptions<any>
       ) => void
     ): void
+
     public afterFind(
       fn: (
         instancesOrInstance: Model[] | Model | null,
@@ -916,6 +968,7 @@ declare module 'sequelize' {
         options: ModelOptions
       ) => void
     ): void
+
     public beforeDefine(
       fn: (
         attributes: ModelAttributes<Model, any>,
@@ -930,6 +983,7 @@ declare module 'sequelize' {
      * @param fn   A callback function that is called with factory
      */
     public afterDefine(name: string, fn: (model: typeof Model) => void): void
+
     public afterDefine(fn: (model: typeof Model) => void): void
 
     /**
@@ -942,6 +996,7 @@ declare module 'sequelize' {
       name: string,
       fn: (config: Config, options: Options) => void
     ): void
+
     public beforeInit(fn: (config: Config, options: Options) => void): void
 
     /**
@@ -951,6 +1006,7 @@ declare module 'sequelize' {
      * @param fn   A callback function that is called with sequelize
      */
     public afterInit(name: string, fn: (sequelize: Sequelize) => void): void
+
     public afterInit(fn: (sequelize: Sequelize) => void): void
 
     /**
@@ -961,6 +1017,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: SyncOptions) => HookReturn
     ): void
+
     public beforeBulkSync(fn: (options: SyncOptions) => HookReturn): void
 
     /**
@@ -971,6 +1028,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: SyncOptions) => HookReturn
     ): void
+
     public afterBulkSync(fn: (options: SyncOptions) => HookReturn): void
 
     /**
@@ -981,6 +1039,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: SyncOptions) => HookReturn
     ): void
+
     public beforeSync(fn: (options: SyncOptions) => HookReturn): void
 
     /**
@@ -991,6 +1050,7 @@ declare module 'sequelize' {
       name: string,
       fn: (options: SyncOptions) => HookReturn
     ): void
+
     public afterSync(fn: (options: SyncOptions) => HookReturn): void
 
     /**
@@ -1066,52 +1126,64 @@ declare module 'sequelize' {
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.UPDATE>
     ): Promise<[undefined, number]>
+
     public query(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.BULKUPDATE>
     ): Promise<number>
+
     public query(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.INSERT>
     ): Promise<[number, number]>
+
     public query(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.UPSERT>
     ): Promise<number>
+
     public query(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.DELETE>
     ): Promise<void>
+
     public query(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.BULKDELETE>
     ): Promise<number>
+
     public query(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.SHOWTABLES>
     ): Promise<string[]>
+
     public query(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.DESCRIBE>
     ): Promise<ColumnsDescription>
+
     public query<M extends Model>(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithModel<M>
     ): Promise<M[]>
+
     public query<T extends object>(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.SELECT> & { plain: true }
     ): Promise<T>
+
     public query<T extends object>(
       sql: string | { query: string; values: unknown[] },
       options: QueryOptionsWithType<QueryTypes.SELECT>
     ): Promise<T[]>
+
     public query(
       sql: string | { query: string; values: unknown[] },
       options: (QueryOptions | QueryOptionsWithType<QueryTypes.RAW>) & {
         plain: true
       }
     ): Promise<{ [key: string]: unknown }>
+
     public query(
       sql: string | { query: string; values: unknown[] },
       options?: QueryOptions | QueryOptionsWithType<QueryTypes.RAW>
@@ -1217,6 +1289,7 @@ declare module 'sequelize' {
      * @param options Query Options for authentication
      */
     public authenticate(options?: QueryOptions): Promise<void>
+
     public validate(options?: QueryOptions): Promise<void>
 
     /**
@@ -1270,9 +1343,11 @@ declare module 'sequelize' {
       options: TransactionOptions,
       autoCallback: (t: Transaction) => PromiseLike<T>
     ): Promise<T>
+
     public transaction<T>(
       autoCallback: (t: Transaction) => PromiseLike<T>
     ): Promise<T>
+
     public transaction(options?: TransactionOptions): Promise<Transaction>
 
     /**
