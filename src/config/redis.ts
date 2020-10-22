@@ -1,14 +1,20 @@
-import redis from 'redis'
+import { isEmpty } from 'lodash'
+import redis, { ClientOpts } from 'redis'
 
 require('dotenv').config()
 
 const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env
 
-const client = redis.createClient({
+const optionConfigs: ClientOpts = {
   host: REDIS_HOST,
   port: Number(REDIS_PORT),
-  password: REDIS_PASSWORD,
-})
+}
+
+if (!isEmpty(REDIS_PASSWORD)) {
+  optionConfigs.password = REDIS_PASSWORD
+}
+
+const client = redis.createClient(optionConfigs)
 
 client.on('connect', function () {
   console.log('Redis client connected')
