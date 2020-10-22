@@ -29,18 +29,6 @@ export interface LoginAttributes {
   password: string
 }
 
-function setUserPassword(instance: UserInstance) {
-  const { newPassword, confirmNewPassword } = instance
-  const fdPassword = { newPassword, confirmNewPassword }
-  const validPassword = schemaUser.createPassword.validateSyncAt(
-    'confirmNewPassword',
-    fdPassword
-  )
-  const saltRounds = 10
-  const hash = bcrypt.hashSync(validPassword, saltRounds)
-  instance.setDataValue('password', hash)
-}
-
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 interface UserInstance
@@ -61,17 +49,6 @@ const User = db.sequelize.define<UserInstance>(
     },
   },
   {
-    hooks: {
-      beforeCreate(instance: UserInstance) {
-        setUserPassword(instance)
-      },
-      beforeUpdate(instance: UserInstance) {
-        const { newPassword, confirmNewPassword } = instance
-        if (newPassword || confirmNewPassword) {
-          setUserPassword(instance)
-        }
-      },
-    },
     defaultScope: {
       attributes: {
         exclude: ['password', 'tokenVerify'],
@@ -82,6 +59,26 @@ const User = db.sequelize.define<UserInstance>(
     },
   }
 )
+
+function setUserPassword(instance: UserInstance) {
+  const { newPassword, confirmNewPassword } = instance
+  const fdPassword = { newPassword, confirmNewPassword }
+  const validPassword = schemaUser.createPassword.validateSyncAt(
+    'confirmNewPassword',
+    fdPassword
+  )
+  const saltRounds = 10
+  const hash = bcrypt.hashSync(validPassword, saltRounds)
+  instance.setDataValue('password', hash)
+}
+
+User.addHook('beforeCreate', setUserPassword)
+User.addHook('beforeUpdate', (instance: UserInstance) => {
+  const { newPassword, confirmNewPassword } = instance
+  if (newPassword || confirmNewPassword) {
+    setUserPassword(instance)
+  }
+})
 
 // Compare password
 User.prototype.comparePassword = function (candidatePassword: string) {
