@@ -1,5 +1,11 @@
 #!/usr/bin/env node
+import fs from 'fs'
 
+if (!fs.existsSync('./.env')) {
+  throw new Error(
+    'Missing env!!!\nCopy/rename ".env.example" root directory to ".env"'
+  )
+}
 /**
  * Module dependencies.
  */
