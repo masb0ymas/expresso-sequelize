@@ -18,21 +18,20 @@
 
 ## Prerequisites
 
-- npm >= 6.10.0
-- node >= 10.x
-- eslint >= 6.7.2
+- npm >= `6.10.0`
+- node >= `10.x`
+- eslint `v7.11.0`
 - Familiar with TypeScript 💪
 
 ## Feature
 
-- [TypeScript](https://github.com/microsoft/TypeScript) v4.0.3
-- [Sequelize ORM](https://github.com/sequelize/sequelize) v6
-- Middleware Auth with [Passport](https://github.com/jaredhanson/passport)
+- [TypeScript](https://github.com/microsoft/TypeScript) `v4.0.3`
+- [Sequelize ORM](https://github.com/sequelize/sequelize) `v6`
 - [Nodemailer](https://github.com/nodemailer/nodemailer)
 - [Handlebars](https://github.com/wycats/handlebars.js) for templating HTML
 - [Yup](https://github.com/jquense/yup) for validation schema
 - JavaScript Style [Airbnb Base](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base)
-- Formating code using [Prettier](https://github.com/prettier/prettier) Integration [Eslint](https://github.com/prettier/eslint-config-prettier)
+- Formating code using [Prettier](https://github.com/prettier/prettier) Integration [Eslint](https://github.com/prettier/eslint-config-prettier) and [TypeScript Eslint](https://github.com/typescript-eslint/typescript-eslint#readme)
 - Using [Babel Resolver](https://github.com/tleunen/babel-plugin-module-resolver) for simplify the require/import paths
 - Documentation with [Swagger](https://github.com/swagger-api/swagger-ui)
 
@@ -51,15 +50,24 @@ yarn run start
 ## Type Checking
 
 ```sh
-yarn run type-check
-or
-yarn run type-check:watch
+yarn run type-check || yarn run type-check:watch
 ```
 
 ## Build
 
 ```sh
 yarn run build
+```
+
+## Using Sequelize
+
+After cloning this repo, make sure you have duplicated the .env.example file to .env, don't let the .env.example file be deleted or renamed.
+
+then after that you can adjust the database config in `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
+now you can run this command :
+
+```sh
+yarn db:reset
 ```
 
 ## Usage Production
@@ -81,12 +89,12 @@ Adjust the config in .env like this:
 ```sh
 ...
 
-PORT=7000
+PORT=7000 # change this port according to your needs
 
 ...
 
 DB_CONNECTION=mysql
-DB_HOST=172.16.235.11
+DB_HOST=db # access to service db in docker
 DB_PORT=3306
 DB_DATABASE=example
 DB_USERNAME=your_username
@@ -97,7 +105,7 @@ DB_TIMEZONE=+07:00
 ...
 
 PROD_DB_CONNECTION=mysql
-PROD_DB_HOST=172.16.235.11
+PROD_DB_HOST=db
 PROD_DB_PORT=3306
 PROD_DB_DATABASE=example
 PROD_DB_USERNAME=your_username
@@ -109,14 +117,14 @@ PROD_DB_TIMEZONE=+07:00
 
 REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=your_password
-REDIS_PORT=6380 // Default: 6379
+REDIS_PORT=6380 # Default: 6379
 ```
 
 `container_name` in each service is customizable.
 
-`PORT=...` If you want to use a port other than 7000, you must also change the port in the services `app`
+`PORT=...` If you want to use a port other than `7000`, you must also change the port in the services `app`
 
-```yml
+```yaml
 services:
   app:
     build:
@@ -127,12 +135,12 @@ services:
       - redis
     restart: always
     ports:
-      - '7000:7000' // change this port
+      - '7000:7000'
 ```
 
 `DB_HOST=..`. must be accessed using IPv4 Docker Network services `db`.
 
-```yml
+```yaml
 db:
   image: mariadb
   container_name: express_db
@@ -147,8 +155,7 @@ db:
   ports:
     - '3307:3306'
   networks:
-    private_network:
-      ipv4_address: 172.16.235.11 // use this host
+    - express_network
 ```
 
 After all the above configuration is adjusted, you can run it with the command:
