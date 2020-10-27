@@ -16,7 +16,7 @@ import { UserAttributes, LoginAttributes, TokenAttributes } from 'models/user'
 const { User, Role } = models
 
 const { JWT_SECRET }: any = process.env
-const expiresToken = 24 * 60 * 60 // 1 Days
+const expiresToken = 7 * 24 * 60 * 60 // 7 Days
 
 /*
   Create the main directory
