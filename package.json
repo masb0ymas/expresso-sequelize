@@ -43,7 +43,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
-    "googleapis": "^61.0.0",
+    "googleapis": "^62.0.0",
     "handlebars": "^4.7.6",
     "helmet": "^4.1.1",
     "http-errors": "^1.8.0",
