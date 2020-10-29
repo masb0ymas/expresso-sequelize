@@ -88,7 +88,7 @@
     "@types/helmet": "^4.0.0",
     "@types/http-errors": "^1.8.0",
     "@types/jsonwebtoken": "^8.5.0",
-    "@types/lodash": "^4.14.162",
+    "@types/lodash": "^4.14.163",
     "@types/multer": "^1.4.4",
     "@types/node": "^14.14.2",
     "@types/nodemailer": "^6.4.0",
