@@ -4,15 +4,18 @@ import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import { currentToken, verifyToken } from 'helpers/Token'
 import Authorization from 'middlewares/Authorization'
+import ResponseSuccess from 'modules/Response/ResponseSuccess'
 import AuthService from './service'
 
 routes.post(
   '/auth/sign-up',
   asyncHandler(async function signUp(req: Request, res: Response) {
     const formData = req.getBody()
-    const { message, data } = await AuthService.signUp(formData)
 
-    return res.status(201).json({ message, data })
+    const { message, data } = await AuthService.signUp(formData)
+    const buildResponse = ResponseSuccess.get(message)
+
+    return res.status(201).json({ ...buildResponse, data })
   })
 )
 
@@ -39,9 +42,11 @@ routes.get(
   asyncHandler(async function getProfile(req: Request, res: Response) {
     const getToken = currentToken(req)
     const token = verifyToken(getToken)
+
     // @ts-ignore
     const data = await AuthService.profile(token)
+    const buildResponse = ResponseSuccess.get()
 
-    return res.status(200).json({ data })
+    return res.status(200).json({ ...buildResponse, data })
   })
 )
