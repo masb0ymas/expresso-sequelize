@@ -9,6 +9,7 @@ async function Authorization(req: Request, res: Response, next: NextFunction) {
 
   if (isEmpty(token?.data)) {
     return res.status(401).json({
+      code: 401,
       message: token?.message,
     })
   }
