@@ -18,15 +18,15 @@
 
 ## Prerequisites
 
-- npm >= `6.10.0`
-- node >= `10.x`
-- eslint `v7.11.0`
+- npm >= `v6.x`
+- node >= `v10.x`
+- eslint `v7.x`
 - Familiar with TypeScript 💪
 
 ## Feature
 
-- [TypeScript](https://github.com/microsoft/TypeScript) `v4.0.3`
-- [Sequelize ORM](https://github.com/sequelize/sequelize) `v6`
+- [TypeScript](https://github.com/microsoft/TypeScript) `v4.x`
+- [Sequelize ORM](https://github.com/sequelize/sequelize) `v6.x`
 - [Nodemailer](https://github.com/nodemailer/nodemailer)
 - [Handlebars](https://github.com/wycats/handlebars.js) for templating HTML
 - [Yup](https://github.com/jquense/yup) for validation schema
