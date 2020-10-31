@@ -2,12 +2,13 @@
 /* eslint-disable no-param-reassign */
 import models from 'models'
 import db from 'models/_instance'
-import ResponseError from 'modules/ResponseError'
+import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { UserAttributes } from 'models/user'
 import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
+import ResponseSuccess from 'modules/Response/ResponseSuccess'
 import schema from './schema'
 
 const { Sequelize } = db
@@ -37,7 +38,7 @@ class UserService {
       where: queryFind.where,
     })
 
-    return { data, total }
+    return { message: `${total} data has been received.`, data, total }
   }
 
   /**
@@ -83,11 +84,7 @@ class UserService {
       listUserRole.push(dataUserRole)
     }
 
-    return {
-      message: 'Data sudah ditambahkan!',
-      data: dataUser,
-      dataUserRole: listUserRole,
-    }
+    return dataUser
   }
 
   /**
@@ -133,11 +130,7 @@ class UserService {
 
     await data.update(value || {}, { transaction: txn })
 
-    return {
-      message: 'Data berhasil diperbarui!',
-      data,
-      dataUserRole: listUserRole,
-    }
+    return data
   }
 
   /**
@@ -157,9 +150,7 @@ class UserService {
 
     await data.destroy()
 
-    return {
-      message: 'Data berhasil dihapus!',
-    }
+    return ResponseSuccess.deleted()
   }
 }
 
