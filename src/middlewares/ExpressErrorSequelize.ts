@@ -21,6 +21,7 @@ async function ExpressErrorSequelize(
   if (err instanceof BaseError) {
     if (err instanceof EmptyResultError) {
       return res.status(404).json({
+        code: 404,
         message: msg('Data not found'),
       })
     }
@@ -31,6 +32,7 @@ async function ExpressErrorSequelize(
       const errorMessage = get(errors, '0.message', null)
 
       const dataError = {
+        code: 400,
         message: errorMessage
           ? `Validation error: ${errorMessage}`
           : err.message,
@@ -46,6 +48,7 @@ async function ExpressErrorSequelize(
     }
 
     return res.status(500).json({
+      code: 500,
       message: msg(err.message),
     })
   }

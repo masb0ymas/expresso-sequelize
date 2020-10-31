@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 import { NextFunction, Request, Response } from 'express'
-import ResponseError from 'modules/ResponseError'
+import ResponseError from 'modules/Response/ResponseError'
 import { isObject } from 'lodash'
 
-function generateErrorResponseError(e: Error) {
-  return isObject(e.message) ? e.message : { message: e.message }
+function generateErrorResponseError(e: Error, code: Number) {
+  return isObject(e.message) ? e.message : { code, message: e.message }
 }
 
 async function ExpressErrorResponse(
@@ -14,7 +14,9 @@ async function ExpressErrorResponse(
   next: NextFunction
 ) {
   if (err instanceof ResponseError.BaseResponse) {
-    return res.status(err.statusCode).json(generateErrorResponseError(err))
+    return res
+      .status(err.statusCode)
+      .json(generateErrorResponseError(err, err.statusCode))
   }
 
   next(err)

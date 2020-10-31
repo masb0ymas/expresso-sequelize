@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import models from 'models'
-import ResponseError from 'modules/ResponseError'
+import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { RoleAttributes } from 'models/role'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
+import ResponseSuccess from 'modules/Response/ResponseSuccess'
 import schema from './schema'
 
 const { Role } = models
@@ -28,7 +29,7 @@ class RoleService {
       where: queryFind.where,
     })
 
-    return { data, total }
+    return { message: `${total} data has been received.`, data, total }
   }
 
   /**
@@ -53,7 +54,7 @@ class RoleService {
     const value = useValidation(schema.create, formData)
     const data = await Role.create(value)
 
-    return { message: 'Data sudah ditambahkan!', data }
+    return data
   }
 
   /**
@@ -69,7 +70,7 @@ class RoleService {
 
     await data.update(value || {})
 
-    return { message: 'Data berhasil diperbarui!', data }
+    return data
   }
 
   /**
@@ -79,7 +80,7 @@ class RoleService {
     const data = await this.getOne(id)
     await data.destroy()
 
-    return { message: 'Data berhasil dihapus!' }
+    return ResponseSuccess.deleted()
   }
 }
 

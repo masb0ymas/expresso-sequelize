@@ -3,8 +3,9 @@
 import { Request, Express } from 'express'
 import { set, get } from 'lodash'
 import { Transaction } from 'sequelize'
-import db from '../models/_instance'
+import db from 'models/_instance'
 import getterObject from './getterObject'
+import Multers from './Multer'
 
 class withState {
   private req: Request
@@ -23,6 +24,7 @@ class withState {
     this.req.getSingleArrayFile = this.getSingleArrayFile.bind(this)
     this.req.getTransaction = this.getTransaction.bind(this)
     this.req.rollbackTransactions = this.rollbackTransactions.bind(this)
+    this.req.pickSingleFieldMulter = this.pickSingleFieldMulter.bind(this)
     this.req._transaction = {}
   }
 
@@ -74,7 +76,7 @@ class withState {
       ['files', name, '0'].join('.')
     ) as unknown) as Express.Multer.File
     if (data) {
-      return data.filename
+      return data
     }
   }
 
@@ -100,6 +102,10 @@ class withState {
       await value.rollback()
       delete _transaction[id]
     }
+  }
+
+  pickSingleFieldMulter(fields: string[]) {
+    return Multers.pickSingleFieldMulter(this.req, fields)
   }
 }
 

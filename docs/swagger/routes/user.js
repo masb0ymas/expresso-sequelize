@@ -69,7 +69,7 @@ module.exports = {
         },
       },
       responses: {
-        200: {
+        201: {
           description: 'Create New User',
         },
       },
