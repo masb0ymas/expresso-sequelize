@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
+import ResponseSuccess from 'modules/Response/ResponseSuccess'
 import UserService from './service'
 
 const { APP_KEY_REDIS } = process.env
@@ -13,8 +14,10 @@ routes.get(
   '/user',
   Authorization,
   asyncHandler(async function getAll(req: Request, res: Response) {
-    const { data, total } = await UserService.getAll(req)
-    return res.status(200).json({ data, total })
+    const { message, data, total } = await UserService.getAll(req)
+    const buildResponse = ResponseSuccess.get(message)
+
+    return res.status(200).json({ ...buildResponse, data, total })
   })
 )
 
@@ -23,9 +26,11 @@ routes.get(
   Authorization,
   asyncHandler(async function getOne(req: Request, res: Response) {
     const { id } = req.getParams()
-    const data = await UserService.getOne(id)
 
-    return res.status(200).json({ data })
+    const data = await UserService.getOne(id)
+    const buildResponse = ResponseSuccess.get()
+
+    return res.status(200).json({ ...buildResponse, data })
   })
 )
 
@@ -36,13 +41,11 @@ routes.post(
     const txn = await req.getTransaction()
     const formData = req.getBody()
 
-    const { message, data, dataUserRole } = await UserService.create(
-      formData,
-      txn
-    )
+    const data = await UserService.create(formData, txn)
+    const buildResponse = ResponseSuccess.created()
 
     await txn.commit()
-    return res.status(201).json({ message, data, dataUserRole })
+    return res.status(201).json({ ...buildResponse, data })
   })
 )
 
@@ -54,14 +57,11 @@ routes.put(
     const formData = req.getBody()
     const { id } = req.getParams()
 
-    const { message, data, dataUserRole } = await UserService.update(
-      id,
-      formData,
-      txn
-    )
+    const data = await UserService.update(id, formData, txn)
+    const buildResponse = ResponseSuccess.updated()
 
     await txn.commit()
-    return res.status(200).json({ message, data, dataUserRole })
+    return res.status(200).json({ ...buildResponse, data })
   })
 )
 
@@ -70,8 +70,8 @@ routes.delete(
   Authorization,
   asyncHandler(async function deleteData(req: Request, res: Response) {
     const { id } = req.getParams()
-    const { message } = await UserService.delete(id)
+    const { code, message } = await UserService.delete(id)
 
-    return res.status(200).json({ message })
+    return res.status(200).json({ code, message })
   })
 )

@@ -11,6 +11,7 @@ async function ExpressErrorYup(
   if (err instanceof ValidationError) {
     console.log('ERROR YUP VALIDATION!!!')
     const error = {
+      code: 422,
       message: err.errors.join('<br/>') || 'Yup Validation Error !',
       errors:
         err.inner.length > 0

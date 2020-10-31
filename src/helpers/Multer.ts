@@ -2,7 +2,7 @@
 import { pickBy } from 'lodash'
 import { Request } from 'express'
 
-function pickSingelFieldMulter(req: Request, fields: string[]) {
+function pickSingleFieldMulter(req: Request, fields: string[]) {
   return pickBy(
     fields.reduce<any>((acc, field) => {
       acc[field] = req.getSingleArrayFile(field)
@@ -15,7 +15,7 @@ function pickSingelFieldMulter(req: Request, fields: string[]) {
 }
 
 const Multers = {
-  pickSingelFieldMulter,
+  pickSingleFieldMulter,
 }
 
 export default Multers
