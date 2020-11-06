@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
-import ResponseSuccess from 'modules/Response/ResponseSuccess'
+import ResponseSuccess from 'modules/Response/BuildResponse'
 import RoleService from './service'
 
 const { APP_KEY_REDIS } = process.env
@@ -14,9 +14,9 @@ routes.get(
   '/role',
   asyncHandler(async function getAll(req: Request, res: Response) {
     const { message, data, total } = await RoleService.getAll(req)
-    const buildResponse = ResponseSuccess.get(message)
+    const buildResponse = ResponseSuccess.get({ message, data, total })
 
-    return res.status(200).json({ ...buildResponse, data, total })
+    return res.status(200).json(buildResponse)
   })
 )
 
@@ -26,9 +26,9 @@ routes.get(
     const { id } = req.getParams()
 
     const data = await RoleService.getOne(id)
-    const buildResponse = ResponseSuccess.get()
+    const buildResponse = ResponseSuccess.get({ data })
 
-    return res.status(200).json({ ...buildResponse, data })
+    return res.status(200).json(buildResponse)
   })
 )
 
@@ -39,9 +39,9 @@ routes.post(
     const formData = req.getBody()
 
     const data = await RoleService.create(formData)
-    const buildResponse = ResponseSuccess.created()
+    const buildResponse = ResponseSuccess.created({ data })
 
-    return res.status(201).json({ ...buildResponse, data })
+    return res.status(201).json(buildResponse)
   })
 )
 
@@ -53,9 +53,9 @@ routes.put(
     const formData = req.getBody()
 
     const data = await RoleService.update(id, formData)
-    const buildResponse = ResponseSuccess.updated()
+    const buildResponse = ResponseSuccess.updated({ data })
 
-    return res.status(200).json({ ...buildResponse, data })
+    return res.status(200).json(buildResponse)
   })
 )
 
