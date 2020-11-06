@@ -64,8 +64,10 @@ routes.delete(
   Authorization,
   asyncHandler(async function deleteData(req: Request, res: Response) {
     const { id } = req.getParams()
-    const { code, message } = await RoleService.delete(id)
 
-    return res.status(200).json({ code, message })
+    await RoleService.delete(id)
+    const buildResponse = BuildResponse.deleted({})
+
+    return res.status(200).json(buildResponse)
   })
 )

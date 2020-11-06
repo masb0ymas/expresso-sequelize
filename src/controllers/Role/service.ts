@@ -4,7 +4,6 @@ import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { RoleAttributes } from 'models/role'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
-import BuildResponse from 'modules/Response/BuildResponse'
 import schema from './schema'
 
 const { Role } = models
@@ -79,8 +78,6 @@ class RoleService {
   public static async delete(id: string) {
     const data = await this.getOne(id)
     await data.destroy()
-
-    return BuildResponse.deleted({})
   }
 }
 
