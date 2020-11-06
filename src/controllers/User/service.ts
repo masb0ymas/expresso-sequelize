@@ -149,8 +149,6 @@ class UserService {
     })
 
     await data.destroy()
-
-    return BuildResponse.deleted({})
   }
 }
 
