@@ -1539,28 +1539,28 @@
   resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.29.9.tgz#e2015187ae5739fd3b791b3b7ab9094f2aa5a474"
   integrity sha512-ZtjjlrHuHTYctHDz3c8XgInjj0v+Hahe32N/4cDa2banibf9w6aAgxwx0jZtBjKKzmGIU4NXhofEsBW1BbqrNg==
 
-"@typescript-eslint/eslint-plugin@^4.6.0":
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.6.0.tgz#210cd538bb703f883aff81d3996961f5dba31fdb"
-  integrity sha512-1+419X+Ynijytr1iWI+/IcX/kJryc78YNpdaXR1aRO1sU3bC0vZrIAF1tIX7rudVI84W7o7M4zo5p1aVt70fAg==
+"@typescript-eslint/eslint-plugin@^4.6.1":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.6.1.tgz#99d77eb7a016fd5a5e749d2c44a7e4c317eb7da3"
+  integrity sha512-SNZyflefTMK2JyrPfFFzzoy2asLmZvZJ6+/L5cIqg4HfKGiW2Gr1Go1OyEVqne/U4QwmoasuMwppoBHWBWF2nA==
   dependencies:
-    "@typescript-eslint/experimental-utils" "4.6.0"
-    "@typescript-eslint/scope-manager" "4.6.0"
+    "@typescript-eslint/experimental-utils" "4.6.1"
+    "@typescript-eslint/scope-manager" "4.6.1"
     debug "^4.1.1"
     functional-red-black-tree "^1.0.1"
     regexpp "^3.0.0"
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@4.6.0":
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-4.6.0.tgz#f750aef4dd8e5970b5c36084f0a5ca2f0db309a4"
-  integrity sha512-pnh6Beh2/4xjJVNL+keP49DFHk3orDHHFylSp3WEjtgW3y1U+6l+jNnJrGlbs6qhAz5z96aFmmbUyKhunXKvKw==
+"@typescript-eslint/experimental-utils@4.6.1":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-4.6.1.tgz#a9c691dfd530a9570274fe68907c24c07a06c4aa"
+  integrity sha512-qyPqCFWlHZXkEBoV56UxHSoXW2qnTr4JrWVXOh3soBP3q0o7p4pUEMfInDwIa0dB/ypdtm7gLOS0hg0a73ijfg==
   dependencies:
     "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/scope-manager" "4.6.0"
-    "@typescript-eslint/types" "4.6.0"
-    "@typescript-eslint/typescript-estree" "4.6.0"
+    "@typescript-eslint/scope-manager" "4.6.1"
+    "@typescript-eslint/types" "4.6.1"
+    "@typescript-eslint/typescript-estree" "4.6.1"
     eslint-scope "^5.0.0"
     eslint-utils "^2.0.0"
 
@@ -2482,10 +2482,10 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-6.1.0.tgz#f8d722b78103141006b66f4c7ba1e97315ba75bc"
-  integrity sha512-wl7PNrYWd2y5mp1OK/LhTlv8Ff4kQJQRXXAvF+uU/TPNiVJUxZLRYGj/B0y/lPGAVcSbJqH2Za/cvHmrPMC8mA==
+commander@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.0.tgz#b990bfb8ac030aedc6d11bc04d1488ffef56db75"
+  integrity sha512-zP4jEKbe8SHzKJYQmq8Y9gYjtO/POJLgIdKgV7B9qNmABVFVc+ctqSX6iXh4mCpJfRBOabiZ2YKPg8ciDw6C+Q==
 
 commander@^2.19.0, commander@^2.7.1:
   version "2.20.3"
@@ -4114,10 +4114,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-helmet@*, helmet@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/helmet/-/helmet-4.1.1.tgz#751f0e273d809ace9c172073e0003bed27d27a4a"
-  integrity sha512-Avg4XxSBrehD94mkRwEljnO+6RZx7AGfk8Wa6K1nxaU+hbXlFOhlOIMgPfFqOYQB/dBCsTpootTGuiOG+CHiQA==
+helmet@*, helmet@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-4.2.0.tgz#e81f5613cc1c90402af581794dc9878ad078b237"
+  integrity sha512-aoiSxXMd0ks1ojYpSCFoCRzgv4rY/uB9jKStaw8PkXwsdLYa/Gq+Nc5l0soH0cwBIsLAlujPnx4HLQs+LaXCrQ==
 
 homedir-polyfill@^1.0.1:
   version "1.0.3"
@@ -7798,12 +7798,12 @@ supports-hyperlinks@^2.0.0:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
 
-swagger-jsdoc@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/swagger-jsdoc/-/swagger-jsdoc-4.3.1.tgz#cce73c64fb3fcca11903f4f694bce92f02dbcf6c"
-  integrity sha512-oRp8uQEWQPnH/WSWgbZYJpsWEYF62V2rQiTHSUGo8x07E0cJYffXu5z1lCKx/PpBoJzrui1xeuqRX6OzhDxZtA==
+swagger-jsdoc@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/swagger-jsdoc/-/swagger-jsdoc-5.0.0.tgz#55e4202a65e57dbf9be9db932a70aeefa86ab3b6"
+  integrity sha512-UfYggllqmXh3Ocawy3xPXRmx/yvCOX9K7IAGuAmTTlFH9aa4RlRS0DxxOX6uXJmJN5+P45WixdMVtLDJ98qLjw==
   dependencies:
-    commander "6.1.0"
+    commander "6.2.0"
     doctrine "3.0.0"
     glob "7.1.6"
     js-yaml "3.14.0"

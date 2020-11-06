@@ -8,7 +8,6 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import indexRouter from 'routes'
 import withState from 'helpers/withState'
-import models from 'models/_instance'
 import ExpressErrorYup from 'middlewares/ExpressErrorYup'
 import ExpressErrorResponse from 'middlewares/ExpressErrorResponse'
 import ExpressErrorSequelize from 'middlewares/ExpressErrorSequelize'
@@ -37,16 +36,6 @@ app.use((req: Request, res, next) => {
 
 // Initial Docs Swagger
 GenerateDoc(app)
-
-// Initial DB
-models.sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.')
-  })
-  .catch((err: any) => {
-    console.error('Unable to connect to the database:', err)
-  })
 
 // Initial Route
 app.use(indexRouter)

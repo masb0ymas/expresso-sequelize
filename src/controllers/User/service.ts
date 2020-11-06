@@ -8,7 +8,7 @@ import { UserAttributes } from 'models/user'
 import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
-import ResponseSuccess from 'modules/Response/ResponseSuccess'
+import BuildResponse from 'modules/Response/BuildResponse'
 import schema from './schema'
 
 const { Sequelize } = db
@@ -150,7 +150,7 @@ class UserService {
 
     await data.destroy()
 
-    return ResponseSuccess.deleted()
+    return BuildResponse.deleted({})
   }
 }
 
