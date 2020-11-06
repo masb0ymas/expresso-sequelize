@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios, { AxiosInstance } from 'axios'
 
-class fetchAPI {
+class FetchApi {
   private axiosDefault: AxiosInstance
 
   private baseUri: string
@@ -24,4 +24,4 @@ class fetchAPI {
   }
 }
 
-export default fetchAPI
+export default FetchApi
