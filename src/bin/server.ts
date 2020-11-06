@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'fs'
 import path from 'path'
+import models from 'models/_instance'
 
 const pathEnv = path.resolve('.env')
 
@@ -19,6 +20,18 @@ require('@babel/register')({ extensions: ['.js', '.ts'] })
 const http = require('http')
 const debug = require('debug')('boilerplate-express-typescript:server')
 const app = require('../app')
+
+/**
+ * Initial Connection Database
+ */
+models.sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.')
+  })
+  .catch((err: any) => {
+    console.error('Unable to connect to the database:', err)
+  })
 
 /**
  * Normalize a port into a number, string, or false.
