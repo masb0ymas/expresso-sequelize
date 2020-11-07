@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
 import fs from 'fs'
-import db from 'models/_instance'
 
-const { Sequelize } = db
-const { Op } = Sequelize
 const invalidValues = [null, undefined, '', false, 0]
 
 // Generate Unique Code ( default length 32 )
