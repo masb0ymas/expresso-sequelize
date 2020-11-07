@@ -20,8 +20,8 @@ const expiresToken = 7 * 24 * 60 * 60 // 7 Days
 
 /*
   Create the main directory
-  direktori akan dibikin otomatis ketika login,
-  karna direktori ada yang menggunakan User ID
+  The directory will be created automatically when logged in,
+  because there is a directory that uses a User ID
 */
 async function createDirectory(UserId: string) {
   const pathDirectory = [
@@ -75,7 +75,7 @@ class AuthService {
 
     readHTMLFile(pathTemplate, (error: Error, html: any) => {
       if (error) {
-        throw new ResponseError.NotFound('Email Template tidak ditemukan!')
+        throw new ResponseError.NotFound('email template not found')
       }
 
       const template = handlebars.compile(html)
@@ -85,7 +85,7 @@ class AuthService {
 
     return {
       message:
-        'Registrasi berhasil, Check email Anda untuk langkah selanjutnya!',
+        'registration is successful, check your email for the next steps',
       data,
     }
   }
@@ -100,7 +100,7 @@ class AuthService {
     })
 
     if (!userData) {
-      throw new ResponseError.NotFound('Data tidak ditemukan!')
+      throw new ResponseError.NotFound('data not found or has been deleted')
     }
 
     /* User active proses login */
@@ -134,12 +134,12 @@ class AuthService {
         }
       }
 
-      throw new ResponseError.BadRequest('Email atau password salah!')
+      throw new ResponseError.BadRequest('incorrect email or password!')
     }
 
     /* User not active return error confirm email */
     throw new ResponseError.BadRequest(
-      'Please check your email account to verify your email and continue the registration process.'
+      'please check your email account to verify your email and continue the registration process.'
     )
   }
 
