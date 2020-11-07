@@ -1,21 +1,14 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-param-reassign */
 import models from 'models'
-import db from 'models/_instance'
 import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { UserAttributes } from 'models/user'
 import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
-import BuildResponse from 'modules/Response/BuildResponse'
 import schema from './schema'
 
-const { Sequelize } = db
-const { Op } = Sequelize
-
-const { User, Role, UserRole } = models
-const including = [{ model: Role }]
+const { User, UserRole } = models
+const including = [{ model: UserRole }]
 
 class UserService {
   /**
@@ -50,9 +43,7 @@ class UserService {
     })
 
     if (!data) {
-      throw new ResponseError.NotFound(
-        'Data tidak ditemukan atau sudah terhapus!'
-      )
+      throw new ResponseError.NotFound('data not found or has been deleted')
     }
 
     return data
@@ -102,14 +93,7 @@ class UserService {
     const arrayRoles = Array.isArray(Roles) ? Roles : JSON.parse(Roles)
 
     // Destroy data not in UserRole
-    await UserRole.destroy({
-      where: {
-        UserId: id,
-        RoleId: {
-          [Op.notIn]: arrayRoles,
-        },
-      },
-    })
+    await UserRoleService.deleteNotInRoleId(id, arrayRoles)
 
     const listUserRole = []
     for (let i = 0; i < arrayRoles.length; i += 1) {
@@ -139,15 +123,7 @@ class UserService {
   public static async delete(id: string) {
     const data = await this.getOne(id)
 
-    // Destroy user data in UserRole
-    await UserRole.destroy({
-      where: {
-        UserId: {
-          [Op.in]: id,
-        },
-      },
-    })
-
+    await UserRoleService.deleteByUserId(id)
     await data.destroy()
   }
 }
