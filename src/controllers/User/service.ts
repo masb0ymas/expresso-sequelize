@@ -7,8 +7,8 @@ import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from './schema'
 
-const { User, UserRole } = models
-const including = [{ model: UserRole }]
+const { User, Role } = models
+const including = [{ model: Role }]
 
 class UserService {
   /**
