@@ -5,7 +5,7 @@ import winston from 'winston'
 // define the custom settings for each transport (file, console)
 const options = {
   file: {
-    level: 'info',
+    level: 'error', // error, warn, info, http, verbose, debug, silly
     filename: `${path.resolve('./logs')}/log-${formatDate(new Date())}.log`,
     format: winston.format.json(),
     handleExceptions: true,
