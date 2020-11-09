@@ -4,6 +4,7 @@ import express, { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import cors from 'cors'
 import helmet from 'helmet'
+import logger from 'morgan'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import indexRouter from 'routes'
@@ -13,7 +14,6 @@ import ExpressErrorResponse from 'middlewares/ExpressErrorResponse'
 import ExpressErrorSequelize from 'middlewares/ExpressErrorSequelize'
 
 const GenerateDoc = require('utils/GenerateDocs')
-const logger = require('morgan')
 
 const app = express()
 
