@@ -5,6 +5,7 @@ import path from 'path'
 import cors from 'cors'
 import helmet from 'helmet'
 import logger from 'morgan'
+import winston from 'winston'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import indexRouter from 'routes'
@@ -12,6 +13,7 @@ import withState from 'helpers/withState'
 import ExpressErrorYup from 'middlewares/ExpressErrorYup'
 import ExpressErrorResponse from 'middlewares/ExpressErrorResponse'
 import ExpressErrorSequelize from 'middlewares/ExpressErrorSequelize'
+import { winstonStream } from 'config/winston'
 
 const GenerateDoc = require('utils/GenerateDocs')
 
@@ -23,7 +25,7 @@ app.set('view engine', 'pug')
 
 app.use(helmet())
 app.use(cors())
-app.use(logger('dev'))
+app.use(logger('combined', { stream: winstonStream }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
@@ -54,6 +56,13 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
+
+  // add this line to include winston logging
+  winston.error(
+    `${err.status || 500} - ${err.message} - ${req.originalUrl} - ${
+      req.method
+    } - ${req.ip}`
+  )
 
   // render the error page
   res.status(err.status || 500)
