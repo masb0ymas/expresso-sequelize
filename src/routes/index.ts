@@ -16,7 +16,7 @@ router.get('/', function (req: Request, res: Response, next: NextFunction) {
 
 /* Forbidden Page. */
 router.get('/v1', function (req: Request, res: Response, next: NextFunction) {
-  throw new ResponseError.Forbidden('forbidden, wrong endpoint access')
+  throw new ResponseError.Forbidden('forbidden, wrong access endpoint')
 })
 
 /* Declare Route */
