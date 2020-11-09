@@ -7,28 +7,24 @@ const options = {
   file: {
     level: 'info',
     filename: `${path.resolve('./logs')}/log-${formatDate(new Date())}.log`,
+    format: winston.format.json(),
     handleExceptions: true,
-    json: true,
     maxsize: 5242880, // 5MB
     maxFiles: 5,
     colorize: false,
   },
   console: {
     level: 'debug',
-    handleExceptions: true,
-    json: false,
-    colorize: true,
+    format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.simple()
+    ),
   },
 }
 
 // instantiate a new Winston Logger with the settings defined above
 const winstonLogger = winston.createLogger({
-  format: winston.format.json(),
   transports: [
-    //
-    // - Write all logs with level `error` and below to `error.log`
-    // - Write all logs with level `info` and below to `combined.log`
-    //
     new winston.transports.File(options.file),
     new winston.transports.Console(options.console),
   ],
@@ -41,3 +37,5 @@ export const winstonStream = {
     winstonLogger.info(message)
   },
 }
+
+export default winstonLogger
