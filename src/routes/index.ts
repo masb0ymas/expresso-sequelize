@@ -23,8 +23,8 @@ router.get('/v1', function (req: Request, res: Response, next: NextFunction) {
 router.use('/v1', publicRoute)
 
 /* Not Found Page. */
-router.get('*', function (req: Request, res: Response, next: NextFunction) {
-  throw new ResponseError.NotFound('endpoint not found')
-})
+// router.get('*', function (req: Request, res: Response, next: NextFunction) {
+//   throw new ResponseError.NotFound('endpoint not found')
+// })
 
 export default router
