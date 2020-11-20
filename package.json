@@ -121,7 +121,7 @@
     "standard-version": "^9.0.0",
     "supertest": "^6.0.1",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.5"
+    "typescript": "^4.1.2"
   },
   "engines": {
     "node": ">=10.x"
