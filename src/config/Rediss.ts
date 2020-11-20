@@ -25,14 +25,39 @@ client.on('error', function (err) {
 })
 
 class Redis {
+  /**
+   *
+   * @param key
+   * @param data
+   */
   public static set(key: string, data: any[]) {
     client.setex(key, 86400, JSON.stringify(data))
   }
 
+  /**
+   *
+   * @param key
+   * @example
+   * // get('get-role')
+   */
   public static get(key: string) {
     client.get(key)
   }
 
+  /**
+   *
+   * @param key get all by key return array
+   * @example
+   * // keys.('get-role:*')
+   */
+  public static keys(key: string) {
+    client.keys(key)
+  }
+
+  /**
+   *
+   * @param key
+   */
   public static del(key: string) {
     client.del(key)
   }
