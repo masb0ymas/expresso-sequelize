@@ -43,6 +43,46 @@ function createAuthAxios(baseURL: string): AxiosInstance {
   return instanceAxios
 }
 
+function createDefaultAxios(baseURL: string): AxiosInstance {
+  const instanceAxios = axios.create({
+    baseURL,
+  })
+
+  instanceAxios.interceptors.response.use(
+    function onSuccess(response) {
+      return response
+    },
+    function onError(error: AxiosError) {
+      const statusCode = get(error, 'response.status', null)
+      const message = get(error, 'response.data.message', null)
+
+      if (statusCode === 401) {
+        console.log('Unauhtorized')
+        throw new ResponseError.Unauthorized(message)
+      }
+
+      if (statusCode === 400) {
+        console.log('Bad Request')
+        throw new ResponseError.BadRequest(message)
+      }
+
+      if (statusCode === 404) {
+        console.log('Not Found')
+        throw new ResponseError.NotFound(message)
+      }
+
+      const handleError = error?.response?.headers?.handleError
+      if (!handleError || !handleError(error)) {
+        console.log(error.message)
+        throw new ResponseError.BadRequest(error.message)
+      }
+      return Promise.reject(error)
+    }
+  )
+
+  return instanceAxios
+}
+
 class FetchApi {
   private axiosDefault: AxiosInstance
 
@@ -58,17 +98,21 @@ class FetchApi {
     this.baseUri = baseUri
   }
 
+  /**
+   * axios instance default
+   */
   get default(): AxiosInstance {
     if (!this.axiosDefault) {
-      this.axiosDefault = axios.create({
-        baseURL: this.baseUri,
-      })
+      this.axiosDefault = createDefaultAxios(this.baseUri)
       return this.axiosDefault
     }
 
     return this.axiosDefault
   }
 
+  /**
+   * axios instance with auth token
+   */
   get withAuth(): AxiosInstance {
     if (!this.axiosToken) {
       this.axiosToken = createAuthAxios(this.baseUri)
