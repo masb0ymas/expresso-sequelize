@@ -106,7 +106,7 @@ class AuthService {
     /* User active proses login */
     if (userData.active) {
       // @ts-ignore
-      const comparePassword = userData.comparePassword(password)
+      const comparePassword = await userData.comparePassword(password)
 
       if (comparePassword) {
         // modif payload token
