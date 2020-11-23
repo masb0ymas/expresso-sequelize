@@ -1,14 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
 import UserService from './service'
-
-const { APP_KEY_REDIS } = process.env
-// Key Redis Cache
-const keyGetAll = `${APP_KEY_REDIS}_user:getAll`
 
 routes.get(
   '/user',
