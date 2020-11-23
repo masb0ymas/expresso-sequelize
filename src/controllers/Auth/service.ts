@@ -41,7 +41,8 @@ interface EmailAttributes {
 
 class AuthService {
   /**
-   * Sign Up
+   *
+   * @param formData
    */
   public static async signUp(formData: UserAttributes) {
     const generateToken = {
@@ -91,7 +92,8 @@ class AuthService {
   }
 
   /**
-   * Sign In
+   *
+   * @param formData
    */
   public static async signIn(formData: LoginAttributes) {
     const { email, password } = formData
@@ -144,7 +146,8 @@ class AuthService {
   }
 
   /**
-   * Profile
+   *
+   * @param token
    */
   public static async profile(token: TokenAttributes) {
     if (isObject(token?.data)) {
