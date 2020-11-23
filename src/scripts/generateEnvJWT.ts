@@ -12,15 +12,18 @@ const getUniqueCodev2 = (length = 32) => {
   return result
 }
 
-function main() {
+function accessTokenJWT() {
   const pathRes = path.resolve('.env')
   const contentEnv = fs.readFileSync(pathRes, { encoding: 'utf-8' })
   const jwtSecret = getUniqueCodev2()
-  const strJWT = `JWT_SECRET=${jwtSecret}`
+  const strJWT = `JWT_SECRET_ACCESS_TOKEN=${jwtSecret}`
 
-  if (contentEnv.includes('JWT_SECRET=')) {
+  if (contentEnv.includes('JWT_SECRET_ACCESS_TOKEN=')) {
     // Replace JWT SECRET jika sudah ada
-    const replaceContent = contentEnv.replace(/JWT_SECRET=(.*)?/, strJWT)
+    const replaceContent = contentEnv.replace(
+      /JWT_SECRET_ACCESS_TOKEN=(.*)?/,
+      strJWT
+    )
     fs.writeFileSync(`${pathRes}`, replaceContent)
     console.log('Refresh JWT SECRET Success')
   } else {
@@ -53,5 +56,5 @@ function refreshTokenJWT() {
   }
 }
 
-main()
+accessTokenJWT()
 refreshTokenJWT()
