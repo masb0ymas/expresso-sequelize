@@ -1,22 +1,26 @@
-/* eslint-disable no-unused-vars */
-import path from 'path'
 import models from 'models'
 import jwt from 'jsonwebtoken'
 import { isObject } from 'lodash'
-import handlebars from 'handlebars'
-import EmailProvider from 'config/email'
 import schema from 'controllers/User/schema'
 import createDirNotExist from 'utils/Directory'
 import useValidation from 'helpers/useValidation'
 import ResponseError from 'modules/Response/ResponseError'
-import { BASE_URL_CLIENT } from 'config/baseClient'
-import { getUniqueCodev2, readHTMLFile } from 'helpers/Common'
+import { getUniqueCodev2 } from 'helpers/Common'
 import { UserAttributes, LoginAttributes, TokenAttributes } from 'models/user'
+import SendMail from 'helpers/SendEmail'
 
 const { User, Role } = models
 
-const { JWT_SECRET }: any = process.env
-const expiresToken = 7 * 24 * 60 * 60 // 7 Days
+const {
+  JWT_SECRET_ACCESS_TOKEN,
+  JWT_SECRET_REFRESH_TOKEN,
+  JWT_REFRESH_TOKEN_EXPIRED,
+}: string | any = process.env
+
+const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '7d'
+const expiredJwt = JWT_ACCESS_TOKEN_EXPIRED.replace(/(d)/g, '') // condition 1d / 7d (day) not include 4m (minutes)
+
+const expiresIn = Number(expiredJwt) * 24 * 60 * 60
 
 /*
   Create the main directory
@@ -34,11 +38,6 @@ async function createDirectory(UserId: string) {
   pathDirectory.map((x) => createDirNotExist(x))
 }
 
-interface EmailAttributes {
-  email: string | any
-  fullName: string
-}
-
 class AuthService {
   /**
    *
@@ -49,40 +48,20 @@ class AuthService {
       code: getUniqueCodev2(),
     }
 
-    const tokenVerify = jwt.sign(
+    const tokenRegister = jwt.sign(
       JSON.parse(JSON.stringify(generateToken)),
-      JWT_SECRET,
+      JWT_SECRET_ACCESS_TOKEN,
       {
-        expiresIn: expiresToken,
+        expiresIn,
       }
-    ) // 1 Days
+    )
 
-    const newFormData = { ...formData, tokenVerify }
+    const newFormData = { ...formData, tokenRegister }
     const value = useValidation(schema.create, newFormData)
     const data = await User.create(value)
 
-    /*
-      Initial Send an e-mail
-    */
-    const { email, fullName }: EmailAttributes = formData
-    const pathTemplate = path.resolve(
-      __dirname,
-      `../../../public/templates/emails/register.html`
-    )
-    const subject = 'Verifikasi Email'
-    const urlToken = `${BASE_URL_CLIENT}/email/verify?token=${tokenVerify}`
-    const dataTemplate = { fullName, urlToken }
-    const Email = new EmailProvider()
-
-    readHTMLFile(pathTemplate, (error: Error, html: any) => {
-      if (error) {
-        throw new ResponseError.NotFound('email template not found')
-      }
-
-      const template = handlebars.compile(html)
-      const htmlToSend = template(dataTemplate)
-      Email.send(email, subject, htmlToSend)
-    })
+    // Initial Send an e-mail
+    SendMail.AccountRegister(formData, tokenRegister)
 
     return {
       message:
@@ -118,21 +97,32 @@ class AuthService {
           active: userData.active,
         }
 
-        const token = jwt.sign(
+        // Access Token
+        const accessToken = jwt.sign(
           JSON.parse(JSON.stringify(payloadToken)),
-          JWT_SECRET,
+          JWT_SECRET_ACCESS_TOKEN,
           {
-            expiresIn: expiresToken,
+            expiresIn,
           }
-        ) // 1 Days
+        )
+
+        // Refresh Token
+        const refreshToken = jwt.sign(
+          JSON.parse(JSON.stringify(payloadToken)),
+          JWT_SECRET_REFRESH_TOKEN,
+          {
+            expiresIn: JWT_REFRESH_TOKEN_EXPIRED,
+          }
+        )
 
         // create directory
         await createDirectory(userData.id)
 
         return {
-          token,
-          expiresIn: expiresToken,
+          accessToken,
+          expiresIn,
           tokenType: 'Bearer',
+          refreshToken,
         }
       }
 
