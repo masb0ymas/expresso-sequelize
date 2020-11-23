@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { Model, Optional } from 'sequelize'
 import SequelizeAttributes from '../utils/SequelizeAttributes'
 

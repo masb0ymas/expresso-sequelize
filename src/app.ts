@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import createError from 'http-errors'
 import express, { Request, Response, NextFunction } from 'express'
 import path from 'path'

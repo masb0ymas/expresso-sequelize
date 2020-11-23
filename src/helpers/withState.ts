@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-unused-vars */
 import { Request, Express } from 'express'
 import { set, get } from 'lodash'
 import { Transaction } from 'sequelize'

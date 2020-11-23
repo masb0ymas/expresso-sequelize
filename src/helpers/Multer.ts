@@ -1,7 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { pickBy } from 'lodash'
 import { Request } from 'express'
 
+/**
+ *
+ * @param req
+ * @param fields
+ */
 function pickSingleFieldMulter(req: Request, fields: string[]) {
   return pickBy(
     fields.reduce<any>((acc, field) => {

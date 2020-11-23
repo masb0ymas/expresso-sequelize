@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { NextFunction, Request, Response } from 'express'
 import ResponseError from 'modules/Response/ResponseError'
 import { isObject } from 'lodash'

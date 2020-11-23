@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { NextFunction, Request, Response } from 'express'
 import { ValidationError } from 'yup'
 

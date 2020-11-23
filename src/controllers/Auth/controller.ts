@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { NextFunction, Request, Response } from 'express'
 import { EmptyResultError, BaseError, ValidationError } from 'sequelize'
 import { get } from 'lodash'

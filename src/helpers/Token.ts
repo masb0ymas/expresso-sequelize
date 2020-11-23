@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { Request } from 'express'
 import jwt, {
   TokenExpiredError,
@@ -11,7 +10,10 @@ require('dotenv').config()
 
 const { JWT_SECRET }: any = process.env
 
-// Get Token from headers
+/**
+ *
+ * @param headers
+ */
 function getToken(headers: any) {
   if (headers && headers.authorization) {
     const parted = headers.authorization.split(' ')
@@ -37,7 +39,10 @@ function currentToken(req: Request) {
   return curToken
 }
 
-// Verify Token
+/**
+ *
+ * @param token
+ */
 function verifyToken(token: string) {
   try {
     if (!token) {

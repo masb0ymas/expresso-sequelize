@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { get } from 'lodash'
 import ResponseError from 'modules/Response/ResponseError'

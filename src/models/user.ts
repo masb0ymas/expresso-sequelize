@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Model, Optional, DataTypes } from 'sequelize'
 import bcrypt from 'bcrypt'
 import SequelizeAttributes from 'utils/SequelizeAttributes'
