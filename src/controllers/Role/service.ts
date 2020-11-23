@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import models from 'models'
 import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
@@ -10,7 +9,8 @@ const { Role } = models
 
 class RoleService {
   /**
-   * Get All Role
+   *
+   * @param req Request
    */
   public static async getAll(req: any) {
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
@@ -32,7 +32,8 @@ class RoleService {
   }
 
   /**
-   * Get One Role
+   *
+   * @param id
    */
   public static async getOne(id: string) {
     const data = await Role.findByPk(id)
@@ -45,7 +46,8 @@ class RoleService {
   }
 
   /**
-   * Create Role
+   *
+   * @param formData
    */
   public static async create(formData: RoleAttributes) {
     const value = useValidation(schema.create, formData)
@@ -55,7 +57,9 @@ class RoleService {
   }
 
   /**
-   * Update Role By Id
+   *
+   * @param id
+   * @param formData
    */
   public static async update(id: string, formData: RoleAttributes) {
     const data = await this.getOne(id)
@@ -71,7 +75,8 @@ class RoleService {
   }
 
   /**
-   * Delete Role By Id
+   *
+   * @param id
    */
   public static async delete(id: string) {
     const data = await this.getOne(id)
