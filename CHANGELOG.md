@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.6.1...v2.7.0) (2020-11-22)
+
+
+### Features
+
+* import internal server error ([81622cc](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/81622cc69239f4600d94e9a6496b1282c2cb67fc))
+* response internal server error ([3845544](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/3845544aadc082217aee20b75c91bfc7dd3bd3d4))
+
+
+### Bug Fixes
+
+* bug promise compare password ([f2af1ca](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/f2af1caba7e0777acfe4f21b9f67763a33c497bc))
+* config fetch api ([f3f45ab](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/f3f45abfecf66c1098e6019463c159c7721916bc))
+
 ### [2.6.1](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.6.0...v2.6.1) (2020-11-20)
 
 ## [2.6.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v0.4.1...v2.6.0) (2020-11-12)
