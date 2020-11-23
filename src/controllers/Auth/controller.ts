@@ -23,16 +23,21 @@ routes.post(
   '/auth/sign-in',
   asyncHandler(async function signIn(req: Request, res: Response) {
     const formData = req.getBody()
-    const { token, expiresIn, tokenType } = await AuthService.signIn(formData)
+    const {
+      accessToken,
+      expiresIn,
+      tokenType,
+      refreshToken,
+    } = await AuthService.signIn(formData)
 
     return res
-      .cookie('token', token, {
+      .cookie('token', accessToken, {
         maxAge: Number(expiresIn) * 1000, // 7 Days
         httpOnly: true,
         path: '/v1',
         secure: process.env.NODE_ENV === 'production',
       })
-      .json({ token, expiresIn, tokenType })
+      .json({ accessToken, expiresIn, tokenType, refreshToken })
   })
 )
 
