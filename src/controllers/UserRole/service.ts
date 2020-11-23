@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import models from 'models'
 import db from 'models/_instance'
 import useValidation from 'helpers/useValidation'
@@ -13,7 +12,9 @@ const { UserRole } = models
 
 class UserRoleService {
   /**
-   * Create User Role
+   *
+   * @param formData
+   * @param txn Transaction Sequelize
    */
   public static async create(formData: UserRoleAttributes, txn?: Transaction) {
     const values = useValidation(schema.create, formData)
@@ -25,7 +26,9 @@ class UserRoleService {
   }
 
   /**
-   * Find Or Create User Role
+   *
+   * @param formData
+   * @param txn Transaction Sequelize
    */
   public static async findOrCreate(
     formData: UserRoleAttributes,
@@ -41,7 +44,8 @@ class UserRoleService {
   }
 
   /**
-   * Delete UserRole by UserId
+   *
+   * @param id
    */
   public static async deleteByUserId(id: string) {
     await UserRole.destroy({
@@ -54,7 +58,11 @@ class UserRoleService {
   }
 
   /**
-   * Delete UserRole not In RoleId
+   *
+   * @param id
+   * @param roles Array of String
+   * @example
+   * roles = ['id_1', 'id_2']
    */
   public static async deleteNotInRoleId(id: string, roles: []) {
     await UserRole.destroy({
