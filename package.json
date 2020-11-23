@@ -24,7 +24,9 @@
     "db:drop": "npx sequelize-cli db:drop",
     "db:reset": "npm run db:drop && npx sequelize-cli db:create && npm run db:migrate && npm run db:seed",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "standard-version"
+    "release": "standard-version",
+    "release:pre": "npm run release -- --prerelease",
+    "release:minor": "npm run release -- --release-as minor"
   },
   "jest": {
     "testEnvironment": "node",
