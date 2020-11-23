@@ -12,7 +12,8 @@ const including = [{ model: Role }]
 
 class UserService {
   /**
-   * Get All User
+   *
+   * @param req Request
    */
   public static async getAll(req: any) {
     const { filtered } = req.query
@@ -35,7 +36,8 @@ class UserService {
   }
 
   /**
-   * Get One User
+   *
+   * @param id
    */
   public static async getOne(id: string) {
     const data = await User.findByPk(id, {
@@ -50,7 +52,9 @@ class UserService {
   }
 
   /**
-   * Create User
+   *
+   * @param formData
+   * @param txn Transaction Sequelize
    */
   public static async create(formData: UserAttributes, txn?: Transaction) {
     const { Roles }: any = formData
@@ -79,7 +83,10 @@ class UserService {
   }
 
   /**
-   * Update User By Id
+   *
+   * @param id
+   * @param formData
+   * @param txn Transaction Sequelize
    */
   public static async update(
     id: string,
@@ -118,7 +125,8 @@ class UserService {
   }
 
   /**
-   * Delete User By Id
+   *
+   * @param id
    */
   public static async delete(id: string) {
     const data = await this.getOne(id)
