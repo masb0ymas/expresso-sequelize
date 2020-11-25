@@ -74,6 +74,36 @@ module.exports = {
       },
     },
   },
+  '/auth/refresh-token': {
+    post: {
+      tags: ['Auth'],
+      summary: 'Get Access Token',
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                email: {
+                  type: 'string',
+                },
+                refreshToken: {
+                  type: 'string',
+                },
+              },
+              required: ['email', 'refreshToken'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Get Access Token from Refresh Token',
+        },
+      },
+    },
+  },
   '/profile': {
     get: {
       tags: ['Auth'],
