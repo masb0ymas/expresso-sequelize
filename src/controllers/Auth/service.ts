@@ -15,10 +15,11 @@ const { User, Role } = models
 const {
   JWT_SECRET_ACCESS_TOKEN,
   JWT_SECRET_REFRESH_TOKEN,
-  JWT_REFRESH_TOKEN_EXPIRED,
 }: string | any = process.env
 
-const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '7d'
+const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '7d' // 7 Days
+const JWT_REFRESH_TOKEN_EXPIRED = process.env.JWT_REFRESH_TOKEN_EXPIRED || '30d' // 30 Days
+
 const expiredJwt = JWT_ACCESS_TOKEN_EXPIRED.replace(/(d)/g, '') // condition 1d / 7d (day) not include 4m (minutes)
 
 const expiresIn = Number(expiredJwt) * 24 * 60 * 60
