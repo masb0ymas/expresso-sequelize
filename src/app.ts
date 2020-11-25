@@ -40,9 +40,23 @@ GenerateDoc(app)
 // Initial Route
 app.use(indexRouter)
 
-app.use(ExpressErrorYup)
-app.use(ExpressErrorSequelize)
-app.use(ExpressErrorResponse)
+async function handleRollbackTransaction(
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    await req.rollbackTransactions()
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
+  next(err)
+}
+
+app.use('/v1', handleRollbackTransaction)
+app.use('/v1', ExpressErrorYup)
+app.use('/v1', ExpressErrorSequelize)
+app.use('/v1', ExpressErrorResponse)
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {

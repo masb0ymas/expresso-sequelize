@@ -12,11 +12,6 @@ async function ExpressErrorSequelize(
   res: Response,
   next: NextFunction
 ) {
-  try {
-    await req.rollbackTransactions()
-    // eslint-disable-next-line no-empty
-  } catch (e) {}
-
   if (err instanceof BaseError) {
     if (err instanceof EmptyResultError) {
       return res.status(404).json({
