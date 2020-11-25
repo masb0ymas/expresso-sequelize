@@ -93,6 +93,16 @@ class RefreshTokenService {
     // @ts-ignore
     throw new ResponseError.Unauthorized(`${verifyToken?.message}`)
   }
+
+  /**
+   *
+   * @param id
+   */
+  public static async delete(id: string) {
+    await RefreshToken.destroy({
+      where: { UserId: id },
+    })
+  }
 }
 
 export default RefreshTokenService
