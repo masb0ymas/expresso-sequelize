@@ -8,6 +8,7 @@ import ResponseError from 'modules/Response/ResponseError'
 import { getUniqueCodev2 } from 'helpers/Common'
 import { UserAttributes, LoginAttributes, TokenAttributes } from 'models/user'
 import SendMail from 'helpers/SendEmail'
+import RefreshTokenService from 'controllers/RefreshToken/service'
 
 const { User, Role } = models
 
@@ -94,6 +95,7 @@ class AuthService {
         const payloadToken = {
           id: userData.id,
           nama: userData.fullName,
+          email: userData.email,
           active: userData.active,
         }
 
@@ -114,6 +116,13 @@ class AuthService {
             expiresIn: JWT_REFRESH_TOKEN_EXPIRED,
           }
         )
+
+        const formDataRefreshToken = {
+          UserId: userData.id,
+          token: refreshToken,
+        }
+
+        await RefreshTokenService.create(formDataRefreshToken)
 
         // create directory
         await createDirectory(userData.id)
