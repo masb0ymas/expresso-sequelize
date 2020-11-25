@@ -75,3 +75,16 @@ routes.get(
     return res.status(200).json(buildResponse)
   })
 )
+
+routes.post(
+  '/logout',
+  Authorization,
+  asyncHandler(async function logout(req: Request, res: Response) {
+    const { UserId } = req.getBody()
+
+    await AuthService.logout(UserId)
+    const buildResponse = BuildResponse.deleted({})
+
+    return res.status(200).json(buildResponse)
+  })
+)
