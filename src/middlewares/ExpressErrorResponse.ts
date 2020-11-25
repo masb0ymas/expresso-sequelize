@@ -17,7 +17,6 @@ async function ExpressErrorResponse(
       .status(err.statusCode)
       .json(generateErrorResponseError(err, err.statusCode))
   }
-
   next(err)
 }
 
