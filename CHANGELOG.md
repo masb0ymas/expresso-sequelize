@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.7.0...v2.8.0) (2020-11-25)
+
+
+### Features
+
+* auth controller logout ([a37ef67](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/a37ef67af49d1d7d9d550c41228cfee2969abecb))
+* auth service logout ([0d80755](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0d807553404cfe0a1b56fa901560f600b9701fcd))
+* email attributes ([5c0f486](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/5c0f4862f91eb0da1986293755b18660e6ac9c5c))
+* migration refresh token ([ffa289d](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ffa289d5eee1deb7a517ab914a4f217e820c5d63))
+* model refresh token ([0e8af7c](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0e8af7c21af0d78eac442fcab045023a33f5e65c))
+* refresh token controller ([33eba8f](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/33eba8fc2a1eccf9d0dc96615af7835ee2e3470c))
+* refresh token service ([4f17e71](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/4f17e714a4d7170ed69dd09327eca07880c7e178))
+* route auth refresh token ([a6e46f8](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/a6e46f81d58cceff774923398c2fe547e6358c6a))
+* schema refresh token ([cd01308](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/cd01308a35af7de8bd76bb22e0f0ea3a7fae70ec))
+* send mail helper ([ecf02e7](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ecf02e7020c82f558a0fd7c3cc4e7b19f19238ab))
+* service refresh token - get access token ([d83cb2f](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d83cb2fcface85900185513f0867f87cd4306e20))
+* service refresh token delete by user id ([4e2eccb](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/4e2eccbeeb3f042c0f32e0d0e16d93fbae53604e))
+* verify refresh token ([35c714b](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/35c714bc5116413d170d0c8aa60055bb5309aaf4))
+
+
+### Bug Fixes
+
+* auth service ([1514673](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/15146736c346eb7323de970b89b4dfd034d18404))
+* config vscode ([c0b568d](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c0b568df6456d20abd305d3f6a47ce48cdaa2689))
+* create refresh token after login ([2fa73b4](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2fa73b46f092e2e4255535e990234cb2131e1b49))
+* fixing bug mailgun api ([7548086](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/75480866253a63b835d8c4936cce283faf70f125))
+* indexing refresh token ([5c13139](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/5c131391a4cb412548d5c2dc0de529bfd4e6668a))
+* lint src ([db4dba0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/db4dba008e291de82ba21455c8606e176942c634))
+* rename generate access token ([89315d3](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/89315d34221e34f22d9292043ae685e7035b8159))
+* role controller ([af57aa4](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/af57aa4f5182a899d9fad6f8f9ad097a82bc95b1))
+* role service ([4b6ff35](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/4b6ff356eff1d27e98f671b30539accde6caf6f9))
+* set default refresh token expired ([e84e635](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/e84e6359b00eddd1d29637b1b0b9df64605eec82))
+* update env ([0cf07cf](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0cf07cf42b0a15404cd10c8d9581cfdcabcd882f))
+* update env ([d9e3efa](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d9e3eface2e124cb613894eccb015510daad462b))
+* update generate env jwt with refresh token ([7bd762b](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/7bd762bf79128f7f7401be428d24e2c3238623f6))
+* update return login controller ([c961e9c](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c961e9cdd68096f8290f81761e911ff0b48288a3))
+* user controller ([4cd506a](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/4cd506a29df2980924799c599aa0fae48d46cb41))
+* user role service ([6e84435](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/6e8443524e3ce4cbe68e5f216df19b098bf92fb5))
+* user service ([64621cb](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/64621cb9b16b0f43e326d380d055c7256c21f669))
+* verify refresh token interface ([7573ef3](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/7573ef3aa0437f74a0b1b2c60eaecf9b9adf2a98))
+
 ## [2.7.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.6.1...v2.7.0) (2020-11-22)
 
 

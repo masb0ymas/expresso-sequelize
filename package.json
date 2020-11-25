@@ -1,6 +1,6 @@
 {
   "name": "boilerplate-express-typescript",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Just Boilerplate Express with TypeScript ( 🦊 )",
   "private": true,
   "scripts": {
