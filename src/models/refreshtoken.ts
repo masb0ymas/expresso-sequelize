@@ -3,8 +3,15 @@ import SequelizeAttributes from '../utils/SequelizeAttributes'
 
 import db from './_instance'
 
-export interface RefreshTokenAttributes {
+export interface verifyRefreshTokenAttributes {
   id: string
+  nama: string
+  email: string
+  active: boolean
+}
+
+export interface RefreshTokenAttributes {
+  id?: string
   UserId: string
   token: string
   createdAt?: Date
