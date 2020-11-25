@@ -9,6 +9,7 @@ import { getUniqueCodev2 } from 'helpers/Common'
 import { UserAttributes, LoginAttributes, TokenAttributes } from 'models/user'
 import SendMail from 'helpers/SendEmail'
 import RefreshTokenService from 'controllers/RefreshToken/service'
+import UserService from 'controllers/User/service'
 
 const { User, Role } = models
 
@@ -162,6 +163,17 @@ class AuthService {
     throw new ResponseError.Unauthorized(
       `${token?.message}. Please Re-login...`
     )
+  }
+
+  /**
+   *
+   * @param userId
+   */
+  public static async logout(userId: string) {
+    const userData = await UserService.getOne(userId)
+
+    // remove refresh token by user id
+    await RefreshTokenService.delete(userData.id)
   }
 }
 
