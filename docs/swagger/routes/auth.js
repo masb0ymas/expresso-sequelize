@@ -104,6 +104,33 @@ module.exports = {
       },
     },
   },
+  '/logout': {
+    post: {
+      tags: ['Auth'],
+      summary: 'Logout',
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                UserId: {
+                  type: 'string',
+                },
+              },
+              required: ['UserId'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Terminate your api access',
+        },
+      },
+    },
+  },
   '/profile': {
     get: {
       tags: ['Auth'],
