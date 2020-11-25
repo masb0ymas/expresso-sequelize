@@ -4,6 +4,7 @@ import asyncHandler from 'helpers/asyncHandler'
 import { currentToken, verifyToken } from 'helpers/Token'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
+import RefreshTokenService from 'controllers/RefreshToken/service'
 import AuthService from './service'
 
 routes.post(
@@ -37,6 +38,26 @@ routes.post(
         secure: process.env.NODE_ENV === 'production',
       })
       .json({ accessToken, expiresIn, tokenType, refreshToken })
+  })
+)
+
+routes.post(
+  '/auth/refresh-token',
+  Authorization,
+  asyncHandler(async function authRefreshToken(req: Request, res: Response) {
+    const { email, refreshToken } = req.getBody()
+
+    const { accessToken, expiresIn } = await RefreshTokenService.getAccessToken(
+      email,
+      refreshToken
+    )
+    const buildResponse = BuildResponse.get({
+      message: 'access token has been received',
+      accessToken,
+      expiresIn,
+    })
+
+    return res.status(200).json(buildResponse)
   })
 )
 
