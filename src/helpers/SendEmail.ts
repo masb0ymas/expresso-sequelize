@@ -6,6 +6,8 @@ import ResponseError from 'modules/Response/ResponseError'
 import { BASE_URL_CLIENT } from 'config/baseClient'
 import { EmailAttributes, UserAttributes } from 'models/user'
 
+const { APP_NAME } = process.env
+
 class SendMail {
   /**
    *
@@ -20,7 +22,7 @@ class SendMail {
     )
     const subject = 'Verifikasi Email'
     const urlToken = `${BASE_URL_CLIENT}/email/verify?token=${token}`
-    const dataTemplate = { fullName, urlToken }
+    const dataTemplate = { APP_NAME, fullName, urlToken }
     const Email = new EmailProvider()
 
     readHTMLFile(pathTemplate, (error: Error, html: any) => {
