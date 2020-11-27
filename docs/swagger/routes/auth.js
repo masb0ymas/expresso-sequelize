@@ -78,6 +78,12 @@ module.exports = {
     post: {
       tags: ['Auth'],
       summary: 'Get Access Token',
+      produces: ['application/json'],
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
       requestBody: {
         required: true,
         content: {
@@ -108,6 +114,12 @@ module.exports = {
     post: {
       tags: ['Auth'],
       summary: 'Logout',
+      produces: ['application/json'],
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
       requestBody: {
         required: true,
         content: {
