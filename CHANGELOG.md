@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.8.0...v2.9.0) (2020-11-27)
+
+
+### Features
+
+* add lib ms ([8c023d0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/8c023d07507ecb6609761934851385e562b29152))
+
+
+### Bug Fixes
+
+* auth refresh token & logout ([be1badb](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/be1badbb74e537b4b19f7300cbc1a73eca76eb69))
+* convert ms jwt ([03bc8a1](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/03bc8a1a30a75cd498019deb951add7e7a6e542c))
+* docs swagger refresh token & logout ([a71eecd](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/a71eecd8810a467e2505afb12a65a3c2984cc7b6))
+* handle rollback error ([f6c21fe](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/f6c21fe0aebffedcaca852f992d9e374a28fc14b))
+
 ## [2.8.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.7.0...v2.8.0) (2020-11-25)
 
 
