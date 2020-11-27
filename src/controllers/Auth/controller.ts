@@ -47,17 +47,13 @@ routes.post(
   asyncHandler(async function authRefreshToken(req: Request, res: Response) {
     const { email, refreshToken } = req.getBody()
 
-    const { accessToken, expiresIn } = await RefreshTokenService.getAccessToken(
-      email,
-      refreshToken
-    )
-    const buildResponse = BuildResponse.get({
-      message: 'access token has been received',
+    const {
       accessToken,
       expiresIn,
-    })
+      tokenType,
+    } = await RefreshTokenService.getAccessToken(email, refreshToken)
 
-    return res.status(200).json(buildResponse)
+    return res.status(200).json({ accessToken, expiresIn, tokenType })
   })
 )
 
@@ -82,8 +78,8 @@ routes.post(
   asyncHandler(async function logout(req: Request, res: Response) {
     const { UserId } = req.getBody()
 
-    await AuthService.logout(UserId)
-    const buildResponse = BuildResponse.deleted({})
+    const message = await AuthService.logout(UserId)
+    const buildResponse = BuildResponse.deleted({ message })
 
     return res.status(200).json(buildResponse)
   })
