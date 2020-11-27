@@ -1,3 +1,4 @@
+import ms from 'ms'
 import models from 'models'
 import jwt from 'jsonwebtoken'
 import ResponseError from 'modules/Response/ResponseError'
@@ -15,10 +16,9 @@ const { RefreshToken } = models
 
 const { JWT_SECRET_ACCESS_TOKEN }: string | any = process.env
 
-const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '7d'
-const expiredJwt = JWT_ACCESS_TOKEN_EXPIRED.replace(/(d)/g, '') // condition 1d / 7d (day) not include 4m (minutes)
+const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '1d'
 
-const expiresIn = Number(expiredJwt) * 24 * 60 * 60
+const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000
 
 class RefreshTokenService {
   /**
@@ -85,9 +85,7 @@ class RefreshTokenService {
         }
       )
 
-      console.log({ getToken, verifyToken, decodeToken, accessToken })
-
-      return { accessToken, expiresIn }
+      return { accessToken, expiresIn, tokenType: 'Bearer' }
     }
 
     // @ts-ignore

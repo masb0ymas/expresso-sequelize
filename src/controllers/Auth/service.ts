@@ -1,3 +1,4 @@
+import ms from 'ms'
 import models from 'models'
 import jwt from 'jsonwebtoken'
 import { isObject } from 'lodash'
@@ -18,12 +19,10 @@ const {
   JWT_SECRET_REFRESH_TOKEN,
 }: string | any = process.env
 
-const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '7d' // 7 Days
+const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '1d' // 7 Days
 const JWT_REFRESH_TOKEN_EXPIRED = process.env.JWT_REFRESH_TOKEN_EXPIRED || '30d' // 30 Days
 
-const expiredJwt = JWT_ACCESS_TOKEN_EXPIRED.replace(/(d)/g, '') // condition 1d / 7d (day) not include 4m (minutes)
-
-const expiresIn = Number(expiredJwt) * 24 * 60 * 60
+const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000
 
 /*
   Create the main directory
@@ -174,6 +173,9 @@ class AuthService {
 
     // remove refresh token by user id
     await RefreshTokenService.delete(userData.id)
+    const message = 'You have logged out of the application'
+
+    return message
   }
 }
 
