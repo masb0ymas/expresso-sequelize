@@ -6512,10 +6512,10 @@ node-releases@^1.1.66:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.67.tgz#28ebfcccd0baa6aad8e8d4d8fe4cbc49ae239c12"
   integrity sha512-V5QF9noGFl3EymEwUYzO+3NTDpGfQB4ve6Qfnzf3UNydMhjQRVPR1DZTuvWiLzaFJYw2fmDwAfnRNEVb64hSIg==
 
-nodemailer-mailgun-transport@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/nodemailer-mailgun-transport/-/nodemailer-mailgun-transport-2.0.1.tgz#c6404a5fe6f725b3c3be415c479099386b82b8cd"
-  integrity sha512-CejwLAwtllUqizkfWbgLCteTrc6ebSDp3Khup5WXUSTKbTWLPVv4ZrwwFCiaWtxNVMsDbESIYX39oTBSfwfJyg==
+nodemailer-mailgun-transport@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/nodemailer-mailgun-transport/-/nodemailer-mailgun-transport-2.0.2.tgz#eb297c66ebc733e53d856c65cdbf8a71791f0792"
+  integrity sha512-4j0G4yUrYrJ2o/1Ow3d5HeW/ed9anWQ1+He7HuL2+0XcSyLLjNkft30zodFTyTWlFaiLiaIJ9Ssnjmz+qrtIZg==
   dependencies:
     consolidate "^0.15.1"
     mailgun-js "^0.22.0"
