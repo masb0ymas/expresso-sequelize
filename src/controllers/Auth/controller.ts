@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
-import { currentToken, verifyToken } from 'helpers/Token'
+import { currentToken, verifyAccessToken } from 'helpers/Token'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
 import RefreshTokenService from 'controllers/RefreshToken/service'
@@ -62,7 +62,7 @@ routes.get(
   Authorization,
   asyncHandler(async function getProfile(req: Request, res: Response) {
     const getToken = currentToken(req)
-    const token = verifyToken(getToken)
+    const token = verifyAccessToken(getToken)
 
     // @ts-ignore
     const data = await AuthService.profile(token)

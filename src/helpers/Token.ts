@@ -52,7 +52,7 @@ function currentToken(req: Request) {
  *
  * @param token - Verify Token
  */
-function verifyToken(token: string) {
+function verifyAccessToken(token: string) {
   try {
     if (!token) {
       return { data: null, message: 'Unauthorized!' }
@@ -102,4 +102,4 @@ function verifyRefreshToken(token: string) {
   }
 }
 
-export { getToken, currentToken, verifyToken, verifyRefreshToken }
+export { getToken, currentToken, verifyAccessToken, verifyRefreshToken }
