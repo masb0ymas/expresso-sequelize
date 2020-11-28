@@ -2,7 +2,10 @@ import fs from 'fs'
 
 const invalidValues = [null, undefined, '', false, 0]
 
-// Generate Unique Code ( default length 32 )
+/**
+ *
+ * @param length - Generate Unique Code ( default length 32 )
+ */
 function getUniqueCodev2(length = 32) {
   let result = ''
   const characters =
@@ -16,7 +19,7 @@ function getUniqueCodev2(length = 32) {
 
 /**
  *
- * @param path
+ * @param path - path file template html
  * @param callback
  */
 function readHTMLFile(path: any, callback: any) {
