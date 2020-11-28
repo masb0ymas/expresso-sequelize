@@ -12,7 +12,7 @@ const { JWT_SECRET_ACCESS_TOKEN, JWT_SECRET_REFRESH_TOKEN }: any = process.env
 
 /**
  *
- * @param headers
+ * @param headers - Get Token from headers
  */
 function getToken(headers: any) {
   if (headers && headers.authorization) {
@@ -30,6 +30,10 @@ function getToken(headers: any) {
   return null
 }
 
+/**
+ *
+ * @param req - Request
+ */
 function currentToken(req: Request) {
   const getCookie = req.getCookies()
   const getHeaders = req.getHeaders()
@@ -46,7 +50,7 @@ function currentToken(req: Request) {
 
 /**
  *
- * @param token
+ * @param token - Verify Token
  */
 function verifyToken(token: string) {
   try {
@@ -73,7 +77,7 @@ function verifyToken(token: string) {
 
 /**
  *
- * @param token
+ * @param token - Verify Token
  */
 function verifyRefreshToken(token: string) {
   try {
