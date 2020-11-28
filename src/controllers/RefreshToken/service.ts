@@ -15,7 +15,6 @@ import { isObject } from 'lodash'
 const { RefreshToken } = models
 
 const { JWT_SECRET_ACCESS_TOKEN }: string | any = process.env
-
 const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '1d'
 
 const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000

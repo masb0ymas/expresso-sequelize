@@ -9,6 +9,7 @@ routes.get(
   '/refresh-token',
   asyncHandler(async function getToken(req: Request, res: Response) {
     const { refreshToken } = req.getQuery()
+
     const data = await RefreshToken.getToken(refreshToken)
     const buildResponse = BuildResponse.get({ data })
 

@@ -14,10 +14,7 @@ import UserService from 'controllers/User/service'
 
 const { User, Role } = models
 
-const {
-  JWT_SECRET_ACCESS_TOKEN,
-  JWT_SECRET_REFRESH_TOKEN,
-}: string | any = process.env
+const { JWT_SECRET_ACCESS_TOKEN, JWT_SECRET_REFRESH_TOKEN }: any = process.env
 
 const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '1d' // 7 Days
 const JWT_REFRESH_TOKEN_EXPIRED = process.env.JWT_REFRESH_TOKEN_EXPIRED || '30d' // 30 Days
