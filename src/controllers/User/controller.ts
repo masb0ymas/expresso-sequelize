@@ -3,7 +3,7 @@ import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
-import UserService from './service'
+import UserService from 'controllers/User/service'
 
 routes.get(
   '/user',

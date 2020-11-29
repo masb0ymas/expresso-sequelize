@@ -3,7 +3,7 @@ import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
-import RoleService from './service'
+import RoleService from 'controllers/Role/service'
 
 routes.get(
   '/role',

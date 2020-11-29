@@ -5,7 +5,7 @@ import { currentToken, verifyAccessToken } from 'helpers/Token'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
 import RefreshTokenService from 'controllers/RefreshToken/service'
-import AuthService from './service'
+import AuthService from 'controllers/Auth/service'
 
 routes.post(
   '/auth/sign-up',
