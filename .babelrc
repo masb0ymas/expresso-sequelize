@@ -20,7 +20,8 @@
           "routes": "./src/routes",
           "utils": "./src/utils",
           "views": "./src/views"
-        }
+        },
+        "extensions": [".js", ".ts"]
       }
     ]
   ]
