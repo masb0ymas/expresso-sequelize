@@ -10,17 +10,16 @@ RUN apk add nano
 # Create app directory
 WORKDIR /var/www
 
-COPY package.json /var/www
-COPY yarn.lock /var/www
+# Bundle app source
+COPY . /var/www
 
 # Set config npm & install dependencies
 RUN npm config set scripts-prepend-node-path true
+RUN npm install typescript -g
 RUN npm install pm2 -g
-RUN yarn
-# RUN yarn build
 
-# Bundle app source
-COPY . .
+# Build app
+RUN yarn build:docker
 
-EXPOSE 7000
-CMD ["yarn", "start"]
+EXPOSE 8000
+CMD ["yarn", "serve:production-docker"]
