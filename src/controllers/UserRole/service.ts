@@ -3,7 +3,7 @@ import db from 'models/_instance'
 import useValidation from 'helpers/useValidation'
 import { Transaction } from 'sequelize/types'
 import { UserRoleAttributes } from 'models/userrole'
-import schema from './schema'
+import schema from 'controllers/UserRole/schema'
 
 const { Sequelize } = db
 const { Op } = Sequelize

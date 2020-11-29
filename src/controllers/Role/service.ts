@@ -3,7 +3,7 @@ import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { RoleAttributes } from 'models/role'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
-import schema from './schema'
+import schema from 'controllers/Role/schema'
 
 const { Role } = models
 

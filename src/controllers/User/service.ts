@@ -5,7 +5,7 @@ import { UserAttributes } from 'models/user'
 import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
-import schema from './schema'
+import schema from 'controllers/User/schema'
 
 const { User, Role } = models
 const including = [{ model: Role }]
