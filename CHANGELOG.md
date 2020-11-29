@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.9.0...v2.10.0) (2020-11-29)
+
+
+### Features
+
+* docker ignore ([e1ff82a](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/e1ff82a5db1dc06a201b55c418edc668fefdef71))
+* route refresh token ([88bd2c4](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/88bd2c4203f77038c207f35f5b0302fe09d4bb91))
+* template email register ([9db2af4](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/9db2af48aa45cf75f783e60b3e295ee8923e8145))
+
+
+### Bug Fixes
+
+* build docker image ([fc06c11](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/fc06c11f22f4afbff4f4b5ef70d38a633ac14368))
+* data template email ([d374a63](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d374a638cccf4e5a0a8897f0098bd6d916d1673b))
+* extension js & ts ([8e427e6](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/8e427e6ca22c547c1459392ab8ff70303f22d3cd))
+* import schema ([e6b4472](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/e6b4472c1a590c766420fe8a3e6d30faf50922ef))
+* import service ([982f480](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/982f480f5d2c7447fa54ba83c45b2fb676f88f5c))
+* name verify access token ([a8e51b4](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/a8e51b4cdc9b43b7e0543eb392bb7c5e852907de))
+* port app ([e224bbe](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/e224bbe685b6431327a4b73112c27d4ac1446e8c))
+* update script build ([e7c764c](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/e7c764c92573048d51aefabc972faac3eafb6d06))
+* update script release ([44e3228](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/44e322830b181eede7284016aad51364e3d51294))
+
 ## [2.9.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.8.0...v2.9.0) (2020-11-27)
 
 
