@@ -9,7 +9,7 @@ services:
       - redis
     restart: always
     ports:
-      - '7000:7000'
+      - '7000:8000'
     volumes:
       - .:/var/www
     working_dir: /var/www
