@@ -47,7 +47,7 @@ class AuthService {
       code: getUniqueCodev2(),
     }
 
-    const tokenRegister = jwt.sign(
+    const tokenVerify = jwt.sign(
       JSON.parse(JSON.stringify(generateToken)),
       JWT_SECRET_ACCESS_TOKEN,
       {
@@ -55,12 +55,12 @@ class AuthService {
       }
     )
 
-    const newFormData = { ...formData, tokenRegister }
+    const newFormData = { ...formData, tokenVerify }
     const value = useValidation(schema.create, newFormData)
     const data = await User.create(value)
 
     // Initial Send an e-mail
-    SendMail.AccountRegister(formData, tokenRegister)
+    SendMail.AccountRegister(formData, tokenVerify)
 
     return {
       message:
