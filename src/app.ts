@@ -11,6 +11,7 @@ import withState from 'helpers/withState'
 import ExpressErrorYup from 'middlewares/ExpressErrorYup'
 import ExpressErrorResponse from 'middlewares/ExpressErrorResponse'
 import ExpressErrorSequelize from 'middlewares/ExpressErrorSequelize'
+import ExpressAutoHandleTransaction from 'middlewares/ExpressAutoHandleTransaction'
 import winstonLogger, { winstonStream } from 'config/winston'
 
 const GenerateDoc = require('utils/GenerateDocs')
@@ -57,6 +58,7 @@ app.use('/v1', handleRollbackTransaction)
 app.use('/v1', ExpressErrorYup)
 app.use('/v1', ExpressErrorSequelize)
 app.use('/v1', ExpressErrorResponse)
+app.use(ExpressAutoHandleTransaction)
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
