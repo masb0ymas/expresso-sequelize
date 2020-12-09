@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.10.0...v2.11.0) (2020-12-09)
+
+
+### Features
+
+* express auto handle transaction ([4762b84](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/4762b848733ac9f7c5c77279b50e6b99e09a80c4))
+* jest config ([a8a9e08](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/a8a9e08858d7775adaa2357f1b4426b36c218618))
+
+
+### Bug Fixes
+
+* change author license ([0f43771](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0f43771e3bc40de177d60a8a1f642e7c0dc4e40e))
+* ignore overload logger ([28b172e](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/28b172e73cbd7231fc7ada12aff1b4e031918b7a))
+* import auto handle transaction ([1b6da46](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/1b6da46cda7f56a3a522c427d1f8d391ddf99cdc))
+* issue token verify after register ([463e384](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/463e38485974f8af2d731b9a685dacad00773259))
+* typo package json ([2b2565e](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2b2565e9b6da2f5b15c8586c1d5b6f458d3e6edd))
+* update env token expired ([ac8de68](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ac8de68ea0b25893a2295e447e2abd884b14691b))
+* update package json ([463b348](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/463b348450ea83955bdd74acff51adfad07d6afc))
+
 ## [2.10.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.9.0...v2.10.0) (2020-11-29)
 
 
