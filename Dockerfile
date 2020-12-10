@@ -22,4 +22,9 @@ RUN npm install pm2 -g
 RUN yarn build:docker
 
 EXPOSE 8000
+
+# Run for development
+# CMD ["yarn", "dev"]
+
+# Run for production
 CMD ["yarn", "serve:production-docker"]
