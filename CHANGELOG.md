@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.1](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.11.0...v2.11.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* bug bump package ([9c9d21c](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/9c9d21c1666a4e58802b60f5165e481bd0d4df15))
+* remove unuse file ([a3695f3](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/a3695f3451003c3e51f5ea2ee1069179f59c4fcc))
+* script dockerfile ([8988b60](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/8988b60953960bfce0d7a3c241bb8b81d8cdaafc))
+
 ## [2.11.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.10.0...v2.11.0) (2020-12-09)
 
 
