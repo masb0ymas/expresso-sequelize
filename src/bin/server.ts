@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'fs'
 import path from 'path'
-import models from 'models/_instance'
+import models from '../models/_instance'
 
 const pathEnv = path.resolve('.env')
 
