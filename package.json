@@ -90,7 +90,7 @@
     "@types/express": "^4.17.9",
     "@types/helmet": "^4.0.0",
     "@types/http-errors": "^1.8.0",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.19",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/lodash": "^4.14.165",
     "@types/morgan": "^1.9.2",
