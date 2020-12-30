@@ -1,13 +1,12 @@
 import ms from 'ms'
 import models from 'models'
 import jwt from 'jsonwebtoken'
-import { isObject } from 'lodash'
 import schema from 'controllers/User/schema'
 import createDirNotExist from 'utils/Directory'
 import useValidation from 'helpers/useValidation'
 import ResponseError from 'modules/Response/ResponseError'
 import { getUniqueCodev2 } from 'helpers/Common'
-import { UserAttributes, LoginAttributes, TokenAttributes } from 'models/user'
+import { UserAttributes, LoginAttributes } from 'models/user'
 import SendMail from 'helpers/SendEmail'
 import RefreshTokenService from 'controllers/RefreshToken/service'
 import UserService from 'controllers/User/service'
@@ -130,6 +129,7 @@ class AuthService {
           expiresIn,
           tokenType: 'Bearer',
           refreshToken,
+          user: payloadToken,
         }
       }
 
@@ -146,19 +146,11 @@ class AuthService {
    *
    * @param token
    */
-  public static async profile(token: TokenAttributes) {
-    if (isObject(token?.data)) {
-      const decodeToken = token?.data
-      const including = [{ model: Role }]
+  public static async profile(userData: UserAttributes) {
+    const including = [{ model: Role }]
 
-      // @ts-ignore
-      const data = await User.findByPk(decodeToken?.id, { include: including })
-      return data
-    }
-
-    throw new ResponseError.Unauthorized(
-      `${token?.message}. Please Re-login...`
-    )
+    const data = await User.findByPk(userData.id, { include: including })
+    return data
   }
 
   /**

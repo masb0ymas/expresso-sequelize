@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
-import { currentToken, verifyAccessToken } from 'helpers/Token'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
 import RefreshTokenService from 'controllers/RefreshToken/service'
@@ -28,7 +27,16 @@ routes.post(
       expiresIn,
       tokenType,
       refreshToken,
+      user,
     } = await AuthService.signIn(formData)
+    const buildResponse = BuildResponse.get({
+      message: 'Login successfully',
+      accessToken,
+      expiresIn,
+      tokenType,
+      refreshToken,
+      user,
+    })
 
     return res
       .cookie('token', accessToken, {
@@ -37,7 +45,7 @@ routes.post(
         path: '/v1',
         secure: process.env.NODE_ENV === 'production',
       })
-      .json({ accessToken, expiresIn, tokenType, refreshToken })
+      .json(buildResponse)
   })
 )
 
@@ -61,11 +69,10 @@ routes.get(
   '/profile',
   Authorization,
   asyncHandler(async function getProfile(req: Request, res: Response) {
-    const getToken = currentToken(req)
-    const token = verifyAccessToken(getToken)
+    const userData = req.getState('user')
 
     // @ts-ignore
-    const data = await AuthService.profile(token)
+    const data = await AuthService.profile(userData)
     const buildResponse = BuildResponse.get({ data })
 
     return res.status(200).json(buildResponse)
