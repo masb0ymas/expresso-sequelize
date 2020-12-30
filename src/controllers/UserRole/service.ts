@@ -27,6 +27,32 @@ class UserRoleService {
 
   /**
    *
+   * @param arrayFormData - formData array []
+   * @param txn - Transaction
+   */
+  public static async bulkCreate(
+    arrayFormData: UserRoleAttributes[],
+    txn?: Transaction
+  ) {
+    const newFormData = []
+    if (Array.isArray(arrayFormData)) {
+      for (let i = 0; i < arrayFormData.length; i += 1) {
+        const formData = arrayFormData[i]
+
+        const value = useValidation(schema.create, formData)
+        newFormData.push(value)
+      }
+    }
+
+    const data = await UserRole.bulkCreate(newFormData, {
+      transaction: txn,
+    })
+
+    return data
+  }
+
+  /**
+   *
    * @param formData
    * @param txn Transaction Sequelize
    */
@@ -51,7 +77,7 @@ class UserRoleService {
     await UserRole.destroy({
       where: {
         UserId: {
-          [Op.in]: id,
+          [Op.in]: [id],
         },
       },
     })
@@ -60,16 +86,16 @@ class UserRoleService {
   /**
    *
    * @param id
-   * @param roles Array of String
+   * @param Roles Array of String
    * @example
-   * roles = ['id_1', 'id_2']
+   * Roles = ['id_1', 'id_2']
    */
-  public static async deleteNotInRoleId(id: string, roles: []) {
+  public static async deleteNotInRoleId(id: string, Roles: []) {
     await UserRole.destroy({
       where: {
         UserId: id,
         RoleId: {
-          [Op.notIn]: roles,
+          [Op.notIn]: Roles,
         },
       },
     })
