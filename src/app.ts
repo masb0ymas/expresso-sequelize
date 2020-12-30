@@ -23,6 +23,7 @@ app.set('views', path.join(`${__dirname}/../`, 'views'))
 app.set('view engine', 'pug')
 
 app.use(helmet())
+// @ts-ignore
 app.use(cors())
 // @ts-ignore
 app.use(logger('combined', { stream: winstonStream }))
