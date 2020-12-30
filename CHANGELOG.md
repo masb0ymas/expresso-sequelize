@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.12.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.11.1...v2.12.0) (2020-12-30)
+
+
+### Features
+
+* user role service bulk create ([32fedf1](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/32fedf1262382232b23a5fe3f0312a5501f38bba))
+
+
+### Bug Fixes
+
+* base url api docs swagger ([6d0914f](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/6d0914f28d12d27d605717be4d1fd427f6297705))
+* bug type cors ([b679278](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b67927840fb9923dd3ab93c0671a251d60df73d8))
+* get profile & return login ([deea3b5](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/deea3b5b012646026139947d747dc6bf8934a1d7))
+* ignore typing cors ([c845883](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c845883b931adb62de0891f518608e32990b07e3))
+* read model instance ([db4d6b9](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/db4d6b9b4afad81343e44e411ff0dbe867a81b85))
+* set user state after login ([9857b54](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/9857b5421f8d5bc78baea311d1187900855483ac))
+
 ### [2.11.1](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.11.0...v2.11.1) (2020-12-10)
 
 
