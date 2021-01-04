@@ -1522,10 +1522,10 @@
   dependencies:
     "@types/superagent" "*"
 
-"@types/swagger-jsdoc@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@types/swagger-jsdoc/-/swagger-jsdoc-3.0.2.tgz#a94a953eb4a483fe2bb56a4d87131bf11ec54cd6"
-  integrity sha512-FALs3SRXPbRpHG4npnefsk+iUHVHOXRnj6g3Z+DlbwAXGB/t+DoLPHdp2VnchV00rJ016DgcV/nShDYkxgHT0Q==
+"@types/swagger-jsdoc@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@types/swagger-jsdoc/-/swagger-jsdoc-6.0.0.tgz#4d2308b6b9a650cd476b49274889608a2b18ef46"
+  integrity sha512-0snGxQMvrPOFEFnEVcXAm8zKH7aLB5tAsUTXfWwQu7XGfMBelt+tSLzF5lH0D+ppRiZrwPnWF7f3fpDHZaWzag==
 
 "@types/swagger-ui-express@^4.1.2":
   version "4.1.2"
