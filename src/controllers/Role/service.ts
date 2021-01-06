@@ -1,3 +1,4 @@
+import { Request } from 'express'
 import models from 'models'
 import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
@@ -12,9 +13,9 @@ class RoleService {
    *
    * @param req Request
    */
-  public static async getAll(req: any) {
+  public static async getAll(req: Request) {
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
-      req,
+      req.query,
       Role,
       []
     )

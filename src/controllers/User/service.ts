@@ -1,3 +1,4 @@
+import { Request } from 'express'
 import models from 'models'
 import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
@@ -15,10 +16,10 @@ class UserService {
    *
    * @param req Request
    */
-  public static async getAll(req: any) {
+  public static async getAll(req: Request) {
     const { filtered } = req.query
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
-      req,
+      req.query,
       User,
       PluginSqlizeQuery.makeIncludeQueryable(filtered, including)
     )
