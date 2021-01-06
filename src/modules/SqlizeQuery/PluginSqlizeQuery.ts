@@ -230,6 +230,7 @@ interface ReqGenerate {
   sorted?: { id: any; desc: boolean }[]
   page?: number
   pageSize?: number
+  [key: string]: any
 }
 
 function generate(
