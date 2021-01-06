@@ -226,18 +226,14 @@ interface GenerateOptions {
 }
 
 interface ReqGenerate {
-  query:
-    | {
-        filtered?: { id: any; value: any }[]
-        sorted?: { id: any; desc: boolean }[]
-        page?: number
-        pageSize?: number
-      }
-    | any
+  filtered?: { id: any; value: any }[]
+  sorted?: { id: any; desc: boolean }[]
+  page?: number
+  pageSize?: number
 }
 
 function generate(
-  req: ReqGenerate,
+  reqQuery: ReqGenerate,
   model: any,
   includeRule?: Includeable | Includeable[],
   options?: GenerateOptions
@@ -263,9 +259,9 @@ function generate(
     })
   }
 
-  const pagination = paginationQuery.build(req.query)
-  const filter = filteredQuery.build(req.query.filtered)
-  const sort = sortedQuery.build(req.query.sorted)
+  const pagination = paginationQuery.build(reqQuery)
+  const filter = filteredQuery.build(reqQuery.filtered)
+  const sort = sortedQuery.build(reqQuery.sorted)
 
   return {
     include,
