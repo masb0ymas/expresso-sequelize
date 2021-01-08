@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { isEmpty } from 'lodash'
 
 const invalidValues = [null, undefined, '', false, 0]
 
@@ -32,4 +33,39 @@ function readHTMLFile(path: any, callback: any) {
   })
 }
 
-export { getUniqueCodev2, readHTMLFile, invalidValues }
+function arrayFormatter(arrayData: string | string[]) {
+  // check if data not empty
+  if (!isEmpty(arrayData)) {
+    // check if data is array
+    if (Array.isArray(arrayData)) {
+      return arrayData
+    }
+    return JSON.parse(arrayData)
+  }
+
+  return []
+}
+
+/**
+ *
+ * @param value
+ */
+function validateBoolean(value: string | boolean | Number) {
+  if (value === 'true' || value === 1 || value === '1' || value === true) {
+    return true
+  }
+
+  if (value === 'false' || value === 0 || value === '0' || value === false) {
+    return false
+  }
+
+  return null
+}
+
+export {
+  getUniqueCodev2,
+  readHTMLFile,
+  invalidValues,
+  arrayFormatter,
+  validateBoolean,
+}
