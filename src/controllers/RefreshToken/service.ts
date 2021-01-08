@@ -87,7 +87,6 @@ class RefreshTokenService {
       return { accessToken, expiresIn, tokenType: 'Bearer' }
     }
 
-    // @ts-ignore
     throw new ResponseError.Unauthorized(`${verifyToken?.message}`)
   }
 
