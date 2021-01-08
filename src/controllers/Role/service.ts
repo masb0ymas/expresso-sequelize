@@ -40,7 +40,9 @@ class RoleService {
     const data = await Role.findByPk(id)
 
     if (!data) {
-      throw new ResponseError.NotFound('data not found or has been deleted')
+      throw new ResponseError.NotFound(
+        'role data not found or has been deleted'
+      )
     }
 
     return data
