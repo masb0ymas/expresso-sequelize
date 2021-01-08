@@ -7,6 +7,7 @@ import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from 'controllers/User/schema'
+import { arrayFormatter } from 'helpers/Common'
 
 const { User, Role } = models
 const including = [{ model: Role }]
@@ -46,7 +47,26 @@ class UserService {
     })
 
     if (!data) {
-      throw new ResponseError.NotFound('data not found or has been deleted')
+      throw new ResponseError.NotFound(
+        'user data not found or has been deleted'
+      )
+    }
+
+    return data
+  }
+
+  /**
+   *
+   * @param id
+   * note: find by id only find data not include relation
+   */
+  public static async findById(id: string) {
+    const data = await User.findByPk(id)
+
+    if (!data) {
+      throw new ResponseError.NotFound(
+        'user data not found or has been deleted'
+      )
     }
 
     return data
@@ -66,7 +86,7 @@ class UserService {
     })
 
     // Check Roles is Array, format = ['id_1', 'id_2']
-    const arrayRoles = Array.isArray(Roles) ? Roles : JSON.parse(Roles)
+    const arrayRoles = arrayFormatter(Roles)
 
     const listUserRole = []
     for (let i = 0; i < arrayRoles.length; i += 1) {
@@ -94,11 +114,11 @@ class UserService {
     formData: UserAttributes,
     txn?: Transaction
   ) {
-    const data = await this.getOne(id)
+    const data = await this.findById(id)
     const { Roles }: any = formData
 
     // Check Roles is Array, format = ['id_1', 'id_2']
-    const arrayRoles = Array.isArray(Roles) ? Roles : JSON.parse(Roles)
+    const arrayRoles = arrayFormatter(Roles)
 
     // Destroy data not in UserRole
     await UserRoleService.deleteNotInRoleId(id, arrayRoles)
