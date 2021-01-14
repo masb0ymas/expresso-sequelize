@@ -8,8 +8,8 @@ import RoleService from 'controllers/Role/service'
 routes.get(
   '/role',
   asyncHandler(async function getAll(req: Request, res: Response) {
-    const { message, data, total } = await RoleService.getAll(req)
-    const buildResponse = BuildResponse.get({ message, data, total })
+    const data = await RoleService.getAll(req)
+    const buildResponse = BuildResponse.get(data)
 
     return res.status(200).json(buildResponse)
   })
