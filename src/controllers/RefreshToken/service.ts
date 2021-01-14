@@ -84,7 +84,12 @@ class RefreshTokenService {
         }
       )
 
-      return { accessToken, expiresIn, tokenType: 'Bearer' }
+      return {
+        message: 'Access token has been updated',
+        accessToken,
+        expiresIn,
+        tokenType: 'Bearer',
+      }
     }
 
     throw new ResponseError.Unauthorized(`${verifyToken?.message}`)
