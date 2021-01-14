@@ -91,14 +91,15 @@ class UserService {
     const listUserRole = []
     for (let i = 0; i < arrayRoles.length; i += 1) {
       const RoleId: string = arrayRoles[i]
-      const formRole = {
+      const formData = {
         UserId: dataUser.id,
         RoleId,
       }
-      // eslint-disable-next-line no-await-in-loop
-      const dataUserRole = await UserRoleService.create(formRole, txn)
-      listUserRole.push(dataUserRole)
+
+      listUserRole.push(formData)
     }
+
+    await UserRoleService.bulkCreate(listUserRole, txn)
 
     return dataUser
   }
@@ -123,16 +124,15 @@ class UserService {
     // Destroy data not in UserRole
     await UserRoleService.deleteNotInRoleId(id, arrayRoles)
 
-    const listUserRole = []
     for (let i = 0; i < arrayRoles.length; i += 1) {
       const RoleId: string = arrayRoles[i]
       const formRole = {
         UserId: id,
         RoleId,
       }
+
       // eslint-disable-next-line no-await-in-loop
-      const dataUserRole = await UserRoleService.findOrCreate(formRole, txn)
-      listUserRole.push(dataUserRole)
+      await UserRoleService.findOrCreate(formRole, txn)
     }
 
     const value = useValidation(schema.update, {
