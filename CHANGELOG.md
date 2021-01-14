@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.12.0...v2.13.0) (2021-01-14)
+
+
+### Features
+
+* add array format & validate boolean ([254ec86](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/254ec86ffe72de407de4493a37e0677fe5e16690))
+* add function find by id ([dac6a27](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/dac6a273971f5f75204b1e3c4c6cacf706ec40a9))
+
+
+### Bug Fixes
+
+* any key query filterable sequelize query ([bfe5084](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/bfe5084e0f16e4b2c1082f31465f570e563b72f3))
+* argument query plugin sequelize query ([cb8466e](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/cb8466ee7064e6bb2ba8cc482f7033f2f0c89db5))
+* change create user role ([315c458](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/315c458bff07b726bb7069afa5d69e8420b7a667))
+* get query in filterable plugin sequelize ([b632577](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b632577b0439f9b5cff12930cc91f8fc4076ae48))
+* improve return auth service ([26ad3c9](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/26ad3c97caa06ffca95af231715584814975aff8))
+* improve return refresh token ([2efc4b7](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2efc4b7562b99c1872a58363e83ab8496b817c9d))
+* improve return role service ([b72afcc](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b72afcc7ef55d733307c8e2b8df0883719cf4639))
+* remove ts ignore ([6c4eb49](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/6c4eb493b6e6d53cf330148cdb7e55440f6b3133))
+* remove ts ignore ([817b1df](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/817b1dfd7848985ec1740b23d339c221c0415165))
+* type error get one ([d4dd8b7](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d4dd8b7dcf4368b65a64ceb2528d2332949a8dd6))
+
 ## [2.12.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.11.1...v2.12.0) (2020-12-30)
 
 
