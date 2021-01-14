@@ -11,8 +11,8 @@ routes.post(
   asyncHandler(async function signUp(req: Request, res: Response) {
     const formData = req.getBody()
 
-    const { message, data } = await AuthService.signUp(formData)
-    const buildResponse = BuildResponse.get({ message, data })
+    const data = await AuthService.signUp(formData)
+    const buildResponse = BuildResponse.get(data)
 
     return res.status(201).json(buildResponse)
   })
@@ -22,25 +22,12 @@ routes.post(
   '/auth/sign-in',
   asyncHandler(async function signIn(req: Request, res: Response) {
     const formData = req.getBody()
-    const {
-      accessToken,
-      expiresIn,
-      tokenType,
-      refreshToken,
-      user,
-    } = await AuthService.signIn(formData)
-    const buildResponse = BuildResponse.get({
-      message: 'Login successfully',
-      accessToken,
-      expiresIn,
-      tokenType,
-      refreshToken,
-      user,
-    })
+    const data = await AuthService.signIn(formData)
+    const buildResponse = BuildResponse.get(data)
 
     return res
-      .cookie('token', accessToken, {
-        maxAge: Number(expiresIn) * 1000, // 7 Days
+      .cookie('token', data.accessToken, {
+        maxAge: Number(data.expiresIn) * 1000, // 7 Days
         httpOnly: true,
         path: '/v1',
         secure: process.env.NODE_ENV === 'production',
@@ -55,13 +42,10 @@ routes.post(
   asyncHandler(async function authRefreshToken(req: Request, res: Response) {
     const { email, refreshToken } = req.getBody()
 
-    const {
-      accessToken,
-      expiresIn,
-      tokenType,
-    } = await RefreshTokenService.getAccessToken(email, refreshToken)
+    const data = await RefreshTokenService.getAccessToken(email, refreshToken)
+    const buildResponse = BuildResponse.get(data)
 
-    return res.status(200).json({ accessToken, expiresIn, tokenType })
+    return res.status(200).json(buildResponse)
   })
 )
 
