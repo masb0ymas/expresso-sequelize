@@ -75,6 +75,72 @@ module.exports = {
       },
     },
   },
+  '/user/multiple/delete': {
+    post: {
+      tags: ['User'],
+      summary: 'Multiple Delete User',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                ids: {
+                  type: 'string',
+                  description: '["id_1", "id_2"]',
+                },
+              },
+              required: ['ids'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Multiple Delete User',
+        },
+      },
+    },
+  },
+  '/user/multiple/restore': {
+    post: {
+      tags: ['User'],
+      summary: 'Multiple Restore User',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                ids: {
+                  type: 'string',
+                  description: '["id_1", "id_2"]',
+                },
+              },
+              required: ['ids'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Multiple Restore User',
+        },
+      },
+    },
+  },
   '/user/{id}': {
     get: {
       tags: ['User'],
@@ -160,7 +226,7 @@ module.exports = {
     },
     delete: {
       tags: ['User'],
-      summary: 'Delete User By Id',
+      summary: 'Forever Delete User By Id',
       security: [
         {
           auth_token: [],
@@ -180,7 +246,63 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: 'Delete User By Id',
+          description: 'Forever Delete User By Id',
+        },
+      },
+    },
+  },
+  '/user/restore/{id}': {
+    put: {
+      tags: ['User'],
+      summary: 'Restore User By Id',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      produces: ['application/json'],
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          schema: {
+            type: 'string',
+          },
+          description: 'User Id',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Restore User By Id',
+        },
+      },
+    },
+  },
+  '/user/delete/{id}': {
+    delete: {
+      tags: ['User'],
+      summary: 'Soft Delete User By Id',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      produces: ['application/json'],
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          schema: {
+            type: 'string',
+          },
+          description: 'User Id',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Soft Delete User By Id',
         },
       },
     },
