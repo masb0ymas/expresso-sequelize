@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.14.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.13.0...v2.14.0) (2021-01-21)
+
+
+### Features
+
+* add helper file ([e940f30](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/e940f3042ac24439be7e97abfff065eb61f48349))
+
+
+### Bug Fixes
+
+* auth service logout ([58acb0a](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/58acb0a33cc500e885dcac1d9cc8c556d9e2cd30))
+* common helper ([bab8efa](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/bab8efaca01e0239e0f3b90209c54e5243e0e591))
+* endpoint multi delete & restore role controller ([4c9bd0e](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/4c9bd0eadb054764f38094226e1bc226727fb352))
+* endpoint multi delete & restore user controller ([266c626](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/266c626c5399a6bace7116f6e38da1f898406345))
+* field migration deleted at ([07086c3](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/07086c38688eb805cc93b013dbf9554dda5b33ea))
+* field model deleted at ([b566b2a](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b566b2ad50b95dfa3d08ce3b01b121dd5749159f))
+* import read html file ([12f344e](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/12f344e178de199509a40d9db5c27dc3dd3622e6))
+
 ## [2.13.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.12.0...v2.13.0) (2021-01-14)
 
 
