@@ -156,13 +156,17 @@ class AuthService {
 
   /**
    *
-   * @param userId
+   * @param UserId
    */
-  public static async logout(userId: string) {
-    const userData = await UserService.getOne(userId)
+  public static async logout(UserId: string, userData: any) {
+    if (userData?.id !== UserId) {
+      throw new ResponseError.Unauthorized('Invalid user login!')
+    }
+
+    const data = await UserService.getOne(UserId)
 
     // remove refresh token by user id
-    await RefreshTokenService.delete(userData.id)
+    await RefreshTokenService.delete(data.id)
     const message = 'You have logged out of the application'
 
     return message
