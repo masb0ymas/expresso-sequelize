@@ -8690,10 +8690,10 @@ supports-hyperlinks@^2.0.0:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
 
-swagger-jsdoc@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/swagger-jsdoc/-/swagger-jsdoc-6.0.0.tgz#dee2e0b12950ea63fc842d9a6048d47ff8780334"
-  integrity sha512-gI2GoziKS3alcnWI86LTpXeFobiRsfuMoPLUzbpivPRPeAybAN8yLPmjRFaEXXF67SCnH4a/68CnkGNBh/C7vQ==
+swagger-jsdoc@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/swagger-jsdoc/-/swagger-jsdoc-6.0.1.tgz#7b5df9b7d4f28e844d879f437dd045efa4d037fd"
+  integrity sha512-Rpyq3aMR3wlLie9syaLRwF7WmWHNvSXRBzqn4P45rdJ1tXGIxFBeKRQG/Y/1YmBh3BmK6ds29CMavzDLWqRlpw==
   dependencies:
     commander "6.2.0"
     doctrine "3.0.0"
