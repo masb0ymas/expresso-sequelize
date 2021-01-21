@@ -1,6 +1,6 @@
 import path from 'path'
 import handlebars from 'handlebars'
-import { readHTMLFile } from 'helpers/Common'
+import { readHTMLFile } from 'helpers/File'
 import EmailProvider from 'config/email'
 import ResponseError from 'modules/Response/ResponseError'
 import { BASE_URL_CLIENT } from 'config/baseClient'
