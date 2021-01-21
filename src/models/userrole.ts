@@ -9,6 +9,7 @@ export interface UserRoleAttributes {
   RoleId: string
   createdAt?: Date
   updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 interface UserRoleCreationAttributes
@@ -18,8 +19,12 @@ interface UserRoleInstance
   extends Model<UserRoleAttributes, UserRoleCreationAttributes>,
     UserRoleAttributes {}
 
-const UserRole = db.sequelize.define<UserRoleInstance>('UserRoles', {
-  ...SequelizeAttributes.UserRoles,
-})
+const UserRole = db.sequelize.define<UserRoleInstance>(
+  'UserRoles',
+  {
+    ...SequelizeAttributes.UserRoles,
+  },
+  { paranoid: true }
+)
 
 export default UserRole
