@@ -1,5 +1,6 @@
 import { Request } from 'express'
 import models from 'models'
+import db from 'models/_instance'
 import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { UserAttributes } from 'models/user'
@@ -8,6 +9,9 @@ import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from 'controllers/User/schema'
 import { arrayFormatter } from 'helpers/Common'
+
+const { Sequelize } = db
+const { Op } = Sequelize
 
 const { User, Role } = models
 const including = [{ model: Role }]
@@ -41,9 +45,10 @@ class UserService {
    *
    * @param id
    */
-  public static async getOne(id: string) {
+  public static async getOne(id: string, paranoid?: boolean) {
     const data = await User.findByPk(id, {
       include: including,
+      paranoid,
     })
 
     if (!data) {
@@ -60,8 +65,8 @@ class UserService {
    * @param id
    * note: find by id only find data not include relation
    */
-  public static async findById(id: string) {
-    const data = await User.findByPk(id)
+  public static async findById(id: string, paranoid?: boolean) {
+    const data = await User.findByPk(id, { paranoid })
 
     if (!data) {
       throw new ResponseError.NotFound(
@@ -153,7 +158,55 @@ class UserService {
     const data = await this.getOne(id)
 
     await UserRoleService.deleteByUserId(id)
+    await data.destroy({ force: true })
+  }
+
+  /**
+   *
+   * @param id - Soft Delete
+   */
+  public static async softDelete(id: string) {
+    const data = await this.getOne(id)
     await data.destroy()
+  }
+
+  /**
+   *
+   * @param id - Restore data from Trash
+   */
+  public static async restore(id: string) {
+    const data = await this.getOne(id, false)
+    await data.restore()
+  }
+
+  /**
+   *
+   * @param ids
+   * @example ["id_1", "id_2"]
+   */
+  public static async multipleDelete(ids: Array<string>) {
+    await Role.destroy({
+      where: {
+        id: {
+          [Op.in]: ids,
+        },
+      },
+    })
+  }
+
+  /**
+   *
+   * @param ids
+   * @example ["id_1", "id_2"]
+   */
+  public static async multipleRestore(ids: Array<string>) {
+    await Role.restore({
+      where: {
+        id: {
+          [Op.in]: ids,
+        },
+      },
+    })
   }
 }
 

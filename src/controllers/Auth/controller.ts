@@ -68,10 +68,11 @@ routes.post(
   Authorization,
   asyncHandler(async function logout(req: Request, res: Response) {
     const { UserId } = req.getBody()
+    const userData = req.getState('user')
 
-    const message = await AuthService.logout(UserId)
+    const message = await AuthService.logout(UserId, userData)
     const buildResponse = BuildResponse.deleted({ message })
 
-    return res.status(200).json(buildResponse)
+    return res.clearCookie('token', { path: '/v1' }).json(buildResponse)
   })
 )

@@ -4,6 +4,7 @@ import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
 import UserService from 'controllers/User/service'
+import { arrayFormatter } from 'helpers/Common'
 
 routes.get(
   '/user',
@@ -56,6 +57,60 @@ routes.put(
     const buildResponse = BuildResponse.updated({ data })
 
     await txn.commit()
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.post(
+  '/user/multiple/delete',
+  Authorization,
+  asyncHandler(async function createData(req: Request, res: Response) {
+    const formData = req.getBody()
+    const arrayIds = arrayFormatter(formData.ids)
+
+    await UserService.multipleDelete(arrayIds)
+    const buildResponse = BuildResponse.deleted({})
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.post(
+  '/user/multiple/restore',
+  Authorization,
+  asyncHandler(async function createData(req: Request, res: Response) {
+    const formData = req.getBody()
+    const arrayIds = arrayFormatter(formData.ids)
+
+    await UserService.multipleRestore(arrayIds)
+    const buildResponse = BuildResponse.updated({})
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.delete(
+  '/user/delete/:id',
+  Authorization,
+  asyncHandler(async function deleteData(req: Request, res: Response) {
+    const { id } = req.getParams()
+
+    await UserService.softDelete(id)
+    const buildResponse = BuildResponse.deleted({})
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.put(
+  '/user/restore/:id',
+  Authorization,
+  asyncHandler(async function deleteData(req: Request, res: Response) {
+    const { id } = req.getParams()
+
+    await UserService.restore(id)
+    const buildResponse = BuildResponse.updated({})
+
     return res.status(200).json(buildResponse)
   })
 )

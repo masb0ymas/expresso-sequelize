@@ -4,6 +4,7 @@ import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
 import RoleService from 'controllers/Role/service'
+import { arrayFormatter } from 'helpers/Common'
 
 routes.get(
   '/role',
@@ -49,6 +50,60 @@ routes.put(
 
     const data = await RoleService.update(id, formData)
     const buildResponse = BuildResponse.updated({ data })
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.post(
+  '/role/multiple/delete',
+  Authorization,
+  asyncHandler(async function createData(req: Request, res: Response) {
+    const formData = req.getBody()
+    const arrayIds = arrayFormatter(formData.ids)
+
+    await RoleService.multipleDelete(arrayIds)
+    const buildResponse = BuildResponse.deleted({})
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.post(
+  '/role/multiple/restore',
+  Authorization,
+  asyncHandler(async function createData(req: Request, res: Response) {
+    const formData = req.getBody()
+    const arrayIds = arrayFormatter(formData.ids)
+
+    await RoleService.multipleRestore(arrayIds)
+    const buildResponse = BuildResponse.updated({})
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.delete(
+  '/role/delete/:id',
+  Authorization,
+  asyncHandler(async function deleteData(req: Request, res: Response) {
+    const { id } = req.getParams()
+
+    await RoleService.softDelete(id)
+    const buildResponse = BuildResponse.deleted({})
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.put(
+  '/role/restore/:id',
+  Authorization,
+  asyncHandler(async function deleteData(req: Request, res: Response) {
+    const { id } = req.getParams()
+
+    await RoleService.restore(id)
+    const buildResponse = BuildResponse.updated({})
 
     return res.status(200).json(buildResponse)
   })

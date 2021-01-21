@@ -16,6 +16,7 @@ export interface UserAttributes {
   confirmNewPassword?: string
   createdAt?: Date
   updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 export interface TokenAttributes {
@@ -53,6 +54,7 @@ const User = db.sequelize.define<UserInstance>(
     },
   },
   {
+    paranoid: true,
     defaultScope: {
       attributes: {
         exclude: ['password', 'tokenVerify'],

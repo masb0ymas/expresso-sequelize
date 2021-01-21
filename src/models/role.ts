@@ -8,6 +8,7 @@ export interface RoleAttributes {
   nama: string
   createdAt?: Date
   updatedAt?: Date
+  deletedAt?: Date | null
 }
 
 interface RoleCreationAttributes extends Optional<RoleAttributes, 'id'> {}
@@ -16,8 +17,12 @@ interface RoleInstance
   extends Model<RoleAttributes, RoleCreationAttributes>,
     RoleAttributes {}
 
-const Role = db.sequelize.define<RoleInstance>('Roles', {
-  ...SequelizeAttributes.Roles,
-})
+const Role = db.sequelize.define<RoleInstance>(
+  'Roles',
+  {
+    ...SequelizeAttributes.Roles,
+  },
+  { paranoid: true }
+)
 
 export default Role
