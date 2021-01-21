@@ -55,6 +55,72 @@ module.exports = {
       },
     },
   },
+  '/role/multiple/delete': {
+    post: {
+      tags: ['Role'],
+      summary: 'Multiple Delete Role',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                ids: {
+                  type: 'string',
+                  description: '["id_1", "id_2"]',
+                },
+              },
+              required: ['ids'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Multiple Delete Role',
+        },
+      },
+    },
+  },
+  '/role/multiple/restore': {
+    post: {
+      tags: ['Role'],
+      summary: 'Multiple Restore Role',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                ids: {
+                  type: 'string',
+                  description: '["id_1", "id_2"]',
+                },
+              },
+              required: ['ids'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Multiple Restore Role',
+        },
+      },
+    },
+  },
   '/role/{id}': {
     get: {
       tags: ['Role'],
@@ -120,7 +186,7 @@ module.exports = {
     },
     delete: {
       tags: ['Role'],
-      summary: 'Delete Role By Id',
+      summary: 'Forever Delete Role By Id',
       security: [
         {
           auth_token: [],
@@ -140,7 +206,63 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: 'Delete Role By Id',
+          description: 'Forever Delete Role By Id',
+        },
+      },
+    },
+  },
+  '/role/restore/{id}': {
+    put: {
+      tags: ['Role'],
+      summary: 'Restore Role By Id',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      produces: ['application/json'],
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          schema: {
+            type: 'string',
+          },
+          description: 'Role Id',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Restore Role By Id',
+        },
+      },
+    },
+  },
+  '/role/delete/{id}': {
+    delete: {
+      tags: ['Role'],
+      summary: 'Soft Delete Role By Id',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      produces: ['application/json'],
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          schema: {
+            type: 'string',
+          },
+          description: 'Role Id',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Soft Delete Role By Id',
         },
       },
     },
