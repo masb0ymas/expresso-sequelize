@@ -1,14 +1,16 @@
+const ConstRoles = require('constants/ConstRoles')
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Roles', [
       {
-        id: '366aadd0-eb0c-4203-9928-7ad87c80aafa',
+        id: ConstRoles.ID_ADMIN,
         nama: 'Admin',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        id: '4f1efd44-9919-44a8-89ca-32324c810496',
+        id: ConstRoles.ID_UMUM,
         nama: 'Umum',
         createdAt: new Date(),
         updatedAt: new Date(),
