@@ -13,6 +13,7 @@ import ExpressErrorResponse from 'middlewares/ExpressErrorResponse'
 import ExpressErrorSequelize from 'middlewares/ExpressErrorSequelize'
 import ExpressAutoHandleTransaction from 'middlewares/ExpressAutoHandleTransaction'
 import winstonLogger, { winstonStream } from 'config/winston'
+import initialJobs from 'jobs'
 
 const GenerateDoc = require('utils/GenerateDocs')
 
@@ -40,6 +41,9 @@ GenerateDoc(app)
 
 // Initial Route
 app.use(indexRouter)
+
+// Initial Jobs
+initialJobs()
 
 async function handleRollbackTransaction(
   err: any,
