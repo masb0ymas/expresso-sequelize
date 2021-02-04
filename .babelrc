@@ -11,8 +11,10 @@
         "alias": {
           "bin": "./src/bin",
           "config": "./src/config",
+          "constants": "./src/constants",
           "controllers": "./src/controllers",
           "helpers": "./src/helpers",
+          "jobs": "./src/jobs",
           "middlewares": "./src/middlewares",
           "migrations": "./src/migrations",
           "models": "./src/models",
