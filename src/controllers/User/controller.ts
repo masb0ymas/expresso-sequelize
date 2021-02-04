@@ -1,10 +1,12 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
 import UserService from 'controllers/User/service'
 import { arrayFormatter } from 'helpers/Common'
+import { UserInstance } from 'models/user'
+import UserRoleService from 'controllers/UserRole/service'
 
 routes.get(
   '/user',
@@ -33,14 +35,42 @@ routes.get(
 routes.post(
   '/user',
   Authorization,
-  asyncHandler(async function createData(req: Request, res: Response) {
+  asyncHandler(async function createUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     const txn = await req.getTransaction()
     const formData = req.getBody()
 
     const data = await UserService.create(formData, txn)
-    const buildResponse = BuildResponse.created({ data })
+    req.setState({ userData: data, formData })
+
+    next()
+  }),
+  asyncHandler(async function createUserRole(req: Request, res: Response) {
+    const txn = await req.getTransaction()
+    const data = req.getState('userData') as UserInstance
+    const Roles = req.getState('formData.Roles') as string[]
+
+    // Check Roles is Array, format = ['id_1', 'id_2']
+    const arrayRoles = arrayFormatter(Roles)
+
+    const listUserRole = []
+    for (let i = 0; i < arrayRoles.length; i += 1) {
+      const RoleId: string = arrayRoles[i]
+      const formData = {
+        UserId: data.id,
+        RoleId,
+      }
+
+      listUserRole.push(formData)
+    }
+    await UserRoleService.bulkCreate(listUserRole, txn)
 
     await txn.commit()
+    const buildResponse = BuildResponse.created({ data })
+
     return res.status(201).json(buildResponse)
   })
 )
@@ -48,15 +78,44 @@ routes.post(
 routes.put(
   '/user/:id',
   Authorization,
-  asyncHandler(async function updateData(req: Request, res: Response) {
+  asyncHandler(async function updateUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     const txn = await req.getTransaction()
     const formData = req.getBody()
     const { id } = req.getParams()
 
     const data = await UserService.update(id, formData, txn)
+    req.setState({ userData: data, formData })
+
+    next()
+  }),
+  asyncHandler(async function updateUserRole(req: Request, res: Response) {
+    const txn = await req.getTransaction()
+    const data = req.getState('userData') as UserInstance
+    const Roles = req.getState('formData.Roles') as string[]
+
+    // Check Roles is Array, format = ['id_1', 'id_2']
+    const arrayRoles = arrayFormatter(Roles)
+
+    // Destroy data not in UserRole
+    await UserRoleService.deleteNotInRoleId(data.id, arrayRoles)
+
+    for (let i = 0; i < arrayRoles.length; i += 1) {
+      const RoleId: string = arrayRoles[i]
+      const formRole = {
+        UserId: data.id,
+        RoleId,
+      }
+
+      // eslint-disable-next-line no-await-in-loop
+      await UserRoleService.findOrCreate(formRole, txn)
+    }
+    await txn.commit()
     const buildResponse = BuildResponse.updated({ data })
 
-    await txn.commit()
     return res.status(200).json(buildResponse)
   })
 )

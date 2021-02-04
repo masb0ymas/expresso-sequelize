@@ -8,7 +8,6 @@ import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from 'controllers/User/schema'
-import { arrayFormatter } from 'helpers/Common'
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -83,28 +82,11 @@ class UserService {
    * @param txn Transaction Sequelize
    */
   public static async create(formData: UserAttributes, txn?: Transaction) {
-    const { Roles }: any = formData
     const value = useValidation(schema.create, formData)
 
     const dataUser = await User.create(value, {
       transaction: txn,
     })
-
-    // Check Roles is Array, format = ['id_1', 'id_2']
-    const arrayRoles = arrayFormatter(Roles)
-
-    const listUserRole = []
-    for (let i = 0; i < arrayRoles.length; i += 1) {
-      const RoleId: string = arrayRoles[i]
-      const formData = {
-        UserId: dataUser.id,
-        RoleId,
-      }
-
-      listUserRole.push(formData)
-    }
-
-    await UserRoleService.bulkCreate(listUserRole, txn)
 
     return dataUser
   }
@@ -121,24 +103,6 @@ class UserService {
     txn?: Transaction
   ) {
     const data = await this.findById(id)
-    const { Roles }: any = formData
-
-    // Check Roles is Array, format = ['id_1', 'id_2']
-    const arrayRoles = arrayFormatter(Roles)
-
-    // Destroy data not in UserRole
-    await UserRoleService.deleteNotInRoleId(id, arrayRoles)
-
-    for (let i = 0; i < arrayRoles.length; i += 1) {
-      const RoleId: string = arrayRoles[i]
-      const formRole = {
-        UserId: id,
-        RoleId,
-      }
-
-      // eslint-disable-next-line no-await-in-loop
-      await UserRoleService.findOrCreate(formRole, txn)
-    }
 
     const value = useValidation(schema.update, {
       ...data.toJSON(),
