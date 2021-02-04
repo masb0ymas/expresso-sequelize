@@ -53,7 +53,7 @@ routes.get(
   '/profile',
   Authorization,
   asyncHandler(async function getProfile(req: Request, res: Response) {
-    const userData = req.getState('user')
+    const userData = req.getState('userLogin')
 
     // @ts-ignore
     const data = await AuthService.profile(userData)
@@ -68,7 +68,7 @@ routes.post(
   Authorization,
   asyncHandler(async function logout(req: Request, res: Response) {
     const { UserId } = req.getBody()
-    const userData = req.getState('user')
+    const userData = req.getState('userLogin')
 
     const message = await AuthService.logout(UserId, userData)
     const buildResponse = BuildResponse.deleted({ message })
