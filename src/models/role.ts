@@ -13,7 +13,7 @@ export interface RoleAttributes {
 
 interface RoleCreationAttributes extends Optional<RoleAttributes, 'id'> {}
 
-interface RoleInstance
+export interface RoleInstance
   extends Model<RoleAttributes, RoleCreationAttributes>,
     RoleAttributes {}
 

@@ -15,7 +15,7 @@ export interface UserRoleAttributes {
 interface UserRoleCreationAttributes
   extends Optional<UserRoleAttributes, 'id'> {}
 
-interface UserRoleInstance
+export interface UserRoleInstance
   extends Model<UserRoleAttributes, UserRoleCreationAttributes>,
     UserRoleAttributes {}
 
