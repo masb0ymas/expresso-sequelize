@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.14.0...v2.15.0) (2021-02-04)
+
+
+### Features
+
+* add constant role ([d62d3f6](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d62d3f60af962b3e5f3f17072c9d43b421ec9fb7))
+* add lib node-cron ([0a0a551](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0a0a55129b9cc01368c774d5e0cd4896849dd1f8))
+* example role job ([c561fde](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c561fde78b2ee088b140396302327ab490991b88))
+
+
+### Bug Fixes
+
+* add folder resolve ([505c9be](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/505c9becb436ec6344cb179b4949c3a673cdb1ec))
+* export model instance ([0608eec](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0608eec65ac58975439a6fee34d877665cdea956))
+* implementation jobs ([79f6c01](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/79f6c0141ffe382a8fb4bfc94a1a409713530cd7))
+* rename state user login ([962ac76](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/962ac7636229e831af02327ffe448c82b697cbd0))
+* seeder role with constant id ([acbc666](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/acbc666a5d4ff260d3861bdb30d399755155a6c0))
+* wording routes ([82475e7](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/82475e7a711e64c06a88672a9b2a39001bebb044))
+
 ## [2.14.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.13.0...v2.14.0) (2021-01-21)
 
 
