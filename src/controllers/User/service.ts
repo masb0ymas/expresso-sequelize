@@ -8,6 +8,8 @@ import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from 'controllers/User/schema'
+import { isEmpty } from 'lodash'
+import { validateBoolean } from 'helpers/Common'
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -117,21 +119,17 @@ class UserService {
   /**
    *
    * @param id
+   * @param force - Force Deleted
    */
-  public static async delete(id: string) {
-    const data = await this.getOne(id)
+  public static async delete(id: string, force?: boolean) {
+    const data = await this.findById(id)
+    const isForce = validateBoolean(force)
 
-    await UserRoleService.deleteByUserId(id)
-    await data.destroy({ force: true })
-  }
+    if (isForce) {
+      await UserRoleService.deleteByUserId(id)
+    }
 
-  /**
-   *
-   * @param id - Soft Delete
-   */
-  public static async softDelete(id: string) {
-    const data = await this.getOne(id)
-    await data.destroy()
+    await data.destroy({ force: isForce })
   }
 
   /**
@@ -139,29 +137,37 @@ class UserService {
    * @param id - Restore data from Trash
    */
   public static async restore(id: string) {
-    const data = await this.getOne(id, false)
+    const data = await this.findById(id, false)
     await data.restore()
   }
 
   /**
    *
    * @param ids
-   * @example ["id_1", "id_2"]
+   * @param force
+   * @example ids = ['id_1', 'id_2']
    */
-  public static async multipleDelete(ids: Array<string>) {
+  public static async multipleDelete(ids: Array<string>, force?: boolean) {
+    const isForce = validateBoolean(force)
+
+    if (isEmpty(ids)) {
+      throw new ResponseError.BadRequest('ids cannot be empty')
+    }
+
     await Role.destroy({
       where: {
         id: {
           [Op.in]: ids,
         },
       },
+      force: isForce,
     })
   }
 
   /**
    *
    * @param ids
-   * @example ["id_1", "id_2"]
+   * @example ids = ["id_1", "id_2"]
    */
   public static async multipleRestore(ids: Array<string>) {
     await Role.restore({

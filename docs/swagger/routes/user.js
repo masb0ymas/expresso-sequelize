@@ -75,10 +75,10 @@ module.exports = {
       },
     },
   },
-  '/user/multiple/delete': {
+  '/user/multiple/soft-delete': {
     post: {
       tags: ['User'],
-      summary: 'Multiple Delete User',
+      summary: 'Multiple Soft Delete User',
       security: [
         {
           auth_token: [],
@@ -103,7 +103,7 @@ module.exports = {
       },
       responses: {
         200: {
-          description: 'Multiple Delete User',
+          description: 'Multiple Soft Delete User',
         },
       },
     },
@@ -137,6 +137,39 @@ module.exports = {
       responses: {
         200: {
           description: 'Multiple Restore User',
+        },
+      },
+    },
+  },
+  '/user/multiple/force-delete': {
+    post: {
+      tags: ['User'],
+      summary: 'Multiple Force Delete User ( Forever )',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                ids: {
+                  type: 'string',
+                  description: '["id_1", "id_2"]',
+                },
+              },
+              required: ['ids'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Multiple Force Delete User ( Forever )',
         },
       },
     },
@@ -226,7 +259,7 @@ module.exports = {
     },
     delete: {
       tags: ['User'],
-      summary: 'Forever Delete User By Id',
+      summary: 'Force Delete User By Id ( Forever )',
       security: [
         {
           auth_token: [],
@@ -246,7 +279,7 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: 'Forever Delete User By Id',
+          description: 'Force Delete User By Id ( Forever )',
         },
       },
     },

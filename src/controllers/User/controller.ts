@@ -12,8 +12,8 @@ routes.get(
   '/user',
   Authorization,
   asyncHandler(async function getAll(req: Request, res: Response) {
-    const { message, data, total } = await UserService.getAll(req)
-    const buildResponse = BuildResponse.get({ message, data, total })
+    const data = await UserService.getAll(req)
+    const buildResponse = BuildResponse.get(data)
 
     return res.status(200).json(buildResponse)
   })
@@ -121,7 +121,7 @@ routes.put(
 )
 
 routes.post(
-  '/user/multiple/delete',
+  '/user/multiple/soft-delete',
   Authorization,
   asyncHandler(async function createData(req: Request, res: Response) {
     const formData = req.getBody()
@@ -148,13 +148,27 @@ routes.post(
   })
 )
 
+routes.post(
+  '/user/multiple/force-delete',
+  Authorization,
+  asyncHandler(async function createData(req: Request, res: Response) {
+    const formData = req.getBody()
+    const arrayIds = arrayFormatter(formData.ids)
+
+    await UserService.multipleDelete(arrayIds, true)
+    const buildResponse = BuildResponse.deleted({})
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
 routes.delete(
   '/user/delete/:id',
   Authorization,
   asyncHandler(async function deleteData(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    await UserService.softDelete(id)
+    await UserService.delete(id)
     const buildResponse = BuildResponse.deleted({})
 
     return res.status(200).json(buildResponse)
@@ -180,7 +194,7 @@ routes.delete(
   asyncHandler(async function deleteData(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    await UserService.delete(id)
+    await UserService.delete(id, true)
     const buildResponse = BuildResponse.deleted({})
 
     return res.status(200).json(buildResponse)
