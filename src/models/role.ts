@@ -5,7 +5,7 @@ import db from './_instance'
 
 export interface RoleAttributes {
   id: string
-  nama: string
+  name: string
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null

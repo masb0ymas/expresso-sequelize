@@ -5,13 +5,13 @@ module.exports = {
     return queryInterface.bulkInsert('Roles', [
       {
         id: ConstRoles.ID_ADMIN,
-        nama: 'Admin',
+        name: 'Admin',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: ConstRoles.ID_UMUM,
-        nama: 'Umum',
+        name: 'Umum',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
