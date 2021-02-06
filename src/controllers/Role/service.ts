@@ -7,6 +7,8 @@ import { RoleAttributes } from 'models/role'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from 'controllers/Role/schema'
 import ExcelHelper from 'helpers/Excel'
+import { isEmpty } from 'lodash'
+import { validateBoolean } from 'helpers/Common'
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -110,20 +112,13 @@ class RoleService {
 
   /**
    *
-   * @param id - Delete Forever
+   * @param id - Force Delete
    */
-  public static async delete(id: string) {
-    const data = await this.getOne(id)
-    await data.destroy({ force: true })
-  }
+  public static async delete(id: string, force?: boolean) {
+    const isForce = validateBoolean(force)
 
-  /**
-   *
-   * @param id - Soft Delete
-   */
-  public static async softDelete(id: string) {
     const data = await this.getOne(id)
-    await data.destroy()
+    await data.destroy({ force: isForce })
   }
 
   /**
@@ -138,24 +133,36 @@ class RoleService {
   /**
    *
    * @param ids
-   * @example ["id_1", "id_2"]
+   * @param force - Force Deleted
+   * @example ids = ["id_1", "id_2"]
    */
-  public static async multipleDelete(ids: Array<string>) {
+  public static async multipleDelete(ids: Array<string>, force?: boolean) {
+    const isForce = validateBoolean(force)
+
+    if (isEmpty(ids)) {
+      throw new ResponseError.BadRequest('ids cannot be empty')
+    }
+
     await Role.destroy({
       where: {
         id: {
           [Op.in]: ids,
         },
       },
+      force: isForce,
     })
   }
 
   /**
    *
    * @param ids
-   * @example ["id_1", "id_2"]
+   * @example ids = ["id_1", "id_2"]
    */
   public static async multipleRestore(ids: Array<string>) {
+    if (isEmpty(ids)) {
+      throw new ResponseError.BadRequest('ids cannot be empty')
+    }
+
     await Role.restore({
       where: {
         id: {

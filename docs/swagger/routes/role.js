@@ -81,10 +81,10 @@ module.exports = {
       },
     },
   },
-  '/role/multiple/delete': {
+  '/role/multiple/soft-delete': {
     post: {
       tags: ['Role'],
-      summary: 'Multiple Delete Role',
+      summary: 'Multiple Soft Delete Role',
       security: [
         {
           auth_token: [],
@@ -109,7 +109,7 @@ module.exports = {
       },
       responses: {
         200: {
-          description: 'Multiple Delete Role',
+          description: 'Multiple Soft Delete Role',
         },
       },
     },
@@ -143,6 +143,39 @@ module.exports = {
       responses: {
         200: {
           description: 'Multiple Restore Role',
+        },
+      },
+    },
+  },
+  '/role/multiple/force-delete': {
+    post: {
+      tags: ['Role'],
+      summary: 'Multiple Force Delete Role ( Forever )',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                ids: {
+                  type: 'string',
+                  description: '["id_1", "id_2"]',
+                },
+              },
+              required: ['ids'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Multiple Force Delete Role ( Forever )',
         },
       },
     },
@@ -212,7 +245,7 @@ module.exports = {
     },
     delete: {
       tags: ['Role'],
-      summary: 'Forever Delete Role By Id',
+      summary: 'Force Delete Role By Id ( Forever )',
       security: [
         {
           auth_token: [],
@@ -232,7 +265,7 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: 'Forever Delete Role By Id',
+          description: 'Force Delete Role By Id ( Forever )',
         },
       },
     },
