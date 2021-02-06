@@ -39,11 +39,11 @@ module.exports = {
             schema: {
               type: 'object',
               properties: {
-                nama: {
+                name: {
                   type: 'string',
                 },
               },
-              required: ['nama'],
+              required: ['name'],
             },
           },
         },
@@ -51,6 +51,32 @@ module.exports = {
       responses: {
         201: {
           description: 'Create New Role',
+        },
+      },
+    },
+  },
+  '/role/generate-excel': {
+    get: {
+      tags: ['Role'],
+      summary: 'Get All Role with Generate Excel',
+      produces: ['application/json'],
+      parameters: [
+        {
+          $ref: '#/components/parameters/page',
+        },
+        {
+          $ref: '#/components/parameters/pageSize',
+        },
+        {
+          $ref: '#/components/parameters/filtered',
+        },
+        {
+          $ref: '#/components/parameters/sorted',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Get All Role with Generate Excel',
         },
       },
     },
@@ -169,11 +195,11 @@ module.exports = {
             schema: {
               type: 'object',
               properties: {
-                nama: {
+                name: {
                   type: 'string',
                 },
               },
-              required: ['nama'],
+              required: ['name'],
             },
           },
         },

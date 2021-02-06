@@ -6,6 +6,7 @@ import useValidation from 'helpers/useValidation'
 import { RoleAttributes } from 'models/role'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from 'controllers/Role/schema'
+import ExcelHelper from 'helpers/Excel'
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -79,6 +80,32 @@ class RoleService {
     await data.update(value || {})
 
     return data
+  }
+
+  /**
+   *
+   * @param req - Request
+   */
+  public static async generateExcel(req: Request) {
+    const { data } = await this.getAll(req)
+    const roleData = JSON.parse(JSON.stringify(data))
+
+    const header = [
+      { header: 'No', key: 'no', width: 5 },
+      { header: 'Name', key: 'name', width: 20 },
+    ]
+
+    const newData = []
+    for (let i = 0; i < roleData.length; i += 1) {
+      const item = roleData[i]
+      newData.push({
+        ...item,
+      })
+    }
+
+    const stream: Buffer = await ExcelHelper.generate(header, newData)
+
+    return stream
   }
 
   /**

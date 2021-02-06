@@ -5,6 +5,7 @@ import Authorization from 'middlewares/Authorization'
 import BuildResponse from 'modules/Response/BuildResponse'
 import RoleService from 'controllers/Role/service'
 import { arrayFormatter } from 'helpers/Common'
+import { formatDateGenerateFile } from 'helpers/Date'
 
 routes.get(
   '/role',
@@ -13,6 +14,25 @@ routes.get(
     const buildResponse = BuildResponse.get(data)
 
     return res.status(200).json(buildResponse)
+  })
+)
+
+routes.get(
+  '/role/generate-excel',
+  Authorization,
+  asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
+    const streamExcel = await RoleService.generateExcel(req)
+    const dateNow = formatDateGenerateFile(new Date())
+    const filename = `${dateNow}_generate_role.xlsx`
+
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    res.setHeader('Content-Disposition', `attachment; filename=${filename}`)
+    res.setHeader('Content-Length', streamExcel.length)
+
+    return res.send(streamExcel)
   })
 )
 
