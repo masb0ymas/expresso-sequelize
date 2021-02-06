@@ -4,6 +4,7 @@ import useValidation from 'helpers/useValidation'
 import { Transaction } from 'sequelize/types'
 import { UserRoleAttributes } from 'models/userrole'
 import schema from 'controllers/UserRole/schema'
+import { validateBoolean } from 'helpers/Common'
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -73,13 +74,16 @@ class UserRoleService {
    *
    * @param id
    */
-  public static async deleteByUserId(id: string) {
+  public static async deleteByUserId(id: string, force?: boolean) {
+    const isForce = validateBoolean(force)
+
     await UserRole.destroy({
       where: {
         UserId: {
           [Op.in]: [id],
         },
       },
+      force: isForce,
     })
   }
 
@@ -90,7 +94,13 @@ class UserRoleService {
    * @example
    * Roles = ['id_1', 'id_2']
    */
-  public static async deleteNotInRoleId(id: string, Roles: []) {
+  public static async deleteNotInRoleId(
+    id: string,
+    Roles: [],
+    force?: boolean
+  ) {
+    const isForce = validateBoolean(force)
+
     await UserRole.destroy({
       where: {
         UserId: id,
@@ -98,6 +108,7 @@ class UserRoleService {
           [Op.notIn]: Roles,
         },
       },
+      force: isForce,
     })
   }
 }
