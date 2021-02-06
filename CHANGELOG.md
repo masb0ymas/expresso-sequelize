@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.16.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.15.0...v2.16.0) (2021-02-06)
+
+
+### Features
+
+* add endpoint generate excel role ([91a4381](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/91a438111dfeae2bb4f7eb4552a3d77c3a8e7b12))
+* **helper:** add excel helper ([11b0252](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/11b02521ff129b49ea9ded3f8160e69d8e2fd3f7))
+* add lib exceljs ([64f6e52](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/64f6e529f706261d5116bd598e580333027fe422))
+* format date generate file ([529c194](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/529c1947a28bc2c6a8c4ecb21b79e80132b152dc))
+
+
+### Bug Fixes
+
+* delete user with force ([7a50581](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/7a50581eacfb8962b932c9ad312ee10c208b04ed))
+* endpoint delete with soft & deleted role ([dbd3a0d](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/dbd3a0d4f648d998bd1d62b38e4271b0957292ef))
+* endpoint delete with soft & force ([b280fa6](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b280fa6535f9da0ba9e8f19ea546e555858c6c26))
+* remove unuse create axios fetcher ([19f028b](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/19f028b11ed74218463b0966d12201e372761cd2))
+* validate boolean ([45fde81](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/45fde81b9f30263a79efa78ba2d3c967077ae1e6))
+* **jobs:** change function to class ([41f0a44](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/41f0a441e6b4b706c5a2529f4556df3fe5bdf705))
+* rename field on table role ([49ff3db](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/49ff3dbf2f522a37fcbf23a71db6e184037d3360))
+
 ## [2.15.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.14.0...v2.15.0) (2021-02-04)
 
 
