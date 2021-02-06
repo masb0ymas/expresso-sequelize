@@ -19,6 +19,10 @@ const formatDateTimeSystem = (date: Date | number | string) => {
   return format(new Date(date), 'yyyy-MM-dd HH:mm:ss', TZ_ID)
 }
 
+const formatDateGenerateFile = (date: Date | number | string) => {
+  return format(new Date(date), 'yyyyMMddHHmmss', TZ_ID)
+}
+
 const formatMonth = (date: Date | number | string) => {
   return format(new Date(date), 'MMMM', TZ_ID)
 }
@@ -36,6 +40,7 @@ export {
   formatDateSystem,
   formatDateTime,
   formatDateTimeSystem,
+  formatDateGenerateFile,
   formatMonth,
   formatYear,
   formatTime,
