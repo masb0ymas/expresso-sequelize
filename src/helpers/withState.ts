@@ -20,10 +20,12 @@ class withState {
     this.req.getCookies = this.getCookies.bind(this)
     this.req.getBody = this.getBody.bind(this)
     this.req.setBody = this.setBody.bind(this)
-    this.req.getSingleArrayFile = this.getSingleArrayFile.bind(this)
     this.req.getTransaction = this.getTransaction.bind(this)
     this.req.rollbackTransactions = this.rollbackTransactions.bind(this)
+    this.req.getSingleArrayFile = this.getSingleArrayFile.bind(this)
     this.req.pickSingleFieldMulter = this.pickSingleFieldMulter.bind(this)
+    this.req.getMultiArrayFile = this.getMultiArrayFile.bind(this)
+    this.req.pickMultiFieldMulter = this.pickMultiFieldMulter.bind(this)
     this.req._transaction = {}
   }
 
@@ -79,6 +81,13 @@ class withState {
     }
   }
 
+  getMultiArrayFile(name: string) {
+    const data = get(this.req.files, name, []) as Express.Multer.File
+    if (data) {
+      return data
+    }
+  }
+
   async getTransaction(id?: any): Promise<Transaction> {
     id = id === undefined ? 1 : id
     const txn = this.req._transaction[id]
@@ -105,6 +114,10 @@ class withState {
 
   pickSingleFieldMulter(fields: string[]) {
     return Multers.pickSingleFieldMulter(this.req, fields)
+  }
+
+  pickMultiFieldMulter(fields: string[]) {
+    return Multers.pickMultiFieldMulter(this.req, fields)
   }
 }
 

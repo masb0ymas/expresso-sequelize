@@ -18,8 +18,26 @@ function pickSingleFieldMulter(req: Request, fields: string[]) {
   )
 }
 
+/**
+ *
+ * @param req
+ * @param fields
+ */
+function pickMultiFieldMulter(req: Request, fields: string[]) {
+  return pickBy(
+    fields.reduce<any>((acc, field) => {
+      acc[field] = req.getMultiArrayFile(field)
+      return acc
+    }, {}),
+    (value) => {
+      return value !== undefined
+    }
+  )
+}
+
 const Multers = {
   pickSingleFieldMulter,
+  pickMultiFieldMulter,
 }
 
 export default Multers
