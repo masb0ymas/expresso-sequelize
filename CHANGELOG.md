@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.17.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.16.0...v2.17.0) (2021-02-07)
+
+
+### Features
+
+* add handle multi upload file ([992c438](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/992c4387c942de31bf6833c9a41d9174cd07837f))
+* add lib slugify ([667d90d](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/667d90de7a38a5eb8594ff32416484938410c437))
+
+
+### Bug Fixes
+
+* handle error multer ([39eb6f8](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/39eb6f8a28a03778232574b00e62c83bba8ce40f))
+* increase req.body ([daa7b22](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/daa7b227c496af26453da30b42e4ef7fcba8f31c))
+
 ## [2.16.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.15.0...v2.16.0) (2021-02-06)
 
 
