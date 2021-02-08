@@ -51,7 +51,9 @@ function arrayFormatter(arrayData: string | string[]) {
  * @param value
  */
 function validateEmpty(value: any) {
-  if (isEmpty(value) || invalidValues.includes(value)) {
+  const emptyValues = [null, undefined, '', 'null', 'undefined']
+
+  if (emptyValues.includes(value)) {
     return null
   }
 
