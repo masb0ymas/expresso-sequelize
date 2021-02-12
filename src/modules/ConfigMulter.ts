@@ -16,7 +16,7 @@ interface MulterSetupProps {
 const defaultFieldSize = 10 * 1024 * 1024 // 10mb
 const defaultFileSize = 1 * 1024 * 1024 // 1mb
 const defaultDestination = 'public/uploads/'
-const defaultAllowedExt = ['.png', '.jpg', '.jpeg', '.xlsx', '.xls']
+const defaultAllowedExt = ['.png', '.jpg', '.jpeg', '.xlsx', '.xls', '.pdf']
 
 const multerSetup = (props: MulterSetupProps) => {
   // config storage
