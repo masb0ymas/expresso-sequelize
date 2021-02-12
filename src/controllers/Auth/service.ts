@@ -1,7 +1,7 @@
 import ms from 'ms'
 import models from 'models'
 import jwt from 'jsonwebtoken'
-import schema from 'controllers/User/schema'
+import schemaAuth from 'controllers/Auth/schema'
 import createDirNotExist from 'utils/Directory'
 import useValidation from 'helpers/useValidation'
 import ResponseError from 'modules/Response/ResponseError'
@@ -15,7 +15,7 @@ const { User, Role } = models
 
 const { JWT_SECRET_ACCESS_TOKEN, JWT_SECRET_REFRESH_TOKEN }: any = process.env
 
-const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '1d' // 7 Days
+const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '1d' // 1 Days
 const JWT_REFRESH_TOKEN_EXPIRED = process.env.JWT_REFRESH_TOKEN_EXPIRED || '30d' // 30 Days
 
 const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000
@@ -55,7 +55,7 @@ class AuthService {
     )
 
     const newFormData = { ...formData, tokenVerify }
-    const value = useValidation(schema.create, newFormData)
+    const value = useValidation(schemaAuth.register, newFormData)
     const data = await User.create(value)
 
     // Initial Send an e-mail
@@ -73,19 +73,20 @@ class AuthService {
    * @param formData
    */
   public static async signIn(formData: LoginAttributes) {
-    const { email, password } = formData
+    const value = useValidation(schemaAuth.login, formData)
+
     const userData = await User.scope('withPassword').findOne({
-      where: { email },
+      where: { email: value.email },
     })
 
     if (!userData) {
-      throw new ResponseError.NotFound('data not found or has been deleted')
+      throw new ResponseError.NotFound('account not found or has been deleted')
     }
 
     /* User active proses login */
     if (userData.active) {
       // @ts-ignore
-      const comparePassword = await userData.comparePassword(password)
+      const comparePassword = await userData.comparePassword(value.password)
 
       if (comparePassword) {
         // modif payload token
