@@ -1,65 +1,30 @@
 import * as yup from 'yup'
 
 const create = yup.object().shape({
-  fullName: yup.string().required('Nama Lengkap wajib diisi'),
-  email: yup.string().email('Email tidak valid').required('Email wajib diisi'),
-  phone: yup.string().required('Phone wajib diisi'),
+  fullName: yup.string().required('fullname is required'),
+  email: yup.string().email('invalid email').required('email is required'),
+  phone: yup.string().required('phone is required'),
   active: yup.boolean().nullable(),
   tokenVerify: yup.string().nullable(),
   newPassword: yup
     .string()
-    .min(8, 'Minimal 8 karakter')
-    .oneOf([yup.ref('confirmNewPassword')], 'Password tidak sama'),
+    .min(8, 'at least 8 characters')
+    .oneOf([yup.ref('confirmNewPassword')], 'passwords are not the same'),
   confirmNewPassword: yup
     .string()
-    .min(8, 'Minimal 8 karakter')
-    .oneOf([yup.ref('newPassword')], 'Password tidak sama'),
-})
-
-const update = yup.object().shape({
-  fullName: yup.string().required('Nama Lengkap wajib diisi'),
-  email: yup.string().email('Email tidak valid').required('Email wajib diisi'),
-  phone: yup.string().required('Phone wajib diisi'),
-  active: yup.boolean().nullable(),
-  tokenVerify: yup.string().nullable(),
-  newPassword: yup
-    .string()
-    .min(8, 'Minimal 8 karakter')
-    .oneOf([yup.ref('confirmNewPassword')], 'Password tidak sama'),
-  confirmNewPassword: yup
-    .string()
-    .min(8, 'Minimal 8 karakter')
-    .oneOf([yup.ref('newPassword')], 'Password tidak sama'),
+    .min(8, 'at least 8 characters')
+    .oneOf([yup.ref('newPassword')], 'passwords are not the same'),
 })
 
 const createPassword = yup.object().shape({
   newPassword: yup
     .string()
-    .min(8, 'Minimal 8 karakter')
-    .oneOf([yup.ref('confirmNewPassword')], 'Password tidak sama'),
+    .min(8, 'at least 8 characters')
+    .oneOf([yup.ref('confirmNewPassword')], 'passwords are not the same'),
   confirmNewPassword: yup
     .string()
-    .min(8, 'Minimal 8 karakter')
-    .oneOf([yup.ref('newPassword')], 'Password tidak sama'),
+    .min(8, 'at least 8 characters')
+    .oneOf([yup.ref('newPassword')], 'passwords are not the same'),
 })
 
-const login = yup
-  .object()
-  .shape({
-    email: yup
-      .string()
-      .email('Email tidak valid')
-      .required('Email wajib diisi'),
-    password: yup
-      .string()
-      .min(8, 'Minimal 8 karakter')
-      .required('Password wajib diisi'),
-  })
-  .required()
-
-export default {
-  create,
-  createPassword,
-  update,
-  login,
-}
+export default { create, createPassword }
