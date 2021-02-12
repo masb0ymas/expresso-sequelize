@@ -106,7 +106,7 @@ class UserService {
   ) {
     const data = await this.findById(id)
 
-    const value = useValidation(schema.update, {
+    const value = useValidation(schema.create, {
       ...data.toJSON(),
       ...formData,
     })
