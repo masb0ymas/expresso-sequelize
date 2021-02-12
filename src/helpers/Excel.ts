@@ -1,6 +1,13 @@
+import fs from 'fs'
 import * as ExcelJS from 'exceljs'
+import excelToJson from 'convert-excel-to-json'
 
-class ExcelHelper {
+interface OptionConvert {
+  header?: any
+  columnToKey?: any
+}
+
+class Excel {
   /**
    *
    * @param headers
@@ -35,6 +42,26 @@ class ExcelHelper {
         })
     })
   }
+
+  /**
+   *
+   * @param path
+   * @param options
+   * options is used when there is only 1 sheet
+   */
+  public static convertToJson(path: string | Buffer, options?: OptionConvert) {
+    const resultConvert = excelToJson({
+      source: fs.readFileSync(path), // fs.readFileSync return a Buffer
+      header: options?.header || {
+        rows: 1,
+      },
+      columnToKey: options?.columnToKey || {
+        '*': '{{columnHeader}}',
+      },
+    })
+
+    return resultConvert
+  }
 }
 
-export default ExcelHelper
+export default Excel
