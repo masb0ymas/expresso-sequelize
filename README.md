@@ -222,6 +222,16 @@ OAUTH_REFRESH_TOKEN=your_refresh_token
 - Github: [@masb0ymas](https://github.com/masb0ymas)
 - LinkedIn: [@masb0ymas](https://www.linkedin.com/in/masb0ymas/)
 
+## Support Me
+
+Global
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I03MVAI)
+
+Indonesia
+
+[Trakteer](https://trakteer.id/masb0ymas)
+
 ## Show your support
 
 Give a ⭐️ if this project helped you!
