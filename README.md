@@ -224,13 +224,10 @@ OAUTH_REFRESH_TOKEN=your_refresh_token
 
 ## Support Me
 
-Global
-
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I03MVAI)
 
-Indonesia
+[<img height="40" src="https://trakteer.id/images/mix/navbar-logo-lite.png">](https://trakteer.id/masb0ymas)
 
-[Trakteer](https://trakteer.id/masb0ymas)
 
 ## Show your support
 
