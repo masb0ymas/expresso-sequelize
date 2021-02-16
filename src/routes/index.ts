@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import express, { Request, Response, NextFunction } from 'express'
 import BuildResponse from 'modules/Response/BuildResponse'
 import ResponseError from 'modules/Response/ResponseError'

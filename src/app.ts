@@ -2,8 +2,10 @@ import createError from 'http-errors'
 import express, { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import cors from 'cors'
+import hpp from 'hpp'
 import helmet from 'helmet'
 import logger from 'morgan'
+import requestIp from 'request-ip'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import indexRouter from 'routes'
@@ -30,6 +32,9 @@ app.use(bodyParser.json({ limit: '100mb', type: 'application/json' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(`${__dirname}/../`, 'public')))
+
+app.use(hpp())
+app.use(requestIp.mw())
 
 app.use((req: Request, res, next) => {
   new withState(req)

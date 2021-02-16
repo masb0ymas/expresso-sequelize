@@ -55,6 +55,42 @@ module.exports = {
       },
     },
   },
+  '/role/import-excel': {
+    post: {
+      tags: ['Role'],
+      summary: 'Import Excel',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'multipart/form-data': {
+            schema: {
+              type: 'object',
+              properties: {
+                fileExcel: {
+                  type: 'file',
+                  items: {
+                    type: 'string',
+                    format: 'binary',
+                  },
+                },
+              },
+              required: ['fileExcel'],
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: 'Import Excel',
+        },
+      },
+    },
+  },
   '/role/generate-excel': {
     get: {
       tags: ['Role'],

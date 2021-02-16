@@ -6,9 +6,10 @@ import useValidation from 'helpers/useValidation'
 import { RoleAttributes } from 'models/role'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import schema from 'controllers/Role/schema'
-import ExcelHelper from 'helpers/Excel'
+import Excel from 'helpers/Excel'
 import { isEmpty } from 'lodash'
 import { validateBoolean } from 'helpers/Common'
+import { FileAttributes } from 'interfaces/file'
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -86,6 +87,16 @@ class RoleService {
 
   /**
    *
+   * @param fieldFiles
+   */
+  public static async importExcel(fieldFiles: FileAttributes) {
+    const excelJson = Excel.convertToJson(fieldFiles.path)
+
+    return excelJson
+  }
+
+  /**
+   *
    * @param req - Request
    */
   public static async generateExcel(req: Request) {
@@ -105,7 +116,7 @@ class RoleService {
       })
     }
 
-    const stream: Buffer = await ExcelHelper.generate(header, newData)
+    const stream: Buffer = await Excel.generate(header, newData)
 
     return stream
   }

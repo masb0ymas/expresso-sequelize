@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
@@ -6,6 +6,8 @@ import BuildResponse from 'modules/Response/BuildResponse'
 import RoleService from 'controllers/Role/service'
 import { arrayFormatter } from 'helpers/Common'
 import { formatDateGenerateFile } from 'helpers/Date'
+import ConfigMulter from 'modules/ConfigMulter'
+import { get } from 'lodash'
 
 routes.get(
   '/role',
@@ -43,6 +45,38 @@ routes.get(
 
     const data = await RoleService.getOne(id)
     const buildResponse = BuildResponse.get({ data })
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+const uploadFile = ConfigMulter({
+  dest: 'public/uploads/excel',
+  allowedExt: ['.xlsx', '.xls'],
+}).fields([{ name: 'fileExcel', maxCount: 1 }])
+
+const setFileToBody = asyncHandler(async function setFileToBody(
+  req: Request,
+  res,
+  next: NextFunction
+) {
+  const fileExcel = req.pickSingleFieldMulter(['fileExcel'])
+
+  req.setBody(fileExcel)
+  next()
+})
+
+routes.post(
+  '/role/import-excel',
+  Authorization,
+  uploadFile,
+  setFileToBody,
+  asyncHandler(async function importExcel(req: Request, res: Response) {
+    const formData = req.getBody()
+    const fieldExcel = get(formData, 'fileExcel', {})
+
+    const data = await RoleService.importExcel(fieldExcel)
+    const buildResponse = BuildResponse.created(data)
 
     return res.status(200).json(buildResponse)
   })

@@ -20,7 +20,7 @@ class SendMail {
       __dirname,
       `../../public/templates/emails/register.html`
     )
-    const subject = 'Verifikasi Email'
+    const subject = 'Email Verification'
     const urlToken = `${BASE_URL_CLIENT}/email/verify?token=${token}`
     const dataTemplate = { APP_NAME, fullName, urlToken }
     const Email = new EmailProvider()
