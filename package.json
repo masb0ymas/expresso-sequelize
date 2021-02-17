@@ -48,7 +48,7 @@
     "exceljs": "^4.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
-    "googleapis": "^67.0.0",
+    "googleapis": "^67.1.0",
     "handlebars": "^4.7.6",
     "helmet": "^4.4.1",
     "hpp": "^0.2.3",
