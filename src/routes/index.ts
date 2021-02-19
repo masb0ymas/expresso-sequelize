@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express'
 import BuildResponse from 'modules/Response/BuildResponse'
 import ResponseError from 'modules/Response/ResponseError'
-import publicRoute from './public'
+import publicRoute from 'routes/public'
 
 const router = express.Router()
 
