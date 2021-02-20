@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.18.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.17.0...v2.18.0) (2021-02-20)
+
+
+### Features
+
+* add commintlint config ([b1a7827](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b1a782723c0f28701ef7611b5c18dc82935575f4))
+* add config husky v5 ([7997ec4](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/7997ec4619a5172c26f079aa7cff7da7218fc3e7))
+* add endpoint import excel ([bafe6b3](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/bafe6b3d92950e9141fadb4a38078219de6253c3))
+* add lib convert excel to json ([2085f18](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2085f18a1e1b16de507ce0ca1b1b6a0c0522ec5b))
+* add lib husky & commit lint ([a5ebd24](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/a5ebd2421f5c1165fe58bb28d862d9b93261033c))
+* **lib:** add hpp ([beacc2d](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/beacc2d1f279cb06507d00a70705e12dcc64c809))
+* dir resolve interface ([6ec8000](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/6ec80001cacc369ecd9fe1ab2a2113f901e29676))
+* file interface ([d98ae53](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d98ae53b5e012bbe7614adf8c54519f618c7b0f8))
+* schema auth ([745a9d6](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/745a9d6ee249370f554cbb4c0868c0d0f9192097))
+
+
+### Bug Fixes
+
+* allow ext multer ([ee52f22](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ee52f22bef61650bda8ac157db514b27e7c5ba74))
+* app name .env ([c20d1b4](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c20d1b4e0a38c8a513dbb963a98263c00a303f7b))
+* change version husky ([0afc843](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0afc843fcc3c18758a9dd6e676f52c7dfe8ecdd9))
+* excel helper ([6ca2641](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/6ca2641c7daf220304131b24ea6b3365b4f4b1cb))
+* helper common ([e5b3d51](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/e5b3d5136a71eea39e21b9e7cf1f9d13e5043894))
+* image trakteer readme ([9b8e16f](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/9b8e16f45c983723f922d957e5891390eeb947ea))
+* impementation hpp & request ip ([701ea38](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/701ea380df05e2fe76c38f19072c931bc271a065))
+* implementation query polluted ([efb3b00](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/efb3b0092d5d7705b34f9cdca8241e8cc784c9ef))
+* lint index routes ([29f7bc4](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/29f7bc40ad1ddf2614acf466ba91a14adf0eaa9c))
+* update readme ([90c5317](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/90c531756d551d20c6debb9e9f472d11be8e9c2e))
+* update readme support me ([ed84a7a](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ed84a7a632ee9cdbdd2b414d891d6cd191efcec3))
+* user service schema ([ccc8860](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ccc8860b20428888d77866b717c87143de4d2af2))
+* validate user login ([2687011](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2687011f243bcd951a91edf388a915a6a80b7790))
+* wording schema ([7a82d00](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/7a82d0088be538347a12279ce319f2b8838b792d))
+* wording send mail helper ([042035f](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/042035fc724398b7ee1b3ca8d06a53ce3aadbbc5))
+
 ## [2.17.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.16.0...v2.17.0) (2021-02-07)
 
 
