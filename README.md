@@ -100,7 +100,7 @@ yarn type-check:watch
 
 ## Build
 
-Recommended using build with babel, build with ts is still unstable
+Recommended using build with `Babel`, build with `TS` is still unstable
 
 ```sh
 npm run build:babel
