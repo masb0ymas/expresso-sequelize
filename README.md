@@ -21,6 +21,7 @@
 - npm >= `v6.x`
 - node >= `v10.x`
 - eslint `v7.x`
+- husky >= `v5.x`
 - Familiar with TypeScript 💪
 
 ## Feature
@@ -35,52 +36,126 @@
 - Using [Babel Resolver](https://github.com/tleunen/babel-plugin-module-resolver) for simplify the require/import paths
 - Documentation with [Swagger](https://github.com/swagger-api/swagger-ui)
 - Generate Log File with [Winston](https://github.com/winstonjs/winston)
+- [Convensional Commit](https://www.conventionalcommits.org/en/v1.0.0/) with [Husky](https://github.com/typicode/husky) `v5` & [Commitlint](https://github.com/conventional-changelog/commitlint)
+
+## How to use
+
+clone this repo with `https` / `ssh` / `github cli`
+
+```sh
+git clone https://github.com/masb0ymas/boilerplate-express-typescript-sequelize.git
+```
+
+After cloning this repo, make sure you have `duplicated` the `.env.example` file to `.env`, don't let the .env.example file be deleted or renamed.
 
 ## Install
 
 ```sh
+npm install
+
+or
+
 yarn
+```
+
+## Enabled Husky
+
+```sh
+npx husky install
+
+or
+
+yarn husky install
 ```
 
 ## Usage Development
 
 ```sh
-yarn run start
+npm run dev
+
+or
+
+yarn dev
 ```
 
 ## Type Checking
 
 ```sh
-yarn run type-check || yarn run type-check:watch
+npm run type-check
+
+or
+
+yarn type-check
+```
+
+## Type Checking Watching
+
+```sh
+npm run type-check:watch
+
+or
+
+yarn type-check:watch
 ```
 
 ## Build
 
+Recommended using build with babel, build with ts is still unstable
+
 ```sh
-yarn run build
+npm run build:babel
+
+or
+
+yarn build:babel
 ```
 
 ## Using Sequelize
 
-After cloning this repo, make sure you have duplicated the .env.example file to .env, don't let the .env.example file be deleted or renamed.
+Using sequelize with development mode, you can set the database configuration in `.env`, like this :
+
+```sh
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=example_database
+DB_USERNAME=example_user
+DB_PASSWORD=example_password
+DB_OPERATOR_ALIAS=
+DB_TIMEZONE=+07:00
+```
+
+if you set production mode change the database config `PROD_DB_DATABASE`
 
 then after that you can adjust the database config in `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
 now you can run this command :
 
 ```sh
+npm run db:reset
+
+or
+
 yarn db:reset
 ```
 
 ## Usage Production
 
 ```sh
-yarn run serve:production
+npm run serve:production
+
+or
+
+yarn serve:production
 ```
 
 ## Run tests
 
 ```sh
-yarn run test
+npm run test
+
+or
+
+yarn test
 ```
 
 ## Run with Docker
@@ -173,6 +248,18 @@ Detached mode: Run containers in the background,
 docker-compose up -d
 ```
 
+## Release your version app
+
+if you want to release the app version, you can use the following command :
+
+```sh
+npm run release
+
+or
+
+yarn release
+```
+
 ## SMTP Basic
 
 I use [topol.io](https://topol.io/) to create email templates, and it's free and can export to html format
@@ -227,7 +314,6 @@ OAUTH_REFRESH_TOKEN=your_refresh_token
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I03MVAI)
 
 [<img height="40" src="https://trakteer.id/images/mix/navbar-logo-lite.png">](https://trakteer.id/masb0ymas)
-
 
 ## Show your support
 
