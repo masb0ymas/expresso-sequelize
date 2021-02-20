@@ -75,7 +75,7 @@ class FetchApi {
   /**
    * axios instance with auth token
    */
-  get withAuth(): AxiosInstance {
+  get default(): AxiosInstance {
     if (!this.axiosDefault) {
       this.axiosDefault = createAxios(this.baseUri)
       return this.axiosDefault
