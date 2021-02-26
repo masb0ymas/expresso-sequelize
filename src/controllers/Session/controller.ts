@@ -7,6 +7,7 @@ import SessionService from 'controllers/Session/service'
 
 routes.get(
   '/session',
+  Authorization,
   asyncHandler(async function getAll(req: Request, res: Response) {
     const data = await SessionService.getAll(req)
     const buildResponse = BuildResponse.get(data)
@@ -17,6 +18,7 @@ routes.get(
 
 routes.get(
   '/session/:id',
+  Authorization,
   asyncHandler(async function getOne(req: Request, res: Response) {
     const { id } = req.getParams()
 
