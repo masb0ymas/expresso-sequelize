@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.19.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.18.0...v2.19.0) (2021-02-26)
+
+
+### Features
+
+* add validate user email & get user with session ([0e49db9](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0e49db9047cf66e031f225fad36f797cb6cf40cb))
+* **helper:** add user agent ([2a64d81](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2a64d81fe17bfff355821224ba68378bcc260af3))
+* **lib:** add user agent ([87768f1](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/87768f1fd2841d2311c8aac07e77debf70854ef1))
+* **model:** add endpoint session ([08a7a98](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/08a7a98038c566345b47196de626fb84d127933c))
+
+
+### Bug Fixes
+
+* authorize endpoint session ([dc5d96e](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/dc5d96e28bdbb037fefd0794e5d0b69a30fe4edf))
+* field model refresh token ([d5b55d0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d5b55d008c1372b64d6692b1ea50d98da72dc2f2))
+* login with session ([b7d32fd](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b7d32fdc0e6dc808f3a867e1a4c5b58329f56f6d))
+* params type function auth ([97aeab5](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/97aeab578622f87dfb54c092fc3224602c847a22))
+* platform login ([ccb3467](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ccb34675ef6d8079209084bbc9ed8ecbacfbac9e))
+* typo config fetcher ([d95331e](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d95331e233f0a0c9bd073a2b51c9e64794ece9d1))
+* typo fetcher config ([331f543](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/331f543f2354383b3dd972c2a1a61e33f3e5251b))
+* wording function controller ([1839fdb](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/1839fdbf9d13299ac7cda00f495ebbcaf01fdcb3))
+
 ## [2.18.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.17.0...v2.18.0) (2021-02-20)
 
 
