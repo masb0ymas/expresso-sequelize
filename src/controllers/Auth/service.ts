@@ -139,7 +139,7 @@ class AuthService {
           token: accessToken,
           ipAddress: clientIp?.replace('::ffff:', ''),
           device: userAgentHelper.currentDevice(req),
-          platform: useragent?.platform,
+          platform: `${useragent?.os} - ${useragent?.platform}`,
         })
 
         // create directory
