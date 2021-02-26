@@ -110,6 +110,40 @@ module.exports = {
       },
     },
   },
+  '/auth/verify-session': {
+    get: {
+      tags: ['Auth'],
+      summary: 'Verify Session',
+      produces: ['application/json'],
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Verify Session',
+        },
+      },
+    },
+  },
+  '/profile': {
+    get: {
+      tags: ['Auth'],
+      summary: 'Get Profile',
+      produces: ['application/json'],
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Get Profile',
+        },
+      },
+    },
+  },
   '/logout': {
     post: {
       tags: ['Auth'],
@@ -139,23 +173,6 @@ module.exports = {
       responses: {
         200: {
           description: 'Terminate your api access',
-        },
-      },
-    },
-  },
-  '/profile': {
-    get: {
-      tags: ['Auth'],
-      summary: 'Get Profile',
-      produces: ['application/json'],
-      security: [
-        {
-          auth_token: [],
-        },
-      ],
-      responses: {
-        200: {
-          description: 'Get Profile',
         },
       },
     },

@@ -10,8 +10,14 @@ import { UserAttributes, LoginAttributes } from 'models/user'
 import SendMail from 'helpers/SendEmail'
 import RefreshTokenService from 'controllers/RefreshToken/service'
 import UserService from 'controllers/User/service'
+import SessionService from 'controllers/Session/service'
+import { Request } from 'express'
+import userAgentHelper from 'helpers/userAgent'
+import { verifyAccessToken } from 'helpers/Token'
+import { isEmpty } from 'lodash'
 
 const { User, Role } = models
+const including = [{ model: Role }]
 
 const { JWT_SECRET_ACCESS_TOKEN, JWT_SECRET_REFRESH_TOKEN }: any = process.env
 
@@ -42,6 +48,9 @@ class AuthService {
    * @param formData
    */
   public static async signUp(formData: UserAttributes) {
+    // check duplicate email
+    await UserService.validateUserEmail(formData.email)
+
     const generateToken = {
       code: getUniqueCodev2(),
     }
@@ -72,7 +81,9 @@ class AuthService {
    *
    * @param formData
    */
-  public static async signIn(formData: LoginAttributes) {
+  public static async signIn(req: Request, formData: LoginAttributes) {
+    const { clientIp, useragent } = req
+
     const value = useValidation(schemaAuth.login, formData)
 
     const userData = await User.scope('withPassword').findOne({
@@ -115,12 +126,20 @@ class AuthService {
           }
         )
 
-        const formDataRefreshToken = {
+        // create refresh token
+        await RefreshTokenService.create({
           UserId: userData.id,
           token: refreshToken,
-        }
+        })
 
-        await RefreshTokenService.create(formDataRefreshToken)
+        // create session
+        await SessionService.create({
+          UserId: userData.id,
+          token: accessToken,
+          ipAddress: clientIp?.replace('::ffff:', ''),
+          device: userAgentHelper.currentDevice(req),
+          platform: useragent?.platform,
+        })
 
         // create directory
         await createDirectory(userData.id)
@@ -144,13 +163,26 @@ class AuthService {
     )
   }
 
+  public static async verifySession(UserId: string, token: string) {
+    const sessionUser = await SessionService.findByTokenUser(UserId, token)
+    const verifyToken = verifyAccessToken(sessionUser.token)
+
+    if (!isEmpty(verifyToken?.data)) {
+      // @ts-ignore
+      const data = await User.findByPk(verifyToken?.data?.id, {
+        include: including,
+      })
+      return data
+    }
+
+    return null
+  }
+
   /**
    *
    * @param token
    */
   public static async profile(userData: UserAttributes) {
-    const including = [{ model: Role }]
-
     const data = await User.findByPk(userData.id, { include: including })
     return data
   }
@@ -159,15 +191,17 @@ class AuthService {
    *
    * @param UserId
    */
-  public static async logout(UserId: string, userData: any) {
+  public static async logout(UserId: string, userData: any, token: string) {
     if (userData?.id !== UserId) {
       throw new ResponseError.Unauthorized('Invalid user login!')
     }
 
     const data = await UserService.getOne(UserId)
 
-    // remove refresh token by user id
+    // clean refresh token & session
     await RefreshTokenService.delete(data.id)
+    await SessionService.deleteByTokenUser(data.id, token)
+
     const message = 'You have logged out of the application'
 
     return message
