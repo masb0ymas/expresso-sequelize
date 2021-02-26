@@ -79,6 +79,7 @@ class AuthService {
 
   /**
    *
+   * @param req - Request
    * @param formData
    */
   public static async signIn(req: Request, formData: LoginAttributes) {
@@ -163,6 +164,11 @@ class AuthService {
     )
   }
 
+  /**
+   *
+   * @param UserId
+   * @param token
+   */
   public static async verifySession(UserId: string, token: string) {
     const sessionUser = await SessionService.findByTokenUser(UserId, token)
     const verifyToken = verifyAccessToken(sessionUser.token)
@@ -190,6 +196,8 @@ class AuthService {
   /**
    *
    * @param UserId
+   * @param userData
+   * @param token
    */
   public static async logout(UserId: string, userData: any, token: string) {
     if (userData?.id !== UserId) {
