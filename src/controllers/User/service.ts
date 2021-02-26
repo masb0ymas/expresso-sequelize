@@ -14,8 +14,9 @@ import { validateBoolean } from 'helpers/Common'
 const { Sequelize } = db
 const { Op } = Sequelize
 
-const { User, Role } = models
+const { User, Role, Session } = models
 const including = [{ model: Role }]
+const includeSession = [{ model: Role }, { model: Session }]
 
 class UserService {
   /**
@@ -64,6 +65,25 @@ class UserService {
   /**
    *
    * @param id
+   */
+  public static async getUserWithSession(id: string, paranoid?: boolean) {
+    const data = await User.findByPk(id, {
+      include: includeSession,
+      paranoid,
+    })
+
+    if (!data) {
+      throw new ResponseError.NotFound(
+        'user data not found or has been deleted'
+      )
+    }
+
+    return data
+  }
+
+  /**
+   *
+   * @param id
    * note: find by id only find data not include relation
    */
   public static async findById(id: string, paranoid?: boolean) {
@@ -76,6 +96,20 @@ class UserService {
     }
 
     return data
+  }
+
+  /**
+   *
+   * @param email
+   */
+  public static async validateUserEmail(email: string) {
+    const data = await User.findOne({ where: { email } })
+
+    if (data) {
+      throw new ResponseError.BadRequest('email address already in use')
+    }
+
+    return null
   }
 
   /**

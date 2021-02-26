@@ -97,6 +97,7 @@ User.prototype.comparePassword = function (candidatePassword: string) {
 }
 
 User.associate = (models) => {
+  User.hasMany(models.Session, { foreignKey: 'UserId' })
   User.belongsToMany(models.Role, { through: models.UserRole })
 }
 

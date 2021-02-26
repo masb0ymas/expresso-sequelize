@@ -174,6 +174,34 @@ module.exports = {
       },
     },
   },
+  '/user/{id}/session': {
+    get: {
+      tags: ['User'],
+      summary: 'Get User By Id with Session',
+      produces: ['application/json'],
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          schema: {
+            type: 'string',
+          },
+          description: 'User Id',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Get User By Id with Session',
+        },
+      },
+    },
+  },
   '/user/{id}': {
     get: {
       tags: ['User'],

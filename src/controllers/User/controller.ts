@@ -20,6 +20,19 @@ routes.get(
 )
 
 routes.get(
+  '/user/:id/session',
+  Authorization,
+  asyncHandler(async function getUserWithSession(req: Request, res: Response) {
+    const { id } = req.getParams()
+
+    const data = await UserService.getUserWithSession(id)
+    const buildResponse = BuildResponse.get({ data })
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.get(
   '/user/:id',
   Authorization,
   asyncHandler(async function getOne(req: Request, res: Response) {
