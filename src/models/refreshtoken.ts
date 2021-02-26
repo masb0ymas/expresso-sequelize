@@ -16,7 +16,6 @@ export interface RefreshTokenAttributes {
   token: string
   createdAt?: Date
   updatedAt?: Date
-  deletedAt?: Date | null
 }
 
 interface RefreshTokenCreationAttributes
@@ -30,8 +29,7 @@ const RefreshToken = db.sequelize.define<RefreshTokenInstance>(
   'RefreshTokens',
   {
     ...SequelizeAttributes.RefreshTokens,
-  },
-  { paranoid: true }
+  }
 )
 
 export default RefreshToken
