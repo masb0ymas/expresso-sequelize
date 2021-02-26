@@ -2,12 +2,14 @@ import Role from './role'
 import User from './user'
 import UserRole from './userrole'
 import RefreshToken from './refreshtoken'
+import Session from './session'
 
 const models = {
   Role,
   User,
   UserRole,
   RefreshToken,
+  Session,
 }
 
 export default models
