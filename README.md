@@ -36,7 +36,7 @@
 - Using [Babel Resolver](https://github.com/tleunen/babel-plugin-module-resolver) for simplify the require/import paths
 - Documentation with [Swagger](https://github.com/swagger-api/swagger-ui)
 - Generate Log File with [Winston](https://github.com/winstonjs/winston)
-- [Convensional Commit](https://www.conventionalcommits.org/en/v1.0.0/) with [Husky](https://github.com/typicode/husky) `v5` & [Commitlint](https://github.com/conventional-changelog/commitlint)
+- [Convensional Commit](https://www.conventionalcommits.org/en/v1.0.0/) with [Husky](https://github.com/typicode/husky) & [Commitlint](https://github.com/conventional-changelog/commitlint)
 
 ## How to use
 
@@ -68,6 +68,16 @@ or
 yarn husky install
 ```
 
+## Generate Jwt Secret
+
+```sh
+npm run refresh:env-jwt
+
+or
+
+yarn refresh:env-jwt
+```
+
 ## Usage Development
 
 ```sh
@@ -78,7 +88,7 @@ or
 yarn dev
 ```
 
-## Type Checking
+## Type Check
 
 ```sh
 npm run type-check
@@ -88,7 +98,7 @@ or
 yarn type-check
 ```
 
-## Type Checking Watching
+## Type Check Watch mode
 
 ```sh
 npm run type-check:watch
