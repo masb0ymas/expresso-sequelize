@@ -37,7 +37,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.0",
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "convert-excel-to-json": "^1.7.0",
     "cookie-parser": "^1.4.5",
