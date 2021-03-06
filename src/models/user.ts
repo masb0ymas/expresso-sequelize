@@ -30,7 +30,7 @@ export interface LoginAttributes {
 }
 
 export interface EmailAttributes {
-  email: string | any
+  email: string
   fullName: string
 }
 
