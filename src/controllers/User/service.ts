@@ -46,6 +46,7 @@ class UserService {
   /**
    *
    * @param id
+   * @param paranoid
    */
   public static async getOne(id: string, paranoid?: boolean) {
     const data = await User.findByPk(id, {
@@ -65,6 +66,7 @@ class UserService {
   /**
    *
    * @param id
+   * @param paranoid
    */
   public static async getUserWithSession(id: string, paranoid?: boolean) {
     const data = await User.findByPk(id, {
@@ -84,6 +86,7 @@ class UserService {
   /**
    *
    * @param id
+   * @param paranoid
    * note: find by id only find data not include relation
    */
   public static async findById(id: string, paranoid?: boolean) {
@@ -188,7 +191,11 @@ class UserService {
       throw new ResponseError.BadRequest('ids cannot be empty')
     }
 
-    await Role.destroy({
+    if (isForce) {
+      await UserRoleService.deleteByUserIds(ids)
+    }
+
+    await User.destroy({
       where: {
         id: {
           [Op.in]: ids,
@@ -204,7 +211,7 @@ class UserService {
    * @example ids = ["id_1", "id_2"]
    */
   public static async multipleRestore(ids: Array<string>) {
-    await Role.restore({
+    await User.restore({
       where: {
         id: {
           [Op.in]: ids,

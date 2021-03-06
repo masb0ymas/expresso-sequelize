@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import { NextFunction, Request, Response } from 'express'
 import routes from 'routes/public'
 import asyncHandler from 'helpers/asyncHandler'
@@ -123,8 +124,7 @@ routes.put(
         RoleId,
       }
 
-      // eslint-disable-next-line no-await-in-loop
-      await UserRoleService.findOrCreate(formRole, txn)
+      await UserRoleService.findOrCreate(formRole)
     }
     await txn.commit()
     const buildResponse = BuildResponse.updated({ data })
