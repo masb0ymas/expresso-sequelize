@@ -43,6 +43,7 @@ class RoleService {
   /**
    *
    * @param id
+   * @param paranoid
    */
   public static async getOne(id: string, paranoid?: boolean) {
     const data = await Role.findByPk(id, { paranoid })

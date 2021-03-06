@@ -52,6 +52,11 @@ class RefreshTokenService {
     throw new ResponseError.BadRequest('Something went wrong')
   }
 
+  /**
+   *
+   * @param email
+   * @param refreshToken
+   */
   public static async getAccessToken(email: string, refreshToken: string) {
     if (!email || !refreshToken) {
       throw new ResponseError.BadRequest('invalid token')
