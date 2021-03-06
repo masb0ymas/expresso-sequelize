@@ -8,9 +8,11 @@ const router = express.Router()
 /* Home Page. */
 router.get('/', function (req: Request, res: Response, next: NextFunction) {
   const buildResponse = BuildResponse.get({
-    message: 'Express Sequelize TS, Support by Nusantech',
-    github:
+    message: 'Express Sequelize TypeScript',
+    maintaner: 'masb0ymas, <n.fajri@outlook.com>',
+    source:
       'https://github.com/masb0ymas/boilerplate-express-typescript-sequelize',
+    docs: `http://localhost:${process.env.PORT}/v1/api-docs`,
   })
   return res.json(buildResponse)
 })
