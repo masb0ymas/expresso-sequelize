@@ -55,12 +55,8 @@ class UserRoleService {
   /**
    *
    * @param formData
-   * @param txn Transaction Sequelize
    */
-  public static async findOrCreate(
-    formData: UserRoleAttributes,
-    txn?: Transaction
-  ) {
+  public static async findOrCreate(formData: UserRoleAttributes) {
     const values = useValidation(schema.create, formData)
 
     const data = await UserRole.findOrCreate({
@@ -73,6 +69,7 @@ class UserRoleService {
   /**
    *
    * @param id
+   * @param force
    */
   public static async deleteByUserId(id: string, force?: boolean) {
     const isForce = validateBoolean(force)
@@ -90,7 +87,26 @@ class UserRoleService {
   /**
    *
    * @param id
+   * @param force
+   */
+  public static async deleteByUserIds(ids: Array<string>, force?: boolean) {
+    const isForce = validateBoolean(force)
+
+    await UserRole.destroy({
+      where: {
+        UserId: {
+          [Op.in]: ids,
+        },
+      },
+      force: isForce,
+    })
+  }
+
+  /**
+   *
+   * @param id
    * @param Roles Array of String
+   * @param force
    * @example
    * Roles = ['id_1', 'id_2']
    */
