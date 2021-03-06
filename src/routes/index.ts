@@ -1,3 +1,4 @@
+import { BASE_URL_SERVER } from 'config/baseURL'
 import express, { Request, Response, NextFunction } from 'express'
 import BuildResponse from 'modules/Response/BuildResponse'
 import ResponseError from 'modules/Response/ResponseError'
@@ -12,7 +13,7 @@ router.get('/', function (req: Request, res: Response, next: NextFunction) {
     maintaner: 'masb0ymas, <n.fajri@outlook.com>',
     source:
       'https://github.com/masb0ymas/boilerplate-express-typescript-sequelize',
-    docs: `http://localhost:${process.env.PORT}/v1/api-docs`,
+    docs: `${BASE_URL_SERVER}/v1/api-docs`,
   })
   return res.json(buildResponse)
 })
