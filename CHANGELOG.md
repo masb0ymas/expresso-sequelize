@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.20.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.19.0...v2.20.0) (2021-03-06)
+
+
+### Features
+
+* add delete by user ids service user role ([db33a36](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/db33a364a22423b3443250a40c60339ba5590a12))
+
+
+### Bug Fixes
+
+* add comment params ([814a860](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/814a86029b9120c9d7979b3648cad1e74817e58c))
+* argument send mail ([afa0d89](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/afa0d894c34026f105309f52b5878f82e8b619ff))
+* base url docs swagger ([3b3c758](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/3b3c758d43f43a4ce19e1f9f17fbea07fdcf6c82))
+* helper send mail ([b00b866](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b00b866b5e871b2587495d4f69ed22fc3fe768fc))
+* improve base url config ([0e98585](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0e98585e7986d8da7a98a38f34c988cf33974813))
+* message route index ([dd4c7af](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/dd4c7af54052ca2fde740d955d6dd0dde178af5f))
+* message routes index ([c3ac57b](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c3ac57bf2ee4a8eeb7df62ff932a9d59ae7d7fe1))
+* typo service user ([7337d4e](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/7337d4ec1e7432a9183142c1b86dd9913ffd7b43))
+* user model ([637565a](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/637565a15e2002d6cd95406997c24dcead7545e8))
+
 ## [2.19.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.18.0...v2.19.0) (2021-02-26)
 
 
