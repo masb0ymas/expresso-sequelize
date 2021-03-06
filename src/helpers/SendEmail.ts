@@ -3,7 +3,7 @@ import handlebars from 'handlebars'
 import { readHTMLFile } from 'helpers/File'
 import EmailProvider from 'config/email'
 import ResponseError from 'modules/Response/ResponseError'
-import { BASE_URL_CLIENT } from 'config/baseClient'
+import { BASE_URL_CLIENT } from 'config/baseURL'
 import { EmailAttributes, UserAttributes } from 'models/user'
 
 const { APP_NAME } = process.env
@@ -20,6 +20,7 @@ class SendMail {
       __dirname,
       `../../public/templates/emails/register.html`
     )
+
     const subject = 'Email Verification'
     const urlToken = `${BASE_URL_CLIENT}/email/verify?token=${token}`
     const dataTemplate = { APP_NAME, fullName, urlToken }
@@ -32,6 +33,7 @@ class SendMail {
 
       const template = handlebars.compile(html)
       const htmlToSend = template(dataTemplate)
+
       Email.send(email, subject, htmlToSend)
     })
   }
