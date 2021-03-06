@@ -29,12 +29,13 @@ class EmailProvider {
   private mailOptions: nodemailer.SendMailOptions | undefined
 
   public send = (
-    to: string[],
+    to: string | string[],
     subject: string,
     template: string
   ): void | string[] => {
     const dest: string = Array.isArray(to) ? to.join(',') : to
     const text: string = template
+
     // send an e-mail
     this.sendMail(dest, subject, text)
   }
