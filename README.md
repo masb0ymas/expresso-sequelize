@@ -38,7 +38,7 @@
 - Generate Log File with [Winston](https://github.com/winstonjs/winston)
 - [Convensional Commit](https://www.conventionalcommits.org/en/v1.0.0/) with [Husky](https://github.com/typicode/husky) & [Commitlint](https://github.com/conventional-changelog/commitlint)
 
-### [Check Full Documentation](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/tree/master/docs/intro.md)
+### [Check Full Documentation](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/intro.md)
 
 ## How to use
 
