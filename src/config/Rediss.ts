@@ -24,6 +24,8 @@ client.on('error', function (err) {
   console.log(`Something went wrong ${err}`)
 })
 
+const timeoutSetRedis = 86400
+
 class Redis {
   /**
    *
@@ -31,7 +33,7 @@ class Redis {
    * @param data
    */
   public static set(key: string, data: any[]) {
-    client.setex(key, 86400, JSON.stringify(data))
+    client.setex(key, timeoutSetRedis, JSON.stringify(data))
   }
 
   /**
