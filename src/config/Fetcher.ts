@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance } from 'axios'
-import { get } from 'lodash'
+import { get, isEmpty } from 'lodash'
 import ResponseError from 'modules/Response/ResponseError'
 
 const AXIOS_TIMEOUT = process.env.AXIOS_TIMEOUT || 5000
@@ -8,7 +8,7 @@ const AXIOS_TIMEOUT = process.env.AXIOS_TIMEOUT || 5000
  *
  * @param baseURL
  */
-function createAxios(baseURL: string): AxiosInstance {
+function createAxios(baseURL: string, token?: string): AxiosInstance {
   const instanceAxios = axios.create({
     baseURL,
     timeout: Number(AXIOS_TIMEOUT),
@@ -17,12 +17,15 @@ function createAxios(baseURL: string): AxiosInstance {
   instanceAxios.interceptors.request.use((config) => {
     const curConfig = { ...config }
 
-    // ALWAYS READ UPDATED TOKEN
-    try {
-      curConfig.headers.Authorization = localStorage.getItem('token')
-    } catch (e) {
-      console.log(e)
+    if (!isEmpty(token)) {
+      // ALWAYS READ UPDATED TOKEN
+      try {
+        curConfig.headers.Authorization = token
+      } catch (e) {
+        console.log(e)
+      }
     }
+
     return curConfig
   })
 
@@ -79,9 +82,9 @@ class FetchApi {
   /**
    * axios instance default
    */
-  get default(): AxiosInstance {
+  public default(token?: string): AxiosInstance {
     if (!this.axiosDefault) {
-      this.axiosDefault = createAxios(this.baseUri)
+      this.axiosDefault = createAxios(this.baseUri, token)
       return this.axiosDefault
     }
 
