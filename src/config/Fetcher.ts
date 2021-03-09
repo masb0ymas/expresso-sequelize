@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { get, isEmpty } from 'lodash'
 import ResponseError from 'modules/Response/ResponseError'
+import Redis from './Rediss'
 
 const AXIOS_TIMEOUT = process.env.AXIOS_TIMEOUT || 5000
 
@@ -8,7 +9,7 @@ const AXIOS_TIMEOUT = process.env.AXIOS_TIMEOUT || 5000
  *
  * @param baseURL
  */
-function createAxios(baseURL: string, token?: string): AxiosInstance {
+function createAxios(baseURL: string): AxiosInstance {
   const instanceAxios = axios.create({
     baseURL,
     timeout: Number(AXIOS_TIMEOUT),
@@ -17,10 +18,12 @@ function createAxios(baseURL: string, token?: string): AxiosInstance {
   instanceAxios.interceptors.request.use((config) => {
     const curConfig = { ...config }
 
-    if (!isEmpty(token)) {
-      // ALWAYS READ UPDATED TOKEN
+    // ALWAYS READ UPDATED TOKEN
+    const cacheToken = Redis.get('token')
+
+    if (!isEmpty(cacheToken)) {
       try {
-        curConfig.headers.Authorization = token
+        curConfig.headers.Authorization = cacheToken
       } catch (e) {
         console.log(e)
       }
@@ -82,9 +85,9 @@ class FetchApi {
   /**
    * axios instance default
    */
-  public default(token?: string): AxiosInstance {
+  get default(): AxiosInstance {
     if (!this.axiosDefault) {
-      this.axiosDefault = createAxios(this.baseUri, token)
+      this.axiosDefault = createAxios(this.baseUri)
       return this.axiosDefault
     }
 
