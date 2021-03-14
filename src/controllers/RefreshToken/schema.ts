@@ -5,6 +5,6 @@ const create = yup.object().shape({
   token: yup.string().required('token is required'),
 })
 
-export default {
-  create,
-}
+const refreshTokenSchema = { create }
+
+export default refreshTokenSchema

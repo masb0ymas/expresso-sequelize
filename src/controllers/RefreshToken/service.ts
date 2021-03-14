@@ -7,10 +7,10 @@ import {
   RefreshTokenAttributes,
   verifyRefreshTokenAttributes,
 } from 'models/refreshtoken'
-import schema from 'controllers/RefreshToken/schema'
 import UserService from 'controllers/User/service'
 import { verifyRefreshToken } from 'helpers/Token'
 import { isObject } from 'lodash'
+import refreshTokenSchema from './schema'
 
 const { RefreshToken } = models
 
@@ -41,7 +41,7 @@ class RefreshTokenService {
    * @param formData
    */
   public static async create(formData: RefreshTokenAttributes) {
-    const value = useValidation(schema.create, formData)
+    const value = useValidation(refreshTokenSchema.create, formData)
     const user = await UserService.getOne(formData.UserId)
 
     if (user) {
