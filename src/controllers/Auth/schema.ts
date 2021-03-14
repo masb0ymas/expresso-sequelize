@@ -27,4 +27,6 @@ const login = yup
   })
   .required()
 
-export default { register, login }
+const authSchema = { register, login }
+
+export default authSchema

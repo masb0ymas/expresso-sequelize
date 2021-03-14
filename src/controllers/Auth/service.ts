@@ -1,7 +1,6 @@
 import ms from 'ms'
 import models from 'models'
 import jwt from 'jsonwebtoken'
-import schemaAuth from 'controllers/Auth/schema'
 import createDirNotExist from 'utils/Directory'
 import useValidation from 'helpers/useValidation'
 import ResponseError from 'modules/Response/ResponseError'
@@ -15,6 +14,7 @@ import { Request } from 'express'
 import userAgentHelper from 'helpers/userAgent'
 import { verifyAccessToken } from 'helpers/Token'
 import { isEmpty } from 'lodash'
+import authSchema from './schema'
 
 const { User, Role } = models
 const including = [{ model: Role }]
@@ -64,7 +64,7 @@ class AuthService {
     )
 
     const newFormData = { ...formData, tokenVerify }
-    const value = useValidation(schemaAuth.register, newFormData)
+    const value = useValidation(authSchema.register, newFormData)
     const data = await User.create(value)
 
     // Initial Send an e-mail
@@ -85,7 +85,7 @@ class AuthService {
   public static async signIn(req: Request, formData: LoginAttributes) {
     const { clientIp, useragent } = req
 
-    const value = useValidation(schemaAuth.login, formData)
+    const value = useValidation(authSchema.login, formData)
 
     const userData = await User.scope('withPassword').findOne({
       where: { email: value.email },
