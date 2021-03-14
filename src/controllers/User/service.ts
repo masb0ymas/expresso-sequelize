@@ -7,9 +7,9 @@ import { UserAttributes } from 'models/user'
 import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
-import schema from 'controllers/User/schema'
 import { isEmpty } from 'lodash'
 import { validateBoolean } from 'helpers/Common'
+import userSchema from './schema'
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -121,7 +121,7 @@ class UserService {
    * @param txn Transaction Sequelize
    */
   public static async create(formData: UserAttributes, txn?: Transaction) {
-    const value = useValidation(schema.create, formData)
+    const value = useValidation(userSchema.create, formData)
 
     const dataUser = await User.create(value, {
       transaction: txn,
@@ -143,7 +143,7 @@ class UserService {
   ) {
     const data = await this.findById(id)
 
-    const value = useValidation(schema.create, {
+    const value = useValidation(userSchema.create, {
       ...data.toJSON(),
       ...formData,
     })

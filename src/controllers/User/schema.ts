@@ -27,4 +27,6 @@ const createPassword = yup.object().shape({
     .oneOf([yup.ref('newPassword')], 'passwords are not the same'),
 })
 
-export default { create, createPassword }
+const userSchema = { create, createPassword }
+
+export default userSchema
