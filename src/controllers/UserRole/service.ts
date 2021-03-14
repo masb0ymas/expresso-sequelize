@@ -3,8 +3,8 @@ import db from 'models/_instance'
 import useValidation from 'helpers/useValidation'
 import { Transaction } from 'sequelize/types'
 import { UserRoleAttributes } from 'models/userrole'
-import schema from 'controllers/UserRole/schema'
 import { validateBoolean } from 'helpers/Common'
+import userRoleSchema from './schema'
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -18,7 +18,7 @@ class UserRoleService {
    * @param txn Transaction Sequelize
    */
   public static async create(formData: UserRoleAttributes, txn?: Transaction) {
-    const values = useValidation(schema.create, formData)
+    const values = useValidation(userRoleSchema.create, formData)
     const data = await UserRole.create(values, {
       transaction: txn,
     })
@@ -40,7 +40,7 @@ class UserRoleService {
       for (let i = 0; i < arrayFormData.length; i += 1) {
         const formData = arrayFormData[i]
 
-        const value = useValidation(schema.create, formData)
+        const value = useValidation(userRoleSchema.create, formData)
         newFormData.push(value)
       }
     }
@@ -57,7 +57,7 @@ class UserRoleService {
    * @param formData
    */
   public static async findOrCreate(formData: UserRoleAttributes) {
-    const values = useValidation(schema.create, formData)
+    const values = useValidation(userRoleSchema.create, formData)
 
     const data = await UserRole.findOrCreate({
       where: values,

@@ -8,6 +8,6 @@ const create = yup
   })
   .required()
 
-export default {
-  create,
-}
+const userRoleSchema = { create }
+
+export default userRoleSchema
