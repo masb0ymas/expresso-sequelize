@@ -186,7 +186,7 @@ class AuthService {
 
   /**
    *
-   * @param token
+   * @param userData
    */
   public static async profile(userData: UserAttributes) {
     const data = await User.findByPk(userData.id, { include: including })
