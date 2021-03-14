@@ -5,11 +5,11 @@ import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
 import { RoleAttributes } from 'models/role'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
-import schema from 'controllers/Role/schema'
 import Excel from 'helpers/Excel'
 import { isEmpty } from 'lodash'
 import { validateBoolean } from 'helpers/Common'
 import { FileAttributes } from 'interfaces/file'
+import roleSchema from './schema'
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -62,7 +62,7 @@ class RoleService {
    * @param formData
    */
   public static async create(formData: RoleAttributes) {
-    const value = useValidation(schema.create, formData)
+    const value = useValidation(roleSchema.create, formData)
     const data = await Role.create(value)
 
     return data
@@ -76,7 +76,7 @@ class RoleService {
   public static async update(id: string, formData: RoleAttributes) {
     const data = await this.getOne(id)
 
-    const value = useValidation(schema.create, {
+    const value = useValidation(roleSchema.create, {
       ...data.toJSON(),
       ...formData,
     })

@@ -4,6 +4,6 @@ const create = yup.object().shape({
   name: yup.string().required('name is required'),
 })
 
-export default {
-  create,
-}
+const roleSchema = { create }
+
+export default roleSchema
