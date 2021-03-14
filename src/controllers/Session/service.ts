@@ -3,8 +3,8 @@ import models from 'models'
 import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
-import schema from 'controllers/Session/schema'
 import { SessionAttributes } from 'models/session'
+import sessionSchema from './schema'
 
 const { Session } = models
 
@@ -70,7 +70,7 @@ class SessionService {
    * @param formData
    */
   public static async create(formData: SessionAttributes) {
-    const value = useValidation(schema.create, formData)
+    const value = useValidation(sessionSchema.create, formData)
     const data = await Session.create(value)
 
     return data
@@ -84,7 +84,7 @@ class SessionService {
   public static async update(id: string, formData: SessionAttributes) {
     const data = await this.getOne(id)
 
-    const value = useValidation(schema.create, {
+    const value = useValidation(sessionSchema.create, {
       ...data.toJSON(),
       ...formData,
     })

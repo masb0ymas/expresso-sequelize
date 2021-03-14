@@ -8,6 +8,6 @@ const create = yup.object().shape({
   platform: yup.string().nullable(),
 })
 
-export default {
-  create,
-}
+const sessionSchema = { create }
+
+export default sessionSchema
