@@ -1,17 +1,17 @@
 # Using Sequelize
 
-### Documentation Sequelize
+## Sequelize Model
 
 In this boilerplate I use the `Sequelize ORM`. Full documentation of the [Sequelize ORM](https://sequelize.org/master/).
 
 After you create the migration model, then you just need to reset the contents of the model, like this:
 
-#### Model by default
+### Model by default
 
 This model after generate with `npx sequelize model:generate`
 
 ```javascript
-// gender.js
+// models/gender.js
 
 'use strict';
 const {
@@ -38,12 +38,12 @@ module.exports = (sequelize, DataTypes) => {
 };
 ```
 
-#### Simple Model
+### Simple Model
 
 You can change it like this:
 
 ```javascript
-// gender.ts
+// models/gender.ts
 
 import { Model, Optional } from 'sequelize'
 import SequelizeAttributes from '../utils/SequelizeAttributes'
@@ -73,4 +73,38 @@ const Gender = db.sequelize.define<GenderInstance>(
 )
 
 export default Gender
+```
+
+You must also import the index model
+
+```javascript
+// models/index.ts
+
+...
+
+const models = {
+  ...
+  Session,
+  Gender,
+}
+
+```
+
+## Model Associate
+
+If you want to use associate you can use this method:
+
+```javascript
+// models/user.ts
+
+...
+
+User.associate = (models) => {
+  // has many relationship
+  User.hasMany(models.Session, { foreignKey: 'UserId' })
+
+  // belongs to many relationship
+  User.belongsToMany(models.Role, { through: models.UserRole })
+}
+
 ```
