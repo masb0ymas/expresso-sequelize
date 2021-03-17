@@ -13,10 +13,8 @@ This model after generate with `npx sequelize model:generate`
 ```javascript
 // models/gender.js
 
-'use strict';
-const {
-  Model
-} = require('sequelize');
+'use strict'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Gender extends Model {
     /**
@@ -27,15 +25,18 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  Gender.init({
-    name: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Gender',
-  });
-  return Gender;
-};
+  }
+  Gender.init(
+    {
+      name: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'Gender',
+    }
+  )
+  return Gender
+}
 ```
 
 ### Simple Model
@@ -90,7 +91,7 @@ const models = {
 
 ```
 
-## Model Associate
+## Model Association
 
 If you want to use associate you can use this method:
 
@@ -105,6 +106,84 @@ User.associate = (models) => {
 
   // belongs to many relationship
   User.belongsToMany(models.Role, { through: models.UserRole })
+}
+
+```
+
+## Using Sequelize Plugin
+
+If you want to use the sequelize plugin, it's very easy. You just need to customize a query request like this:
+
+```sh
+
+http://localhost:8000/v1/user?filtered=[{"id": "email", "value": "example@mail.com"}]&sorted=[{"id": "email", "desc": true}]
+
+```
+
+filtered & sorted format is a `Array of Objects`
+
+filtered query like this:
+
+```sh
+
+?filtered=[
+  {
+    "id": "email",
+    "value": "example@mail.com"
+  },
+  {
+    "id": "Role.name",
+    "value": "admin"
+  }
+]
+
+```
+
+sorted query like this:
+
+```sh
+
+?sorted=[
+  {
+    "id": "email",
+    "desc": false
+  }
+]
+
+```
+
+If the query filters don't work the way you want, you can also use manual queries.
+
+```javascript
+// controllers/user/service.ts
+
+public static async getAll(req: Request) {
+  const { filtered, active } = req.query
+  const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
+    req.query,
+    User,
+    PluginSqlizeQuery.makeIncludeQueryable(filtered, including)
+  )
+
+  // manual query
+  const isActive = validateBoolean(active)
+
+  // manual query
+  queryFind.where = {
+    ...queryFind.where,
+    active: isActive
+  }
+
+  const data = await User.findAll({
+    ...queryFind,
+    order: order.length ? order : [['createdAt', 'desc']],
+  })
+  const total = await User.count({
+    include: includeCount,
+    where: queryFind.where,
+  })
+
+  return { message: `${total} data has been received.`, data, total }
 }
 
 ```
