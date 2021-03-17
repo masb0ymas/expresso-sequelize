@@ -5,7 +5,7 @@
 This boilerplate was made because I had several problems. The problem consists of express initials that are repeated over and over again, as well as every project I work on has some important undocumented features. After this boilerplate, I can focus on developing existing features and new features.
 
 - [Getting Started](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/intro.md)
-- [Using Sequelize]()
+- [Using Sequelize](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md)
 
 # Getting Started
 
