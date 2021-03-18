@@ -1,7 +1,9 @@
 import axios, { AxiosError, AxiosInstance } from 'axios'
+import RedisProvider from 'helpers/Redis'
 import { get, isEmpty } from 'lodash'
 import ResponseError from 'modules/Response/ResponseError'
-import Redis from './Rediss'
+
+const Redis = new RedisProvider()
 
 const AXIOS_TIMEOUT = process.env.AXIOS_TIMEOUT || 5000
 
