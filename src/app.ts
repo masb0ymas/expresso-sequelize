@@ -17,6 +17,7 @@ import ExpressErrorSequelize from 'middlewares/ExpressErrorSequelize'
 import ExpressAutoHandleTransaction from 'middlewares/ExpressAutoHandleTransaction'
 import winstonLogger, { winstonStream } from 'config/winston'
 import initialJobs from 'jobs'
+import ExpressRateLimit from 'middlewares/ExpressRateLimit'
 
 const GenerateDoc = require('utils/GenerateDocs')
 
@@ -37,6 +38,7 @@ app.use(express.static(path.join(`${__dirname}/../`, 'public')))
 app.use(hpp())
 app.use(userAgent.express())
 app.use(requestIp.mw())
+app.use(ExpressRateLimit)
 
 app.use((req: Request, res, next) => {
   new withState(req)
