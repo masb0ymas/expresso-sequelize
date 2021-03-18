@@ -1,6 +1,6 @@
 # Documentation
 
-## Motivation
+## Purpose
 
 This boilerplate was made because I had several problems. The problem consists of express initials that are repeated over and over again, as well as every project I work on has some important undocumented features. After this boilerplate, I can focus on developing existing features and new features.
 
@@ -8,7 +8,10 @@ This boilerplate was made because I had several problems. The problem consists o
 - [Using Sequelize](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md)
   - [Sequelize Model](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md#sequelize-model)
   - [Model Association](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md#model-association)
-  - [Using Sequelize Plugin]()
+  - [Using Sequelize Plugin](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md#using-sequelize-plugin)
+- [Using Docker](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/docker.md)
+  - [Setup](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/docker.md#setup)
+  - [Deploy](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/docker.md#deploy)
 
 ## Getting Started
 
