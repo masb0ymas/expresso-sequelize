@@ -19,6 +19,10 @@ This boilerplate was made because I had several problems. The problem consists o
 - [Excel](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/excel.md)
   - [Import](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/excel.md#import-excel)
   - [Export](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/excel.md#export-excel)
+- [Simple Mail Transfer Protocol (SMTP)](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/smtp.md)
+  - [Config](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/smtp.md#config)
+  - [HTML Template](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/smtp.md#html-template)
+  - [Send Mail](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/smtp.md#send-mail)
 
 ## Getting Started
 
