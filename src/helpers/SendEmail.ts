@@ -1,7 +1,7 @@
 import path from 'path'
 import handlebars from 'handlebars'
 import { readHTMLFile } from 'helpers/File'
-import EmailProvider from 'config/email'
+import EmailProvider from 'config/EmailProvider'
 import ResponseError from 'modules/Response/ResponseError'
 import { BASE_URL_CLIENT } from 'config/baseURL'
 import { EmailAttributes, UserAttributes } from 'models/user'
