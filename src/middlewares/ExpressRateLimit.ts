@@ -1,4 +1,4 @@
-import { redisClient } from 'config/Rediss'
+import redisClient from 'config/redisClient'
 import { NextFunction, Request, Response } from 'express'
 import { RateLimiterRedis } from 'rate-limiter-flexible'
 
