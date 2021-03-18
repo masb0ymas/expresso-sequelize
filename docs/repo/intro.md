@@ -12,6 +12,13 @@ This boilerplate was made because I had several problems. The problem consists o
 - [Using Docker](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/docker.md)
   - [Setup](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/docker.md#setup)
   - [Deploy](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/docker.md#deploy)
+- [Multer](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md)
+  - [Config](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md#config)
+  - [Single Upload](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md#single-upload)
+  - [Multiple Upload](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md#multiple-upload)
+- [Excel]()
+  - [Import]()
+  - [Export]()
 
 ## Getting Started
 
