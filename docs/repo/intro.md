@@ -4,7 +4,7 @@
 
 This boilerplate was made because I had several problems. The problem consists of express initials that are repeated over and over again, as well as every project I work on has some important undocumented features. After this boilerplate, I can focus on developing existing features and new features.
 
-- [Getting Started](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/intro.md)
+- [Getting Started](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/intro.md#getting-started)
 - [Using Sequelize](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md)
   - [Sequelize Model](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md#sequelize-model)
   - [Model Association](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md#model-association)
@@ -16,9 +16,9 @@ This boilerplate was made because I had several problems. The problem consists o
   - [Config](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md#config)
   - [Single Upload](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md#single-upload)
   - [Multiple Upload](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md#multiple-upload)
-- [Excel]()
-  - [Import]()
-  - [Export]()
+- [Excel](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/excel.md)
+  - [Import](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/excel.md#import-excel)
+  - [Export](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/excel.md#export-excel)
 
 ## Getting Started
 
