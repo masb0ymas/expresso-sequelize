@@ -283,7 +283,7 @@ MAIL_PORT=465
 MAIL_AUTH_TYPE=
 MAIL_USERNAME=your_mail@domain.com
 MAIL_PASSWORD=your_password
-MAIL_ENCRYPTION=null
+MAIL_ENCRYPTION=
 ```
 
 ## SMTP with Mailgun API
@@ -297,12 +297,12 @@ MAILGUN_DOMAIN=your_domain
 
 ```sh
 MAIL_DRIVER=gmail
-MAIL_HOST=null
-MAIL_PORT=null
+MAIL_HOST=
+MAIL_PORT=
 MAIL_AUTH_TYPE=OAuth2
 MAIL_USERNAME=your_account@gmail.com
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=
 
 OAUTH_CLIENT_ID=your_client_id
 OAUTH_CLIENT_SECRET=your_client_secret
