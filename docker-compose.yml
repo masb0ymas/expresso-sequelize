@@ -9,9 +9,7 @@ services:
       - redis
     restart: always
     ports:
-      - '7000:8000'
-    volumes:
-      - .:/var/www
+      - '${PORT}:8000'
     working_dir: /var/www
     networks:
       - express_network
