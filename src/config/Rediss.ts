@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash'
 import redis, { ClientOpts } from 'redis'
 
 require('dotenv').config()
@@ -8,19 +7,16 @@ const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env
 const optionConfigs: ClientOpts = {
   host: REDIS_HOST,
   port: Number(REDIS_PORT),
+  password: REDIS_PASSWORD || undefined,
 }
 
-if (!isEmpty(REDIS_PASSWORD)) {
-  optionConfigs.password = REDIS_PASSWORD
-}
+export const redisClient = redis.createClient(optionConfigs)
 
-const client = redis.createClient(optionConfigs)
-
-client.on('connect', function () {
+redisClient.on('connect', function () {
   console.log('Redis client connected')
 })
 
-client.on('error', function (err) {
+redisClient.on('error', function (err) {
   console.log(`Something went wrong ${err}`)
 })
 
@@ -33,7 +29,7 @@ class Redis {
    * @param data
    */
   public static set(key: string, data: any[]) {
-    client.setex(key, timeoutSetRedis, JSON.stringify(data))
+    redisClient.setex(key, timeoutSetRedis, JSON.stringify(data))
   }
 
   /**
@@ -43,7 +39,7 @@ class Redis {
    * // get('get-role')
    */
   public static get(key: string) {
-    client.get(key)
+    redisClient.get(key)
   }
 
   /**
@@ -53,7 +49,7 @@ class Redis {
    * // keys.('get-role:*')
    */
   public static keys(key: string) {
-    client.keys(key)
+    redisClient.keys(key)
   }
 
   /**
@@ -61,7 +57,7 @@ class Redis {
    * @param key
    */
   public static del(key: string) {
-    client.del(key)
+    redisClient.del(key)
   }
 }
 
