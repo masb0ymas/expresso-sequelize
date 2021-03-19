@@ -31,8 +31,6 @@ class RedisProvider {
   /**
    *
    * @param key
-   * @example
-   * // get('get-role')
    */
   public async get<T>(key: string): Promise<T | null> {
     const data = await this.client.get(key)
@@ -47,9 +45,7 @@ class RedisProvider {
 
   /**
    *
-   * @param key get all by key return array
-   * @example
-   * // keys.('get-role:*')
+   * @param key
    */
   public async delete(key: string) {
     await this.client.del(key)
@@ -57,7 +53,7 @@ class RedisProvider {
 
   /**
    *
-   * @param key
+   * @param prefix
    */
   public async deleteByPrefix(prefix: string) {
     const keys = await this.client.keys(`${prefix}:*`)
