@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.21.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.20.0...v2.21.0) (2021-03-22)
+
+
+### Features
+
+* add docs export excel ([ee888ac](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ee888ac2b9658794819992ed92e69df404583624))
+* add keep folder generate ([edafd95](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/edafd952f8a39714e8dd2672e9c08ec97f256210))
+* endpoint export excel ([3b9e811](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/3b9e811dfe035ba269837fe86067bee139b2c772))
+* **helper:** add redis ([c9d4043](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c9d40438a99fae24169f8d9aee710cf1c8c770b5))
+* **lib:** add ioredis ([509213c](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/509213ce8d1d58cc1b9adcff3bad136b3ed34f61))
+* **lib:** add rate limit flexible ([1913425](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/19134258b30e5c71e5a30ed22ce673c5709acafa))
+* **middleware:** add express rate limit ([2c8f223](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2c8f22309ba5d19f92ef5054cb77603c24dc987d))
+* add docs docker ([3fbf2b9](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/3fbf2b9f11b0689e3c6d4c9776004bc2295cb2f8))
+* add docs excel ([9e8fd98](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/9e8fd9800a00ed4530e7eb757abcf411c70bef5c))
+* add docs multer ([3a6a6b6](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/3a6a6b6bb38c74ec6c9eea6c428f4e7de410bd8e))
+* add docs sequelize ([245a563](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/245a5638a8f03d6463e755b035244d1eab066d2d))
+* add docs smtp ([daaa682](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/daaa682c5d67d447bf239bc949447218192bd8c7))
+* add image ([9cc9792](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/9cc9792ebd6ad7eae97f4dc3f3d3d8cd8ac02053))
+* add image logo node ([cc5ba4b](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/cc5ba4b3700d751fa45b3b6a2b39e715066b4873))
+
+
+### Bug Fixes
+
+* auth schema ([03bcc42](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/03bcc424c140ede68965d22049e10012d00859b4))
+* change email to EmailProvider ([dd37f0d](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/dd37f0d595dd2da63368369496d24fe156540282))
+* comment params redis ([0bf74e1](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0bf74e1ed61de251ed30d1791e8a2cd91dfa64ab))
+* config docker ([2384e34](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2384e341f770e5035e9ee469f158c57b6bbad0f6))
+* config fetcher with token ([40b2d21](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/40b2d216968ad92de4ed4a94d25720ee5c41cb81))
+* console role job ([e88ff9c](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/e88ff9cc9417e523ff4aac8875b9aa12e174a802))
+* constant timeout redis setex ([6100bbf](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/6100bbfffca8b90247a878c546454bac01bd59d5))
+* default page docs swagger ([d949a4c](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d949a4cb52b17af69f62a3adcf39a03ee3def921))
+* display logo email template ([ea1c99d](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ea1c99d295fa7b8259c853484eb706fc52f2d359))
+* email template ([7da1d2c](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/7da1d2c7d6e72549489669d52f0b105a052fba1d))
+* fetcher get token from redis ([3b272cd](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/3b272cdde732b214a704d6fd4b60a985125d3142))
+* fetcher with redis ([87e7f03](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/87e7f03193743f48b2754fc5e5a7325d6f4b7a97))
+* promise compare password ([c85c605](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c85c605508853bc10e05b80cb822b2ec2601fe0e))
+* redis client rate limit ([ccef20d](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ccef20d53565edfd2ea6f41555fdbb122f91e16d))
+* **config:** change Redis to redisClient ([37b2aab](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/37b2aab07f7164f700394327bc22b52ae9bbbfb8))
+* implementation express rate limit ([c599648](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c5996481085bc56d8f335dd186e4722e9ca7f643))
+* **config:** improve redis config ([3e73194](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/3e73194dac080e532a57f3f958a5bb696512c85f))
+* refresh token schema ([e9ee733](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/e9ee733c7a97931d44c27404528bb6f6d21a8d51))
+* role schema ([1362854](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/1362854fcfb6382eb825ab4a2009290b78786798))
+* session schema ([028092c](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/028092c9d9ccf7806547c762d5856f22e73c10db))
+* user role schema ([1647dcd](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/1647dcdc2ef32c47e93b564ce1ea5fd73fc335fc))
+* user schema ([0e950cf](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/0e950cfa11ba124238af855c6c2b3322a30d9d73))
+* wording function profile ([f8301ca](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/f8301ca8abcb97e81eb37341970c15b499a6adfa))
+
 ## [2.20.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.19.0...v2.20.0) (2021-03-06)
 
 
