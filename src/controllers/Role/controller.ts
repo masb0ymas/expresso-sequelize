@@ -8,6 +8,8 @@ import { arrayFormatter } from 'helpers/Common'
 import { formatDateGenerateFile } from 'helpers/Date'
 import ConfigMulter from 'modules/ConfigMulter'
 import { get } from 'lodash'
+import fs from 'fs'
+import { BASE_URL_SERVER } from 'config/baseURL'
 
 routes.get(
   '/role',
@@ -21,6 +23,27 @@ routes.get(
 
 routes.get(
   '/role/generate-excel',
+  Authorization,
+  asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
+    const streamExcel = await RoleService.generateExcel(req)
+    const dateNow = formatDateGenerateFile(new Date())
+    const filename = `${dateNow}_generate_role.xlsx`
+
+    const outputPath = `public/generate/excel/${filename}`
+
+    fs.writeFile(outputPath, streamExcel, function (err) {
+      if (err) return console.log(err)
+      console.log('generate excel successfully')
+    })
+    const url = outputPath.replace('public', BASE_URL_SERVER)
+    const buildResponse = BuildResponse.get({ data: { url } })
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.get(
+  '/role/export-excel',
   Authorization,
   asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
     const streamExcel = await RoleService.generateExcel(req)
