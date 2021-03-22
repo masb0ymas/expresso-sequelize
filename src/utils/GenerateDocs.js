@@ -83,7 +83,7 @@ module.exports = function generateDocs(app) {
             in: 'query',
             name: 'page',
             required: false,
-            default: 0,
+            default: 1,
           },
           pageSize: {
             in: 'query',
