@@ -8919,10 +8919,10 @@ sequelize-pool@^6.0.0:
   resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-6.1.0.tgz#caaa0c1e324d3c2c3a399fed2c7998970925d668"
   integrity sha512-4YwEw3ZgK/tY/so+GfnSgXkdwIJJ1I32uZJztIEgZeAO6HMgj64OzySbWLgxj+tXhZCJnzRfkY9gINw8Ft8ZMg==
 
-sequelize@^6.5.1:
-  version "6.5.1"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.5.1.tgz#bb08c001515afe159f9efe8c1d59b7a07c43a608"
-  integrity sha512-DWgaF+Vw+gWpxomyyYppUOCWzP0ReoMol8EEaDMA+cbSUevyMb74BEwSAd0c8GKgDYiOjpq4DmKBQLHtLAgS1g==
+sequelize@^6.6.1:
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.6.1.tgz#57579e06b167287150e0e372e51787e6862d5a93"
+  integrity sha512-dhu25X8L084YyQ9E7iTvleb+g7t9THeI13PV1tKERNCax1W0+sObtSQw0fphMiAr/BeAP2kELyY33s4Bh5tA4Q==
   dependencies:
     debug "^4.1.1"
     dottie "^2.0.0"
