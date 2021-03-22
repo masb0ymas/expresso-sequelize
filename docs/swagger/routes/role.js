@@ -91,10 +91,46 @@ module.exports = {
       },
     },
   },
+  '/role/export-excel': {
+    get: {
+      tags: ['Role'],
+      summary: 'Get All Role with Export Excel',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      produces: ['application/json'],
+      parameters: [
+        {
+          $ref: '#/components/parameters/page',
+        },
+        {
+          $ref: '#/components/parameters/pageSize',
+        },
+        {
+          $ref: '#/components/parameters/filtered',
+        },
+        {
+          $ref: '#/components/parameters/sorted',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'Get All Role with Export Excel',
+        },
+      },
+    },
+  },
   '/role/generate-excel': {
     get: {
       tags: ['Role'],
       summary: 'Get All Role with Generate Excel',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
       produces: ['application/json'],
       parameters: [
         {
