@@ -18,6 +18,18 @@ function readHTMLFile(path: any, callback: any) {
 
 /**
  *
+ * @param outputPath
+ * @param streamFile
+ */
+function writeFileStream(outputPath: string, streamFile: Buffer) {
+  fs.writeFile(outputPath, streamFile, function (err) {
+    if (err) return console.log(err)
+    console.log('generate file successfully')
+  })
+}
+
+/**
+ *
  * @param base64Data
  * @param pathFile
  */
@@ -34,4 +46,4 @@ function writeFileFromBase64(base64Data: string, pathFile: string) {
   return false
 }
 
-export { readHTMLFile, writeFileFromBase64 }
+export { readHTMLFile, writeFileFromBase64, writeFileStream }
