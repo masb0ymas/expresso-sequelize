@@ -5,9 +5,17 @@ import _path from 'path'
 import { BASE_URL_SERVER } from 'config/baseURL'
 import _ from 'lodash'
 
-const { APP_NAME, NODE_ENV } = process.env
+const {
+  APP_NAME,
+  NODE_ENV,
+  URL_SERVER_STAGING,
+  URL_SERVER_PRODUCTION,
+} = process.env
 
 const ENV = NODE_ENV || 'development'
+
+const urlServerStaging = URL_SERVER_STAGING || 'http://api-staging.example.com'
+const urlServerProduction = URL_SERVER_PRODUCTION || 'http://api.example.com'
 
 const baseRoutes = _path.resolve('./docs/swagger/routes')
 // const baseSchemas = _path.resolve('./docs/swagger/schemas')
@@ -40,11 +48,11 @@ if (ENV === 'development') {
       description: `${_.capitalize(ENV)} Server`,
     },
     {
-      url: 'https://api-staging.example.com/v1',
+      url: `${urlServerStaging}/v1`,
       description: 'Staging Server',
     },
     {
-      url: 'https://api.example.com/v1',
+      url: `${urlServerProduction}/v1`,
       description: 'Production Server',
     },
   ]
@@ -125,11 +133,11 @@ module.exports = function generateDocs(app) {
         name: `${_.capitalize(ENV)} Server`,
       },
       {
-        url: 'http://api-staging.example.com/v1/api-docs.json',
+        url: `${urlServerStaging}/v1/api-docs.json`,
         name: 'Staging Server',
       },
       {
-        url: 'http://api.example.com/v1/api-docs.json',
+        url: `${urlServerProduction}/v1/api-docs.json`,
         name: 'Production Server',
       },
     ]
