@@ -40,7 +40,12 @@ function arrayFormatter(arrayData: string | string[]) {
     }
 
     // format: "['1', '2']"
-    return JSON.parse(arrayData)
+    const parseJsonArray = JSON.parse(arrayData)
+    if (Array.isArray(parseJsonArray)) {
+      return parseJsonArray
+    }
+
+    return []
   }
 
   return []
@@ -64,7 +69,7 @@ function validateEmpty(value: any) {
  *
  * @param value
  */
-function validateBoolean(value: string | boolean | Number | any) {
+function validateBoolean(value: string | boolean | number | any) {
   if (invalidValues.includes(value)) {
     return false
   }
