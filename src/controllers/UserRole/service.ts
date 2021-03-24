@@ -112,7 +112,7 @@ class UserRoleService {
    */
   public static async deleteNotInRoleId(
     id: string,
-    Roles: [],
+    Roles: Array<string>,
     force?: boolean
   ) {
     const isForce = validateBoolean(force)
