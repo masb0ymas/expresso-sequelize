@@ -8,8 +8,8 @@ import { arrayFormatter } from 'helpers/Common'
 import { formatDateGenerateFile } from 'helpers/Date'
 import ConfigMulter from 'modules/ConfigMulter'
 import { get } from 'lodash'
-import fs from 'fs'
 import { BASE_URL_SERVER } from 'config/baseURL'
+import { writeFileStream } from 'helpers/File'
 
 routes.get(
   '/role',
@@ -30,11 +30,8 @@ routes.get(
     const filename = `${dateNow}_generate_role.xlsx`
 
     const outputPath = `public/generate/excel/${filename}`
+    writeFileStream(outputPath, streamExcel)
 
-    fs.writeFile(outputPath, streamExcel, function (err) {
-      if (err) return console.log(err)
-      console.log('generate excel successfully')
-    })
     const url = outputPath.replace('public', BASE_URL_SERVER)
     const buildResponse = BuildResponse.get({ data: { url } })
 
