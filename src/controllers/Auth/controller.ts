@@ -6,6 +6,7 @@ import BuildResponse from 'modules/Response/BuildResponse'
 import RefreshTokenService from 'controllers/RefreshToken/service'
 import AuthService from 'controllers/Auth/service'
 import { currentToken } from 'helpers/Token'
+import { UserLoginAttributes } from 'models/user'
 
 routes.post(
   '/auth/sign-up',
@@ -53,9 +54,9 @@ routes.get(
   '/profile',
   Authorization,
   asyncHandler(async function getProfile(req: Request, res: Response) {
-    const userData = req.getState('userLogin')
+    const userData = req.getState('userLogin') as UserLoginAttributes
 
-    const data = await AuthService.profile(userData)
+    const data = await AuthService.profile(userData.uid)
     const buildResponse = BuildResponse.get({ data })
 
     return res.status(200).json(buildResponse)
@@ -66,10 +67,10 @@ routes.get(
   '/auth/verify-session',
   Authorization,
   asyncHandler(async function getProfile(req: Request, res: Response) {
-    const userData = req.getState('userLogin')
+    const userData = req.getState('userLogin') as UserLoginAttributes
     const getToken = currentToken(req)
 
-    const data = await AuthService.verifySession(userData.id, getToken)
+    const data = await AuthService.verifySession(userData.uid, getToken)
     const buildResponse = BuildResponse.get({ data })
 
     return res.status(200).json(buildResponse)
@@ -81,7 +82,7 @@ routes.post(
   Authorization,
   asyncHandler(async function logout(req: Request, res: Response) {
     const { UserId } = req.getBody()
-    const userData = req.getState('userLogin')
+    const userData = req.getState('userLogin') as UserLoginAttributes
     const getToken = currentToken(req)
 
     const message = await AuthService.logout(UserId, userData, getToken)

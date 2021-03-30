@@ -5,7 +5,11 @@ import createDirNotExist from 'utils/Directory'
 import useValidation from 'helpers/useValidation'
 import ResponseError from 'modules/Response/ResponseError'
 import { getUniqueCodev2 } from 'helpers/Common'
-import { UserAttributes, LoginAttributes } from 'models/user'
+import {
+  UserAttributes,
+  LoginAttributes,
+  UserLoginAttributes,
+} from 'models/user'
 import SendMail from 'helpers/SendEmail'
 import RefreshTokenService from 'controllers/RefreshToken/service'
 import UserService from 'controllers/User/service'
@@ -95,19 +99,16 @@ class AuthService {
       throw new ResponseError.NotFound('account not found or has been deleted')
     }
 
-    /* User active proses login */
-    if (userData.active) {
-      // @ts-ignore
-      const comparePassword = await userData.comparePassword(value.password)
+    const { id: UserId, isActive } = userData
 
-      if (comparePassword) {
+    /* User active proses login */
+    if (isActive) {
+      // @ts-ignore
+      const matchPassword = await userData.comparePassword(value.password)
+
+      if (matchPassword) {
         // modif payload token
-        const payloadToken = {
-          id: userData.id,
-          nama: userData.fullName,
-          email: userData.email,
-          active: userData.active,
-        }
+        const payloadToken = { uid: UserId }
 
         // Access Token
         const accessToken = jwt.sign(
@@ -129,13 +130,13 @@ class AuthService {
 
         // create refresh token
         await RefreshTokenService.create({
-          UserId: userData.id,
+          UserId,
           token: refreshToken,
         })
 
         // create session
         await SessionService.create({
-          UserId: userData.id,
+          UserId,
           token: accessToken,
           ipAddress: clientIp?.replace('::ffff:', ''),
           device: userAgentHelper.currentDevice(req),
@@ -143,7 +144,7 @@ class AuthService {
         })
 
         // create directory
-        await createDirectory(userData.id)
+        await createDirectory(UserId)
 
         return {
           message: 'Login successfully',
@@ -172,10 +173,11 @@ class AuthService {
   public static async verifySession(UserId: string, token: string) {
     const sessionUser = await SessionService.findByTokenUser(UserId, token)
     const verifyToken = verifyAccessToken(sessionUser.token)
+    const userData = verifyToken?.data as UserLoginAttributes
 
-    if (!isEmpty(verifyToken?.data)) {
+    if (!isEmpty(userData.uid)) {
       // @ts-ignore
-      const data = await User.findByPk(verifyToken?.data?.id, {
+      const data = await User.findByPk(userData.uid, {
         include: including,
       })
       return data
@@ -186,10 +188,10 @@ class AuthService {
 
   /**
    *
-   * @param userData
+   * @param UserId
    */
-  public static async profile(userData: UserAttributes) {
-    const data = await User.findByPk(userData.id, { include: including })
+  public static async profile(UserId: string) {
+    const data = await User.findByPk(UserId, { include: including })
     return data
   }
 
@@ -199,8 +201,12 @@ class AuthService {
    * @param userData
    * @param token
    */
-  public static async logout(UserId: string, userData: any, token: string) {
-    if (userData?.id !== UserId) {
+  public static async logout(
+    UserId: string,
+    userData: UserLoginAttributes,
+    token: string
+  ) {
+    if (userData.uid !== UserId) {
       throw new ResponseError.Unauthorized('Invalid user login!')
     }
 
