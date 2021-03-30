@@ -153,11 +153,11 @@ export function transfromIncludeToQueryable(
       const isTypeModel = typeof Model === typeof include
       const curModel = (isTypeModel ? include : model) as typeof Model
       const defaultName = curModel.options.name?.singular
-      const data = _onBuildInclude({
+      const data = _onBuildInclude(({
         ...(isTypeModel ? {} : restInclude),
         key: key || defaultName,
         model: curModel,
-      } as IncludeOptions)
+      } as unknown) as IncludeOptions)
 
       if (parent) {
         // eslint-disable-next-line no-param-reassign
