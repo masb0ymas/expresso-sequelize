@@ -6,7 +6,7 @@ const register = yup
     fullName: yup.string().required('fullname is required'),
     email: yup.string().email('invalid email').required('email is required'),
     phone: yup.string().required('phone is required'),
-    active: yup.boolean().nullable(),
+    isActive: yup.boolean().nullable(),
     tokenVerify: yup.string().nullable(),
     newPassword: yup
       .string()

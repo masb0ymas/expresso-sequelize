@@ -10,7 +10,7 @@ export interface UserAttributes {
   email: string
   password?: string
   phone: string
-  active?: boolean | null
+  isActive?: boolean | null
   tokenVerify?: string | null
   newPassword?: string
   confirmNewPassword?: string
@@ -32,6 +32,10 @@ export interface LoginAttributes {
 export interface EmailAttributes {
   email: string
   fullName: string
+}
+
+export interface UserLoginAttributes {
+  uid: string
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
