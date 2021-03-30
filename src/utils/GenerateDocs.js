@@ -104,7 +104,7 @@ module.exports = function generateDocs(app) {
             name: 'filtered',
             required: false,
             default: [],
-            description: 'Example: [{"id": "nama", "value": "test"}]',
+            description: 'Example: [{"id": "email", "value": "anyValue"}]',
           },
           sorted: {
             in: 'query',
