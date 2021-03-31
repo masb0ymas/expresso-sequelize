@@ -285,9 +285,11 @@ module.exports = {
         },
       },
     },
+  },
+  '/user/soft-delete/{id}': {
     delete: {
       tags: ['User'],
-      summary: 'Force Delete User By Id ( Forever )',
+      summary: 'Soft Delete User By Id',
       security: [
         {
           auth_token: [],
@@ -307,7 +309,7 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: 'Force Delete User By Id ( Forever )',
+          description: 'Soft Delete User By Id',
         },
       },
     },
@@ -340,10 +342,10 @@ module.exports = {
       },
     },
   },
-  '/user/delete/{id}': {
+  '/user/force-delete/{id}': {
     delete: {
       tags: ['User'],
-      summary: 'Soft Delete User By Id',
+      summary: 'Force Delete User By Id ( Forever )',
       security: [
         {
           auth_token: [],
@@ -363,7 +365,7 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: 'Soft Delete User By Id',
+          description: 'Force Delete User By Id ( Forever )',
         },
       },
     },

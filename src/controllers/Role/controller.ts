@@ -172,7 +172,7 @@ routes.post(
 )
 
 routes.delete(
-  '/role/delete/:id',
+  '/role/soft-delete/:id',
   Authorization,
   asyncHandler(async function softDelete(req: Request, res: Response) {
     const { id } = req.getParams()
@@ -198,7 +198,7 @@ routes.put(
 )
 
 routes.delete(
-  '/role/:id',
+  '/role/force-delete/:id',
   Authorization,
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { id } = req.getParams()

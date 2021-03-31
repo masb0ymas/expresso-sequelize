@@ -315,9 +315,11 @@ module.exports = {
         },
       },
     },
+  },
+  '/role/soft-delete/{id}': {
     delete: {
       tags: ['Role'],
-      summary: 'Force Delete Role By Id ( Forever )',
+      summary: 'Soft Delete Role By Id',
       security: [
         {
           auth_token: [],
@@ -337,7 +339,7 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: 'Force Delete Role By Id ( Forever )',
+          description: 'Soft Delete Role By Id',
         },
       },
     },
@@ -370,10 +372,10 @@ module.exports = {
       },
     },
   },
-  '/role/delete/{id}': {
+  '/role/force-delete/{id}': {
     delete: {
       tags: ['Role'],
-      summary: 'Soft Delete Role By Id',
+      summary: 'Force Delete Role By Id ( Forever )',
       security: [
         {
           auth_token: [],
@@ -393,7 +395,7 @@ module.exports = {
       ],
       responses: {
         200: {
-          description: 'Soft Delete Role By Id',
+          description: 'Force Delete Role By Id ( Forever )',
         },
       },
     },

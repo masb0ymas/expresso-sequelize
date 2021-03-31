@@ -176,7 +176,7 @@ routes.post(
 )
 
 routes.delete(
-  '/user/delete/:id',
+  '/user/soft-delete/:id',
   Authorization,
   asyncHandler(async function softDelete(req: Request, res: Response) {
     const { id } = req.getParams()
@@ -202,9 +202,9 @@ routes.put(
 )
 
 routes.delete(
-  '/user/:id',
+  '/user/force-delete/:id',
   Authorization,
-  asyncHandler(async function softDelete(req: Request, res: Response) {
+  asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
     await UserService.delete(id, true)
