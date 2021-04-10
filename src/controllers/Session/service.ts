@@ -4,6 +4,7 @@ import ResponseError from 'modules/Response/ResponseError'
 import useValidation from 'helpers/useValidation'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import { SessionAttributes } from 'models/session'
+import { Transaction } from 'sequelize'
 import sessionSchema from './schema'
 
 const { Session } = models
@@ -68,10 +69,11 @@ class SessionService {
   /**
    *
    * @param formData
+   * @param txn - Transaction
    */
-  public static async create(formData: SessionAttributes) {
+  public static async create(formData: SessionAttributes, txn?: Transaction) {
     const value = useValidation(sessionSchema.create, formData)
-    const data = await Session.create(value)
+    const data = await Session.create(value, { transaction: txn })
 
     return data
   }
@@ -92,6 +94,24 @@ class SessionService {
     await data.update(value || {})
 
     return data
+  }
+
+  /**
+   *
+   * @param formData
+   * @param txn - Transaction
+   */
+  public static async createOrUpdate(
+    formData: SessionAttributes,
+    txn?: Transaction
+  ) {
+    const data = await Session.findOne({ where: { UserId: formData.UserId } })
+
+    if (!data) {
+      await this.create(formData, txn)
+    } else {
+      await data.update(formData, { transaction: txn })
+    }
   }
 
   /**

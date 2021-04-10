@@ -87,7 +87,7 @@ class AuthService {
    * @param formData
    */
   public static async signIn(req: Request, formData: LoginAttributes) {
-    const { clientIp, useragent } = req
+    const { clientIp } = req
 
     const value = useValidation(authSchema.login, formData)
 
@@ -135,13 +135,14 @@ class AuthService {
         })
 
         // create session
-        await SessionService.create({
+        const formDataSession = {
           UserId,
           token: accessToken,
           ipAddress: clientIp?.replace('::ffff:', ''),
           device: userAgentHelper.currentDevice(req),
-          platform: `${useragent?.os} - ${useragent?.platform}`,
-        })
+          platform: userAgentHelper.currentPlatform(req),
+        }
+        await SessionService.createOrUpdate(formDataSession)
 
         // create directory
         await createDirectory(UserId)
