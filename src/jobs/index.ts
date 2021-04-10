@@ -1,9 +1,9 @@
-import RoleJob from 'jobs/RoleJob'
+import ExampleJob from './ExampleJob'
 
 function initialJobs() {
-  // Role Jobs
-  const getRoleTask = RoleJob.getRole()
-  getRoleTask.start()
+  // Example Jobs
+  const exampleTask = ExampleJob.getTask()
+  exampleTask.start()
 
   // Other Jobs
 }
