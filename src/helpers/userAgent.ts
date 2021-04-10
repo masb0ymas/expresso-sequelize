@@ -34,6 +34,26 @@ class userAgentHelper {
 
     return null
   }
+
+  /**
+   *
+   * @param req - Request
+   */
+  public static currentPlatform(req: Request) {
+    const { useragent } = req
+
+    let currentOS
+
+    if (useragent?.os === 'unkown') {
+      currentOS = this.currentDevice(req)
+    } else {
+      currentOS = useragent?.os
+    }
+
+    const platform = `${currentOS} - ${useragent?.platform}`
+
+    return platform
+  }
 }
 
 export default userAgentHelper
