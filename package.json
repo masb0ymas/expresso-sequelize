@@ -66,7 +66,7 @@
     "node-cron": "^3.0.0",
     "nodemailer": "^6.5.0",
     "nodemailer-mailgun-transport": "^2.0.2",
-    "pg": "^8.5.1",
+    "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "pug": "^3.0.2",
     "rate-limiter-flexible": "^2.2.1",
