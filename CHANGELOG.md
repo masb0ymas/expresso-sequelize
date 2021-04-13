@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.21.0...v2.22.0) (2021-04-13)
+
+
+### Features
+
+* add script generate secret key OTP ([010234d](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/010234ddd06e05b97fdf27aad3017a664c25d850))
+* **helper:** add hash OTP ([47872d8](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/47872d8cffac52c40dd41a27712262e1b77de0cf))
+* **utils:** add generate OTP ([2d9b06b](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2d9b06b87b2b606580d7983729e46457e7b17c92))
+* add current platform ([b637bd8](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b637bd8b17c8eb7bab5b9447980d03803da0aa76))
+* add versionrc json ([dd94ba0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/dd94ba069bb5a324460c21167c44659a5ac88443))
+* add write file stream ([1500a16](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/1500a16be3aa4fca6b5ebbf7a94f3416c0a7eac8))
+* config ecosystem pm2 ([3e72f40](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/3e72f405dcd5acb0ead532b6d49b6815ba964a3f))
+
+
+### Bug Fixes
+
+* add write file stream ([4e6c170](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/4e6c1703150c6b89f2a14dae003268498d010a08))
+* base url docs swagger ([c22d1d7](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/c22d1d7f283649f1b59527ca62d8f3b63cd8c678))
+* change field decode token ([863750b](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/863750b9e0be6a7b26d937687abe36b291480a22))
+* change role job to example job ([72d72d6](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/72d72d6821f1f26e2705720023f37da2722a3aea))
+* check array formatter ([bbcc932](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/bbcc9321193bfb90a3952ebb438403316f0ef6c1))
+* create or update session ([1180077](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/118007710aec5d98ed7c52e21931e3b66161ff72))
+* env base url ([d97f1b0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d97f1b070f3216c8e80149242c560d57aec74431))
+* example filtered query ([d9b6017](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/d9b6017afd021b7b7f4fa4c332db309e8de855dc))
+* field user ([fbd1921](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/fbd1921ebdc41d2c31c7b8e177b8d734674136bf))
+* script deploy ([2ca950a](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2ca950a8617033340406111d91afff5e304b9a45))
+* soft & force delete endpoint ([2b5b506](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/2b5b50623e8d185f762348dbf8be9f127d3f2971))
+* typing sequelize query ([a4bd38b](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/a4bd38bc41164d8c23194e6c0cc4302d220ff560))
+* typo argument ([ac2e82b](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/ac2e82b3a017c2a1ec6b47ebf44953aa260ff0dc))
+* update dependencies ([b185083](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b185083f587eebe32a855d58935098c692eb850b))
+* update dependencies ([f0e672e](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/f0e672e68fd9a161b9cb5d72fa9f62801c3a5df4))
+* **module:** improve typing build response ([b0f6ff4](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/b0f6ff413cd1db58266f50ae5daca0ea2fe6b405))
+
 ## [2.21.0](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/v2.20.0...v2.21.0) (2021-03-22)
 
 
