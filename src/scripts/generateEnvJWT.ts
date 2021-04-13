@@ -56,5 +56,25 @@ function refreshTokenJWT() {
   }
 }
 
+function secretOTP() {
+  const pathRes = path.resolve('.env')
+  const contentEnv = fs.readFileSync(pathRes, { encoding: 'utf-8' })
+  const jwtSecret = getUniqueCodev2()
+  const strJWT = `SECRET_OTP=${jwtSecret}`
+
+  if (contentEnv.includes('SECRET_OTP=')) {
+    // Replace SECRET OTP jika sudah ada
+    const replaceContent = contentEnv.replace(/SECRET_OTP=(.*)?/, strJWT)
+    fs.writeFileSync(`${pathRes}`, replaceContent)
+    console.log('Refresh SECRET OTP Success')
+  } else {
+    // Generate SECRET OTP kalo belum ada di environment
+    const extraContent = `${strJWT}\n\n${contentEnv}`
+    fs.writeFileSync(`${pathRes}`, extraContent)
+    console.log('Generate SECRET OTP Success')
+  }
+}
+
 accessTokenJWT()
 refreshTokenJWT()
+secretOTP()
