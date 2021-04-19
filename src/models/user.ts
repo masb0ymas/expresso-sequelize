@@ -1,7 +1,7 @@
 import { Model, Optional, DataTypes } from 'sequelize'
 import bcrypt from 'bcrypt'
 import SequelizeAttributes from 'utils/SequelizeAttributes'
-import schemaUser from 'controllers/User/schema'
+import userSchema from 'controllers/User/schema'
 import db from './_instance'
 
 export interface UserAttributes {
@@ -72,23 +72,22 @@ const User = db.sequelize.define<UserInstance>(
 
 function setUserPassword(instance: UserInstance) {
   const { newPassword, confirmNewPassword } = instance
-  const fdPassword = { newPassword, confirmNewPassword }
-  const validPassword = schemaUser.createPassword.validateSyncAt(
-    'confirmNewPassword',
-    fdPassword
-  )
   const saltRounds = 10
-  const hash = bcrypt.hashSync(validPassword, saltRounds)
-  instance.setDataValue('password', hash)
+
+  if (newPassword || confirmNewPassword) {
+    const formPassword = { newPassword, confirmNewPassword }
+    const validPassword = userSchema.createPassword.validateSyncAt(
+      'confirmNewPassword',
+      formPassword
+    )
+
+    const hash = bcrypt.hashSync(validPassword, saltRounds)
+    instance.setDataValue('password', hash)
+  }
 }
 
 User.addHook('beforeCreate', setUserPassword)
-User.addHook('beforeUpdate', (instance: UserInstance) => {
-  const { newPassword, confirmNewPassword } = instance
-  if (newPassword || confirmNewPassword) {
-    setUserPassword(instance)
-  }
-})
+User.addHook('beforeUpdate', setUserPassword)
 
 // Compare password
 User.prototype.comparePassword = function (candidatePassword: string) {
