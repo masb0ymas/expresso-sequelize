@@ -1,15 +1,17 @@
-<h1 align="center">Welcome to boilerplate-express-typescript-sequelize 👋</h1>
+<h1 align="center">expresso</h1>
+<h3 align="center">( Express TS Sequelize )</h3>
+<br/>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-2.22.0-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/npm-%3E%3D6.10.0-blue.svg" />
   <img src="https://img.shields.io/badge/node-%3E%3D10.x-blue.svg" />
-  <a href="https://github.com/masb0ymas/boilerplate-express-typescript-sequelize#readme" target="_blank">
+  <a href="https://github.com/masb0ymas/expresso#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
-  <a href="https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/graphs/commit-activity" target="_blank">
+  <a href="https://github.com/masb0ymas/expresso/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
-  <a href="https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/LICENSE.md" target="_blank">
+  <a href="https://github.com/masb0ymas/expresso/blob/master/LICENSE.md" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
 </p>
@@ -38,14 +40,14 @@
 - Generate Log File with [Winston](https://github.com/winstonjs/winston)
 - [Convensional Commit](https://www.conventionalcommits.org/en/v1.0.0/) with [Husky](https://github.com/typicode/husky) & [Commitlint](https://github.com/conventional-changelog/commitlint)
 
-### [Check Full Documentation](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/intro.md)
+### [Check Full Documentation](https://github.com/masb0ymas/expresso/blob/master/docs/repo/intro.md)
 
 ## How to use
 
 clone this repo with `https` / `ssh` / `github cli`
 
 ```sh
-git clone https://github.com/masb0ymas/boilerplate-express-typescript-sequelize.git
+git clone https://github.com/masb0ymas/expresso.git
 ```
 
 After cloning this repo, make sure you have `duplicated` the `.env.example` file to `.env`, don't let the .env.example file be deleted or renamed.

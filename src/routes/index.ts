@@ -11,8 +11,7 @@ router.get('/', function (req: Request, res: Response, next: NextFunction) {
   const buildResponse = BuildResponse.get({
     message: 'Express Sequelize TypeScript',
     maintaner: 'masb0ymas, <n.fajri@outlook.com>',
-    source:
-      'https://github.com/masb0ymas/boilerplate-express-typescript-sequelize',
+    source: 'https://github.com/masb0ymas/expresso',
     docs: `${BASE_URL_SERVER}/v1/api-docs`,
   })
   return res.json(buildResponse)

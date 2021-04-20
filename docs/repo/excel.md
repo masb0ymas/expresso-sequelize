@@ -10,7 +10,7 @@ Excel upload function like this:
 // controllers/role/controller.ts
 
 // set config multer
-const uploadFile = ConfigMulter({
+const uploadFile = useMulter({
   dest: 'public/uploads/excel',
   allowedExt: ['.xlsx', '.xls'],
 }).fields([{ name: 'fileExcel', maxCount: 1 }])

@@ -9,8 +9,8 @@
     { "type": "perf", "section": "Other Commit" },
     { "type": "test", "hidden": true }
   ],
-  "commitUrlFormat": "https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/commit/{{hash}}",
-  "compareUrlFormat": "https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/compare/{{previousTag}}...{{currentTag}}",
-  "NAME": "boilerplate-express-typescript-sequelize",
+  "commitUrlFormat": "https://github.com/masb0ymas/expresso/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/masb0ymas/expresso/compare/{{previousTag}}...{{currentTag}}",
+  "NAME": "expresso",
   "VERSION": "1.0.0"
 }

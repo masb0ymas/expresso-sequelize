@@ -4,25 +4,25 @@
 
 This boilerplate was made because I had several problems. The problem consists of express initials that are repeated over and over again, as well as every project I work on has some important undocumented features. After this boilerplate, I can focus on developing existing features and new features.
 
-- [Getting Started](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/intro.md#getting-started)
-- [Using Sequelize](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md)
-  - [Sequelize Model](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md#sequelize-model)
-  - [Model Association](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md#model-association)
-  - [Using Sequelize Plugin](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/sequelize.md#using-sequelize-plugin)
-- [Using Docker](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/docker.md)
-  - [Setup](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/docker.md#setup)
-  - [Deploy](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/docker.md#deploy)
-- [Multer](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md)
-  - [Config](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md#config)
-  - [Single Upload](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md#single-upload)
-  - [Multiple Upload](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/multer.md#multiple-upload)
-- [Excel](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/excel.md)
-  - [Import](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/excel.md#import-excel)
-  - [Export](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/excel.md#export-excel)
-- [Simple Mail Transfer Protocol (SMTP)](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/smtp.md)
-  - [Config](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/smtp.md#config)
-  - [HTML Template](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/smtp.md#html-template)
-  - [Send Mail](https://github.com/masb0ymas/boilerplate-express-typescript-sequelize/blob/master/docs/repo/smtp.md#send-mail)
+- [Getting Started](https://github.com/masb0ymas/expresso/blob/master/docs/repo/intro.md#getting-started)
+- [Using Sequelize](https://github.com/masb0ymas/expresso/blob/master/docs/repo/sequelize.md)
+  - [Sequelize Model](https://github.com/masb0ymas/expresso/blob/master/docs/repo/sequelize.md#sequelize-model)
+  - [Model Association](https://github.com/masb0ymas/expresso/blob/master/docs/repo/sequelize.md#model-association)
+  - [Using Sequelize Plugin](https://github.com/masb0ymas/expresso/blob/master/docs/repo/sequelize.md#using-sequelize-plugin)
+- [Using Docker](https://github.com/masb0ymas/expresso/blob/master/docs/repo/docker.md)
+  - [Setup](https://github.com/masb0ymas/expresso/blob/master/docs/repo/docker.md#setup)
+  - [Deploy](https://github.com/masb0ymas/expresso/blob/master/docs/repo/docker.md#deploy)
+- [Multer](https://github.com/masb0ymas/expresso/blob/master/docs/repo/multer.md)
+  - [Config](https://github.com/masb0ymas/expresso/blob/master/docs/repo/multer.md#config)
+  - [Single Upload](https://github.com/masb0ymas/expresso/blob/master/docs/repo/multer.md#single-upload)
+  - [Multiple Upload](https://github.com/masb0ymas/expresso/blob/master/docs/repo/multer.md#multiple-upload)
+- [Excel](https://github.com/masb0ymas/expresso/blob/master/docs/repo/excel.md)
+  - [Import](https://github.com/masb0ymas/expresso/blob/master/docs/repo/excel.md#import-excel)
+  - [Export](https://github.com/masb0ymas/expresso/blob/master/docs/repo/excel.md#export-excel)
+- [Simple Mail Transfer Protocol (SMTP)](https://github.com/masb0ymas/expresso/blob/master/docs/repo/smtp.md)
+  - [Config](https://github.com/masb0ymas/expresso/blob/master/docs/repo/smtp.md#config)
+  - [HTML Template](https://github.com/masb0ymas/expresso/blob/master/docs/repo/smtp.md#html-template)
+  - [Send Mail](https://github.com/masb0ymas/expresso/blob/master/docs/repo/smtp.md#send-mail)
 
 ## Getting Started
 
@@ -31,19 +31,19 @@ This boilerplate was made because I had several problems. The problem consists o
 clone this repo with `https`
 
 ```sh
-git clone https://github.com/masb0ymas/boilerplate-express-typescript-sequelize.git
+git clone https://github.com/masb0ymas/expresso.git
 ```
 
 clone this repo with `ssh`
 
 ```sh
-git clone git@github.com:masb0ymas/boilerplate-express-typescript-sequelize.git
+git clone git@github.com:masb0ymas/expresso.git
 ```
 
 clone this repo with `github cli`
 
 ```sh
-gh repo clone masb0ymas/boilerplate-express-typescript-sequelize
+gh repo clone masb0ymas/expresso
 ```
 
 ### Setup .env
