@@ -1,6 +1,6 @@
 import models from 'models'
 import db from 'models/_instance'
-import useValidation from 'helpers/useValidation'
+import useValidation from 'hooks/useValidation'
 import { Transaction } from 'sequelize/types'
 import { UserRoleAttributes } from 'models/userrole'
 import { validateBoolean } from 'helpers/Common'

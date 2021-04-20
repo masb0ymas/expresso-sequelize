@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import models from 'models'
 import ResponseError from 'modules/Response/ResponseError'
-import useValidation from 'helpers/useValidation'
+import useValidation from 'hooks/useValidation'
 import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
 import { SessionAttributes } from 'models/session'
 import { Transaction } from 'sequelize'

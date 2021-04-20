@@ -2,7 +2,7 @@ import ms from 'ms'
 import models from 'models'
 import jwt from 'jsonwebtoken'
 import ResponseError from 'modules/Response/ResponseError'
-import useValidation from 'helpers/useValidation'
+import useValidation from 'hooks/useValidation'
 import {
   RefreshTokenAttributes,
   verifyRefreshTokenAttributes,

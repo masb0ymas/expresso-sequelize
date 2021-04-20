@@ -2,7 +2,7 @@ import multer from 'multer'
 import path from 'path'
 import { Request, Express } from 'express'
 import slugify from 'slugify'
-import ResponseError from './Response/ResponseError'
+import ResponseError from '../modules/Response/ResponseError'
 
 interface MulterSetupProps {
   dest?: string
@@ -18,7 +18,7 @@ const defaultFileSize = 1 * 1024 * 1024 // 1mb
 const defaultDestination = 'public/uploads/'
 const defaultAllowedExt = ['.png', '.jpg', '.jpeg', '.xlsx', '.xls', '.pdf']
 
-const multerSetup = (props: MulterSetupProps) => {
+const useMulter = (props: MulterSetupProps) => {
   // config storage
   const storage = multer.diskStorage({
     destination: props.dest || defaultDestination,
@@ -32,7 +32,7 @@ const multerSetup = (props: MulterSetupProps) => {
   })
 
   // config multer upload
-  const ConfigMulter = multer({
+  const configMulter = multer({
     storage,
     fileFilter(req, file, cb) {
       const ext = path.extname(file.originalname)
@@ -54,7 +54,7 @@ const multerSetup = (props: MulterSetupProps) => {
     },
   })
 
-  return ConfigMulter
+  return configMulter
 }
 
-export default multerSetup
+export default useMulter

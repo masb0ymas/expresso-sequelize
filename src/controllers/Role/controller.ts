@@ -6,7 +6,7 @@ import BuildResponse from 'modules/Response/BuildResponse'
 import RoleService from 'controllers/Role/service'
 import { arrayFormatter } from 'helpers/Common'
 import { formatDateGenerateFile } from 'helpers/Date'
-import ConfigMulter from 'modules/ConfigMulter'
+import useMulter from 'hooks/useMulter'
 import { get } from 'lodash'
 import { BASE_URL_SERVER } from 'config/baseURL'
 import { writeFileStream } from 'helpers/File'
@@ -70,7 +70,7 @@ routes.get(
   })
 )
 
-const uploadFile = ConfigMulter({
+const uploadFile = useMulter({
   dest: 'public/uploads/excel',
   allowedExt: ['.xlsx', '.xls'],
 }).fields([{ name: 'fileExcel', maxCount: 1 }])
