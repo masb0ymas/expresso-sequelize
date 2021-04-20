@@ -1,7 +1,7 @@
 import ms from 'ms'
 import models from 'models'
 import jwt from 'jsonwebtoken'
-import createDirNotExist from '@expresso/utils/Directory'
+import createDirNotExist from 'utils/Directory'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { getUniqueCodev2 } from '@expresso/helpers/Common'

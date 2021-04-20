@@ -1,5 +1,5 @@
 import { Model, Optional } from 'sequelize'
-import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
+import SequelizeAttributes from 'utils/SequelizeAttributes'
 
 import db from './_instance'
 

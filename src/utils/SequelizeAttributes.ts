@@ -1,8 +1,5 @@
 const sequelize = require('sequelize')
-const {
-  MockQueryInterface,
-  read,
-} = require('@expresso/utils/ReaderMigrationSequelize')
+const { MockQueryInterface, read } = require('utils/ReaderMigrationSequelize')
 
 const newMockQueryInterface = new MockQueryInterface()
 
