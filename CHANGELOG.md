@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.23.0](https://github.com/masb0ymas/expresso/compare/v2.22.0...v2.23.0) (2021-04-20)
+
+
+### Bug Fixes
+
+* change helper validation to hooks useValidation ([7848a0e](https://github.com/masb0ymas/expresso/commit/7848a0ef9f004d68a98c5b0f0104786c0436e5d1))
+* change module config multer to hooks useMulter ([2fccf1d](https://github.com/masb0ymas/expresso/commit/2fccf1d5e5f89b30e6d38e07c975873173872c86))
+* revert utils to src folder ([4cff77c](https://github.com/masb0ymas/expresso/commit/4cff77cf8212626e94632654de077d73b4d6b7e4))
+* seeder roles ([9626cdd](https://github.com/masb0ymas/expresso/commit/9626cdd34089c23e5686393cbebb336ee8ae7d6a))
+* type import reader migration sequelize ([584c8f9](https://github.com/masb0ymas/expresso/commit/584c8f976822b99931e57dbef5098e6f42c5fe26))
+* user model set user password ([99bbc85](https://github.com/masb0ymas/expresso/commit/99bbc85aad8360f77df9f345de595873d09507e8))
+* wording expresso ([266fb8b](https://github.com/masb0ymas/expresso/commit/266fb8bb0282ead0f34123902d6e46cfc0225b93))
+
+
+### Other Commit
+
+* move base code to [@expresso](https://github.com/expresso) folder ([8108de3](https://github.com/masb0ymas/expresso/commit/8108de3ce8b1a7ec4601a9bf954647af0b82466d))
+* move email, redis to providers ([0754a7f](https://github.com/masb0ymas/expresso/commit/0754a7f1976736ef8df30e4ca551d5c1e60f9193))
+
 ## [2.22.0](https://github.com/masb0ymas/expresso/compare/v2.21.0...v2.22.0) (2021-04-13)
 
 
