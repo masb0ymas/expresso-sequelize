@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import ResponseError from 'modules/Response/ResponseError'
+import ResponseError from '@expresso/modules/Response/ResponseError'
 import { isObject } from 'lodash'
 import multer from 'multer'
 

@@ -9,6 +9,7 @@
       {
         "root": ["./src/"],
         "alias": {
+          "@expresso": "./src/@expresso",
           "bin": "./src/bin",
           "config": "./src/config",
           "constants": "./src/constants",

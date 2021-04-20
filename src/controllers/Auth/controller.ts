@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
 import routes from 'routes/public'
-import asyncHandler from 'helpers/asyncHandler'
+import asyncHandler from '@expresso/helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
-import BuildResponse from 'modules/Response/BuildResponse'
+import BuildResponse from '@expresso/modules/Response/BuildResponse'
 import RefreshTokenService from 'controllers/RefreshToken/service'
 import AuthService from 'controllers/Auth/service'
-import { currentToken } from 'helpers/Token'
+import { currentToken } from '@expresso/helpers/Token'
 import { UserLoginAttributes } from 'models/user'
 
 routes.post(

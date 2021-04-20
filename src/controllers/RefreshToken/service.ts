@@ -1,14 +1,14 @@
 import ms from 'ms'
 import models from 'models'
 import jwt from 'jsonwebtoken'
-import ResponseError from 'modules/Response/ResponseError'
-import useValidation from 'hooks/useValidation'
+import ResponseError from '@expresso/modules/Response/ResponseError'
+import useValidation from '@expresso/hooks/useValidation'
 import {
   RefreshTokenAttributes,
   verifyRefreshTokenAttributes,
 } from 'models/refreshtoken'
 import UserService from 'controllers/User/service'
-import { verifyRefreshToken } from 'helpers/Token'
+import { verifyRefreshToken } from '@expresso/helpers/Token'
 import { isObject } from 'lodash'
 import refreshTokenSchema from './schema'
 

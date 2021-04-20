@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { DataTypes, Includeable, IncludeOptions, Model } from 'sequelize'
-import QueryHelper from 'modules/SqlizeQuery/QueryHelper'
-import TransformHelper from 'modules/SqlizeQuery/TransformHelper'
+import QueryHelper from '@expresso/modules/SqlizeQuery/QueryHelper'
+import TransformHelper from '@expresso/modules/SqlizeQuery/TransformHelper'
 
 type ValueParsers = (value: any) => any
 type TransformBuild = (value: any, transformHelper: TransformHelper) => any

@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import SqlizeQuery from 'modules/SqlizeQuery/index'
+import SqlizeQuery from '@expresso/modules/SqlizeQuery/index'
 import {
   getPrimitiveDataType,
   transfromIncludeToQueryable,
-} from 'modules/SqlizeQuery/SqlizeQuery'
+} from '@expresso/modules/SqlizeQuery/SqlizeQuery'
 import { Op, ModelCtor, Includeable, IncludeOptions } from 'sequelize'
 import { cloneDeep, unset } from 'lodash'
 

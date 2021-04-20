@@ -1,7 +1,7 @@
 import { BASE_URL_SERVER } from 'config/baseURL'
 import express, { Request, Response, NextFunction } from 'express'
-import BuildResponse from 'modules/Response/BuildResponse'
-import ResponseError from 'modules/Response/ResponseError'
+import BuildResponse from '@expresso/modules/Response/BuildResponse'
+import ResponseError from '@expresso/modules/Response/ResponseError'
 import publicRoute from 'routes/public'
 
 const router = express.Router()

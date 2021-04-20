@@ -1,11 +1,11 @@
 /* eslint-disable no-await-in-loop */
 import { NextFunction, Request, Response } from 'express'
 import routes from 'routes/public'
-import asyncHandler from 'helpers/asyncHandler'
+import asyncHandler from '@expresso/helpers/asyncHandler'
 import Authorization from 'middlewares/Authorization'
-import BuildResponse from 'modules/Response/BuildResponse'
+import BuildResponse from '@expresso/modules/Response/BuildResponse'
 import UserService from 'controllers/User/service'
-import { arrayFormatter } from 'helpers/Common'
+import { arrayFormatter } from '@expresso/helpers/Common'
 import { UserInstance } from 'models/user'
 import UserRoleService from 'controllers/UserRole/service'
 

@@ -1,14 +1,14 @@
 import { Request } from 'express'
 import models from 'models'
 import db from 'models/_instance'
-import ResponseError from 'modules/Response/ResponseError'
-import useValidation from 'hooks/useValidation'
+import ResponseError from '@expresso/modules/Response/ResponseError'
+import useValidation from '@expresso/hooks/useValidation'
 import { UserAttributes } from 'models/user'
 import { Transaction } from 'sequelize/types'
 import UserRoleService from 'controllers/UserRole/service'
-import PluginSqlizeQuery from 'modules/SqlizeQuery/PluginSqlizeQuery'
+import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { isEmpty } from 'lodash'
-import { validateBoolean } from 'helpers/Common'
+import { validateBoolean } from '@expresso/helpers/Common'
 import userSchema from './schema'
 
 const { Sequelize } = db

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import withState from 'helpers/withState'
+import withState from '@expresso/helpers/withState'
 import multer from 'multer'
 
 declare global {

@@ -1,22 +1,22 @@
 import ms from 'ms'
 import models from 'models'
 import jwt from 'jsonwebtoken'
-import createDirNotExist from 'utils/Directory'
-import useValidation from 'hooks/useValidation'
-import ResponseError from 'modules/Response/ResponseError'
-import { getUniqueCodev2 } from 'helpers/Common'
+import createDirNotExist from '@expresso/utils/Directory'
+import useValidation from '@expresso/hooks/useValidation'
+import ResponseError from '@expresso/modules/Response/ResponseError'
+import { getUniqueCodev2 } from '@expresso/helpers/Common'
 import {
   UserAttributes,
   LoginAttributes,
   UserLoginAttributes,
 } from 'models/user'
-import SendMail from 'helpers/SendEmail'
+import SendMail from '@expresso/helpers/SendEmail'
 import RefreshTokenService from 'controllers/RefreshToken/service'
 import UserService from 'controllers/User/service'
 import SessionService from 'controllers/Session/service'
 import { Request } from 'express'
-import userAgentHelper from 'helpers/userAgent'
-import { verifyAccessToken } from 'helpers/Token'
+import userAgentHelper from '@expresso/helpers/userAgent'
+import { verifyAccessToken } from '@expresso/helpers/Token'
 import { isEmpty } from 'lodash'
 import authSchema from './schema'
 

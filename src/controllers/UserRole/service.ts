@@ -1,9 +1,9 @@
 import models from 'models'
 import db from 'models/_instance'
-import useValidation from 'hooks/useValidation'
+import useValidation from '@expresso/hooks/useValidation'
 import { Transaction } from 'sequelize/types'
 import { UserRoleAttributes } from 'models/userrole'
-import { validateBoolean } from 'helpers/Common'
+import { validateBoolean } from '@expresso/helpers/Common'
 import userRoleSchema from './schema'
 
 const { Sequelize } = db
