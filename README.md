@@ -2,7 +2,7 @@
 <h3 align="center">( Express TS Sequelize )</h3>
 <br/>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-2.22.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-2.23.0-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/npm-%3E%3D6.10.0-blue.svg" />
   <img src="https://img.shields.io/badge/node-%3E%3D10.x-blue.svg" />
   <a href="https://github.com/masb0ymas/expresso#readme" target="_blank">

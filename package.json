@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate-express-typescript",
+  "name": "expresso",
   "version": "2.23.0",
   "description": "Just Boilerplate Express with TypeScript ( 🦊 )",
   "private": true,
