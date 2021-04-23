@@ -21,6 +21,7 @@ import ExpressRateLimit from 'middlewares/ExpressRateLimit'
 
 const GenerateDoc = require('utils/GenerateDocs')
 
+const { NODE_ENV } = process.env
 const app = express()
 
 // view engine setup
@@ -45,8 +46,11 @@ app.use((req: Request, res, next) => {
   next()
 })
 
-// Initial Docs Swagger
-GenerateDoc(app)
+// disable for production mode
+if (NODE_ENV !== 'production') {
+  // Initial Docs Swagger
+  GenerateDoc(app)
+}
 
 // Initial Route
 app.use(indexRouter)

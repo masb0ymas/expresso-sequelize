@@ -4,16 +4,25 @@ import BuildResponse from '@expresso/modules/Response/BuildResponse'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import publicRoute from 'routes/public'
 
+const { NODE_ENV } = process.env
 const router = express.Router()
 
 /* Home Page. */
 router.get('/', function (req: Request, res: Response, next: NextFunction) {
-  const buildResponse = BuildResponse.get({
-    message: 'Express Sequelize TypeScript',
+  let responseData: any = {
+    message: 'expresso ( Express TS Sequelize )',
     maintaner: 'masb0ymas, <n.fajri@outlook.com>',
     source: 'https://github.com/masb0ymas/expresso',
-    docs: `${BASE_URL_SERVER}/v1/api-docs`,
-  })
+  }
+
+  if (NODE_ENV !== 'production') {
+    responseData = {
+      ...responseData,
+      docs: `${BASE_URL_SERVER}/v1/api-docs`,
+    }
+  }
+
+  const buildResponse = BuildResponse.get(responseData)
   return res.json(buildResponse)
 })
 
