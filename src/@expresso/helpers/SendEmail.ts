@@ -18,7 +18,7 @@ class SendMail {
     const { email, fullName }: EmailAttributes = formData
     const pathTemplate = path.resolve(
       __dirname,
-      `../../public/templates/emails/register.html`
+      `../../../public/templates/emails/register.html`
     )
 
     const subject = 'Email Verification'
