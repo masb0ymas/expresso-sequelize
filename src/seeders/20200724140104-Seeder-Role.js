@@ -1,4 +1,4 @@
-const ConstRoles = require('constants/ConstRoles')
+const ConstRoles = require('@expresso/constants/ConstRoles')
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
