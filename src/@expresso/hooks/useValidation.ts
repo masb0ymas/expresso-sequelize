@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { Schema, ValidateOptions } from 'yup'
 
 function useValidation<T>(
