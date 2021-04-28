@@ -123,11 +123,11 @@ class UserService {
   public static async create(formData: UserAttributes, txn?: Transaction) {
     const value = useValidation(userSchema.create, formData)
 
-    const dataUser = await User.create(value, {
+    const data = await User.create(value, {
       transaction: txn,
     })
 
-    return dataUser
+    return data
   }
 
   /**
