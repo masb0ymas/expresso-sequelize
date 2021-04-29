@@ -1,0 +1,188 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "22:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@commitlint/config-conventional"
+    versions:
+    - 12.0.0
+    - 12.0.1
+  - dependency-name: swagger-jsdoc
+    versions:
+    - 6.0.7
+    - 6.1.0
+  - dependency-name: "@commitlint/cli"
+    versions:
+    - 12.0.0
+    - 12.0.1
+    - 12.1.1
+  - dependency-name: "@babel/cli"
+    versions:
+    - 7.12.17
+    - 7.13.0
+    - 7.13.10
+  - dependency-name: "@babel/plugin-transform-runtime"
+    versions:
+    - 7.12.17
+    - 7.13.6
+    - 7.13.7
+    - 7.13.9
+  - dependency-name: "@babel/register"
+    versions:
+    - 7.13.0
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.12.13
+    - 7.12.17
+    - 7.13.1
+    - 7.13.8
+  - dependency-name: "@babel/preset-typescript"
+    versions:
+    - 7.12.17
+    - 7.13.0
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - 7.12.13
+    - 7.12.17
+    - 7.13.10
+    - 7.13.12
+    - 7.13.5
+  - dependency-name: eslint-config-prettier
+    versions:
+    - 7.2.0
+    - 8.0.0
+    - 8.2.0
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.29
+    - 14.14.33
+    - 14.14.34
+    - 14.14.35
+    - 14.14.37
+    - 15.0.0
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.14.1
+    - 4.14.2
+    - 4.15.0
+    - 4.15.1
+    - 4.16.1
+    - 4.17.0
+    - 4.18.0
+    - 4.19.0
+    - 4.20.0
+    - 4.22.0
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.15.0
+    - 4.15.1
+    - 4.16.1
+    - 4.17.0
+    - 4.18.0
+    - 4.19.0
+    - 4.20.0
+    - 4.22.0
+  - dependency-name: "@babel/node"
+    versions:
+    - 7.12.13
+    - 7.13.12
+    - 7.13.13
+  - dependency-name: yup
+    versions:
+    - 0.32.8
+    - 0.32.9
+  - dependency-name: eslint
+    versions:
+    - 7.18.0
+    - 7.22.0
+    - 7.23.0
+    - 7.24.0
+  - dependency-name: eslint-import-resolver-babel-module
+    versions:
+    - 5.3.0
+  - dependency-name: date-fns
+    versions:
+    - 2.20.3
+    - 2.21.0
+  - dependency-name: pg
+    versions:
+    - 8.6.0
+  - dependency-name: redis
+    versions:
+    - 3.1.0
+    - 3.1.1
+  - dependency-name: typescript
+    versions:
+    - 4.2.2
+    - 4.2.3
+    - 4.2.4
+  - dependency-name: nodemailer-mailgun-transport
+    versions:
+    - 2.0.3
+  - dependency-name: "@types/bcrypt"
+    versions:
+    - 3.0.1
+  - dependency-name: standard-version
+    versions:
+    - 9.2.0
+  - dependency-name: ioredis
+    versions:
+    - 4.24.3
+    - 4.24.4
+    - 4.24.5
+    - 4.24.6
+    - 4.25.0
+    - 4.26.0
+  - dependency-name: "@types/ioredis"
+    versions:
+    - 4.22.1
+    - 4.22.2
+    - 4.22.3
+  - dependency-name: googleapis
+    versions:
+    - 68.0.0
+    - 70.0.0
+    - 71.0.0
+  - dependency-name: "@types/supertest"
+    versions:
+    - 2.0.11
+  - dependency-name: husky
+    versions:
+    - 6.0.0
+  - dependency-name: "@types/jest"
+    versions:
+    - 26.0.21
+    - 26.0.22
+  - dependency-name: sequelize
+    versions:
+    - 6.5.1
+    - 6.6.1
+    - 6.6.2
+  - dependency-name: slugify
+    versions:
+    - 1.5.0
+  - dependency-name: node-cron
+    versions:
+    - 3.0.0
+  - dependency-name: exceljs
+    versions:
+    - 4.2.1
+  - dependency-name: "@types/nodemailer"
+    versions:
+    - 6.4.1
+  - dependency-name: "@types/jsonwebtoken"
+    versions:
+    - 8.5.1
+  - dependency-name: "@babel/runtime"
+    versions:
+    - 7.13.10
+  - dependency-name: pug-code-gen
+    versions:
+    - 3.0.2
+  - dependency-name: "@babel/plugin-proposal-object-rest-spread"
+    versions:
+    - 7.13.8
