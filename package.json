@@ -55,7 +55,7 @@
     "helmet": "^4.5.0",
     "hpp": "^0.2.3",
     "http-errors": "^1.8.0",
-    "ioredis": "^4.27.1",
+    "ioredis": "^4.27.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mariadb": "^2.5.3",
