@@ -15,9 +15,11 @@ import ExpressErrorYup from 'middlewares/ExpressErrorYup'
 import ExpressErrorResponse from 'middlewares/ExpressErrorResponse'
 import ExpressErrorSequelize from 'middlewares/ExpressErrorSequelize'
 import ExpressAutoHandleTransaction from 'middlewares/ExpressAutoHandleTransaction'
+import ExpressRateLimit from 'middlewares/ExpressRateLimit'
 import winstonLogger, { winstonStream } from 'config/winston'
 import initialJobs from 'jobs'
-import ExpressRateLimit from 'middlewares/ExpressRateLimit'
+import i18next from 'config/i18next'
+import i18nextMiddleware from 'i18next-http-middleware'
 
 const GenerateDoc = require('utils/GenerateDocs')
 
@@ -35,6 +37,7 @@ app.use(bodyParser.json({ limit: '100mb', type: 'application/json' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(`${__dirname}/../`, 'public')))
+app.use(i18nextMiddleware.handle(i18next))
 
 app.use(hpp())
 app.use(userAgent.express())
