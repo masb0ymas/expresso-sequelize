@@ -1749,10 +1749,10 @@
   dependencies:
     i18next "^19.7.0"
 
-"@types/ioredis@^4.26.1":
-  version "4.26.1"
-  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.26.1.tgz#761f1812c48a3ecfbd9d9ecd35c49849f8693e2e"
-  integrity sha512-k9f+bda6y0ZNrwUMNYI9mqIPqjPZ4Jqc+jTRTUyhFz8aD8cHQBk+uenTKCZj9RhdfrU4sSqrot5sn5LqkAHODw==
+"@types/ioredis@^4.26.3":
+  version "4.26.3"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.26.3.tgz#5b660125d07214c67a5d9a0d9c678375c717d93f"
+  integrity sha512-2YiIUTo/MCZidXXfHAIoh2DUlGEG7zYFMfz0VXzTpI5934/wBCT5a/pR24lHCKk9WQNIlYauIFxQHcAF93w1FA==
   dependencies:
     "@types/node" "*"
 
@@ -1841,15 +1841,15 @@
   dependencies:
     "@types/tz-offset" "*"
 
-"@types/node@*", "@types/node@^14.0.1", "@types/node@^14.14.28":
-  version "14.14.41"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.41.tgz#d0b939d94c1d7bd53d04824af45f1139b8c45615"
-  integrity sha512-dueRKfaJL4RTtSa7bWeTK1M+VH+Gns73oCgzvYfHZywRCoPSd8EkXBL0mZ9unPTveBn+D9phZBaxuzpwjWkW0g==
-
-"@types/node@^15.0.2":
+"@types/node@*", "@types/node@^15.0.2":
   version "15.0.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-15.0.2.tgz#51e9c0920d1b45936ea04341aa3e2e58d339fb67"
   integrity sha512-p68+a+KoxpoB47015IeYZYRrdqMUcpbK8re/zpFB8Ld46LHC1lPEbp3EXgkEhAYEcPvjJF6ZO+869SQ0aH1dcA==
+
+"@types/node@^14.0.1", "@types/node@^14.14.28":
+  version "14.14.41"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.41.tgz#d0b939d94c1d7bd53d04824af45f1139b8c45615"
+  integrity sha512-dueRKfaJL4RTtSa7bWeTK1M+VH+Gns73oCgzvYfHZywRCoPSd8EkXBL0mZ9unPTveBn+D9phZBaxuzpwjWkW0g==
 
 "@types/nodemailer-mailgun-transport@^1.4.2":
   version "1.4.2"
