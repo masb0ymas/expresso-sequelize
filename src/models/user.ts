@@ -81,6 +81,7 @@ function setUserPassword(instance: UserInstance) {
       formPassword
     )
 
+    // @ts-ignore
     const hash = bcrypt.hashSync(validPassword, saltRounds)
     instance.setDataValue('password', hash)
   }

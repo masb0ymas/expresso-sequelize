@@ -127,23 +127,6 @@ module.exports = {
       },
     },
   },
-  '/profile': {
-    get: {
-      tags: ['Auth'],
-      summary: 'Get Profile',
-      produces: ['application/json'],
-      security: [
-        {
-          auth_token: [],
-        },
-      ],
-      responses: {
-        200: {
-          description: 'Get Profile',
-        },
-      },
-    },
-  },
   '/logout': {
     post: {
       tags: ['Auth'],
