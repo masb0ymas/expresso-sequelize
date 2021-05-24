@@ -129,7 +129,7 @@
     "@types/swagger-ui-express": "^4.1.2",
     "@types/yup": "^0.29.9",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "eslint": "^7.26.0",
     "eslint-config-airbnb-base": "^14.2.1",
