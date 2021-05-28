@@ -5,12 +5,8 @@ import _path from 'path'
 import { BASE_URL_SERVER } from 'config/baseURL'
 import _ from 'lodash'
 
-const {
-  APP_NAME,
-  NODE_ENV,
-  URL_SERVER_STAGING,
-  URL_SERVER_PRODUCTION,
-} = process.env
+const { APP_NAME, NODE_ENV, URL_SERVER_STAGING, URL_SERVER_PRODUCTION } =
+  process.env
 
 const ENV = NODE_ENV || 'development'
 
