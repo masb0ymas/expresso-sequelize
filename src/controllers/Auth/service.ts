@@ -35,12 +35,15 @@ const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000
   The directory will be created automatically when logged in,
   because there is a directory that uses a User ID
 */
-async function createDirectory(UserId: string) {
+const baseDestination = 'public/uploads'
+
+async function createDirectory() {
   const pathDirectory = [
-    './public/uploads/csv',
-    './public/uploads/pdf',
-    './public/uploads/excel',
-    `./public/uploads/profile/${UserId}`,
+    `./${baseDestination}/csv`,
+    `./${baseDestination}/pdf`,
+    `./${baseDestination}/excel`,
+    `./${baseDestination}/profile`,
+    `./${baseDestination}/profile/resize`,
   ]
 
   pathDirectory.map((x) => createDirNotExist(x))
@@ -145,7 +148,7 @@ class AuthService {
         await SessionService.createOrUpdate(formDataSession)
 
         // create directory
-        await createDirectory(UserId)
+        await createDirectory()
 
         return {
           message: 'Login successfully',
