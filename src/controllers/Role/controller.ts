@@ -6,7 +6,7 @@ import BuildResponse from '@expresso/modules/Response/BuildResponse'
 import RoleService from 'controllers/Role/service'
 import { arrayFormatter } from '@expresso/helpers/Common'
 import { formatDateGenerateFile } from '@expresso/helpers/Date'
-import useMulter from '@expresso/hooks/useMulter'
+import useMulter, { allowedExcel } from '@expresso/hooks/useMulter'
 import { get } from 'lodash'
 import { BASE_URL_SERVER } from 'config/baseURL'
 import { writeFileStream } from '@expresso/helpers/File'
@@ -72,7 +72,7 @@ routes.get(
 
 const uploadFile = useMulter({
   dest: 'public/uploads/excel',
-  allowedExt: ['.xlsx', '.xls'],
+  allowedExt: allowedExcel,
 }).fields([{ name: 'fileExcel', maxCount: 1 }])
 
 const setFileToBody = asyncHandler(async function setFileToBody(
