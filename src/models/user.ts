@@ -14,6 +14,7 @@ export interface UserAttributes {
   tokenVerify?: string | null
   newPassword?: string
   confirmNewPassword?: string
+  picturePath?: string | null
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null

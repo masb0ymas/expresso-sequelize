@@ -14,6 +14,7 @@ const create = yup.object().shape({
     .string()
     .min(8, 'at least 8 characters')
     .oneOf([yup.ref('newPassword')], 'passwords are not the same'),
+  picturePath: yup.string().nullable(),
 })
 
 const createPassword = yup.object().shape({
