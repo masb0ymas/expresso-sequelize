@@ -40,7 +40,7 @@ module.exports = {
       requestBody: {
         required: true,
         content: {
-          'application/x-www-form-urlencoded': {
+          'multipart/form-data': {
             schema: {
               type: 'object',
               properties: {
@@ -63,7 +63,21 @@ module.exports = {
                   type: 'string',
                   description: '["id_1", "id_2"]',
                 },
+                profileImage: {
+                  type: 'file',
+                  items: {
+                    type: 'string',
+                    format: 'binary',
+                  },
+                },
               },
+              required: [
+                'fullName',
+                'email',
+                'newPassword',
+                'confirmNewPassword',
+                'profileImage',
+              ],
             },
           },
         },
@@ -251,7 +265,7 @@ module.exports = {
       requestBody: {
         required: true,
         content: {
-          'application/x-www-form-urlencoded': {
+          'multipart/form-data': {
             schema: {
               type: 'object',
               properties: {
@@ -274,7 +288,21 @@ module.exports = {
                   type: 'string',
                   description: '["id_1", "id_2"]',
                 },
+                profileImage: {
+                  type: 'file',
+                  items: {
+                    type: 'string',
+                    format: 'binary',
+                  },
+                },
               },
+              required: [
+                'fullName',
+                'email',
+                'newPassword',
+                'confirmNewPassword',
+                'profileImage',
+              ],
             },
           },
         },

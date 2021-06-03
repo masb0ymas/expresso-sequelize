@@ -143,9 +143,20 @@ class UserService {
   ) {
     const data = await this.findById(id)
 
+    if (formData.email !== data.email) {
+      // @ts-ignore
+      await this.validateUserEmail(formData.email)
+    }
+
+    const newFormData = {
+      ...formData,
+      ...data.toJSON(),
+      picturePath: formData.picturePath || data.picturePath,
+    }
+
     const value = useValidation(userSchema.create, {
       ...data.toJSON(),
-      ...formData,
+      ...newFormData,
     })
 
     await data.update(value || {}, { transaction: txn })

@@ -8,6 +8,20 @@ import UserService from 'controllers/User/service'
 import { arrayFormatter } from '@expresso/helpers/Common'
 import { UserInstance } from 'models/user'
 import UserRoleService from 'controllers/UserRole/service'
+import useMulter, { allowedImage } from '@expresso/hooks/useMulter'
+import createDirNotExist from 'utils/Directory'
+import { get } from 'lodash'
+import fs from 'fs'
+import sharp from 'sharp'
+import { FileAttributes } from '@expresso/interfaces/file'
+
+const baseDestination = 'public/uploads/profile'
+
+async function createDirectory() {
+  const pathDirectory = [`./${baseDestination}/resize`]
+
+  pathDirectory.map((x) => createDirNotExist(x))
+}
 
 routes.get(
   '/user',
@@ -46,9 +60,31 @@ routes.get(
   })
 )
 
+const uploadFile = useMulter({
+  dest: baseDestination,
+  allowedExt: allowedImage,
+  limit: {
+    fieldSize: 50 * 1024 * 1024, // 50 mb
+    fileSize: 20 * 1024 * 1024, // 20 mb
+  },
+}).fields([{ name: 'profileImage', maxCount: 1 }])
+
+const setFileToBody = asyncHandler(async function setFileToBody(
+  req: Request,
+  res,
+  next: NextFunction
+) {
+  const profileImage = req.pickSingleFieldMulter(['profileImage'])
+
+  req.setBody(profileImage)
+  next()
+})
+
 routes.post(
   '/user',
   Authorization,
+  uploadFile,
+  setFileToBody,
   asyncHandler(async function createUser(
     req: Request,
     res: Response,
@@ -57,8 +93,38 @@ routes.post(
     const txn = await req.getTransaction()
     const formData = req.getBody()
 
-    const data = await UserService.create(formData, txn)
-    req.setState({ userData: data, formData })
+    const fieldImage = get(formData, 'profileImage', {}) as FileAttributes
+    const pathImage = fieldImage.path
+      ? fieldImage.path.replace('public', '')
+      : null
+
+    await createDirectory()
+
+    let pathPhotoResize
+
+    if (pathImage) {
+      pathPhotoResize = `${baseDestination}/resize/${fieldImage.filename}`
+
+      await sharp(fieldImage.path)
+        .resize(500)
+        .jpeg({ quality: 50 })
+        .png({ quality: 50 })
+        .toFile(pathPhotoResize)
+
+      fs.unlinkSync(fieldImage.path)
+    }
+
+    const profilePath = pathPhotoResize
+      ? pathPhotoResize.replace('public', '')
+      : pathImage
+
+    const newFormData = {
+      ...formData,
+      picturePath: profilePath,
+    }
+
+    const data = await UserService.create(newFormData, txn)
+    req.setState({ userData: data, newFormData })
 
     next()
   }),
@@ -92,6 +158,8 @@ routes.post(
 routes.put(
   '/user/:id',
   Authorization,
+  uploadFile,
+  setFileToBody,
   asyncHandler(async function updateUser(
     req: Request,
     res: Response,
@@ -101,8 +169,38 @@ routes.put(
     const formData = req.getBody()
     const { id } = req.getParams()
 
-    const data = await UserService.update(id, formData, txn)
-    req.setState({ userData: data, formData })
+    const fieldImage = get(formData, 'profileImage', {}) as FileAttributes
+    const pathImage = fieldImage.path
+      ? fieldImage.path.replace('public', '')
+      : null
+
+    await createDirectory()
+
+    let pathPhotoResize
+
+    if (pathImage) {
+      pathPhotoResize = `${baseDestination}/resize/${fieldImage.filename}`
+
+      await sharp(fieldImage.path)
+        .resize(500)
+        .jpeg({ quality: 50 })
+        .png({ quality: 50 })
+        .toFile(pathPhotoResize)
+
+      fs.unlinkSync(fieldImage.path)
+    }
+
+    const profilePath = pathPhotoResize
+      ? pathPhotoResize.replace('public', '')
+      : pathImage
+
+    const newFormData = {
+      ...formData,
+      picturePath: profilePath,
+    }
+
+    const data = await UserService.update(id, newFormData, txn)
+    req.setState({ userData: data, newFormData })
 
     next()
   }),
