@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.24.0](https://github.com/masb0ymas/expresso/compare/v2.23.0...v2.24.0) (2021-06-04)
+
+
+### Features
+
+* add config i18next ([a917751](https://github.com/masb0ymas/expresso/commit/a9177510c0cd044fd4c05246464c8ad1641e17aa))
+* add cors allowed origins ([fbaddb4](https://github.com/masb0ymas/expresso/commit/fbaddb4c47c422a73a1881816a9fb88ebc40096d))
+* add default allowed ext ([5251999](https://github.com/masb0ymas/expresso/commit/525199975e67d2300b1b49e7f14033aa023f0c3a))
+* add delete file ([eefa840](https://github.com/masb0ymas/expresso/commit/eefa84063bb280309e3836c38dfcce66038c1f5e))
+* add lib sharp ([0fd5c15](https://github.com/masb0ymas/expresso/commit/0fd5c15eb7c0237f4b21f9e598f44a75977d1ece))
+
+
+### Bug Fixes
+
+* add allowed upload excel ([81f528c](https://github.com/masb0ymas/expresso/commit/81f528c838163465d3ec1c6f03613771445971c9))
+* add field picture path ([cecc369](https://github.com/masb0ymas/expresso/commit/cecc36942f7b1839b02c41b410c8edf317f66c37))
+* base destination ([8f39331](https://github.com/masb0ymas/expresso/commit/8f39331aa7ff4b9eabd242dc19b609b1b602fe39))
+* create user with upload profile picture ([f2bd238](https://github.com/masb0ymas/expresso/commit/f2bd2380dd0b40eab1b6f17cb0d550ac7b1f5808))
+* disable docs swagger for production mode ([20df2fa](https://github.com/masb0ymas/expresso/commit/20df2fa79b15f0098519389e957a82247d6cc89f))
+* location template email ([c26449a](https://github.com/masb0ymas/expresso/commit/c26449a40519440abe810b6e1a358b728f42223c))
+* prettier code ([390e3ae](https://github.com/masb0ymas/expresso/commit/390e3aeebd5bbcce3d99b418f537517451f42612))
+* remove endpoint profile ([f5129aa](https://github.com/masb0ymas/expresso/commit/f5129aaaaf594bb5a0a49e1a8a0ca4ca615cded5))
+* wording create user ([bcb9ae2](https://github.com/masb0ymas/expresso/commit/bcb9ae2775817d32052dde748136ad923fe3eafe))
+* wording validation ([b4a3d46](https://github.com/masb0ymas/expresso/commit/b4a3d4666689b026dda1e30f066ee3485c052e27))
+
+
+### Other Commit
+
+* move constant to [@expresso](https://github.com/expresso) folder ([caeb3c4](https://github.com/masb0ymas/expresso/commit/caeb3c47c6c37a97ea25cd5bf2c498108c7b826f))
+
 ## [2.23.0](https://github.com/masb0ymas/expresso/compare/v2.22.0...v2.23.0) (2021-04-20)
 
 
