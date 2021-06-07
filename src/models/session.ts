@@ -25,4 +25,8 @@ const Session = db.sequelize.define<SessionInstance>('Sessions', {
   ...SequelizeAttributes.Sessions,
 })
 
+Session.associate = (models) => {
+  Session.belongsTo(models.User)
+}
+
 export default Session
