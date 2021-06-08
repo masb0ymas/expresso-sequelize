@@ -149,8 +149,8 @@ class UserService {
     }
 
     const newFormData = {
-      ...formData,
       ...data.toJSON(),
+      ...formData,
       picturePath: formData.picturePath || data.picturePath,
     }
 
