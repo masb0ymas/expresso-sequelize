@@ -162,7 +162,7 @@ yarn serve:production
 pm2 start ecosystem.config.js --env=production
 ```
 
-## Run Loadtest
+## Run loadtest
 
 ```sh
 npm install -g loadtest
@@ -184,7 +184,9 @@ loadtest http://localhost:8000/v1/user -n 1000 -c 100
 
 Read documentation [loadtest](https://www.npmjs.com/package/loadtest)
 
-Result from Loadtest:
+## Result loadtest:
+
+if you want to try `1000 requests` you have to increase `RATE_LIMIT=1000`, by default `100 requests`
 
 ```sh
 Requests: 0 (0%), requests per second: 0, mean latency: 0 ms
