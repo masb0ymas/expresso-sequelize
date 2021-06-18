@@ -49,7 +49,7 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "express-useragent": "^1.0.15",
-    "googleapis": "^75.0.0",
+    "googleapis": "^77.0.0",
     "handlebars": "^4.7.6",
     "helmet": "^4.6.0",
     "hpp": "^0.2.3",
