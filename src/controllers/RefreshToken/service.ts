@@ -1,15 +1,15 @@
-import ms from 'ms'
-import models from 'models'
-import jwt from 'jsonwebtoken'
-import ResponseError from '@expresso/modules/Response/ResponseError'
+import { verifyRefreshToken } from '@expresso/helpers/Token'
 import useValidation from '@expresso/hooks/useValidation'
+import ResponseError from '@expresso/modules/Response/ResponseError'
+import UserService from 'controllers/User/service'
+import jwt from 'jsonwebtoken'
+import { isObject } from 'lodash'
+import models from 'models'
 import {
   RefreshTokenAttributes,
   verifyRefreshTokenAttributes,
 } from 'models/refreshtoken'
-import UserService from 'controllers/User/service'
-import { verifyRefreshToken } from '@expresso/helpers/Token'
-import { isObject } from 'lodash'
+import ms from 'ms'
 import refreshTokenSchema from './schema'
 
 const { RefreshToken } = models

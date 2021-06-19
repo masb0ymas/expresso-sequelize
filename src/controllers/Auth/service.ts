@@ -1,23 +1,23 @@
-import ms from 'ms'
-import models from 'models'
-import jwt from 'jsonwebtoken'
-import createDirNotExist from 'utils/Directory'
+import { getUniqueCodev2 } from '@expresso/helpers/Common'
+import SendMail from '@expresso/helpers/SendEmail'
+import { verifyAccessToken } from '@expresso/helpers/Token'
+import userAgentHelper from '@expresso/helpers/userAgent'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import { getUniqueCodev2 } from '@expresso/helpers/Common'
+import RefreshTokenService from 'controllers/RefreshToken/service'
+import SessionService from 'controllers/Session/service'
+import UserService from 'controllers/User/service'
+import { Request } from 'express'
+import jwt from 'jsonwebtoken'
+import { isEmpty } from 'lodash'
+import models from 'models'
 import {
-  UserAttributes,
   LoginAttributes,
+  UserAttributes,
   UserLoginAttributes,
 } from 'models/user'
-import SendMail from '@expresso/helpers/SendEmail'
-import RefreshTokenService from 'controllers/RefreshToken/service'
-import UserService from 'controllers/User/service'
-import SessionService from 'controllers/Session/service'
-import { Request } from 'express'
-import userAgentHelper from '@expresso/helpers/userAgent'
-import { verifyAccessToken } from '@expresso/helpers/Token'
-import { isEmpty } from 'lodash'
+import ms from 'ms'
+import createDirNotExist from 'utils/Directory'
 import authSchema from './schema'
 
 const { User, Role } = models

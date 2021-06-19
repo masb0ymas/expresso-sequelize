@@ -1,12 +1,12 @@
-import { Request, Response } from 'express'
-import routes from 'routes/public'
 import asyncHandler from '@expresso/helpers/asyncHandler'
-import Authorization from 'middlewares/Authorization'
-import BuildResponse from '@expresso/modules/Response/BuildResponse'
-import RefreshTokenService from 'controllers/RefreshToken/service'
-import AuthService from 'controllers/Auth/service'
 import { currentToken } from '@expresso/helpers/Token'
+import BuildResponse from '@expresso/modules/Response/BuildResponse'
+import AuthService from 'controllers/Auth/service'
+import RefreshTokenService from 'controllers/RefreshToken/service'
+import { Request, Response } from 'express'
+import Authorization from 'middlewares/Authorization'
 import { UserLoginAttributes } from 'models/user'
+import routes from 'routes/public'
 
 routes.post(
   '/auth/sign-up',

@@ -1,15 +1,15 @@
-import { NextFunction, Request, Response } from 'express'
-import routes from 'routes/public'
 import asyncHandler from '@expresso/helpers/asyncHandler'
-import Authorization from 'middlewares/Authorization'
-import BuildResponse from '@expresso/modules/Response/BuildResponse'
-import RoleService from 'controllers/Role/service'
 import { arrayFormatter } from '@expresso/helpers/Common'
 import { formatDateGenerateFile } from '@expresso/helpers/Date'
-import useMulter, { allowedExcel } from '@expresso/hooks/useMulter'
-import { get } from 'lodash'
-import { BASE_URL_SERVER } from 'config/baseURL'
 import { writeFileStream } from '@expresso/helpers/File'
+import useMulter, { allowedExcel } from '@expresso/hooks/useMulter'
+import BuildResponse from '@expresso/modules/Response/BuildResponse'
+import { BASE_URL_SERVER } from 'config/baseURL'
+import RoleService from 'controllers/Role/service'
+import { NextFunction, Request, Response } from 'express'
+import { get } from 'lodash'
+import Authorization from 'middlewares/Authorization'
+import routes from 'routes/public'
 
 routes.get(
   '/role',
