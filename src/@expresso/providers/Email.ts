@@ -1,7 +1,7 @@
-import nodemailer from 'nodemailer'
-import mg from 'nodemailer-mailgun-transport'
 import { google } from 'googleapis'
 import { isEmpty } from 'lodash'
+import nodemailer from 'nodemailer'
+import mg from 'nodemailer-mailgun-transport'
 
 require('dotenv').config()
 

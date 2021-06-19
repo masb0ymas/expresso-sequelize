@@ -1,7 +1,7 @@
-import { BASE_URL_SERVER } from 'config/baseURL'
-import express, { Request, Response, NextFunction } from 'express'
 import BuildResponse from '@expresso/modules/Response/BuildResponse'
 import ResponseError from '@expresso/modules/Response/ResponseError'
+import { BASE_URL_SERVER } from 'config/baseURL'
+import express, { NextFunction, Request, Response } from 'express'
 import publicRoute from 'routes/public'
 
 const { NODE_ENV } = process.env

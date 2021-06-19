@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { Request, Express } from 'express'
-import { set, get } from 'lodash'
-import { Transaction } from 'sequelize'
+import { get, set } from 'lodash'
 import db from 'models/_instance'
+import { Transaction } from 'sequelize'
 import getterObject from './getterObject'
 import Multers from './Multer'
 

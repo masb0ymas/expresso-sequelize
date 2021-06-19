@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from 'express'
 import { currentToken, verifyAccessToken } from '@expresso/helpers/Token'
+import { NextFunction, Request, Response } from 'express'
 import { isEmpty } from 'lodash'
 
 async function Authorization(req: Request, res: Response, next: NextFunction) {

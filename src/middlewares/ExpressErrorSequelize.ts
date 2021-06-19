@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import { EmptyResultError, BaseError, ValidationError } from 'sequelize'
 import { get } from 'lodash'
+import { BaseError, EmptyResultError, ValidationError } from 'sequelize'
 
 function msg(message: string) {
   return `Sequelize Error: ${message}`

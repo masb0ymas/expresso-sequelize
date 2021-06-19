@@ -1,10 +1,10 @@
-import path from 'path'
-import handlebars from 'handlebars'
 import { readHTMLFile } from '@expresso/helpers/File'
-import EmailProvider from '@expresso/providers/Email'
 import ResponseError from '@expresso/modules/Response/ResponseError'
+import EmailProvider from '@expresso/providers/Email'
 import { BASE_URL_CLIENT } from 'config/baseURL'
+import handlebars from 'handlebars'
 import { EmailAttributes, UserAttributes } from 'models/user'
+import path from 'path'
 
 const { APP_NAME } = process.env
 

@@ -1,9 +1,9 @@
+import { BASE_URL_SERVER } from 'config/baseURL'
+import fs from 'fs'
+import _ from 'lodash'
+import _path from 'path'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUI from 'swagger-ui-express'
-import fs from 'fs'
-import _path from 'path'
-import { BASE_URL_SERVER } from 'config/baseURL'
-import _ from 'lodash'
 
 const { APP_NAME, NODE_ENV, URL_SERVER_STAGING, URL_SERVER_PRODUCTION } =
   process.env

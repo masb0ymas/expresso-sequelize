@@ -1,17 +1,17 @@
-import BaseResponse from '@expresso/modules/Errors/BaseResponse'
 import BadRequest from '@expresso/modules/Errors/BadRequest'
-import NotFound from '@expresso/modules/Errors/NotFound'
+import BaseResponse from '@expresso/modules/Errors/BaseResponse'
 import Forbidden from '@expresso/modules/Errors/Forbidden'
-import Unauthorized from '@expresso/modules/Errors/Unauthorized'
 import InternalServer from '@expresso/modules/Errors/InternalServer'
+import NotFound from '@expresso/modules/Errors/NotFound'
+import Unauthorized from '@expresso/modules/Errors/Unauthorized'
 
 const ResponseError = {
-  BaseResponse,
   BadRequest,
-  NotFound,
+  BaseResponse,
   Forbidden,
-  Unauthorized,
   InternalServer,
+  NotFound,
+  Unauthorized,
 }
 
 export default ResponseError

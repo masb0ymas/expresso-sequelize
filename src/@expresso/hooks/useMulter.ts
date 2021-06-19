@@ -1,8 +1,8 @@
+import ResponseError from '@expresso/modules/Response/ResponseError'
+import { Request, Express } from 'express'
 import multer from 'multer'
 import path from 'path'
-import { Request, Express } from 'express'
 import slugify from 'slugify'
-import ResponseError from '@expresso/modules/Response/ResponseError'
 
 interface MulterSetupProps {
   dest?: string

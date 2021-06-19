@@ -1,7 +1,7 @@
+import ResponseError from '@expresso/modules/Response/ResponseError'
+import RedisProvider from '@expresso/providers/Redis'
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { get, isEmpty } from 'lodash'
-import RedisProvider from '@expresso/providers/Redis'
-import ResponseError from '@expresso/modules/Response/ResponseError'
 
 const Redis = new RedisProvider()
 

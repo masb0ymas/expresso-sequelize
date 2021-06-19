@@ -1,5 +1,5 @@
+import { NextFunction, Request, Response } from 'express'
 import { Transaction } from 'sequelize'
-import { NextFunction, Response, Request } from 'express'
 
 async function ExpressAutoHandleTransaction(
   req: Request,

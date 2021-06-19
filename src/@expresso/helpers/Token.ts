@@ -1,8 +1,8 @@
 import { Request } from 'express'
 import jwt, {
-  TokenExpiredError,
   JsonWebTokenError,
   NotBeforeError,
+  TokenExpiredError,
 } from 'jsonwebtoken'
 import { isEmpty } from 'lodash'
 
