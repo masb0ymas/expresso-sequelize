@@ -121,7 +121,7 @@
     "@types/node-cron": "^2.0.3",
     "@types/nodemailer": "^6.4.1",
     "@types/nodemailer-mailgun-transport": "^1.4.2",
-    "@types/redis": "^2.8.28",
+    "@types/redis": "^2.8.30",
     "@types/request-ip": "^0.0.35",
     "@types/sequelize": "^4.28.9",
     "@types/sharp": "^0.28.3",
