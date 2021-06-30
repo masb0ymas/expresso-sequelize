@@ -15,6 +15,8 @@ import RoleService from './service'
 
 routes.get(
   '/role',
+  Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function getAll(req: Request, res: Response) {
     const data = await RoleService.getAll(req)
     const buildResponse = BuildResponse.get(data)
@@ -64,6 +66,8 @@ routes.get(
 
 routes.get(
   '/role/:id',
+  Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function getOne(req: Request, res: Response) {
     const { id } = req.getParams()
 
