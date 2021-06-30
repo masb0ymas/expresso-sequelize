@@ -1,3 +1,11 @@
 {
-  "welcome": "Selamat Datang"
+  "welcome": "Selamat Datang",
+  "errorMessage": {
+    "youAreNotAllowed": "Anda tidak diijinkan"
+  },
+  "successMessage": {
+    "register": "pendaftaran berhasil",
+    "login": "Berhasil masuk",
+    "logout": "Anda telah keluar dari aplikasi"
+  }
 }

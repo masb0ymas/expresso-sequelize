@@ -1,3 +1,11 @@
 {
-  "welcome": "Welcome"
+  "welcome": "Welcome",
+  "errorMessage": {
+    "youAreNotAllowed": "You are not allowed"
+  },
+  "successMessage": {
+    "register": "registration is successful",
+    "login": "Login successfully",
+    "logout": "You have logged out of the application"
+  }
 }
