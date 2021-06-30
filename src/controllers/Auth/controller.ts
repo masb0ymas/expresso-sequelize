@@ -13,7 +13,7 @@ routes.post(
   asyncHandler(async function signUp(req: Request, res: Response) {
     const formData = req.getBody()
     const data = await AuthService.signUp(formData)
-    const buildResponse = BuildResponse.get(data)
+    const buildResponse = BuildResponse.get({ message: data.message })
 
     return res.status(201).json(buildResponse)
   })
