@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.25.0](https://github.com/masb0ymas/expresso/compare/v2.24.0...v2.25.0) (2021-06-30)
+
+
+### Features
+
+* add endpoint hobby ([09a08bd](https://github.com/masb0ymas/expresso/commit/09a08bda24a2a3b8dad1f449c856974537f3f82e))
+* add env rate limit ([ea25b41](https://github.com/masb0ymas/expresso/commit/ea25b4127b8793398507f17cd442bdc0a93f38b5))
+* add middleware not permitted access ([f2b91b2](https://github.com/masb0ymas/expresso/commit/f2b91b2cece4ea2596076d8f5e3436aec171961e))
+* add middleware permission access ([6b15a28](https://github.com/masb0ymas/expresso/commit/6b15a28cfd3073160f6e3c05df1b0207508465ca))
+* add model hobby ([aacc6fb](https://github.com/masb0ymas/expresso/commit/aacc6fb8b4b37fb103175dd892ec28964141fe7e))
+* implementation permission access ([989c8f1](https://github.com/masb0ymas/expresso/commit/989c8f17b1b7450ce55a0326cc1879e221af30b2))
+
+
+### Bug Fixes
+
+* bug update user ([c85279f](https://github.com/masb0ymas/expresso/commit/c85279ff0e981b103d81cd3754cee96d6624eec5))
+* controller import ([cf585fa](https://github.com/masb0ymas/expresso/commit/cf585fa847d0e104b34fb7b1260c160b5d50e84c))
+* default rate limit ([022f093](https://github.com/masb0ymas/expresso/commit/022f093b5e9a658dffc942ae0bce9c508c5fec4e))
+* field user ([1548748](https://github.com/masb0ymas/expresso/commit/1548748b05658b1016fd413d8d03e254eb9ce749))
+* move role to master ([e88c5a1](https://github.com/masb0ymas/expresso/commit/e88c5a194af214d4e25ac0d76c6889b9acfef3d0))
+* pm2 cluster mode ([033d104](https://github.com/masb0ymas/expresso/commit/033d104f448c6ea9ba492cefe6ce28f276ef45f5))
+* prettier import ([8ee32be](https://github.com/masb0ymas/expresso/commit/8ee32be8a39a1bb32d34b3c70dc4ba4cbc0f20d5))
+* protect permission access get role ([6b9f499](https://github.com/masb0ymas/expresso/commit/6b9f4995e2e61c06b454841920f67f06018669b3))
+* relation session user ([d54c0ed](https://github.com/masb0ymas/expresso/commit/d54c0ed0ffd1401cee562b5a771a05044477350c))
+* return response sign up ([58f5d08](https://github.com/masb0ymas/expresso/commit/58f5d084678179d1d8cff38c05386639f46aec4a))
+* test app with loadtest ([03f88b8](https://github.com/masb0ymas/expresso/commit/03f88b8b4a71844d12e0dbfb00a3cdc50c062a07))
+* update translate ([cf20f55](https://github.com/masb0ymas/expresso/commit/cf20f55435082cf8fbeccb6b203fa7f4233623be))
+
 ## [2.24.0](https://github.com/masb0ymas/expresso/compare/v2.23.0...v2.24.0) (2021-06-04)
 
 

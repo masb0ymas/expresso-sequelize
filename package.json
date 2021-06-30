@@ -1,6 +1,6 @@
 {
   "name": "expresso",
-  "version": "2.24.0",
+  "version": "2.25.0",
   "description": "Just Boilerplate Express with TypeScript ( 🦊 )",
   "private": true,
   "scripts": {
