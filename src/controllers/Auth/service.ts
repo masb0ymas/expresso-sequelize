@@ -1,5 +1,5 @@
+import ConstRoles from '@expresso/constants/ConstRoles'
 import { getUniqueCodev2 } from '@expresso/helpers/Common'
-import SendMail from '@expresso/helpers/SendEmail'
 import { verifyAccessToken } from '@expresso/helpers/Token'
 import userAgentHelper from '@expresso/helpers/userAgent'
 import useValidation from '@expresso/hooks/useValidation'
@@ -70,12 +70,12 @@ class AuthService {
       }
     )
 
-    const newFormData = { ...formData, tokenVerify }
+    const newFormData = { ...formData, tokenVerify, RoleId: ConstRoles.ID_UMUM }
     const value = useValidation(authSchema.register, newFormData)
     const data = await User.create(value)
 
-    // Initial Send an e-mail
-    SendMail.AccountRegister(formData, tokenVerify)
+    // send email verification
+    // SendMail.AccountRegister(formData, tokenVerify)
 
     return {
       message:

@@ -59,9 +59,8 @@ module.exports = {
                 phone: {
                   type: 'string',
                 },
-                Roles: {
+                RoleId: {
                   type: 'string',
-                  description: '["id_1", "id_2"]',
                 },
                 profileImage: {
                   type: 'file',
@@ -77,6 +76,7 @@ module.exports = {
                 'newPassword',
                 'confirmNewPassword',
                 'profileImage',
+                'RoleId',
               ],
             },
           },
@@ -284,9 +284,8 @@ module.exports = {
                 phone: {
                   type: 'string',
                 },
-                Roles: {
+                RoleId: {
                   type: 'string',
-                  description: '["id_1", "id_2"]',
                 },
                 profileImage: {
                   type: 'file',
@@ -302,6 +301,7 @@ module.exports = {
                 'newPassword',
                 'confirmNewPassword',
                 'profileImage',
+                'RoleId',
               ],
             },
           },

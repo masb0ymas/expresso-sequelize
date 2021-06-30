@@ -13,16 +13,20 @@ module.exports = {
       },
       email: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING('191'),
       },
       password: {
         type: Sequelize.STRING,
       },
       phone: {
-        defaultValue: null,
         type: Sequelize.STRING,
       },
       isActive: {
+        allowNull: false,
+        defaultValue: false,
+        type: Sequelize.BOOLEAN,
+      },
+      isBlocked: {
         allowNull: false,
         defaultValue: false,
         type: Sequelize.BOOLEAN,
@@ -33,6 +37,9 @@ module.exports = {
       },
       picturePath: {
         type: Sequelize.STRING,
+      },
+      RoleId: {
+        type: Sequelize.UUID,
       },
       createdAt: {
         allowNull: false,

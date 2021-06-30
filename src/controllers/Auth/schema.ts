@@ -7,6 +7,7 @@ const register = yup
     email: yup.string().email('invalid email').required('email is required'),
     phone: yup.string().required('phone is required'),
     isActive: yup.boolean().nullable(),
+    isBlocked: yup.boolean().nullable(),
     tokenVerify: yup.string().nullable(),
     newPassword: yup
       .string()
@@ -16,6 +17,7 @@ const register = yup
       .string()
       .min(8, 'at least 8 characters')
       .oneOf([yup.ref('newPassword')], 'passwords are not the same'),
+    RoleId: yup.string().required('role is required'),
   })
   .required()
 

@@ -11,10 +11,12 @@ export interface UserAttributes {
   password?: string
   phone: string
   isActive?: boolean | null
+  isBlocked?: boolean | null
   tokenVerify?: string | null
   newPassword?: string
   confirmNewPassword?: string
   picturePath?: string | null
+  RoleId: string
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date | null
@@ -37,6 +39,7 @@ export interface EmailAttributes {
 
 export interface UserLoginAttributes {
   uid: string
+  lang: string
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -103,7 +106,7 @@ User.prototype.comparePassword = function (candidatePassword: string) {
 
 User.associate = (models) => {
   User.hasMany(models.Session, { foreignKey: 'UserId' })
-  User.belongsToMany(models.Role, { through: models.UserRole })
+  User.belongsTo(models.Role)
 }
 
 export default User
