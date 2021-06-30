@@ -5,11 +5,11 @@ import { writeFileStream } from '@expresso/helpers/File'
 import useMulter, { allowedExcel } from '@expresso/hooks/useMulter'
 import BuildResponse from '@expresso/modules/Response/BuildResponse'
 import { BASE_URL_SERVER } from 'config/baseURL'
-import RoleService from 'controllers/Role/service'
 import { NextFunction, Request, Response } from 'express'
 import { get } from 'lodash'
 import Authorization from 'middlewares/Authorization'
 import routes from 'routes/public'
+import RoleService from './service'
 
 routes.get(
   '/role',
