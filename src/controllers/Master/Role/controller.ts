@@ -1,3 +1,4 @@
+import ConstRoles from '@expresso/constants/ConstRoles'
 import asyncHandler from '@expresso/helpers/asyncHandler'
 import { arrayFormatter } from '@expresso/helpers/Common'
 import { formatDateGenerateFile } from '@expresso/helpers/Date'
@@ -8,6 +9,7 @@ import { BASE_URL_SERVER } from 'config/baseURL'
 import { NextFunction, Request, Response } from 'express'
 import { get } from 'lodash'
 import Authorization from 'middlewares/Authorization'
+import PermissionAccess from 'middlewares/PermissionAccess'
 import routes from 'routes/public'
 import RoleService from './service'
 
@@ -24,6 +26,7 @@ routes.get(
 routes.get(
   '/role/generate-excel',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
     const streamExcel = await RoleService.generateExcel(req)
     const dateNow = formatDateGenerateFile(new Date())
@@ -42,6 +45,7 @@ routes.get(
 routes.get(
   '/role/export-excel',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
     const streamExcel = await RoleService.generateExcel(req)
     const dateNow = formatDateGenerateFile(new Date())
@@ -89,6 +93,7 @@ const setFileToBody = asyncHandler(async function setFileToBody(
 routes.post(
   '/role/import-excel',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   uploadFile,
   setFileToBody,
   asyncHandler(async function importExcel(req: Request, res: Response) {
@@ -105,6 +110,7 @@ routes.post(
 routes.post(
   '/role',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function createData(req: Request, res: Response) {
     const formData = req.getBody()
 
@@ -118,6 +124,7 @@ routes.post(
 routes.put(
   '/role/:id',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function updateData(req: Request, res: Response) {
     const { id } = req.getParams()
     const formData = req.getBody()
@@ -132,6 +139,7 @@ routes.put(
 routes.post(
   '/role/multiple/soft-delete',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -146,6 +154,7 @@ routes.post(
 routes.post(
   '/role/multiple/restore',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -160,6 +169,7 @@ routes.post(
 routes.post(
   '/role/multiple/force-delete',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function multipleForceDelete(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -174,6 +184,7 @@ routes.post(
 routes.delete(
   '/role/soft-delete/:id',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function softDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
@@ -187,6 +198,7 @@ routes.delete(
 routes.put(
   '/role/restore/:id',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function restore(req: Request, res: Response) {
     const { id } = req.getParams()
 
@@ -200,6 +212,7 @@ routes.put(
 routes.delete(
   '/role/force-delete/:id',
   Authorization,
+  PermissionAccess([ConstRoles.ID_ADMIN]),
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
