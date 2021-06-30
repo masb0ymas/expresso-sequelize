@@ -3,6 +3,7 @@ import User from './user'
 import UserRole from './userrole'
 import RefreshToken from './refreshtoken'
 import Session from './session'
+import Hobby from './hobby'
 
 const models = {
   Role,
@@ -10,6 +11,7 @@ const models = {
   UserRole,
   RefreshToken,
   Session,
+  Hobby,
 }
 
 export default models
