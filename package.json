@@ -128,7 +128,7 @@
     "@types/supertest": "^2.0.11",
     "@types/swagger-jsdoc": "^6.0.0",
     "@types/swagger-ui-express": "^4.1.2",
-    "@types/yup": "^0.29.9",
+    "@types/yup": "^0.29.12",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
     "babel-plugin-module-resolver": "^4.0.0",
