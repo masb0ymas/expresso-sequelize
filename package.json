@@ -98,7 +98,7 @@
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@types/bcrypt": "^5.0.0",
-    "@types/body-parser": "^1.19.0",
+    "@types/body-parser": "^1.19.1",
     "@types/convert-excel-to-json": "^1.7.0",
     "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.8",
