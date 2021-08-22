@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.25.1](https://github.com/masb0ymas/expresso/compare/v2.25.0...v2.25.1) (2021-08-22)
+
+
+### Bug Fixes
+
+* express body parser ([b19f686](https://github.com/masb0ymas/expresso/commit/b19f68628a611f8886eb367e700308cddc20d1bf))
+* script generate key ([23a44f4](https://github.com/masb0ymas/expresso/commit/23a44f4ef3cc5910405ab3de50a849e04132e8c5))
+
 ## [2.25.0](https://github.com/masb0ymas/expresso/compare/v2.24.0...v2.25.0) (2021-06-30)
 
 
