@@ -12,6 +12,25 @@ const getUniqueCodev2 = (length = 32) => {
   return result
 }
 
+function appKey() {
+  const pathRes = path.resolve('.env')
+  const contentEnv = fs.readFileSync(pathRes, { encoding: 'utf-8' })
+  const uniqueCode = getUniqueCodev2()
+  const strJWT = `APP_KEY=${uniqueCode}`
+
+  if (contentEnv.includes('APP_KEY=')) {
+    // change APP_KEY value
+    const replaceContent = contentEnv.replace(/APP_KEY=(.*)?/, strJWT)
+    fs.writeFileSync(`${pathRes}`, replaceContent)
+    console.log('Refresh APP_KEY Success')
+  } else {
+    // Generate APP_KEY value
+    const extraContent = `${strJWT}\n\n${contentEnv}`
+    fs.writeFileSync(`${pathRes}`, extraContent)
+    console.log('Generate APP_KEY Success')
+  }
+}
+
 function accessTokenJWT() {
   const pathRes = path.resolve('.env')
   const contentEnv = fs.readFileSync(pathRes, { encoding: 'utf-8' })
@@ -19,18 +38,18 @@ function accessTokenJWT() {
   const strJWT = `JWT_SECRET_ACCESS_TOKEN=${jwtSecret}`
 
   if (contentEnv.includes('JWT_SECRET_ACCESS_TOKEN=')) {
-    // Replace JWT SECRET jika sudah ada
+    // change JWT_SECRET_ACCESS_TOKEN value
     const replaceContent = contentEnv.replace(
       /JWT_SECRET_ACCESS_TOKEN=(.*)?/,
       strJWT
     )
     fs.writeFileSync(`${pathRes}`, replaceContent)
-    console.log('Refresh JWT SECRET Success')
+    console.log('Refresh JWT_SECRET_ACCESS_TOKEN Success')
   } else {
-    // Generate JWT SECRET kalo belum ada di environment
+    // Generate JWT_SECRET_ACCESS_TOKEN value
     const extraContent = `${strJWT}\n\n${contentEnv}`
     fs.writeFileSync(`${pathRes}`, extraContent)
-    console.log('Generate JWT SECRET Success')
+    console.log('Generate JWT_SECRET_ACCESS_TOKEN Success')
   }
 }
 
@@ -41,18 +60,18 @@ function refreshTokenJWT() {
   const strJWT = `JWT_SECRET_REFRESH_TOKEN=${jwtSecret}`
 
   if (contentEnv.includes('JWT_SECRET_REFRESH_TOKEN=')) {
-    // Replace JWT SECRET REFRESH TOKEN jika sudah ada
+    // change JWT_SECRET_REFRESH_TOKEN value
     const replaceContent = contentEnv.replace(
       /JWT_SECRET_REFRESH_TOKEN=(.*)?/,
       strJWT
     )
     fs.writeFileSync(`${pathRes}`, replaceContent)
-    console.log('Refresh JWT SECRET REFRESH TOKEN Success')
+    console.log('Refresh JWT_SECRET_REFRESH_TOKEN Success')
   } else {
-    // Generate JWT SECRET REFRESH TOKEN kalo belum ada di environment
+    // Generate JWT_SECRET_REFRESH_TOKEN value
     const extraContent = `${strJWT}\n\n${contentEnv}`
     fs.writeFileSync(`${pathRes}`, extraContent)
-    console.log('Generate JWT SECRET REFRESH TOKEN Success')
+    console.log('Generate JWT_SECRET_REFRESH_TOKEN Success')
   }
 }
 
@@ -63,18 +82,19 @@ function secretOTP() {
   const strJWT = `SECRET_OTP=${jwtSecret}`
 
   if (contentEnv.includes('SECRET_OTP=')) {
-    // Replace SECRET OTP jika sudah ada
+    // change SECRET_OTP value
     const replaceContent = contentEnv.replace(/SECRET_OTP=(.*)?/, strJWT)
     fs.writeFileSync(`${pathRes}`, replaceContent)
-    console.log('Refresh SECRET OTP Success')
+    console.log('Refresh SECRET_OTP Success')
   } else {
-    // Generate SECRET OTP kalo belum ada di environment
+    // Generate SECRET_OTP value
     const extraContent = `${strJWT}\n\n${contentEnv}`
     fs.writeFileSync(`${pathRes}`, extraContent)
-    console.log('Generate SECRET OTP Success')
+    console.log('Generate SECRET_OTP Success')
   }
 }
 
+appKey()
 accessTokenJWT()
 refreshTokenJWT()
 secretOTP()
