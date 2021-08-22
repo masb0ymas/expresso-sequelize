@@ -1,6 +1,5 @@
 import allowedOrigins from '@expresso/constants/ConstAllowedOrigins'
 import withState from '@expresso/helpers/withState'
-import bodyParser from 'body-parser'
 import i18next from 'config/i18next'
 import winstonLogger, { winstonStream } from 'config/winston'
 import cookieParser from 'cookie-parser'
@@ -38,8 +37,8 @@ app.set('view engine', 'pug')
 app.use(helmet())
 app.use(cors(options))
 app.use(logger('combined', { stream: winstonStream }))
-app.use(bodyParser.json({ limit: '100mb', type: 'application/json' }))
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json({ limit: '200mb', type: 'application/json' }))
+app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(`${__dirname}/../`, 'public')))
 app.use(i18nextMiddleware.handle(i18next))
