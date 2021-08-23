@@ -120,7 +120,7 @@
     "@types/nodemailer": "^6.4.1",
     "@types/nodemailer-mailgun-transport": "^1.4.2",
     "@types/redis": "^2.8.31",
-    "@types/request-ip": "^0.0.36",
+    "@types/request-ip": "^0.0.37",
     "@types/sequelize": "^4.28.9",
     "@types/sharp": "^0.28.5",
     "@types/supertest": "^2.0.11",
