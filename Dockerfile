@@ -1,11 +1,17 @@
-FROM node:12.18.3-alpine3.12
-LABEL author="masb0ymas"
+FROM ubuntu:latest
+USER root
 
-# Setup Timezone
-RUN	apk add tzdata
-ENV TZ=Asia/Jakarta
+RUN apt-get update
+RUN apt -y upgrade
+RUN apt-get -y install curl gnupg
 
-RUN apk add nano
+# install node
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get -y install nodejs
+
+# library for sharp
+RUN apt-get --only-upgrade install libvips
+RUN apt-get install nano
 
 # Create app directory
 WORKDIR /var/www
@@ -15,8 +21,9 @@ COPY package*.json ./
 
 # Set config npm & install dependencies
 RUN npm config set scripts-prepend-node-path true
-RUN npm install typescript -g
-RUN npm install pm2 -g
+RUN npm install -g typescript
+RUN npm install -g pm2
+RUN npm install -g yarn
 RUN yarn
 
 # Bundle app source
