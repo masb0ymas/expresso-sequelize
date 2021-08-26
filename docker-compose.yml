@@ -10,7 +10,7 @@ services:
     restart: always
     ports:
       - '${PORT}:8000'
-    working_dir: /var/www
+    working_dir: /app
     networks:
       - express_network
 

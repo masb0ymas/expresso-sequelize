@@ -133,8 +133,6 @@ DB_OPERATOR_ALIAS=
 DB_TIMEZONE=+07:00
 ```
 
-if you set production mode change the database config `PROD_DB_DATABASE`
-
 then after that you can adjust the database config in `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
 now you can run this command :
 
@@ -227,7 +225,7 @@ Adjust the config in .env like this:
 ```sh
 ...
 
-PORT=7000 # change this port according to your needs
+PORT=8000 # change this port according to your needs
 
 ...
 
@@ -242,25 +240,14 @@ DB_TIMEZONE=+07:00
 
 ...
 
-PROD_DB_CONNECTION=mysql
-PROD_DB_HOST=db
-PROD_DB_PORT=3306
-PROD_DB_DATABASE=example
-PROD_DB_USERNAME=your_username
-PROD_DB_PASSWORD=your_password
-PROD_DB_OPERATOR_ALIAS=
-PROD_DB_TIMEZONE=+07:00
-
-...
-
-REDIS_HOST=127.0.0.1
+REDIS_HOST=redis # access to service redis in docker
 REDIS_PASSWORD=your_password
-REDIS_PORT=6380 # Default: 6379
+REDIS_PORT=6379
 ```
 
 `container_name` in each service is customizable.
 
-`PORT=...` If you want to use a port other than `7000`, you must also change the port in the services `app`
+`PORT=...` If you want to use a port other than `8000`, you must also change the port in the services `app`
 
 ```yaml
 services:
@@ -273,7 +260,7 @@ services:
       - redis
     restart: always
     ports:
-      - '7000:7000'
+      - '8000:8000'
 ```
 
 `DB_HOST=..`. must be accessed using IPv4 Docker Network services `db`.
@@ -285,10 +272,10 @@ db:
   volumes:
     - ./storage/mariadb-volume:/var/lib/mysql
   environment:
-    MYSQL_ROOT_PASSWORD: ${PROD_DB_PASSWORD}
-    MYSQL_DATABASE: ${PROD_DB_DATABASE}
-    MYSQL_USER: ${PROD_DB_USERNAME}
-    MYSQL_PASSWORD: ${PROD_DB_PASSWORD}
+    MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    MYSQL_DATABASE: ${DB_DATABASE}
+    MYSQL_USER: ${DB_USERNAME}
+    MYSQL_PASSWORD: ${DB_PASSWORD}
   restart: always
   ports:
     - '3307:3306'

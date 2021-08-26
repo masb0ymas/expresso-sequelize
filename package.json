@@ -16,7 +16,7 @@
     "before-build": "npm run clean && yarn && npm run test:lint && npm run test:types",
     "build:ts": "npm run before-build && tsc -p .",
     "build:babel": "npm run before-build && babel src --out-dir dist --extensions \".ts\",\".js\"",
-    "build:docker": "npm run clean:docker && npm run build:babel",
+    "build:docker": "npm run test:types && babel src --out-dir dist --extensions \".ts\",\".js\"",
     "serve:staging": "NODE_ENV=staging node ./dist/bin/server.js",
     "serve:production": "NODE_ENV=production node ./dist/bin/server.js",
     "serve:production-docker": "NODE_ENV=production pm2-runtime ./dist/bin/server.js",
