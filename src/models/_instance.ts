@@ -1,9 +1,8 @@
 /* eslint-disable import/no-dynamic-require */
-import Sequelize from 'sequelize'
 import path from 'path'
+import Sequelize from 'sequelize'
 
-const env = process.env.NODE_ENV || 'development'
-const config = require(path.join(`${__dirname}/../config/database`))[env]
+const config = require(path.join(`${__dirname}/../config/database`))
 
 const sequelize = new Sequelize.Sequelize(
   config.database,
