@@ -47,7 +47,7 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 export interface UserInstance
   extends Model<UserAttributes, UserCreationAttributes>,
     UserAttributes {
-  comparePassword(): Promise<boolean | void>
+  comparePassword(password: string): Promise<boolean | void>
 }
 
 const User = db.sequelize.define<UserInstance>(

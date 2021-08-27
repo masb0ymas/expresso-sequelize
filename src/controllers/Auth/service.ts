@@ -104,9 +104,8 @@ class AuthService {
 
     const { id: UserId, isActive } = userData
 
-    /* User active proses login */
+    /* check user active */
     if (isActive) {
-      // @ts-ignore
       const matchPassword = await userData.comparePassword(value.password)
 
       if (matchPassword) {
@@ -180,10 +179,8 @@ class AuthService {
     const userData = verifyToken?.data as UserLoginAttributes
 
     if (!isEmpty(userData.uid)) {
-      // @ts-ignore
-      const data = await User.findByPk(userData.uid, {
-        include: including,
-      })
+      const data = await User.findByPk(userData.uid, { include: including })
+
       return data
     }
 
