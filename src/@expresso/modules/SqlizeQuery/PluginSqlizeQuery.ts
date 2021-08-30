@@ -6,6 +6,11 @@ import {
 } from '@expresso/modules/SqlizeQuery/SqlizeQuery'
 import { Op, ModelCtor, Includeable, IncludeOptions } from 'sequelize'
 import { cloneDeep, unset } from 'lodash'
+import { validate as uuidValidate } from 'uuid'
+
+require('dotenv').config()
+
+const { DB_CONNECTION } = process.env
 
 const parserString = (value: any) => {
   return typeof value === 'string' ? JSON.parse(value) : value || []
@@ -54,7 +59,28 @@ function getFilteredQuery(model?: ModelCtor<any>, prefixName?: string) {
         model?.rawAttributes?.[curId]?.type
       )
 
-      if (type === 'number') {
+      // check not number
+      if (type !== 'number') {
+        // check connection postgress
+        if (DB_CONNECTION === 'postgres') {
+          // check value uuid
+          if (uuidValidate(value)) {
+            queryHelper.setQuery(curId, {
+              [Op.eq]: `${value}`,
+            })
+          } else {
+            queryHelper.setQuery(curId, {
+              [Op.iLike]: `%${value}%`,
+            })
+          }
+        } else {
+          // default not postgres
+          queryHelper.setQuery(curId, {
+            [Op.like]: `%${value}%`,
+          })
+        }
+      } else {
+        // default number
         queryHelper.setQuery(
           curId,
           curId.endsWith('Id')
@@ -63,10 +89,6 @@ function getFilteredQuery(model?: ModelCtor<any>, prefixName?: string) {
                 [Op.like]: `%${value}%`,
               }
         )
-      } else {
-        queryHelper.setQuery(curId, {
-          [Op.like]: `%${value}%`,
-        })
       }
     }
   )
