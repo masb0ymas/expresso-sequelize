@@ -4,8 +4,8 @@ import {
   getPrimitiveDataType,
   transfromIncludeToQueryable,
 } from '@expresso/modules/SqlizeQuery/SqlizeQuery'
-import { Op, ModelCtor, Includeable, IncludeOptions } from 'sequelize'
 import { cloneDeep, unset } from 'lodash'
+import { Includeable, IncludeOptions, ModelCtor, Op } from 'sequelize'
 import { validate as uuidValidate } from 'uuid'
 
 require('dotenv').config()
@@ -61,18 +61,16 @@ function getFilteredQuery(model?: ModelCtor<any>, prefixName?: string) {
 
       // check not number
       if (type !== 'number') {
-        // check connection postgress
-        if (DB_CONNECTION === 'postgres') {
-          // check value uuid
-          if (uuidValidate(value)) {
-            queryHelper.setQuery(curId, {
-              [Op.eq]: `${value}`,
-            })
-          } else {
-            queryHelper.setQuery(curId, {
-              [Op.iLike]: `%${value}%`,
-            })
-          }
+        // check value uuid
+        if (uuidValidate(value)) {
+          queryHelper.setQuery(curId, {
+            [Op.eq]: `${value}`,
+          })
+        } else if (DB_CONNECTION === 'postgres') {
+          // check connection postgress case sensitive
+          queryHelper.setQuery(curId, {
+            [Op.iLike]: `%${value}%`,
+          })
         } else {
           // default not postgres
           queryHelper.setQuery(curId, {
