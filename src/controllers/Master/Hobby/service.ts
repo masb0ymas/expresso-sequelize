@@ -1,7 +1,5 @@
 import { validateBoolean } from '@expresso/helpers/Common'
-import Excel from '@expresso/helpers/Excel'
 import useValidation from '@expresso/hooks/useValidation'
-import { FileAttributes } from '@expresso/interfaces/file'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
@@ -84,42 +82,6 @@ class HobbyService {
     await data.update(value || {})
 
     return data
-  }
-
-  /**
-   *
-   * @param fieldFiles
-   */
-  public static async importExcel(fieldFiles: FileAttributes) {
-    const excelJson = Excel.convertToJson(fieldFiles.path)
-
-    return excelJson
-  }
-
-  /**
-   *
-   * @param req - Request
-   */
-  public static async generateExcel(req: Request) {
-    const { data } = await this.getAll(req)
-    const roleData = JSON.parse(JSON.stringify(data))
-
-    const header = [
-      { header: 'No', key: 'no', width: 5 },
-      { header: 'Name', key: 'name', width: 20 },
-    ]
-
-    const newData = []
-    for (let i = 0; i < roleData.length; i += 1) {
-      const item = roleData[i]
-      newData.push({
-        ...item,
-      })
-    }
-
-    const stream: Buffer = await Excel.generate(header, newData)
-
-    return stream
   }
 
   /**

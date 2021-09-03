@@ -1,12 +1,7 @@
 import asyncHandler from '@expresso/helpers/asyncHandler'
 import { arrayFormatter } from '@expresso/helpers/Common'
-import { formatDateGenerateFile } from '@expresso/helpers/Date'
-import { writeFileStream } from '@expresso/helpers/File'
-import useMulter, { allowedExcel } from '@expresso/hooks/useMulter'
 import BuildResponse from '@expresso/modules/Response/BuildResponse'
-import { BASE_URL_SERVER } from 'config/baseURL'
-import { NextFunction, Request, Response } from 'express'
-import { get } from 'lodash'
+import { Request, Response } from 'express'
 import Authorization from 'middlewares/Authorization'
 import routes from 'routes/public'
 import HobbyService from './service'
@@ -22,81 +17,12 @@ routes.get(
 )
 
 routes.get(
-  '/hobby/generate-excel',
-  Authorization,
-  asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
-    const streamExcel = await HobbyService.generateExcel(req)
-    const dateNow = formatDateGenerateFile(new Date())
-    const filename = `${dateNow}_generate_role.xlsx`
-
-    const outputPath = `public/generate/excel/${filename}`
-    writeFileStream(outputPath, streamExcel)
-
-    const url = outputPath.replace('public', BASE_URL_SERVER)
-    const buildResponse = BuildResponse.get({ data: { url } })
-
-    return res.status(200).json(buildResponse)
-  })
-)
-
-routes.get(
-  '/hobby/export-excel',
-  Authorization,
-  asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
-    const streamExcel = await HobbyService.generateExcel(req)
-    const dateNow = formatDateGenerateFile(new Date())
-    const filename = `${dateNow}_generate_role.xlsx`
-
-    res.setHeader(
-      'Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    )
-    res.setHeader('Content-Disposition', `attachment; filename=${filename}`)
-    res.setHeader('Content-Length', streamExcel.length)
-
-    return res.send(streamExcel)
-  })
-)
-
-routes.get(
   '/hobby/:id',
   asyncHandler(async function getOne(req: Request, res: Response) {
     const { id } = req.getParams()
 
     const data = await HobbyService.getOne(id)
     const buildResponse = BuildResponse.get({ data })
-
-    return res.status(200).json(buildResponse)
-  })
-)
-
-const uploadFile = useMulter({
-  dest: 'public/uploads/excel',
-  allowedExt: allowedExcel,
-}).fields([{ name: 'fileExcel', maxCount: 1 }])
-
-const setFileToBody = asyncHandler(async function setFileToBody(
-  req: Request,
-  res,
-  next: NextFunction
-) {
-  const fileExcel = req.pickSingleFieldMulter(['fileExcel'])
-
-  req.setBody(fileExcel)
-  next()
-})
-
-routes.post(
-  '/hobby/import-excel',
-  Authorization,
-  uploadFile,
-  setFileToBody,
-  asyncHandler(async function importExcel(req: Request, res: Response) {
-    const formData = req.getBody()
-    const fieldExcel = get(formData, 'fileExcel', {})
-
-    const data = await HobbyService.importExcel(fieldExcel)
-    const buildResponse = BuildResponse.created(data)
 
     return res.status(200).json(buildResponse)
   })
