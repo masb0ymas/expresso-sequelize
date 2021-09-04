@@ -64,7 +64,7 @@ function getFilteredQuery(model?: ModelCtor<any>, prefixName?: string) {
         // check value uuid
         if (uuidValidate(value)) {
           queryHelper.setQuery(curId, {
-            [Op.eq]: `${value}`,
+            [Op.eq]: value,
           })
         } else if (DB_CONNECTION === 'postgres') {
           // check connection postgress case sensitive
