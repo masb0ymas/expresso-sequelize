@@ -2013,20 +2013,15 @@
   dependencies:
     "@types/tz-offset" "*"
 
-"@types/node@*":
-  version "16.7.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.1.tgz#c6b9198178da504dfca1fd0be9b2e1002f1586f0"
-  integrity sha512-ncRdc45SoYJ2H4eWU9ReDfp3vtFqDYhjOsKlFFUDEn8V1Bgr2RjYal8YT5byfadWIRluhPFU6JiDOl0H6Sl87A==
+"@types/node@*", "@types/node@^16.7.10":
+  version "16.7.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.10.tgz#7aa732cc47341c12a16b7d562f519c2383b6d4fc"
+  integrity sha512-S63Dlv4zIPb8x6MMTgDq5WWRJQe56iBEY0O3SOFA9JrRienkOVDXSXBjjJw6HTNQYSE2JI6GMCR6LVbIMHJVvA==
 
 "@types/node@^14.0.1", "@types/node@^14.14.28":
   version "14.17.11"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.11.tgz#82d266d657aec5ff01ca59f2ffaff1bb43f7bf0f"
   integrity sha512-n2OQ+0Bz6WEsUjrvcHD1xZ8K+Kgo4cn9/w94s1bJS690QMUWfJPW/m7CCb7gPkA1fcYwL2UpjXP/rq/Eo41m6w==
-
-"@types/node@^16.7.10":
-  version "16.7.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.10.tgz#7aa732cc47341c12a16b7d562f519c2383b6d4fc"
-  integrity sha512-S63Dlv4zIPb8x6MMTgDq5WWRJQe56iBEY0O3SOFA9JrRienkOVDXSXBjjJw6HTNQYSE2JI6GMCR6LVbIMHJVvA==
 
 "@types/nodemailer-mailgun-transport@^1.4.2":
   version "1.4.3"
@@ -2099,10 +2094,10 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
-"@types/sharp@^0.28.6":
-  version "0.28.6"
-  resolved "https://registry.yarnpkg.com/@types/sharp/-/sharp-0.28.6.tgz#41e4f904b39e5269328080e0bd1d008ae5bc8b21"
-  integrity sha512-AjKjo5vk5mkcTrWL0U1zFUdCp/uqLebvbe7ezAJx0tgp6ST9JmfsYK1q1lpjfPM5S1YQ1wr5uboPSu2S8UO9yw==
+"@types/sharp@^0.29.1":
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/@types/sharp/-/sharp-0.29.1.tgz#99fed5efb144b8b56188c4dfed3a114679413f40"
+  integrity sha512-UOQu+7MY/TRlVNjVuNtLpAlekKWNZNZzYtIDHRzPloKRkPW8jlPh1RsUIhyG98OibzzneqoAhb31C5j42ERFwA==
   dependencies:
     "@types/node" "*"
 
