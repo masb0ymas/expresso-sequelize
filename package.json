@@ -108,7 +108,7 @@
     "@types/hpp": "^0.2.2",
     "@types/http-errors": "^1.8.1",
     "@types/i18next-fs-backend": "^1.0.0",
-    "@types/ioredis": "^4.27.1",
+    "@types/ioredis": "^4.27.4",
     "@types/jest": "^27.0.1",
     "@types/jsonwebtoken": "^8.5.4",
     "@types/lodash": "^4.14.172",
