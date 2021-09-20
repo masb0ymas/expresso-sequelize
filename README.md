@@ -2,9 +2,9 @@
 <h3 align="center">( Express TS Sequelize )</h3>
 <br/>
 
-[![version](https://img.shields.io/badge/version-2.25.1-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso/releases/tag/v2.25.1)
+[![version](https://img.shields.io/badge/version-3.0.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso/releases/tag/v3.0.0)
 [![Node](https://img.shields.io/badge/Node-12.18.0-informational?logo=node.js&color=43853D)](https://nodejs.org/docs/latest-v12.x/api/index.html)
-[![TypeScript](https://img.shields.io/badge/Typescript-4.3.2-informational?logo=typescript&color=2F74C0)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/Typescript-4.4.3-informational?logo=typescript&color=2F74C0)](https://www.typescriptlang.org/)
 [![Express](https://img.shields.io/badge/Express-4.17.1-informational?logo=express&color=B1B1B1)](https://expressjs.com/)
 [![documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/masb0ymas/expresso#readme)
 [![maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/masb0ymas/expresso/graphs/commit-activity)
@@ -15,9 +15,9 @@
 ## Prerequisites
 
 - npm >= `v6.x`
-- node >= `v10.x`
+- node >= `v12.x`
 - eslint `v7.x`
-- husky >= `v5.x`
+- husky >= `v7.x`
 - Familiar with TypeScript 💪
 
 ## Feature
