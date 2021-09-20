@@ -4,10 +4,10 @@ class ExampleJob {
   /**
    * Get Example Task
    */
-  public static getTask() {
-    // Run this job every 30 minutes
-    const task = cron.schedule('30 * * * *', async () => {
-      console.log('Running task every 30 minutes')
+  public static getTask(): cron.ScheduledTask {
+    // Run this job every midnight
+    const task = cron.schedule('59 23 * * *', async () => {
+      console.log('Running task every midnight')
     })
 
     return task

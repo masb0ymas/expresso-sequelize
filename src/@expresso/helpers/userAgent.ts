@@ -3,46 +3,40 @@ import { Request } from 'express'
 class userAgentHelper {
   /**
    *
-   * @param req - Request
+   * @param req
+   * @returns
    */
-  public static currentDevice(req: Request) {
+  public static currentDevice(req: Request): string | null {
     const { useragent } = req
 
-    if (useragent?.isDesktop) {
-      const device = 'Desktop'
-      return device
-    }
+    let device = null
 
     if (
-      useragent?.isTablet ||
-      useragent?.isAndroidTablet ||
+      useragent?.isTablet ??
+      useragent?.isAndroidTablet ??
       useragent?.isiPad
     ) {
-      const device = 'Tablet'
-      return device
+      device = 'Tablet'
+    } else if (useragent?.isMobile ?? useragent?.isBlackberry) {
+      device = 'Mobile'
+    } else if (useragent?.isSmartTV) {
+      device = 'Smart TV'
+    } else if (useragent?.isDesktop) {
+      device = 'Desktop'
     }
 
-    if (useragent?.isMobile || useragent?.isBlackberry) {
-      const device = 'Mobile'
-      return device
-    }
-
-    if (useragent?.isSmartTV) {
-      const device = 'Smart TV'
-      return device
-    }
-
-    return null
+    return device
   }
 
   /**
    *
-   * @param req - Request
+   * @param req
+   * @returns
    */
-  public static currentPlatform(req: Request) {
+  public static currentPlatform(req: Request): string {
     const { useragent } = req
 
-    let currentOS
+    let currentOS = null
 
     if (useragent?.os === 'unkown') {
       currentOS = this.currentDevice(req)

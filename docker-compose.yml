@@ -51,7 +51,7 @@ services:
     environment:
       ADMINER_DESIGN: flat
     ports:
-      - '${ADMINER_PORT}:8080'
+      - '8080:8080'
     networks:
       - express_network
 

@@ -1,13 +1,14 @@
 import { Request } from 'express'
-import { pickBy } from 'lodash'
+import _ from 'lodash'
 
 /**
  *
  * @param req
  * @param fields
+ * @returns
  */
-function pickSingleFieldMulter(req: Request, fields: string[]) {
-  return pickBy(
+function pickSingleFieldMulter(req: Request, fields: string[]): Partial<any> {
+  return _.pickBy(
     fields.reduce<any>((acc, field) => {
       acc[field] = req.getSingleArrayFile(field)
       return acc
@@ -22,9 +23,10 @@ function pickSingleFieldMulter(req: Request, fields: string[]) {
  *
  * @param req
  * @param fields
+ * @returns
  */
-function pickMultiFieldMulter(req: Request, fields: string[]) {
-  return pickBy(
+function pickMultiFieldMulter(req: Request, fields: string[]): Partial<any> {
+  return _.pickBy(
     fields.reduce<any>((acc, field) => {
       acc[field] = req.getMultiArrayFile(field)
       return acc

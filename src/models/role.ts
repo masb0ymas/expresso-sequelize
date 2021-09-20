@@ -1,6 +1,5 @@
+import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
 import { Model, Optional } from 'sequelize'
-import SequelizeAttributes from 'utils/SequelizeAttributes'
-
 import db from './_instance'
 
 export interface RoleAttributes {

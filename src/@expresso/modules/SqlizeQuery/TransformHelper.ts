@@ -5,11 +5,11 @@ class TransformHelper<T = any> {
     this.setValue(initialValue)
   }
 
-  setValue(value: any) {
+  setValue(value: any): void {
     this.value = value
   }
 
-  getValue() {
+  getValue(): T | undefined {
     return this.value
   }
 }

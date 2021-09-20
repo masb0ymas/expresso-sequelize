@@ -1,4 +1,4 @@
-import { isNil, get } from 'lodash'
+import _ from 'lodash'
 
 function getterObject<
   TObject extends object,
@@ -9,11 +9,11 @@ function getterObject<
   path?: TKey | [TKey] | string,
   defaultValue?: TDefault
 ): TObject | null | undefined {
-  if (isNil(path) || path === '') {
+  if (_.isNil(path) || path === '') {
     return object
   }
 
-  return get(object, path, defaultValue)
+  return _.get(object, path, defaultValue)
 }
 
 export default getterObject

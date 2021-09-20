@@ -13,7 +13,7 @@ import {
   ModelOptions,
   UpdateOptions,
 } from 'sequelize/types/lib/model'
-import { MyModels } from 'models'
+import { MyModels } from '@models/_instance'
 import { ValidationOptions } from 'sequelize/types/lib/instance-validator'
 import { HookReturn } from 'sequelize/types/lib/hooks'
 import { ModelManager } from 'sequelize/types/lib/model-manager'

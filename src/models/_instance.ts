@@ -1,15 +1,15 @@
-/* eslint-disable import/no-dynamic-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 import path from 'path'
 import Sequelize from 'sequelize'
 
-const config = require(path.join(`${__dirname}/../config/database`))
+const optConfig = require(path.join(`${__dirname}/../config/database`))
 
 const sequelize = new Sequelize.Sequelize(
-  config.database,
-  config.username,
-  config.password,
+  optConfig.database,
+  optConfig.username,
+  optConfig.password,
   {
-    ...config,
+    ...optConfig,
     logQueryParameters: true,
   }
 )

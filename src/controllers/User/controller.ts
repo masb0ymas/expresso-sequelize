@@ -1,62 +1,92 @@
-/* eslint-disable no-await-in-loop */
+import { BASE_URL_SERVER } from '@config/baseURL'
+import ConstRole from '@expresso/constants/ConstRole'
 import asyncHandler from '@expresso/helpers/asyncHandler'
-import { arrayFormatter } from '@expresso/helpers/Common'
+import { createDirNotExist, writeFileStream } from '@expresso/helpers/File'
+import { arrayFormatter } from '@expresso/helpers/Formatter'
 import useMulter, { allowedImage } from '@expresso/hooks/useMulter'
-import { FileAttributes } from '@expresso/interfaces/file'
-import BuildResponse from '@expresso/modules/Response/BuildResponse'
-import UserService from 'controllers/User/service'
-import UserRoleService from 'controllers/UserRole/service'
+import { FileAttributes } from '@expresso/interfaces/File'
+import HttpResponse from '@expresso/modules/Response/HttpResponse'
+import Authorization from '@middlewares/Authorization'
+import PermissionAccess from '@middlewares/PermissionAccess'
+import route from '@routes/v1'
 import { NextFunction, Request, Response } from 'express'
 import fs from 'fs'
-import { get } from 'lodash'
-import Authorization from 'middlewares/Authorization'
-import { UserInstance } from 'models/user'
-import routes from 'routes/public'
+import _ from 'lodash'
 import sharp from 'sharp'
-import createDirNotExist from 'utils/Directory'
+import UserService from './service'
 
 const baseDestination = 'public/uploads/profile'
 
-async function createDirectory() {
+async function createDirectory(): Promise<void> {
   const pathDirectory = [`./${baseDestination}/resize`]
-
   pathDirectory.map((x) => createDirNotExist(x))
 }
 
-routes.get(
+route.get(
   '/user',
-  Authorization,
-  asyncHandler(async function getAll(req: Request, res: Response) {
-    const data = await UserService.getAll(req)
-    const buildResponse = BuildResponse.get(data)
+  asyncHandler(async function findAll(req: Request, res: Response) {
+    const data = await UserService.findAll(req)
 
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.get(data)
+    return res.status(200).json(httpResponse)
   })
 )
 
-routes.get(
-  '/user/:id/session',
-  Authorization,
-  asyncHandler(async function getUserWithSession(req: Request, res: Response) {
-    const { id } = req.getParams()
-
-    const data = await UserService.getUserWithSession(id)
-    const buildResponse = BuildResponse.get({ data })
-
-    return res.status(200).json(buildResponse)
-  })
-)
-
-routes.get(
+route.get(
   '/user/:id',
-  Authorization,
-  asyncHandler(async function getOne(req: Request, res: Response) {
+  asyncHandler(async function findById(req: Request, res: Response) {
     const { id } = req.getParams()
+    const data = await UserService.findById(id)
 
-    const data = await UserService.getOne(id)
-    const buildResponse = BuildResponse.get({ data })
+    const httpResponse = HttpResponse.get({ data })
+    return res.status(200).json(httpResponse)
+  })
+)
 
-    return res.status(200).json(buildResponse)
+route.get(
+  '/user/:id/session',
+  asyncHandler(async function findUserWithSession(req: Request, res: Response) {
+    const { id } = req.getParams()
+    const data = await UserService.findUserWithSession(id)
+
+    const httpResponse = HttpResponse.get({ data })
+    return res.status(200).json(httpResponse)
+  })
+)
+
+route.get(
+  '/user/generate-excel',
+  Authorization,
+  PermissionAccess([ConstRole.ID_ADMIN]),
+  asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
+    const streamExcel = await UserService.generateExcel(req)
+    const filename = `${Date.now()}_generate_user.xlsx`
+
+    const outputPath = `public/generate/excel/${filename}`
+    writeFileStream(outputPath, streamExcel)
+    const url = outputPath.replace('public', BASE_URL_SERVER)
+
+    const httpResponse = HttpResponse.get({ data: { url } })
+    return res.status(200).json(httpResponse)
+  })
+)
+
+route.get(
+  '/user/export-excel',
+  Authorization,
+  PermissionAccess([ConstRole.ID_ADMIN]),
+  asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
+    const streamExcel = await UserService.generateExcel(req)
+    const filename = `${Date.now()}_export_user.xlsx`
+
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    res.setHeader('Content-Disposition', `attachment; filename=${filename}`)
+    res.setHeader('Content-Length', streamExcel.length)
+
+    return res.send(streamExcel)
   })
 )
 
@@ -80,25 +110,21 @@ const setFileToBody = asyncHandler(async function setFileToBody(
   next()
 })
 
-routes.post(
+route.post(
   '/user',
   Authorization,
+  PermissionAccess([ConstRole.ID_ADMIN]),
   uploadFile,
   setFileToBody,
-  asyncHandler(async function createUser(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
+  asyncHandler(async function created(req: Request, res: Response) {
+    await createDirectory()
     const txn = await req.getTransaction()
     const formData = req.getBody()
 
-    const fieldImage = get(formData, 'profileImage', {}) as FileAttributes
+    const fieldImage = _.get(formData, 'profileImage', {}) as FileAttributes
     const pathImage = fieldImage.path
       ? fieldImage.path.replace('public', '')
       : null
-
-    await createDirectory()
 
     let pathPhotoResize
 
@@ -123,191 +149,110 @@ routes.post(
       picturePath: profilePath,
     }
 
-    const data = await UserService.create(newFormData, txn)
-    req.setState({ userData: data, newFormData })
-
-    next()
-  }),
-  asyncHandler(async function createUserRole(req: Request, res: Response) {
-    const txn = await req.getTransaction()
-    const data = req.getState('userData') as UserInstance
-    const Roles = req.getState('formData.Roles') as string[]
-
-    // Check Roles is Array, format = ['id_1', 'id_2']
-    const arrayRoles = arrayFormatter(Roles)
-
-    const listUserRole = []
-    for (let i = 0; i < arrayRoles.length; i += 1) {
-      const RoleId: string = arrayRoles[i]
-      const formData = {
-        UserId: data.id,
-        RoleId,
-      }
-
-      listUserRole.push(formData)
-    }
-    await UserRoleService.bulkCreate(listUserRole, txn)
+    const data = await UserService.created(newFormData, txn)
 
     await txn.commit()
-    const buildResponse = BuildResponse.created({ data })
-
-    return res.status(201).json(buildResponse)
+    const httpResponse = HttpResponse.created({ data })
+    return res.status(201).json(httpResponse)
   })
 )
 
-routes.put(
+route.put(
   '/user/:id',
-  Authorization,
-  uploadFile,
-  setFileToBody,
-  asyncHandler(async function updateUser(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
-    const txn = await req.getTransaction()
+  asyncHandler(async function created(req: Request, res: Response) {
+    const { id } = req.getParams()
     const formData = req.getBody()
+
+    const data = await UserService.updated(id, formData)
+
+    const httpResponse = HttpResponse.updated({ data })
+    return res.status(200).json(httpResponse)
+  })
+)
+
+route.put(
+  '/user/restore/:id',
+  Authorization,
+  PermissionAccess([ConstRole.ID_ADMIN]),
+  asyncHandler(async function restore(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    const fieldImage = get(formData, 'profileImage', {}) as FileAttributes
-    const pathImage = fieldImage.path
-      ? fieldImage.path.replace('public', '')
-      : null
+    await UserService.restore(id)
 
-    await createDirectory()
-
-    let pathPhotoResize
-
-    if (pathImage) {
-      pathPhotoResize = `${baseDestination}/resize/${fieldImage.filename}`
-
-      await sharp(fieldImage.path)
-        .resize(500)
-        .jpeg({ quality: 50 })
-        .png({ quality: 50 })
-        .toFile(pathPhotoResize)
-
-      fs.unlinkSync(fieldImage.path)
-    }
-
-    const profilePath = pathPhotoResize
-      ? pathPhotoResize.replace('public', '')
-      : pathImage
-
-    const newFormData = {
-      ...formData,
-      picturePath: profilePath,
-    }
-
-    const data = await UserService.update(id, newFormData, txn)
-    req.setState({ userData: data, newFormData })
-
-    next()
-  }),
-  asyncHandler(async function updateUserRole(req: Request, res: Response) {
-    const txn = await req.getTransaction()
-    const data = req.getState('userData') as UserInstance
-    const Roles = req.getState('formData.Roles') as string[]
-
-    // Check Roles is Array, format = ['id_1', 'id_2']
-    const arrayRoles = arrayFormatter(Roles)
-
-    // Destroy data not in UserRole
-    await UserRoleService.deleteNotInRoleId(data.id, arrayRoles)
-
-    for (let i = 0; i < arrayRoles.length; i += 1) {
-      const RoleId: string = arrayRoles[i]
-      const formRole = {
-        UserId: data.id,
-        RoleId,
-      }
-
-      await UserRoleService.findOrCreate(formRole)
-    }
-    await txn.commit()
-    const buildResponse = BuildResponse.updated({ data })
-
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.updated({})
+    return res.status(200).json(httpResponse)
   })
 )
 
-routes.post(
-  '/user/multiple/soft-delete',
+route.delete(
+  '/user/soft-delete/:id',
   Authorization,
-  asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
-    const formData = req.getBody()
-    const arrayIds = arrayFormatter(formData.ids)
+  PermissionAccess([ConstRole.ID_ADMIN]),
+  asyncHandler(async function softDelete(req: Request, res: Response) {
+    const { id } = req.getParams()
 
-    await UserService.multipleDelete(arrayIds)
-    const buildResponse = BuildResponse.deleted({})
+    await UserService.deleted(id)
 
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.deleted({})
+    return res.status(200).json(httpResponse)
   })
 )
 
-routes.post(
+route.delete(
+  '/user/force-delete/:id',
+  Authorization,
+  PermissionAccess([ConstRole.ID_ADMIN]),
+  asyncHandler(async function forceDelete(req: Request, res: Response) {
+    const { id } = req.getParams()
+
+    await UserService.deleted(id, true)
+
+    const httpResponse = HttpResponse.deleted({})
+    return res.status(200).json(httpResponse)
+  })
+)
+
+route.post(
   '/user/multiple/restore',
   Authorization,
+  PermissionAccess([ConstRole.ID_ADMIN]),
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
     await UserService.multipleRestore(arrayIds)
-    const buildResponse = BuildResponse.updated({})
 
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.updated({})
+    return res.status(200).json(httpResponse)
   })
 )
 
-routes.post(
-  '/user/multiple/force-delete',
+route.post(
+  '/user/multiple/soft-delete',
   Authorization,
-  asyncHandler(async function multipleForceDelete(req: Request, res: Response) {
+  PermissionAccess([ConstRole.ID_ADMIN]),
+  asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await UserService.multipleDelete(arrayIds, true)
-    const buildResponse = BuildResponse.deleted({})
+    await UserService.multipleDeleted(arrayIds)
 
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.deleted({})
+    return res.status(200).json(httpResponse)
   })
 )
 
-routes.delete(
-  '/user/soft-delete/:id',
+route.post(
+  '/user/multiple/force-delete',
   Authorization,
-  asyncHandler(async function softDelete(req: Request, res: Response) {
-    const { id } = req.getParams()
+  PermissionAccess([ConstRole.ID_ADMIN]),
+  asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
+    const formData = req.getBody()
+    const arrayIds = arrayFormatter(formData.ids)
 
-    await UserService.delete(id)
-    const buildResponse = BuildResponse.deleted({})
+    await UserService.multipleDeleted(arrayIds, true)
 
-    return res.status(200).json(buildResponse)
-  })
-)
-
-routes.put(
-  '/user/restore/:id',
-  Authorization,
-  asyncHandler(async function restore(req: Request, res: Response) {
-    const { id } = req.getParams()
-
-    await UserService.restore(id)
-    const buildResponse = BuildResponse.updated({})
-
-    return res.status(200).json(buildResponse)
-  })
-)
-
-routes.delete(
-  '/user/force-delete/:id',
-  Authorization,
-  asyncHandler(async function forceDelete(req: Request, res: Response) {
-    const { id } = req.getParams()
-
-    await UserService.delete(id, true)
-    const buildResponse = BuildResponse.deleted({})
-
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.deleted({})
+    return res.status(200).json(httpResponse)
   })
 )

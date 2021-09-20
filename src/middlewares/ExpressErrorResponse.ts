@@ -1,10 +1,17 @@
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { NextFunction, Request, Response } from 'express'
-import { isObject } from 'lodash'
-import multer from 'multer'
+import _ from 'lodash'
 
-function generateErrorResponseError(e: Error, code: Number) {
-  return isObject(e.message) ? e.message : { code, message: e.message }
+function generateErrorResponseError(
+  e: Error,
+  code: Number
+):
+  | string
+  | {
+      code: Number
+      message: string
+    } {
+  return _.isObject(e.message) ? e.message : { code, message: e.message }
 }
 
 async function ExpressErrorResponse(
@@ -12,11 +19,7 @@ async function ExpressErrorResponse(
   req: Request,
   res: Response,
   next: NextFunction
-) {
-  if (err instanceof multer.MulterError) {
-    return res.status(400).json(generateErrorResponseError(err, 400))
-  }
-
+): Promise<Response<any, Record<string, any>> | undefined> {
   if (err instanceof ResponseError.BaseResponse) {
     return res
       .status(err.statusCode)

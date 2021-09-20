@@ -1,16 +1,18 @@
-import BuildResponse from '@expresso/modules/Response/BuildResponse'
+import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import { BASE_URL_SERVER } from 'config/baseURL'
-import express, { NextFunction, Request, Response } from 'express'
-import publicRoute from 'routes/public'
+import { BASE_URL_SERVER } from '@config/baseURL'
+import Express, { Request, Response } from 'express'
+import v1Route from '@routes/v1'
 
 const { NODE_ENV } = process.env
-const router = express.Router()
+const route = Express.Router()
 
-/* Home Page. */
-router.get('/', function (req: Request, res: Response, next: NextFunction) {
+/**
+ * Index Route
+ */
+route.get('/', function (req: Request, res: Response) {
   let responseData: any = {
-    message: 'expresso ( Express TS Sequelize )',
+    message: 'expresso',
     maintaner: 'masb0ymas, <n.fajri@outlook.com>',
     source: 'https://github.com/masb0ymas/expresso',
   }
@@ -22,16 +24,17 @@ router.get('/', function (req: Request, res: Response, next: NextFunction) {
     }
   }
 
-  const buildResponse = BuildResponse.get(responseData)
-  return res.json(buildResponse)
+  const httpResponse = HttpResponse.get(responseData)
+  return res.json(httpResponse)
 })
 
 /* Forbidden Page. */
-router.get('/v1', function (req: Request, res: Response, next: NextFunction) {
-  throw new ResponseError.Forbidden('forbidden, wrong access endpoint')
+route.get('/v1', function (req: Request, res: Response) {
+  throw new ResponseError.Forbidden(
+    `Forbidden, wrong access endpoint: ${req.url}`
+  )
 })
 
-/* Declare Route */
-router.use('/v1', publicRoute)
+route.use('/v1', v1Route)
 
-export default router
+export default route

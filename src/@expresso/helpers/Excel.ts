@@ -12,15 +12,15 @@ class Excel {
    *
    * @param headers
    * @param data
+   * @returns
    */
   public static async generate(
-    headers: Partial<ExcelJS.Column>[],
+    headers: Array<Partial<ExcelJS.Column>>,
     data: any[]
   ): Promise<Buffer> {
     const workBook = new ExcelJS.stream.xlsx.WorkbookWriter({})
     const sheet = workBook.addWorksheet('My Worksheet')
 
-    // @ts-ignore
     sheet.columns = headers
     for (let i = 0; i < data.length; i += 1) {
       const tempData = { no: i + 1, ...data[i] }
@@ -29,7 +29,7 @@ class Excel {
     sheet.getRow(1).font = { bold: true }
     sheet.commit()
 
-    return new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       workBook
         .commit()
         .then(() => {
@@ -46,10 +46,15 @@ class Excel {
   /**
    *
    * @param path
-   * @param options
-   * options is used when there is only 1 sheet
+   * @param options options is used when there is only 1 sheet
+   * @returns
    */
-  public static convertToJson(path: string | Buffer, options?: OptionConvert) {
+  public static convertToJson(
+    path: string | Buffer,
+    options?: OptionConvert
+  ): {
+    [key: string]: any[]
+  } {
     const resultConvert = excelToJson({
       source: fs.readFileSync(path), // fs.readFileSync return a Buffer
       header: options?.header || {

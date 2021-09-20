@@ -1,8 +1,9 @@
+import chalk from 'chalk'
 import { NextFunction, Request, Response } from 'express'
 import { get } from 'lodash'
 import { BaseError, EmptyResultError, ValidationError } from 'sequelize'
 
-function msg(message: string) {
+function msg(message: string): string {
   return `Sequelize Error: ${message}`
 }
 
@@ -11,7 +12,7 @@ async function ExpressErrorSequelize(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): Promise<Response<any, Record<string, any>> | undefined> {
   if (err instanceof BaseError) {
     if (err instanceof EmptyResultError) {
       return res.status(404).json({
@@ -21,9 +22,9 @@ async function ExpressErrorSequelize(
     }
 
     if (err instanceof ValidationError) {
-      console.log('ERROR SEQUELIZE VALIDATION!!!')
       const errors: any[] = get(err, 'errors', [])
       const errorMessage = get(errors, '0.message', null)
+      console.log(chalk.red('Sequelize Error:'), chalk.green(errorMessage))
 
       const dataError = {
         code: 400,

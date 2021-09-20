@@ -1,29 +1,30 @@
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import RedisProvider from '@expresso/providers/Redis'
 import axios, { AxiosError, AxiosInstance } from 'axios'
-import { get, isEmpty } from 'lodash'
+import chalk from 'chalk'
+import dotenv from 'dotenv'
+import _ from 'lodash'
+
+dotenv.config()
 
 const Redis = new RedisProvider()
 
-const AXIOS_TIMEOUT = process.env.AXIOS_TIMEOUT || 5000
+const AXIOS_TIMEOUT = Number(process.env.AXIOS_TIMEOUT) ?? 5000
 
-/**
- *
- * @param baseURL
- */
-function createAxios(baseURL: string): AxiosInstance {
+function createAxios(baseUri: string): AxiosInstance {
   const instanceAxios = axios.create({
-    baseURL,
-    timeout: Number(AXIOS_TIMEOUT),
+    baseURL: baseUri,
+    timeout: AXIOS_TIMEOUT,
   })
 
+  // interceptor request
   instanceAxios.interceptors.request.use((config) => {
     const curConfig = { ...config }
 
     // ALWAYS READ UPDATED TOKEN
     const cacheToken = Redis.get('token')
 
-    if (!isEmpty(cacheToken)) {
+    if (!_.isEmpty(cacheToken)) {
       try {
         curConfig.headers.Authorization = cacheToken
       } catch (e) {
@@ -34,39 +35,44 @@ function createAxios(baseURL: string): AxiosInstance {
     return curConfig
   })
 
+  // interceptor response
   instanceAxios.interceptors.response.use(
     function onSuccess(response) {
       return response
     },
-    function onError(error: AxiosError) {
-      const statusCode = get(error, 'response.status', null)
-      const message = get(error, 'response.data.message', null)
+
+    async function onError(error: AxiosError): Promise<never> {
+      const statusCode = _.get(error, 'response.status', null)
+      const message = _.get(error, 'response.data.message', null)
+
+      const errAxios = (type: string): string => chalk.red(`Axios Err: ${type}`)
 
       if (statusCode === 401) {
-        console.log('Unauhtorized')
+        console.log(`${errAxios('Unauhtorized')}, ${message}`)
         throw new ResponseError.Unauthorized(message)
       }
 
       if (statusCode === 400) {
-        console.log('Bad Request')
+        console.log(`${errAxios('Bad Request')}, ${message}`)
         throw new ResponseError.BadRequest(message)
       }
 
       if (statusCode === 404) {
-        console.log('Not Found')
+        console.log(`${errAxios('Not Found')}, ${message}`)
         throw new ResponseError.NotFound(message)
       }
 
       const handleError = error?.response?.headers?.handleError
       if (!handleError || !handleError(error)) {
         if (error.code === 'ECONNREFUSED') {
-          throw new ResponseError.InternalServer('service unavailable')
+          console.log(`${errAxios('Service Unavailable')}, ${message}`)
+          throw new ResponseError.InternalServer('Service Unavailable')
         }
 
-        console.log(error.message)
+        console.log(`${errAxios(error.message)}`)
         throw new ResponseError.BadRequest(error.message)
       }
-      return Promise.reject(error)
+      return await Promise.reject(error)
     }
   )
 
@@ -74,26 +80,22 @@ function createAxios(baseURL: string): AxiosInstance {
 }
 
 class FetchApi {
-  private axiosDefault: AxiosInstance
-
-  private baseUri: string
+  private axiosInstance: AxiosInstance | null
+  private readonly baseUri: string
 
   constructor(baseUri: string) {
-    // @ts-ignore
-    this.axiosDefault = null
+    this.axiosInstance = null
     this.baseUri = baseUri
   }
 
-  /**
-   * axios instance default
-   */
-  get default(): AxiosInstance {
-    if (!this.axiosDefault) {
-      this.axiosDefault = createAxios(this.baseUri)
-      return this.axiosDefault
+  public get default(): AxiosInstance {
+    if (!this.axiosInstance) {
+      this.axiosInstance = createAxios(this.baseUri)
+
+      return this.axiosInstance
     }
 
-    return this.axiosDefault
+    return this.axiosInstance
   }
 }
 

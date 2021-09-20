@@ -1,7 +1,7 @@
-/* eslint-disable no-param-reassign */
-import { Request, Express } from 'express'
-import { get, set } from 'lodash'
-import db from 'models/_instance'
+/* eslint-disable @typescript-eslint/no-dynamic-delete */
+import db from '@models/_instance'
+import { Request } from 'express'
+import _ from 'lodash'
 import { Transaction } from 'sequelize'
 import getterObject from './getterObject'
 import Multers from './Multer'
@@ -12,52 +12,46 @@ class withState {
   constructor(req: Request) {
     this.req = req
     this.req.setState = this.setState.bind(this)
+    this.req.setBody = this.setBody.bind(this)
     this.req.setFieldState = this.setFieldState.bind(this)
     this.req.getState = this.getState.bind(this)
+    this.req.getCookies = this.getCookies.bind(this)
     this.req.getHeaders = this.getHeaders.bind(this)
     this.req.getQuery = this.getQuery.bind(this)
     this.req.getQueryPolluted = this.getQueryPolluted.bind(this)
     this.req.getParams = this.getParams.bind(this)
-    this.req.getCookies = this.getCookies.bind(this)
     this.req.getBody = this.getBody.bind(this)
-    this.req.setBody = this.setBody.bind(this)
+    this.req.getSingleArrayFile = this.getSingleArrayFile.bind(this)
+    this.req.getMultiArrayFile = this.getMultiArrayFile.bind(this)
     this.req.getTransaction = this.getTransaction.bind(this)
     this.req.rollbackTransactions = this.rollbackTransactions.bind(this)
-    this.req.getSingleArrayFile = this.getSingleArrayFile.bind(this)
-    this.req.pickSingleFieldMulter = this.pickSingleFieldMulter.bind(this)
-    this.req.getMultiArrayFile = this.getMultiArrayFile.bind(this)
-    this.req.pickMultiFieldMulter = this.pickMultiFieldMulter.bind(this)
     this.req._transaction = {}
   }
 
-  setState(val: object) {
+  setState(value: object): void {
     this.req.state = {
       ...(this.req.state || {}),
-      ...val,
+      ...value,
     }
   }
 
-  setBody(obj: object) {
+  setBody(value: object): void {
     this.req.body = {
       ...this.req.body,
-      ...obj,
+      ...value,
     }
   }
 
-  setFieldState(key: any, val: any) {
-    set(this.req.state, key, val)
+  setFieldState(key: any, value: any): void {
+    _.set(this.req.state, key, value)
   }
 
   getState(path: any, defaultValue?: any): any {
-    return get(this.req.state, path, defaultValue)
+    return _.get(this.req.state, path, defaultValue)
   }
 
   getCookies(path?: any, defaultValue?: any): any {
     return getterObject(this.req.cookies, path, defaultValue)
-  }
-
-  getBody(path?: any, defaultValue?: any): any {
-    return getterObject(this.req.body, path, defaultValue)
   }
 
   getHeaders(path?: any, defaultValue?: any): any {
@@ -69,7 +63,7 @@ class withState {
   }
 
   getQueryPolluted(path?: any, defaultValue?: any): any {
-    // @ts-ignore
+    // @ts-expect-error
     return getterObject(this.req.queryPolluted, path, defaultValue)
   }
 
@@ -77,21 +71,8 @@ class withState {
     return getterObject(this.req.params, path, defaultValue)
   }
 
-  getSingleArrayFile(name: string) {
-    const data = getterObject(
-      this.req,
-      ['files', name, '0'].join('.')
-    ) as unknown as Express.Multer.File
-    if (data) {
-      return data
-    }
-  }
-
-  getMultiArrayFile(name: string) {
-    const data = get(this.req.files, name, []) as Express.Multer.File
-    if (data) {
-      return data
-    }
+  getBody(path?: any, defaultValue?: any): any {
+    return getterObject(this.req.body, path, defaultValue)
   }
 
   async getTransaction(id?: any): Promise<Transaction> {
@@ -105,24 +86,42 @@ class withState {
     return newTxn
   }
 
-  async rollbackTransactions() {
+  async rollbackTransactions(): Promise<void> {
     const { _transaction } = this.req
 
     const entryTransactions = Object.entries(_transaction)
 
     for (let i = 0; i < entryTransactions.length; i += 1) {
       const [id, value] = entryTransactions[i] as [any, Transaction]
-      // eslint-disable-next-line no-await-in-loop
+
       await value.rollback()
       delete _transaction[id]
     }
   }
 
-  pickSingleFieldMulter(fields: string[]) {
+  getSingleArrayFile(name: string): any {
+    const data = getterObject(
+      this.req,
+      ['files', name, '0'].join('.')
+    ) as unknown as Express.Multer.File
+    if (data) {
+      return data
+    }
+  }
+
+  pickSingleFieldMulter(fields: string[]): Partial<any> {
     return Multers.pickSingleFieldMulter(this.req, fields)
   }
 
-  pickMultiFieldMulter(fields: string[]) {
+  getMultiArrayFile(name: string): any {
+    const data = _.get(this.req.files, name, []) as Express.Multer.File
+
+    if (data) {
+      return data
+    }
+  }
+
+  pickMultiFieldMulter(fields: string[]): Partial<any> {
     return Multers.pickMultiFieldMulter(this.req, fields)
   }
 }

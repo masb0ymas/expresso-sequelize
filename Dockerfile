@@ -33,7 +33,7 @@ RUN yarn
 COPY . .
 
 # Build app
-RUN yarn build:docker
+RUN yarn build
 
 EXPOSE 8000
 

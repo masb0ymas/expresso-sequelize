@@ -1,17 +1,11 @@
 import Role from './role'
-import User from './user'
-import UserRole from './userrole'
-import RefreshToken from './refreshtoken'
 import Session from './session'
-import Hobby from './hobby'
+import User from './user'
 
 const models = {
   Role,
   User,
-  UserRole,
-  RefreshToken,
   Session,
-  Hobby,
 }
 
 export default models

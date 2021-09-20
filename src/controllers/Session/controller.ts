@@ -1,70 +1,56 @@
 import asyncHandler from '@expresso/helpers/asyncHandler'
-import BuildResponse from '@expresso/modules/Response/BuildResponse'
-import SessionService from 'controllers/Session/service'
+import HttpResponse from '@expresso/modules/Response/HttpResponse'
+import Authorization from '@middlewares/Authorization'
+import route from '@routes/v1'
 import { Request, Response } from 'express'
-import Authorization from 'middlewares/Authorization'
-import routes from 'routes/public'
+import SessionService from './service'
 
-routes.get(
+route.get(
   '/session',
   Authorization,
-  asyncHandler(async function getAll(req: Request, res: Response) {
-    const data = await SessionService.getAll(req)
-    const buildResponse = BuildResponse.get(data)
+  asyncHandler(async function findAll(req: Request, res: Response) {
+    const data = await SessionService.findAll(req)
 
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.get(data)
+    return res.status(200).json(httpResponse)
   })
 )
 
-routes.get(
+route.get(
   '/session/:id',
   Authorization,
-  asyncHandler(async function getOne(req: Request, res: Response) {
+  asyncHandler(async function findById(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    const data = await SessionService.getOne(id)
-    const buildResponse = BuildResponse.get({ data })
+    const data = await SessionService.findById(id)
 
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.get({ data })
+    return res.status(200).json(httpResponse)
   })
 )
 
-routes.post(
+route.post(
   '/session',
   Authorization,
-  asyncHandler(async function createData(req: Request, res: Response) {
+  asyncHandler(async function created(req: Request, res: Response) {
     const formData = req.getBody()
 
-    const data = await SessionService.create(formData)
-    const buildResponse = BuildResponse.created({ data })
+    const data = await SessionService.created(formData)
 
-    return res.status(201).json(buildResponse)
+    const httpResponse = HttpResponse.created({ data })
+    return res.status(201).json(httpResponse)
   })
 )
 
-routes.put(
+route.delete(
   '/session/:id',
   Authorization,
-  asyncHandler(async function updateData(req: Request, res: Response) {
-    const { id } = req.getParams()
-    const formData = req.getBody()
-
-    const data = await SessionService.update(id, formData)
-    const buildResponse = BuildResponse.updated({ data })
-
-    return res.status(200).json(buildResponse)
-  })
-)
-
-routes.delete(
-  '/session/:id',
-  Authorization,
-  asyncHandler(async function forceDelete(req: Request, res: Response) {
+  asyncHandler(async function deleted(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    await SessionService.delete(id)
-    const buildResponse = BuildResponse.deleted({})
+    await SessionService.deleted(id)
 
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.deleted({})
+    return res.status(200).json(httpResponse)
   })
 )

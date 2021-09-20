@@ -1,33 +1,62 @@
 import crypto from 'crypto'
 import ms from 'ms'
 
-const { SECRET_OTP, EXPIRED_OTP }: any = process.env
+const { SECRET_OTP }: any = process.env
+const EXPIRED_OTP = process.env.EXPIRED_OTP ?? '5m'
 
-type HashOTPAttributes = {
+interface HashOTPAttributes {
   phone: string
   otp: string | number
-  hash?: string
 }
 
-export function createHashOTP(params: HashOTPAttributes) {
+interface VerifyHashOTPAttributes extends HashOTPAttributes {
+  hash: string
+}
+
+/**
+ * Generate Random OTP
+ * @returns
+ */
+export function getRandomOTP(): string {
+  // which stores all digits
+  const digits = '0123456789'
+  let OTP = ''
+
+  for (let i = 0; i < 6; i += 1) {
+    OTP += digits[Math.floor(Math.random() * 10)]
+  }
+
+  return OTP
+}
+
+/**
+ *
+ * @param params
+ * @returns
+ */
+export function createHashOTP(params: HashOTPAttributes): string {
   const { phone, otp } = params
 
   const ttl = ms(EXPIRED_OTP) // 5 Minutes in miliseconds
-  const expires = Date.now() + ttl // timestamp to 5 minutes in the future
+  const expires = Date.now() + Number(ttl) // timestamp to 5 minutes in the future
   const data = `${phone}.${otp}.${expires}` // phone.otp.expiry_timestamp
 
   const hash = crypto
     .createHmac('sha256', SECRET_OTP)
     .update(data)
     .digest('hex') // creating SHA256 hash of the data
-  const fullHash = `${hash}.${expires}` // Hash.expires, format to send to the user
+  const resultHash = `${hash}.${expires}` // Hash.expires, format to send to the user
 
-  return fullHash
+  return resultHash
 }
 
-export function verifyHashOTP(params: HashOTPAttributes) {
+/**
+ *
+ * @param params
+ * @returns
+ */
+export function verifyHashOTP(params: VerifyHashOTPAttributes): boolean {
   const { phone, otp, hash } = params
-  // @ts-ignore
   const [hashValue, expires] = hash.split('.')
 
   // Check if expiry time has passed

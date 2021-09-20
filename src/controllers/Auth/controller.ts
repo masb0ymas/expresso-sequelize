@@ -1,93 +1,91 @@
+import SessionService from '@controllers/Session/service'
 import asyncHandler from '@expresso/helpers/asyncHandler'
+import { validateEmpty } from '@expresso/helpers/Formatter'
 import { currentToken } from '@expresso/helpers/Token'
-import BuildResponse from '@expresso/modules/Response/BuildResponse'
-import AuthService from 'controllers/Auth/service'
-import RefreshTokenService from 'controllers/RefreshToken/service'
+import userAgentHelper from '@expresso/helpers/userAgent'
+import HttpResponse from '@expresso/modules/Response/HttpResponse'
+import ResponseError from '@expresso/modules/Response/ResponseError'
+import Authorization from '@middlewares/Authorization'
+import { UserLoginAttributes } from '@models/user'
+import route from '@routes/v1'
 import { Request, Response } from 'express'
-import Authorization from 'middlewares/Authorization'
-import { UserLoginAttributes } from 'models/user'
-import routes from 'routes/public'
+import AuthService from './service'
 
-routes.post(
+route.post(
   '/auth/sign-up',
   asyncHandler(async function signUp(req: Request, res: Response) {
     const formData = req.getBody()
-    const data = await AuthService.signUp(formData)
-    const buildResponse = BuildResponse.get({ message: data.message })
 
-    return res.status(201).json(buildResponse)
+    const data = await AuthService.signUp(formData)
+
+    const httpResponse = HttpResponse.created({ data })
+    return res.status(201).json(httpResponse)
   })
 )
 
-routes.post(
+route.post(
   '/auth/sign-in',
   asyncHandler(async function signIn(req: Request, res: Response) {
     const formData = req.getBody()
-    const data = await AuthService.signIn(req, formData)
-    const buildResponse = BuildResponse.get(data)
+
+    const data = await AuthService.signIn(formData)
+    const httpResponse = HttpResponse.get(data)
+
+    // create session
+    await SessionService.createOrUpdate({
+      UserId: data.user.uid,
+      token: data.accessToken,
+      ipAddress: req.clientIp?.replace('::ffff:', ''),
+      device: userAgentHelper.currentDevice(req),
+      platform: userAgentHelper.currentPlatform(req),
+      latitude: validateEmpty(formData.latitude),
+      longitude: validateEmpty(formData.longitude),
+    })
 
     return res
+      .status(200)
       .cookie('token', data.accessToken, {
-        maxAge: Number(data.expiresIn) * 1000, // 7 Days
+        maxAge: Number(data.expiresIn) * 1000,
         httpOnly: true,
         path: '/v1',
         secure: process.env.NODE_ENV === 'production',
       })
-      .json(buildResponse)
+      .json(httpResponse)
   })
 )
 
-routes.post(
-  '/auth/refresh-token',
-  Authorization,
-  asyncHandler(async function authRefreshToken(req: Request, res: Response) {
-    const { email, refreshToken } = req.getBody()
-
-    const data = await RefreshTokenService.getAccessToken(email, refreshToken)
-    const buildResponse = BuildResponse.get(data)
-
-    return res.status(200).json(buildResponse)
-  })
-)
-
-routes.get(
-  '/profile',
-  Authorization,
-  asyncHandler(async function getProfile(req: Request, res: Response) {
-    const userData = req.getState('userLogin') as UserLoginAttributes
-
-    const data = await AuthService.profile(userData.uid)
-    const buildResponse = BuildResponse.get({ data })
-
-    return res.status(200).json(buildResponse)
-  })
-)
-
-routes.get(
+route.get(
   '/auth/verify-session',
   Authorization,
-  asyncHandler(async function getProfile(req: Request, res: Response) {
-    const userData = req.getState('userLogin') as UserLoginAttributes
+  asyncHandler(async function verifySession(req: Request, res: Response) {
     const getToken = currentToken(req)
+    const userLogin = req.getState('userLogin') as UserLoginAttributes
 
-    const data = await AuthService.verifySession(userData.uid, getToken)
-    const buildResponse = BuildResponse.get({ data })
+    const data = await AuthService.verifySession(userLogin.uid, getToken)
 
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.get({ data })
+    return res.status(200).json(httpResponse)
   })
 )
 
-routes.post(
+route.post(
   '/logout',
   Authorization,
   asyncHandler(async function logout(req: Request, res: Response) {
-    const { UserId } = req.getBody()
-    const userData = req.getState('userLogin') as UserLoginAttributes
+    const formData = req.getBody()
     const getToken = currentToken(req)
+    const userLogin = req.getState('userLogin') as UserLoginAttributes
 
-    const message = await AuthService.logout(UserId, userData, getToken)
-    const buildResponse = BuildResponse.deleted({ message })
+    if (userLogin.uid !== formData.UserId) {
+      throw new ResponseError.BadRequest('invalid user login')
+    }
 
-    return res.clearCookie('token', { path: '/v1' }).json(buildResponse)
+    const message = await AuthService.logout(userLogin.uid, getToken)
+    const httpResponse = HttpResponse.get({ message })
+
+    return res
+      .status(200)
+      .clearCookie('token', { path: '/v1' })
+      .json(httpResponse)
   })
 )

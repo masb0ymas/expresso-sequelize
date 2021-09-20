@@ -1,22 +1,39 @@
-/* eslint-disable no-unused-vars */
-import SqlizeQuery from '@expresso/modules/SqlizeQuery/index'
-import {
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import SqlizeQuery, {
   getPrimitiveDataType,
   transfromIncludeToQueryable,
 } from '@expresso/modules/SqlizeQuery/SqlizeQuery'
-import { cloneDeep, unset } from 'lodash'
+import dotenv from 'dotenv'
+import _ from 'lodash'
 import { Includeable, IncludeOptions, ModelCtor, Op } from 'sequelize'
 import { validate as uuidValidate } from 'uuid'
+import {
+  FilterIncludeHandledOnlyProps,
+  GenerateOptions,
+  ReqGenerate,
+} from './interface'
 
-require('dotenv').config()
+dotenv.config()
 
 const { DB_CONNECTION } = process.env
 
-const parserString = (value: any) => {
+/**
+ *
+ * @param value
+ * @returns
+ */
+const parserString = (value: any): any => {
   return typeof value === 'string' ? JSON.parse(value) : value || []
 }
 
-function getExactQueryIdModel(id: string, prefixName: any) {
+/**
+ *
+ * @param id
+ * @param prefixName
+ * @returns
+ */
+function getExactQueryIdModel(id: string, prefixName: any): string | undefined {
   if (id === undefined) {
     return undefined
   }
@@ -44,7 +61,13 @@ function getExactQueryIdModel(id: string, prefixName: any) {
   return curId
 }
 
-function getFilteredQuery(model?: ModelCtor<any>, prefixName?: string) {
+/**
+ *
+ * @param model
+ * @param prefixName
+ * @returns
+ */
+function getFilteredQuery(model?: ModelCtor<any>, prefixName?: string): any {
   const sequelizeQuery = new SqlizeQuery()
   sequelizeQuery.addValueParser(parserString)
   sequelizeQuery.addQueryBuilder(
@@ -93,7 +116,11 @@ function getFilteredQuery(model?: ModelCtor<any>, prefixName?: string) {
   return sequelizeQuery
 }
 
-function getSortedQuery() {
+/**
+ * Get Sorted Query
+ * @returns
+ */
+function getSortedQuery(): SqlizeQuery {
   const sequelizeQuery = new SqlizeQuery()
   sequelizeQuery.addValueParser(parserString)
   sequelizeQuery.addQueryBuilder((value, queryHelper) => {
@@ -111,7 +138,11 @@ function getSortedQuery() {
   return sequelizeQuery
 }
 
-function getPaginationQuery() {
+/**
+ * Get Pagination Query
+ * @returns
+ */
+function getPaginationQuery(): SqlizeQuery {
   const sequelizeQuery = new SqlizeQuery()
   const offsetId = 'page'
   const limitId = 'pageSize'
@@ -171,13 +202,14 @@ function getIncludeFilteredQuery(
   }
 }
 
-function filterIncludeHandledOnly({
-  include,
-  filteredInclude,
-}: {
-  include: any
-  filteredInclude?: any
-}) {
+/**
+ *
+ * @param props
+ * @returns
+ */
+function filterIncludeHandledOnly(props: FilterIncludeHandledOnlyProps): any {
+  const { include, filteredInclude } = props
+
   const curFilteredInclude = filteredInclude || []
   if (include) {
     for (let i = 0; i < include.length; i += 1) {
@@ -190,8 +222,8 @@ function filterIncludeHandledOnly({
       }
 
       if (curModel.where || curModel.required || childIncludes.length > 0) {
-        const clonedInclude = cloneDeep(curModel)
-        unset(clonedInclude, 'include')
+        const clonedInclude = _.cloneDeep(curModel)
+        _.unset(clonedInclude, 'include')
         if (childIncludes.length > 0) {
           clonedInclude.include = [...childIncludes]
         }
@@ -202,8 +234,13 @@ function filterIncludeHandledOnly({
   return curFilteredInclude
 }
 
-function injectRequireInclude(include: Includeable[]) {
-  function test(dataInclude: Includeable[]) {
+/**
+ *
+ * @param include
+ * @returns
+ */
+function injectRequireInclude(include: Includeable[]): Includeable[] {
+  function test(dataInclude: Includeable[]): boolean {
     for (let i = 0; i < (dataInclude?.length || 0); i += 1) {
       const optionInclude = dataInclude[i] as IncludeOptions
       let data
@@ -225,6 +262,12 @@ function injectRequireInclude(include: Includeable[]) {
   return include
 }
 
+/**
+ *
+ * @param filteredValue
+ * @param includes
+ * @returns
+ */
 function makeIncludeQueryable(filteredValue: any, includes: Includeable[]) {
   return transfromIncludeToQueryable(includes, (value) => {
     const { model, key, ...restValue } = value
@@ -235,31 +278,21 @@ function makeIncludeQueryable(filteredValue: any, includes: Includeable[]) {
   })
 }
 
-interface OnBeforeBuildQuery {
-  paginationQuery: SqlizeQuery
-  filteredQuery: SqlizeQuery
-  sortedQuery: SqlizeQuery
-}
-
-interface GenerateOptions {
-  onBeforeBuild: (query: OnBeforeBuildQuery) => void
-}
-
-interface ReqGenerate {
-  filtered?: { id: any; value: any }[]
-  sorted?: { id: any; desc: boolean }[]
-  page?: number
-  pageSize?: number
-  [key: string]: any
-}
-
+/**
+ *
+ * @param reqQuery
+ * @param model
+ * @param includeRule
+ * @param options
+ * @returns
+ */
 function generate(
   reqQuery: ReqGenerate,
   model: any,
   includeRule?: Includeable | Includeable[],
   options?: GenerateOptions
 ) {
-  const { onBeforeBuild } = options || {}
+  const { onBeforeBuild } = options ?? {}
 
   const paginationQuery = getPaginationQuery()
   const filteredQuery = getFilteredQuery(model)
@@ -267,9 +300,11 @@ function generate(
   const includeCountRule = filterIncludeHandledOnly({
     include: includeRule,
   })
-  const include = injectRequireInclude(cloneDeep(includeRule) as Includeable[])
+  const include = injectRequireInclude(
+    _.cloneDeep(includeRule) as Includeable[]
+  )
   const includeCount = injectRequireInclude(
-    cloneDeep(includeCountRule) as Includeable[]
+    _.cloneDeep(includeCountRule) as Includeable[]
   )
 
   if (onBeforeBuild) {
@@ -288,7 +323,7 @@ function generate(
     include,
     includeCount,
     where: filter,
-    order: sort as any,
+    order: sort,
     offset: pagination.offset,
     limit: pagination.limit,
   }

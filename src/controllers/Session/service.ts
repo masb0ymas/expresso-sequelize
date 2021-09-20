@@ -1,21 +1,28 @@
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
+import models from '@models/index'
+import { SessionAttributes, SessionInstance } from '@models/session'
 import { Request } from 'express'
-import models from 'models'
-import { SessionAttributes } from 'models/session'
 import { Transaction } from 'sequelize'
 import sessionSchema from './schema'
 
 const { Session, User } = models
 const including = [{ model: User }]
 
+interface DtoPaginate {
+  message: string
+  data: SessionInstance[]
+  total: number
+}
+
 class SessionService {
   /**
    *
-   * @param req Request
+   * @param req
+   * @returns
    */
-  public static async getAll(req: Request) {
+  public static async findAll(req: Request): Promise<DtoPaginate> {
     const { filtered } = req.getQuery()
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
       req.query,
@@ -38,8 +45,9 @@ class SessionService {
   /**
    *
    * @param id
+   * @returns
    */
-  public static async getOne(id: string) {
+  public static async findById(id: string): Promise<SessionInstance> {
     const data = await Session.findByPk(id)
 
     if (!data) {
@@ -55,8 +63,12 @@ class SessionService {
    *
    * @param UserId
    * @param token
+   * @returns
    */
-  public static async findByTokenUser(UserId: string, token: string) {
+  public static async findByUserToken(
+    UserId: string,
+    token: string
+  ): Promise<SessionInstance> {
     const data = await Session.findOne({ where: { UserId, token } })
 
     if (!data) {
@@ -71,9 +83,13 @@ class SessionService {
   /**
    *
    * @param formData
-   * @param txn - Transaction
+   * @param txn
+   * @returns
    */
-  public static async create(formData: SessionAttributes, txn?: Transaction) {
+  public static async created(
+    formData: SessionAttributes,
+    txn?: Transaction
+  ): Promise<SessionInstance> {
     const value = useValidation(sessionSchema.create, formData)
     const data = await Session.create(value, { transaction: txn })
 
@@ -82,37 +98,20 @@ class SessionService {
 
   /**
    *
-   * @param id
    * @param formData
-   */
-  public static async update(id: string, formData: SessionAttributes) {
-    const data = await this.getOne(id)
-
-    const value = useValidation(sessionSchema.create, {
-      ...data.toJSON(),
-      ...formData,
-    })
-
-    await data.update(value || {})
-
-    return data
-  }
-
-  /**
-   *
-   * @param formData
-   * @param txn - Transaction
+   * @param txn
    */
   public static async createOrUpdate(
     formData: SessionAttributes,
     txn?: Transaction
-  ) {
-    const data = await Session.findOne({ where: { UserId: formData.UserId } })
+  ): Promise<void> {
+    const value = useValidation(sessionSchema.create, formData)
+    const data = await Session.findOne({ where: { UserId: value.UserId } })
 
     if (!data) {
-      await this.create(formData, txn)
+      await this.created(formData, txn)
     } else {
-      await data.update(formData, { transaction: txn })
+      await data.update(value, { transaction: txn })
     }
   }
 
@@ -121,16 +120,19 @@ class SessionService {
    * @param UserId
    * @param token
    */
-  public static async deleteByTokenUser(UserId: string, token: string) {
+  public static async deleteByUserToken(
+    UserId: string,
+    token: string
+  ): Promise<void> {
     await Session.destroy({ where: { UserId, token } })
   }
 
   /**
    *
-   * @param id - Force Delete
+   * @param id
    */
-  public static async delete(id: string) {
-    const data = await this.getOne(id)
+  public static async deleted(id: string): Promise<void> {
+    const data = await this.findById(id)
     await data.destroy()
   }
 }

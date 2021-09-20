@@ -1,187 +1,125 @@
-import ConstRoles from '@expresso/constants/ConstRoles'
-import { getUniqueCodev2 } from '@expresso/helpers/Common'
-import { verifyAccessToken } from '@expresso/helpers/Token'
-import userAgentHelper from '@expresso/helpers/userAgent'
+import SessionService from '@controllers/Session/service'
+import userSchema from '@controllers/User/schema'
+import UserService from '@controllers/User/service'
+import ConstRole from '@expresso/constants/ConstRole'
+import SendMail from '@expresso/helpers/SendMail'
+import { generateAccessToken, verifyAccessToken } from '@expresso/helpers/Token'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import RefreshTokenService from 'controllers/RefreshToken/service'
-import SessionService from 'controllers/Session/service'
-import UserService from 'controllers/User/service'
-import { Request } from 'express'
-import jwt from 'jsonwebtoken'
-import { isEmpty } from 'lodash'
-import models from 'models'
+import models from '@models/index'
 import {
   LoginAttributes,
   UserAttributes,
+  UserInstance,
   UserLoginAttributes,
-} from 'models/user'
-import ms from 'ms'
-import createDirNotExist from 'utils/Directory'
-import authSchema from './schema'
+} from '@models/user'
+import _ from 'lodash'
+import { v4 as uuidv4 } from 'uuid'
 
-const { User, Role } = models
-const including = [{ model: Role }]
+const { User } = models
 
-const { JWT_SECRET_ACCESS_TOKEN, JWT_SECRET_REFRESH_TOKEN }: any = process.env
-
-const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED || '1d' // 1 Days
-const JWT_REFRESH_TOKEN_EXPIRED = process.env.JWT_REFRESH_TOKEN_EXPIRED || '30d' // 30 Days
-
-const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000
-
-/*
-  Create the main directory
-  The directory will be created automatically when logged in,
-  because there is a directory that uses a User ID
-*/
-const baseDestination = 'public/uploads'
-
-async function createDirectory() {
-  const pathDirectory = [
-    `./${baseDestination}/csv`,
-    `./${baseDestination}/pdf`,
-    `./${baseDestination}/excel`,
-    `./${baseDestination}/profile`,
-    `./${baseDestination}/profile/resize`,
-  ]
-
-  pathDirectory.map((x) => createDirNotExist(x))
+interface DtoLogin {
+  tokenType: string
+  user: {
+    uid: string
+  }
+  accessToken: string
+  expiresIn: number
+  message: string
 }
 
 class AuthService {
   /**
    *
    * @param formData
+   * @returns
    */
-  public static async signUp(formData: UserAttributes) {
-    // check duplicate email
-    await UserService.validateUserEmail(formData.email)
+  public static async signUp(formData: UserAttributes): Promise<UserInstance> {
+    const randomToken = generateAccessToken({ uuid: uuidv4() })
 
-    const generateToken = {
-      code: getUniqueCodev2(),
+    await UserService.validateEmail(formData.email)
+
+    const newFormData = {
+      ...formData,
+      tokenVerify: randomToken.accessToken,
+      RoleId: ConstRole.ID_USER,
     }
 
-    const tokenVerify = jwt.sign(
-      JSON.parse(JSON.stringify(generateToken)),
-      JWT_SECRET_ACCESS_TOKEN,
-      {
-        expiresIn,
-      }
-    )
-
-    const newFormData = { ...formData, tokenVerify, RoleId: ConstRoles.ID_UMUM }
-    const value = useValidation(authSchema.register, newFormData)
+    const value = useValidation(userSchema.register, newFormData)
     const data = await User.create(value)
 
-    // send email verification
-    // SendMail.AccountRegister(formData, tokenVerify)
+    // send email notification
+    SendMail.AccountRegistration({
+      email: value.email,
+      fullName: `${value.firstName} ${value.lastName}`,
+      token: randomToken.accessToken,
+    })
 
-    return {
-      message:
-        'registration is successful, check your email for the next steps',
-      data,
-    }
+    return data
   }
 
   /**
    *
-   * @param req - Request
    * @param formData
+   * @returns
    */
-  public static async signIn(req: Request, formData: LoginAttributes) {
-    const { clientIp } = req
+  public static async signIn(formData: LoginAttributes): Promise<DtoLogin> {
+    const value = useValidation(userSchema.login, formData)
 
-    const value = useValidation(authSchema.login, formData)
-
-    const userData = await User.scope('withPassword').findOne({
+    const getUser = await User.scope('withPassword').findOne({
       where: { email: value.email },
     })
 
-    if (!userData) {
+    // check user account
+    if (!getUser) {
       throw new ResponseError.NotFound('account not found or has been deleted')
     }
 
-    const { id: UserId, isActive } = userData
-
-    /* check user active */
-    if (isActive) {
-      const matchPassword = await userData.comparePassword(value.password)
-
-      if (matchPassword) {
-        // modif payload token
-        const payloadToken = { uid: UserId }
-
-        // Access Token
-        const accessToken = jwt.sign(
-          JSON.parse(JSON.stringify(payloadToken)),
-          JWT_SECRET_ACCESS_TOKEN,
-          {
-            expiresIn,
-          }
-        )
-
-        // Refresh Token
-        const refreshToken = jwt.sign(
-          JSON.parse(JSON.stringify(payloadToken)),
-          JWT_SECRET_REFRESH_TOKEN,
-          {
-            expiresIn: JWT_REFRESH_TOKEN_EXPIRED,
-          }
-        )
-
-        // create refresh token
-        await RefreshTokenService.create({
-          UserId,
-          token: refreshToken,
-        })
-
-        // create session
-        const formDataSession = {
-          UserId,
-          token: accessToken,
-          ipAddress: clientIp?.replace('::ffff:', ''),
-          device: userAgentHelper.currentDevice(req),
-          platform: userAgentHelper.currentPlatform(req),
-        }
-        await SessionService.createOrUpdate(formDataSession)
-
-        // create directory
-        await createDirectory()
-
-        return {
-          message: 'Login successfully',
-          accessToken,
-          expiresIn,
-          tokenType: 'Bearer',
-          refreshToken,
-          user: payloadToken,
-        }
-      }
-
-      throw new ResponseError.BadRequest('incorrect email or password!')
+    // check active account
+    if (!getUser.isActive) {
+      throw new ResponseError.BadRequest(
+        'please check your email account to verify your email and continue the registration process.'
+      )
     }
 
-    /* User not active return error confirm email */
-    throw new ResponseError.BadRequest(
-      'please check your email account to verify your email and continue the registration process.'
-    )
+    const matchPassword = await getUser.comparePassword(value.password)
+
+    // compare password
+    if (!matchPassword) {
+      throw new ResponseError.BadRequest('incorrect email or password')
+    }
+
+    const payloadToken = { uid: getUser.id }
+    const accessToken = generateAccessToken(payloadToken)
+
+    const newData = {
+      message: 'Login successfully',
+      ...accessToken,
+      tokenType: 'Bearer',
+      user: payloadToken,
+    }
+
+    return newData
   }
 
   /**
    *
    * @param UserId
    * @param token
+   * @returns
    */
-  public static async verifySession(UserId: string, token: string) {
-    const sessionUser = await SessionService.findByTokenUser(UserId, token)
-    const verifyToken = verifyAccessToken(sessionUser.token)
-    const userData = verifyToken?.data as UserLoginAttributes
+  public static async verifySession(
+    UserId: string,
+    token: string
+  ): Promise<UserInstance | null> {
+    const getSession = await SessionService.findByUserToken(UserId, token)
+    const verifyToken = verifyAccessToken(getSession.token)
 
-    if (!isEmpty(userData.uid)) {
-      const data = await User.findByPk(userData.uid, { include: including })
+    const userToken = verifyToken?.data as UserLoginAttributes
 
-      return data
+    if (!_.isEmpty(userToken.uid)) {
+      const getUser = await UserService.findById(userToken.uid)
+      return getUser
     }
 
     return null
@@ -190,33 +128,14 @@ class AuthService {
   /**
    *
    * @param UserId
-   */
-  public static async profile(UserId: string) {
-    const data = await User.findByPk(UserId, { include: including })
-    return data
-  }
-
-  /**
-   *
-   * @param UserId
-   * @param userData
    * @param token
+   * @returns
    */
-  public static async logout(
-    UserId: string,
-    userData: UserLoginAttributes,
-    token: string
-  ) {
-    if (userData.uid !== UserId) {
-      throw new ResponseError.Unauthorized('Invalid user login!')
-    }
+  public static async logout(UserId: string, token: string): Promise<string> {
+    const getUser = await UserService.findById(UserId)
 
-    const data = await UserService.getOne(UserId)
-
-    // clean refresh token & session
-    await RefreshTokenService.delete(data.id)
-    await SessionService.deleteByTokenUser(data.id, token)
-
+    // clean session
+    await SessionService.deleteByUserToken(getUser.id, token)
     const message = 'You have logged out of the application'
 
     return message

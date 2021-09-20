@@ -1,15 +1,21 @@
-import { validateBoolean } from '@expresso/helpers/Common'
+import Excel from '@expresso/helpers/Excel'
+import { validateBoolean } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
-import UserRoleService from 'controllers/UserRole/service'
+import models from '@models/index'
+import { UserAttributes, UserInstance } from '@models/user'
+import db from '@models/_instance'
 import { Request } from 'express'
-import { isEmpty } from 'lodash'
-import models from 'models'
-import { UserAttributes } from 'models/user'
-import db from 'models/_instance'
-import { Transaction } from 'sequelize/types'
+import _ from 'lodash'
+import { Transaction } from 'sequelize'
 import userSchema from './schema'
+
+interface DtoPaginate {
+  message: string
+  data: UserInstance[]
+  total: number
+}
 
 const { Sequelize } = db
 const { Op } = Sequelize
@@ -21,10 +27,11 @@ const includeSession = [{ model: Role }, { model: Session }]
 class UserService {
   /**
    *
-   * @param req Request
+   * @param req
+   * @returns
    */
-  public static async getAll(req: Request) {
-    const { filtered } = req.query
+  public static async findAll(req: Request): Promise<DtoPaginate> {
+    const { filtered } = req.getQuery()
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
       req.query,
       User,
@@ -47,12 +54,13 @@ class UserService {
    *
    * @param id
    * @param paranoid
+   * @returns
    */
-  public static async getOne(id: string, paranoid?: boolean) {
-    const data = await User.findByPk(id, {
-      include: including,
-      paranoid,
-    })
+  public static async findById(
+    id: string,
+    paranoid?: boolean
+  ): Promise<UserInstance> {
+    const data = await User.findByPk(id, { include: including, paranoid })
 
     if (!data) {
       throw new ResponseError.NotFound(
@@ -67,30 +75,13 @@ class UserService {
    *
    * @param id
    * @param paranoid
+   * @returns
    */
-  public static async getUserWithSession(id: string, paranoid?: boolean) {
-    const data = await User.findByPk(id, {
-      include: includeSession,
-      paranoid,
-    })
-
-    if (!data) {
-      throw new ResponseError.NotFound(
-        'user data not found or has been deleted'
-      )
-    }
-
-    return data
-  }
-
-  /**
-   *
-   * @param id
-   * @param paranoid
-   * note: find by id only find data not include relation
-   */
-  public static async findById(id: string, paranoid?: boolean) {
-    const data = await User.findByPk(id, { paranoid })
+  public static async findUserWithSession(
+    id: string,
+    paranoid?: boolean
+  ): Promise<UserInstance> {
+    const data = await User.findByPk(id, { include: includeSession, paranoid })
 
     if (!data) {
       throw new ResponseError.NotFound(
@@ -104,12 +95,13 @@ class UserService {
   /**
    *
    * @param email
+   * @returns
    */
-  public static async validateUserEmail(email: string) {
+  public static async validateEmail(email: string): Promise<null> {
     const data = await User.findOne({ where: { email } })
 
     if (data) {
-      throw new ResponseError.BadRequest('email address already in use')
+      throw new ResponseError.BadRequest('Email address already in use')
     }
 
     return null
@@ -118,14 +110,15 @@ class UserService {
   /**
    *
    * @param formData
-   * @param txn Transaction Sequelize
+   * @param txn
+   * @returns
    */
-  public static async create(formData: UserAttributes, txn?: Transaction) {
-    const value = useValidation(userSchema.create, formData)
-
-    const data = await User.create(value, {
-      transaction: txn,
-    })
+  public static async created(
+    formData: UserAttributes,
+    txn?: Transaction
+  ): Promise<UserInstance> {
+    const value = useValidation(userSchema.register, formData)
+    const data = await User.create(value, { transaction: txn })
 
     return data
   }
@@ -134,32 +127,26 @@ class UserService {
    *
    * @param id
    * @param formData
-   * @param txn Transaction Sequelize
+   * @param txn
+   * @returns
    */
-  public static async update(
+  public static async updated(
     id: string,
     formData: UserAttributes,
     txn?: Transaction
-  ) {
+  ): Promise<UserInstance> {
     const data = await this.findById(id)
 
     if (formData.email !== data.email) {
-      // @ts-ignore
-      await this.validateUserEmail(formData.email)
-    }
-
-    const newFormData = {
-      ...data.toJSON(),
-      ...formData,
-      picturePath: formData.picturePath || data.picturePath,
+      await this.validateEmail(formData.email)
     }
 
     const value = useValidation(userSchema.create, {
       ...data.toJSON(),
-      ...newFormData,
+      ...formData,
     })
 
-    await data.update(value || {}, { transaction: txn })
+    await data.update(value ?? {}, { transaction: txn })
 
     return data
   }
@@ -167,68 +154,90 @@ class UserService {
   /**
    *
    * @param id
-   * @param force - Force Deleted
+   * @param force
    */
-  public static async delete(id: string, force?: boolean) {
-    const data = await this.findById(id)
+  public static async deleted(id: string, force?: boolean): Promise<void> {
     const isForce = validateBoolean(force)
 
-    if (isForce) {
-      await UserRoleService.deleteByUserId(id)
-    }
-
+    const data = await this.findById(id)
     await data.destroy({ force: isForce })
   }
 
   /**
    *
-   * @param id - Restore data from Trash
+   * @param id
    */
-  public static async restore(id: string) {
+  public static async restore(id: string): Promise<void> {
     const data = await this.findById(id, false)
+
     await data.restore()
   }
 
   /**
    *
-   * @param ids
+   * @param ids @example ids = ["id_1", "id_2"]
    * @param force
-   * @example ids = ['id_1', 'id_2']
    */
-  public static async multipleDelete(ids: Array<string>, force?: boolean) {
+  public static async multipleDeleted(
+    ids: string[],
+    force?: boolean
+  ): Promise<void> {
     const isForce = validateBoolean(force)
 
-    if (isEmpty(ids)) {
+    if (_.isEmpty(ids)) {
       throw new ResponseError.BadRequest('ids cannot be empty')
     }
 
-    if (isForce) {
-      await UserRoleService.deleteByUserIds(ids)
-    }
-
     await User.destroy({
-      where: {
-        id: {
-          [Op.in]: ids,
-        },
-      },
+      where: { id: { [Op.in]: ids } },
       force: isForce,
     })
   }
 
   /**
    *
-   * @param ids
-   * @example ids = ["id_1", "id_2"]
+   * @param ids @example ids = ["id_1", "id_2"]
    */
-  public static async multipleRestore(ids: Array<string>) {
+  public static async multipleRestore(ids: string[]): Promise<void> {
+    if (_.isEmpty(ids)) {
+      throw new ResponseError.BadRequest('ids cannot be empty')
+    }
+
     await User.restore({
-      where: {
-        id: {
-          [Op.in]: ids,
-        },
-      },
+      where: { id: { [Op.in]: ids } },
     })
+  }
+
+  /**
+   *
+   * @param req
+   * @returns
+   */
+  public static async generateExcel(req: Request): Promise<Buffer> {
+    const { data } = await this.findAll(req)
+    const jsonData = JSON.parse(JSON.stringify(data))
+
+    const header = [
+      { header: 'No', key: 'no', width: 5 },
+      { header: 'First Name', key: 'firstName', width: 20 },
+      { header: 'Last Name', key: 'lastName', width: 20 },
+      { header: 'Email', key: 'email', width: 20 },
+      { header: 'Phone', key: 'phone', width: 20 },
+      { header: 'Role', key: 'role', width: 20 },
+    ]
+
+    const newData = []
+    for (let i = 0; i < jsonData.length; i += 1) {
+      const item = jsonData[i]
+      newData.push({
+        ...item,
+        role: _.get(item, 'Role.name', '-'),
+      })
+    }
+
+    const stream: Buffer = await Excel.generate(header, newData)
+
+    return stream
   }
 }
 

@@ -7,8 +7,8 @@ type ValueParsers = (value: any) => any
 type TransformBuild = (value: any, transformHelper: TransformHelper) => any
 type QueryBuilders = (value: any, queryHelper: QueryHelper) => any
 
-export function getPrimitiveDataType<T>(dataType: T) {
-  const findDataType = (item: any) => dataType instanceof item
+export function getPrimitiveDataType<T>(dataType: T): 'string' | 0 {
+  const findDataType = (item: any): any => dataType instanceof item
 
   if (
     [
@@ -84,25 +84,25 @@ export function getPrimitiveDataType<T>(dataType: T) {
 }
 
 class SqlizeQuery {
-  private valueParsers: ValueParsers[] = []
+  private readonly valueParsers: ValueParsers[] = []
 
-  private transformBuilds: TransformBuild[] = []
+  private readonly transformBuilds: TransformBuild[] = []
 
-  private queryBuilders: QueryBuilders[] = []
+  private readonly queryBuilders: QueryBuilders[] = []
 
-  addValueParser(fn: ValueParsers) {
+  addValueParser(fn: ValueParsers): void {
     this.valueParsers.push(fn)
   }
 
-  addQueryBuilder(fn: QueryBuilders) {
+  addQueryBuilder(fn: QueryBuilders): void {
     this.queryBuilders.push(fn)
   }
 
-  addTransformBuild(fn: TransformBuild) {
+  addTransformBuild(fn: TransformBuild): void {
     this.transformBuilds.push(fn)
   }
 
-  build(value: any) {
+  build(value: any): any {
     let parserValue = value as any[]
     for (let i = 0; i < this.valueParsers.length; i += 1) {
       const getterValue = this.valueParsers[i]
@@ -133,17 +133,32 @@ class SqlizeQuery {
 type CustomIncludeOptions = IncludeOptions & { key?: string }
 type onBuildInclude = (value: CustomIncludeOptions) => CustomIncludeOptions
 
+/**
+ *
+ * @param includes
+ * @param onBuildInclude
+ * @returns
+ */
 export function transfromIncludeToQueryable(
   includes: Includeable[],
   onBuildInclude?: onBuildInclude
-) {
+): CustomIncludeOptions[] {
   const result = [] as CustomIncludeOptions[]
   const _onBuildInclude =
-    onBuildInclude ||
+    onBuildInclude ??
     function (value: CustomIncludeOptions) {
       return value
     }
-  function wrapFiltered(includes: Includeable[], parent?: IncludeOptions) {
+
+  /**
+   *
+   * @param includes
+   * @param parent
+   */
+  function wrapFiltered(
+    includes: Includeable[],
+    parent?: IncludeOptions
+  ): void {
     for (let i = 0; i < includes.length; i += 1) {
       const include = includes[i] as CustomIncludeOptions
 
@@ -155,13 +170,13 @@ export function transfromIncludeToQueryable(
       const defaultName = curModel.options.name?.singular
       const data = _onBuildInclude({
         ...(isTypeModel ? {} : restInclude),
-        key: key || defaultName,
+        key: key ?? defaultName,
         model: curModel,
       } as unknown as IncludeOptions)
 
       if (parent) {
         // eslint-disable-next-line no-param-reassign
-        parent.include = parent.include || []
+        parent.include = parent.include ?? []
         parent.include.push(data)
       } else {
         result.push(data)
@@ -172,6 +187,7 @@ export function transfromIncludeToQueryable(
       }
     }
   }
+
   wrapFiltered(includes)
   return result
 }
