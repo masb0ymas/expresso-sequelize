@@ -9,13 +9,13 @@ import { readHTMLFile } from './File'
 
 dotenv.config()
 
-const APP_NAME = process.env.APP_NAME ?? 'expresso'
-
 interface AccountRegistrationProps {
   email: string
   fullName: string
   token: string
 }
+
+const APP_NAME = process.env.APP_NAME ?? 'expresso'
 
 const SMTPEmail = new EmailProvider()
 
