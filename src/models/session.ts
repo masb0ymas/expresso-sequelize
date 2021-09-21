@@ -1,5 +1,6 @@
 import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
 import { Model, Optional } from 'sequelize'
+import { MyModels } from './index'
 import db from './_instance'
 
 export interface SessionAttributes {
@@ -24,5 +25,9 @@ export interface SessionInstance
 const Session = db.sequelize.define<SessionInstance>('Sessions', {
   ...SequelizeAttributes.Sessions,
 })
+
+Session.associate = (models: MyModels) => {
+  Session.belongsTo(models.User)
+}
 
 export default Session

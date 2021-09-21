@@ -1,8 +1,9 @@
-import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
-import { DataTypes, Model, Optional } from 'sequelize'
-import bcrypt from 'bcrypt'
-import db from './_instance'
 import userSchema from '@controllers/User/schema'
+import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
+import bcrypt from 'bcrypt'
+import { DataTypes, Model, Optional } from 'sequelize'
+import { MyModels } from './index'
+import db from './_instance'
 
 export interface UserAttributes {
   id: string
@@ -101,8 +102,9 @@ User.prototype.comparePassword = async function (
   })
 }
 
-User.associate = (models) => {
+User.associate = (models: MyModels) => {
   User.belongsTo(models.Role)
+  User.belongsTo(models.Session)
 }
 
 export default User
