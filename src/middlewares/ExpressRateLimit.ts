@@ -26,10 +26,11 @@ async function ExpressRateLimit(
     await rateLimiter.consume(req.ip)
     return next()
   } catch (err) {
-    const errMessage = 'Too Many Requests'
-    console.log(chalk.red('Limit Request Error:'), chalk.green(errMessage))
+    const errType = `Limit Request Error:`
+    const message = 'Too Many Requests'
+    console.log(chalk.red(errType), chalk.green(message))
 
-    return res.status(429).json({ code: 429, message: errMessage })
+    return res.status(429).json({ code: 429, message })
   }
 }
 

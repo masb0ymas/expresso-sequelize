@@ -10,12 +10,13 @@ function PermissionAccess(roles: string[]) {
     const getUser = await UserService.findById(userLogin.uid)
 
     if (!roles.includes(getUser.RoleId)) {
+      const errType = `Permission Access Error:`
       const message = 'You are not allowed'
-      console.log(chalk.red('Permission Access Error:'), chalk.green(message))
+      console.log(chalk.red(errType), chalk.green(message))
 
       const httpResponse = HttpResponse.get({
         code: 403,
-        message: `Permission Access Error: ${message}`,
+        message: `${errType} ${message}`,
       })
 
       return res.status(403).json(httpResponse)
