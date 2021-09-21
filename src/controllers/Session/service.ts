@@ -1,3 +1,4 @@
+import { validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
@@ -48,7 +49,8 @@ class SessionService {
    * @returns
    */
   public static async findById(id: string): Promise<SessionInstance> {
-    const data = await Session.findByPk(id)
+    const newId = validateUUID(id)
+    const data = await Session.findByPk(newId)
 
     if (!data) {
       throw new ResponseError.NotFound(

@@ -1,5 +1,5 @@
 import Excel from '@expresso/helpers/Excel'
-import { validateBoolean } from '@expresso/helpers/Formatter'
+import { validateBoolean, validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
@@ -60,7 +60,8 @@ class UserService {
     id: string,
     paranoid?: boolean
   ): Promise<UserInstance> {
-    const data = await User.findByPk(id, { include: including, paranoid })
+    const newId = validateUUID(id)
+    const data = await User.findByPk(newId, { include: including, paranoid })
 
     if (!data) {
       throw new ResponseError.NotFound(
@@ -81,7 +82,11 @@ class UserService {
     id: string,
     paranoid?: boolean
   ): Promise<UserInstance> {
-    const data = await User.findByPk(id, { include: includeSession, paranoid })
+    const newId = validateUUID(id)
+    const data = await User.findByPk(newId, {
+      include: includeSession,
+      paranoid,
+    })
 
     if (!data) {
       throw new ResponseError.NotFound(
