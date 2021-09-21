@@ -24,6 +24,7 @@ async function createDirectory(): Promise<void> {
 
 route.get(
   '/user',
+  Authorization,
   asyncHandler(async function findAll(req: Request, res: Response) {
     const data = await UserService.findAll(req)
 
@@ -34,6 +35,7 @@ route.get(
 
 route.get(
   '/user/:id',
+  Authorization,
   asyncHandler(async function findById(req: Request, res: Response) {
     const { id } = req.getParams()
     const data = await UserService.findById(id)
@@ -45,6 +47,7 @@ route.get(
 
 route.get(
   '/user/:id/session',
+  Authorization,
   asyncHandler(async function findUserWithSession(req: Request, res: Response) {
     const { id } = req.getParams()
     const data = await UserService.findUserWithSession(id)
@@ -159,6 +162,7 @@ route.post(
 
 route.put(
   '/user/:id',
+  Authorization,
   asyncHandler(async function created(req: Request, res: Response) {
     const { id } = req.getParams()
     const formData = req.getBody()
