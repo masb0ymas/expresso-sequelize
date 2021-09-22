@@ -27,14 +27,14 @@
 - [Nodemailer](https://github.com/nodemailer/nodemailer)
 - [Handlebars](https://github.com/wycats/handlebars.js) for templating HTML
 - [Yup](https://github.com/jquense/yup) for validation schema
-- JavaScript Style [Airbnb Base](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base)
+- JavaScript Style [Standard with TypeScript](https://github.com/standard/eslint-config-standard-with-typescript)
 - Formating code using [Prettier](https://github.com/prettier/prettier) Integration [Eslint](https://github.com/prettier/eslint-config-prettier) and [TypeScript Eslint](https://github.com/typescript-eslint/typescript-eslint#readme)
-- Using [Babel Resolver](https://github.com/tleunen/babel-plugin-module-resolver) for simplify the require/import paths
+- Using [Module Alias](https://github.com/ilearnio/module-alias) for simplify the require/import paths
 - Documentation with [Swagger](https://github.com/swagger-api/swagger-ui)
 - Generate Log File with [Winston](https://github.com/winstonjs/winston)
 - [Convensional Commit](https://www.conventionalcommits.org/en/v1.0.0/) with [Husky](https://github.com/typicode/husky) & [Commitlint](https://github.com/conventional-changelog/commitlint)
 
-### [Check Full Documentation](https://github.com/masb0ymas/expresso/blob/master/docs/repo/intro.md)
+### [Check Full Documentation](https://github.com/masb0ymas/expresso/tree/master/src/%40expresso/docs/repo/intro.md)
 
 ## How to use
 
@@ -66,14 +66,14 @@ or
 yarn husky install
 ```
 
-## Generate Jwt Secret
+## Generate Secret Key
 
 ```sh
-npm run refresh:env-jwt
+npm run key:generate
 
 or
 
-yarn refresh:env-jwt
+yarn key:generate
 ```
 
 ## Usage Development
@@ -89,33 +89,31 @@ yarn dev
 ## Type Check
 
 ```sh
-npm run type-check
+npm run test:types
 
 or
 
-yarn type-check
+yarn test:types
 ```
 
 ## Type Check Watch mode
 
 ```sh
-npm run type-check:watch
+npm run test:types-watch
 
 or
 
-yarn type-check:watch
+yarn test:types-watch
 ```
 
 ## Build
 
-Recommended using build with `Babel`, build with `TS` is still unstable
-
 ```sh
-npm run build:babel
+npm run build
 
 or
 
-yarn build:babel
+yarn build
 ```
 
 ## Using Sequelize

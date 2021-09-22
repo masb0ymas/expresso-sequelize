@@ -6,7 +6,7 @@ I am using the `convert-excel-to-json` package to import excel. So I first made 
 
 Excel upload function like this:
 
-```javascript
+```js
 // controllers/role/controller.ts
 
 // set config multer
@@ -50,7 +50,7 @@ routes.post(
 
 Handle service convert to json
 
-```javascript
+```js
 // controllers/role/service.ts
 
 public static async importExcel(fieldFiles: FileAttributes) {
@@ -63,7 +63,7 @@ public static async importExcel(fieldFiles: FileAttributes) {
 Helpers convert to json
 
 
-```javascript
+```js
 // helpers/Excel.ts
 
 public static convertToJson(path: string | Buffer, options?: OptionConvert) {
@@ -87,7 +87,7 @@ I am using the `exceljs` package to export excel. The data that is processed fro
 
 Endpoint export excel like this:
 
-```javascript
+```js
 // controllers/role/controller.ts
 
 routes.get(
@@ -112,7 +112,7 @@ routes.get(
 
 Handle service generate excel
 
-```javascript
+```js
 // controllers/role/service.ts
 
 public static async generateExcel(req: Request) {

@@ -63,43 +63,53 @@ To be able to process data in html I use [handlebars](https://www.npmjs.com/pack
 
 ## Send Mail
 
-You can define the send mail function according to your needs at `helpers/SendMail.ts`
+You can define the send mail function according to your needs at `@expresso/helpers/SendMail.ts`
 
-```javascript
-// helpers/SendMail.ts
+```js
+// @expresso/helpers/SendMail.ts
 
 ...
 
-const subject = 'Email Verification'
-const urlToken = `${BASE_URL_CLIENT}/email/verify?token=${token}`
-const dataTemplate = { APP_NAME, fullName, urlToken }
+public static AccountRegistration(formData: AccountRegistrationProps): void {
+  const templatePath = path.resolve(
+    `${__dirname}/../../../public/templates/emails/register.html`
+  )
+  console.log({ templatePath })
 
-// initial class email provider
-const Email = new EmailProvider()
+  const subject = 'Email Verification'
+  const tokenUrl = `${BASE_URL_SERVER}/email/verify?token=${formData.token}`
+  const templateData = { APP_NAME, tokenUrl, ...formData }
 
-readHTMLFile(pathTemplate, (error: Error, html: any) => {
-  if (error) {
-    throw new ResponseError.NotFound('email template not found')
+  if (!fs.existsSync(templatePath)) {
+    throw new ResponseError.BadRequest(
+      'invalid template path for email registration'
+    )
   }
 
-  // compale handlebars html
-  const template = handlebars.compile(html)
-  const htmlToSend = template(dataTemplate)
+  readHTMLFile(templatePath, async (err: Error, html: any) => {
+    if (err) console.log(err)
 
-  // call the send function in the email class
-  Email.send(email, subject, htmlToSend)
-})
+    const template = Handlebars.compile(html)
+    const htmlToSend = template(templateData)
+
+    await SMTPEmail.send(formData.email, subject, htmlToSend)
+  })
+}
 ```
 
 How to implement the send mail:
 
-```javascript
+```js
 // controllers/auth/service.ts
 
 ...
 
 // Initial Send an e-mail
-SendMail.AccountRegister(formData, tokenVerify)
+SendMail.AccountRegistration({
+  email: value.email,
+  fullName: `${value.firstName} ${value.lastName}`,
+  token: randomToken.accessToken,
+})
 
 ...
 ```

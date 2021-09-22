@@ -4,10 +4,10 @@
 
 Multer customization is not that difficult.
 
-```javascript
+```js
 // controllers/role/controller.ts
 
-const uploadFile = ConfigMulter({
+const uploadFile = useMulter({
   dest: 'public/uploads/excel',
   allowedExt: ['.xlsx', '.xls'],
   limit: {
@@ -17,7 +17,7 @@ const uploadFile = ConfigMulter({
 }).fields([{ name: 'fileExcel', maxCount: 1 }])
 ```
 
-The only parameters that the `ConfigMulter()` accepts are the `dest`, `allowExt`, and the file upload `limit`.
+The only parameters that the `useMulter()` accepts are the `dest`, `allowExt`, and the file upload `limit`.
 
 | key      | value           | example                       |
 | -------- | --------------- | ----------------------------- |
@@ -29,11 +29,11 @@ The only parameters that the `ConfigMulter()` accepts are the `dest`, `allowExt`
 
 Using single upload like this:
 
-```javascript
+```js
 // controllers/role/controller.ts
 
 // set config multer
-const uploadFile = ConfigMulter({
+const uploadFile = useMulter({
   dest: 'public/uploads/excel',
   allowedExt: ['.xlsx', '.xls'],
   limit: {
@@ -45,7 +45,7 @@ const uploadFile = ConfigMulter({
 // set file upload to request body with `setBody`
 const setFileToBody = asyncHandler(async function setFileToBody(
   req: Request,
-  res,
+  res: Response,
   next: NextFunction
 ) {
   // pick single field multer
@@ -68,9 +68,9 @@ routes.post(
     const fieldExcel = get(formData, 'fileExcel', {})
 
     const data = await RoleService.importExcel(fieldExcel)
-    const buildResponse = BuildResponse.created(data)
+    const httpResponse = HttpResponse.created(data)
 
-    return res.status(200).json(buildResponse)
+    return res.status(200).json(httpResponse)
   })
 )
 ```
@@ -79,11 +79,11 @@ routes.post(
 
 Using multiple upload like this:
 
-```javascript
+```js
 // controllers/role/controller.ts
 
 // set config multer
-const uploadFile = ConfigMulter({
+const uploadFile = useMulter({
   dest: 'public/uploads/excel',
   allowedExt: ['.xlsx', '.xls'],
   limit: {
@@ -98,7 +98,7 @@ const uploadFile = ConfigMulter({
 // set file upload to request body with `setBody`
 const setFileToBody = asyncHandler(async function setFileToBody(
   req: Request,
-  res,
+  res: Response,
   next: NextFunction
 ) {
   // pick multiple field multer
@@ -123,9 +123,9 @@ routes.post(
     const fieldPDF = get(formData, 'filePDF', {})
 
     const data = await RoleService.importExcel(fieldExcel)
-    const buildResponse = BuildResponse.created(data)
+    const httpResponse = HttpResponse.created(data)
 
-    return res.status(200).json(buildResponse)
+    return res.status(200).json(httpResponse)
   })
 )
 ```

@@ -10,6 +10,7 @@
     "clean": "rm -rf ./dist",
     "test:lint": "npx eslint '*/**/*.{js,jsx,ts,tsx}' --quiet --fix",
     "test:types": "tsc --noEmit",
+    "test:types-watch": "npm run test:types -- --watch",
     "prebuild": "npm run clean && yarn && npm run test:lint && npm run test:types",
     "build": "npx tsc -p .",
     "deploy": "npm run build && pm2 reload ecosystem.config.js",

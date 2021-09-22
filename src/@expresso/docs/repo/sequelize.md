@@ -10,7 +10,7 @@ After you create the migration model, then you just need to reset the contents o
 
 This model after generate with `npx sequelize model:generate`
 
-```javascript
+```js
 // models/gender.js
 
 'use strict'
@@ -43,11 +43,11 @@ module.exports = (sequelize, DataTypes) => {
 
 You can change it like this:
 
-```javascript
+```js
 // models/gender.ts
 
+import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
 import { Model, Optional } from 'sequelize'
-import SequelizeAttributes from '../utils/SequelizeAttributes'
 
 import db from './_instance'
 
@@ -78,7 +78,7 @@ export default Gender
 
 You must also import the index model
 
-```javascript
+```js
 // models/index.ts
 
 ...
@@ -95,12 +95,12 @@ const models = {
 
 If you want to use associate you can use this method:
 
-```javascript
+```js
 // models/user.ts
 
 ...
 
-User.associate = (models) => {
+User.associate = (models: MyModels) => {
   // has many relationship
   User.hasMany(models.Session, { foreignKey: 'UserId' })
 
@@ -124,7 +124,7 @@ filtered & sorted format is a `Array of Objects`
 
 filtered query like this:
 
-```sh
+```json
 
 ?filtered=[
   {
@@ -141,7 +141,7 @@ filtered query like this:
 
 sorted query like this:
 
-```sh
+```json
 
 ?sorted=[
   {
@@ -154,7 +154,7 @@ sorted query like this:
 
 If the query filters don't work the way you want, you can also use manual queries.
 
-```javascript
+```js
 // controllers/user/service.ts
 
 public static async getAll(req: Request) {

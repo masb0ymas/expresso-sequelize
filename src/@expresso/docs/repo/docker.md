@@ -4,7 +4,7 @@
 
 If you want deploy this application to docker. You have to adjust the env and docker-compose configurations. Set this `DB_HOST=db` so that you can access the DB inside the container docker with the service name `db`. `DB_HOST=..`. must be accessed using IPv4 Docker Network services `db`.
 
-```
+```sh
 ...
 
 DB_CONNECTION=mysql
@@ -18,20 +18,9 @@ DB_TIMEZONE=+07:00
 
 ...
 
-PROD_DB_CONNECTION=mysql
-PROD_DB_HOST=db
-PROD_DB_PORT=3306
-PROD_DB_DATABASE=example
-PROD_DB_USERNAME=your_username
-PROD_DB_PASSWORD=your_password
-PROD_DB_OPERATOR_ALIAS=
-PROD_DB_TIMEZONE=+07:00
-
-...
-
-REDIS_HOST=127.0.0.1
+REDIS_HOST=redis
 REDIS_PASSWORD=your_password
-REDIS_PORT=6380 # Default: 6379
+REDIS_PORT=6379 # Default: 6379
 ```
 
 `container_name` in each service is customizable.
