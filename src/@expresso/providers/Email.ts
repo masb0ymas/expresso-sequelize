@@ -38,16 +38,16 @@ class EmailProvider {
    * @param subject
    * @param template
    */
-  public send = async (
+  public send = (
     to: string | string[],
     subject: string,
     template: string
-  ): Promise<void | string[]> => {
+  ): void | string[] => {
     const dest: string = Array.isArray(to) ? to.join(',') : to
     const text: string = template
 
     // send an e-mail
-    await this.sendMail(dest, subject, text)
+    this.sendMail(dest, subject, text)
   }
 
   /**
@@ -126,11 +126,11 @@ class EmailProvider {
    * @param subject
    * @param text
    */
-  private readonly sendMail = async (
+  private readonly sendMail = (
     dest: string,
     subject: string,
     text: string
-  ): Promise<void | string[]> => {
+  ): void | string[] => {
     this.mailConfig = isMailgunAPI
       ? mg(this.setMailConfig())
       : this.setMailConfig()

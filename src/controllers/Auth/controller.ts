@@ -1,14 +1,16 @@
+import { BASE_URL_CLIENT } from '@config/baseURL'
 import SessionService from '@controllers/Session/service'
 import asyncHandler from '@expresso/helpers/asyncHandler'
 import { validateEmpty } from '@expresso/helpers/Formatter'
-import { currentToken } from '@expresso/helpers/Token'
+import { currentToken, verifyAccessToken } from '@expresso/helpers/Token'
 import userAgentHelper from '@expresso/helpers/userAgent'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import Authorization from '@middlewares/Authorization'
-import { UserLoginAttributes } from '@models/user'
+import User, { UserLoginAttributes } from '@models/user'
 import route from '@routes/v1'
 import { Request, Response } from 'express'
+import _ from 'lodash'
 import AuthService from './service'
 
 route.post(
@@ -87,5 +89,31 @@ route.post(
       .status(200)
       .clearCookie('token', { path: '/v1' })
       .json(httpResponse)
+  })
+)
+
+route.get(
+  '/email/verify',
+  asyncHandler(async function emailVerify(req: Request, res: Response) {
+    const { token } = req.getQuery()
+    const tokenVerify = verifyAccessToken(token)
+
+    console.log({ tokenVerify })
+
+    let redirectUrl = ''
+    const getUser = await User.findOne({ where: { tokenVerify: token } })
+
+    if (!getUser || _.isEmpty(tokenVerify?.data)) {
+      // redirect error page frontend web
+      redirectUrl = `${BASE_URL_CLIENT}/email-verify/error`
+    } else {
+      // update is active user
+      await getUser.update({ isActive: true })
+
+      // redirect success page frontend web
+      redirectUrl = `${BASE_URL_CLIENT}/email-verify/success`
+    }
+
+    return res.redirect(redirectUrl)
   })
 )

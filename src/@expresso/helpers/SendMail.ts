@@ -31,7 +31,7 @@ class SendMail {
     console.log({ templatePath })
 
     const subject = 'Email Verification'
-    const tokenUrl = `${BASE_URL_SERVER}/email/verify?token=${formData.token}`
+    const tokenUrl = `${BASE_URL_SERVER}/v1/email/verify?token=${formData.token}`
     const templateData = { APP_NAME, tokenUrl, ...formData }
 
     if (!fs.existsSync(templatePath)) {
@@ -40,13 +40,13 @@ class SendMail {
       )
     }
 
-    readHTMLFile(templatePath, async (err: Error, html: any) => {
+    readHTMLFile(templatePath, (err: Error, html: any) => {
       if (err) console.log(err)
 
       const template = Handlebars.compile(html)
       const htmlToSend = template(templateData)
 
-      await SMTPEmail.send(formData.email, subject, htmlToSend)
+      SMTPEmail.send(formData.email, subject, htmlToSend)
     })
   }
 }
