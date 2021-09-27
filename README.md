@@ -158,6 +158,29 @@ yarn serve:production
 pm2 start ecosystem.config.js --env=production
 ```
 
+## Config Nginx for Limiter / Node JS
+
+```sh
+server {
+	listen 80;
+	listen [::]:80;
+	
+	server_name yourdomain.com;
+	client_max_body_size 2000M;
+	location / {
+	proxy_pass http://127.0.0.1:7000;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection 'upgrade';
+	proxy_set_header Host $host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-Proto $scheme;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_cache_bypass $http_upgrade;
+	}
+}
+```
+
 ## Run loadtest
 
 ```sh
