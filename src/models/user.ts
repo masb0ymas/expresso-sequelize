@@ -104,7 +104,7 @@ User.prototype.comparePassword = async function (
 
 User.associate = (models: MyModels) => {
   User.belongsTo(models.Role)
-  User.belongsTo(models.Session)
+  User.hasMany(models.Session)
 }
 
 export default User
