@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/masb0ymas/expresso/compare/v3.0.0...v3.0.1) (2021-09-27)
+
+
+### Bug Fixes
+
+* authorize endpoint user ([04242b1](https://github.com/masb0ymas/expresso/commit/04242b150866942954f5f64f0e40ad53381ae45a))
+* email verify ([3b45094](https://github.com/masb0ymas/expresso/commit/3b45094942836ffb0e321f511d684cc35ede0c0a))
+* error message middleware ([81a5a61](https://github.com/masb0ymas/expresso/commit/81a5a61a790b245b803f219cba42051c6d44ab75))
+* readme & docs repo ([b9b00cd](https://github.com/masb0ymas/expresso/commit/b9b00cdd16a62854be9a4856b59b02a25c7db6c5))
+* readme for nginx ([4deece8](https://github.com/masb0ymas/expresso/commit/4deece8139c65e4c6f1b26216af6656a4065821f))
+* relation user ([36ccecf](https://github.com/masb0ymas/expresso/commit/36ccecf04be88005611758f129fda7895931ef9c))
+* send mail ([178adc8](https://github.com/masb0ymas/expresso/commit/178adc8e422fe77b7d60639f2e59fe53c0cbc972))
+* template email registration ([c12dcca](https://github.com/masb0ymas/expresso/commit/c12dccaddaec4ffd93dc6a04402deefd369281ce))
+* typing model ([f5d40d4](https://github.com/masb0ymas/expresso/commit/f5d40d4e943eeb322764a0d492c55561502d3fb4))
+* validate uuid when find by id ([562538c](https://github.com/masb0ymas/expresso/commit/562538c4716786d3c4f6d0af9e547b2003949629))
+
 ## [3.0.0](https://github.com/masb0ymas/expresso/compare/v2.25.1...v3.0.0) (2021-09-20)
 
 
