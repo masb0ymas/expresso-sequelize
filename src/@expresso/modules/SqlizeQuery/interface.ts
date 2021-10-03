@@ -19,6 +19,11 @@ export interface OnBeforeBuildQuery {
   sortedQuery: SqlizeQuery
 }
 
+export interface DtoFindAll {
+  message: string
+  total: number
+}
+
 export interface GenerateOptions {
   onBeforeBuild: (query: OnBeforeBuildQuery) => void
 }

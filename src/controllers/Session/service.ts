@@ -1,6 +1,7 @@
 import { validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
+import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import models from '@models/index'
 import { SessionAttributes, SessionInstance } from '@models/session'
@@ -11,10 +12,8 @@ import sessionSchema from './schema'
 const { Session, User } = models
 const including = [{ model: User }]
 
-interface DtoPaginate {
-  message: string
+interface DtoPaginate extends DtoFindAll {
   data: SessionInstance[]
-  total: number
 }
 
 class SessionService {

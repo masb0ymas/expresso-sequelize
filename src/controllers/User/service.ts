@@ -2,6 +2,7 @@ import Excel from '@expresso/helpers/Excel'
 import { validateBoolean, validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
+import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import models from '@models/index'
 import { UserAttributes, UserInstance } from '@models/user'
@@ -11,10 +12,8 @@ import _ from 'lodash'
 import { Transaction } from 'sequelize'
 import userSchema from './schema'
 
-interface DtoPaginate {
-  message: string
+interface DtoPaginate extends DtoFindAll {
   data: UserInstance[]
-  total: number
 }
 
 const { Sequelize } = db

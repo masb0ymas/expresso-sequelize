@@ -1,6 +1,7 @@
 import { validateBoolean, validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
+import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import models from '@models/index'
 import { RoleAttributes, RoleInstance } from '@models/role'
@@ -13,10 +14,8 @@ const { Sequelize } = db
 const { Op } = Sequelize
 const { Role } = models
 
-interface DtoPaginate {
-  message: string
+interface DtoPaginate extends DtoFindAll {
   data: RoleInstance[]
-  total: number
 }
 
 class RoleService {
