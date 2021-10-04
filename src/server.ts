@@ -1,11 +1,11 @@
 import 'module-alias/register'
 import './pathAlias'
 
-import App from './app'
-import db from './models/_instance'
-import dotenv from 'dotenv'
 import chalk from 'chalk'
+import dotenv from 'dotenv'
+import App from './app'
 import initialJobs from './jobs'
+import db from './models/_instance'
 
 dotenv.config()
 
