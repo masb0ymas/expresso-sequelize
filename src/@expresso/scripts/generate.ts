@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import fs from 'fs'
 import path from 'path'
 
@@ -16,20 +17,18 @@ function generateEnv(value: string, regExp: RegExp): void {
   const pathRes = path.resolve('.env')
   const contentEnv = fs.readFileSync(pathRes, { encoding: 'utf-8' })
   const uniqueCode = getUniqueCodev2()
-  const strJWT = `${value}=${uniqueCode}`
-
-  console.log({ pathRes, strJWT })
+  const valueEnv = `${value}=${uniqueCode}`
 
   if (contentEnv.includes(`${value}=`)) {
     // change value
-    const replaceContent = contentEnv.replace(regExp, strJWT)
+    const replaceContent = contentEnv.replace(regExp, valueEnv)
     fs.writeFileSync(`${pathRes}`, replaceContent)
-    console.log(`Refresh ${value} Success`)
+    console.log(`Refresh ${chalk.cyan(valueEnv)} Success`)
   } else {
     // Generate value
-    const extraContent = `${strJWT}\n\n${contentEnv}`
+    const extraContent = `${valueEnv}\n\n${contentEnv}`
     fs.writeFileSync(`${pathRes}`, extraContent)
-    console.log(`Generate ${value} Success`)
+    console.log(`Generate ${chalk.cyan(valueEnv)} Success`)
   }
 }
 
