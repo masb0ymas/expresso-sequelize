@@ -15,6 +15,16 @@ const getUniqueCodev2 = (length = 32): string => {
 
 function generateEnv(value: string, regExp: RegExp): void {
   const pathRes = path.resolve('.env')
+
+  if (!fs.existsSync(pathRes)) {
+    const errType = chalk.red('Missing env!!!')
+    throw new Error(
+      `${errType}\nCopy / Duplicate ${chalk.cyan(
+        '.env.example'
+      )} root directory to ${chalk.cyan('.env')}`
+    )
+  }
+
   const contentEnv = fs.readFileSync(pathRes, { encoding: 'utf-8' })
   const uniqueCode = getUniqueCodev2()
   const valueEnv = `${value}=${uniqueCode}`
