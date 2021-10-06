@@ -1,8 +1,9 @@
+import { BASE_URL_SERVER } from '@config/baseURL'
+import { formatDateTime } from '@expresso/helpers/Date'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import { BASE_URL_SERVER } from '@config/baseURL'
-import Express, { Request, Response } from 'express'
 import v1Route from '@routes/v1'
+import Express, { Request, Response } from 'express'
 
 const { NODE_ENV } = process.env
 const route = Express.Router()
@@ -29,13 +30,20 @@ route.get('/', function (req: Request, res: Response) {
 })
 
 route.get('/health', function (req: Request, res: Response) {
-  const data = {
+  const startUsage = process.cpuUsage()
+
+  const status = {
     uptime: process.uptime(),
     message: 'Ok',
-    date: new Date(),
+    timezone: 'ID',
+    date: formatDateTime(new Date()),
+    node: process.version,
+    memory: process.memoryUsage,
+    platform: process.platform,
+    cpuUsage: process.cpuUsage(startUsage),
   }
 
-  res.status(200).json({ status: data })
+  res.status(200).json({ status })
 })
 
 /* Forbidden Page. */
