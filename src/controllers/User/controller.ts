@@ -3,7 +3,10 @@ import ConstRole from '@expresso/constants/ConstRole'
 import asyncHandler from '@expresso/helpers/asyncHandler'
 import { createDirNotExist, writeFileStream } from '@expresso/helpers/File'
 import { arrayFormatter } from '@expresso/helpers/Formatter'
-import useMulter, { allowedImage } from '@expresso/hooks/useMulter'
+import useMulter, {
+  allowedImage,
+  allowedMimetypeImage,
+} from '@expresso/hooks/useMulter'
 import { FileAttributes } from '@expresso/interfaces/File'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import Authorization from '@middlewares/Authorization'
@@ -96,6 +99,7 @@ route.get(
 const uploadFile = useMulter({
   dest: baseDestination,
   allowedExt: allowedImage,
+  allowedMimetype: allowedMimetypeImage,
   limit: {
     fieldSize: 50 * 1024 * 1024, // 50 mb
     fileSize: 20 * 1024 * 1024, // 20 mb
