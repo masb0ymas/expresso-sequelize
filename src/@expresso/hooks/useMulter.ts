@@ -1,12 +1,12 @@
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { Request } from 'express'
 import multer from 'multer'
-import path from 'path'
 import slugify from 'slugify'
 
 interface MulterSetupProps {
   dest?: string
   allowedExt?: string[]
+  allowedMimetype?: string[]
   limit?: {
     fieldSize?: number
     fileSize?: number
@@ -17,11 +17,41 @@ const defaultFieldSize = 10 * 1024 * 1024 // 10mb
 const defaultFileSize = 1 * 1024 * 1024 // 1mb
 const defaultDestination = 'public/uploads/'
 
-export const allowedImage = ['.png', '.jpg', '.jpeg']
-export const allowedExcel = ['.xlsx', '.xls']
+// extension
+export const allowedZIP = ['.zip']
 export const allowedPDF = ['.pdf']
+export const allowedImage = ['.png', '.jpg', '.jpeg', '.svg']
+export const allowedExcel = ['.xlsx', '.xls']
+export const allowedDoc = ['.doc', '.docx']
 
-const defaultAllowedExt = [...allowedImage, ...allowedExcel, ...allowedPDF]
+const defaultAllowedExt = [
+  ...allowedZIP,
+  ...allowedPDF,
+  ...allowedImage,
+  ...allowedExcel,
+  ...allowedDoc,
+]
+
+// mimetype
+export const allowedMimetypeZIP = ['application/zip']
+export const allowedMimetypePDF = ['application/pdf']
+export const allowedMimetypeImage = ['image/jpeg', 'image/png', 'image/svg+xml']
+export const allowedMimetypeExcel = [
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+]
+export const allowedMimetypeDoc = [
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+]
+
+const defaultAllowedMimetype = [
+  ...allowedMimetypeZIP,
+  ...allowedMimetypePDF,
+  ...allowedMimetypeImage,
+  ...allowedMimetypeExcel,
+  ...allowedMimetypeDoc,
+]
 
 const useMulter = (props: MulterSetupProps): multer.Multer => {
   // config storage
@@ -40,10 +70,10 @@ const useMulter = (props: MulterSetupProps): multer.Multer => {
   const configMulter = multer({
     storage,
     fileFilter(req, file, cb) {
-      const ext = path.extname(file.originalname)
+      const allowedMimetype = props.allowedMimetype ?? defaultAllowedMimetype
       const allowedExt = props.allowedExt ?? defaultAllowedExt
 
-      if (!allowedExt.includes(ext.toLowerCase())) {
+      if (!allowedMimetype.includes(file.mimetype.toLowerCase())) {
         return cb(
           new ResponseError.BadRequest(
             `Only ${allowedExt.join(', ')} ext are allowed`
