@@ -72,7 +72,7 @@ class AuthService {
 
     // check user account
     if (!getUser) {
-      throw new ResponseError.NotFound('account not found or has been deleted')
+      throw new ResponseError.NotFound('account not found or not registered')
     }
 
     // check active account
