@@ -73,7 +73,7 @@ class SessionService {
     const data = await Session.findOne({ where: { UserId, token } })
 
     if (!data) {
-      throw new ResponseError.NotFound(
+      throw new ResponseError.Unauthorized(
         'the login session has ended, please re-login'
       )
     }
@@ -87,7 +87,7 @@ class SessionService {
    * @param txn
    * @returns
    */
-  public static async created(
+  public static async create(
     formData: SessionAttributes,
     txn?: Transaction
   ): Promise<SessionInstance> {
@@ -110,7 +110,7 @@ class SessionService {
     const data = await Session.findOne({ where: { UserId: value.UserId } })
 
     if (!data) {
-      await this.created(formData, txn)
+      await this.create(formData, txn)
     } else {
       await data.update(value, { transaction: txn })
     }
@@ -132,7 +132,7 @@ class SessionService {
    *
    * @param id
    */
-  public static async deleted(id: string): Promise<void> {
+  public static async delete(id: string): Promise<void> {
     const data = await this.findById(id)
     await data.destroy()
   }

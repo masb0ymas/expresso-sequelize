@@ -32,10 +32,10 @@ route.get(
 route.post(
   '/session',
   Authorization,
-  asyncHandler(async function created(req: Request, res: Response) {
+  asyncHandler(async function create(req: Request, res: Response) {
     const formData = req.getBody()
 
-    const data = await SessionService.created(formData)
+    const data = await SessionService.create(formData)
 
     const httpResponse = HttpResponse.created({ data })
     return res.status(201).json(httpResponse)
@@ -45,10 +45,10 @@ route.post(
 route.delete(
   '/session/:id',
   Authorization,
-  asyncHandler(async function deleted(req: Request, res: Response) {
+  asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    await SessionService.deleted(id)
+    await SessionService.delete(id)
 
     const httpResponse = HttpResponse.deleted({})
     return res.status(200).json(httpResponse)
