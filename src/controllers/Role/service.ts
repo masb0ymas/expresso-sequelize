@@ -8,6 +8,7 @@ import { RoleAttributes, RoleInstance } from '@models/role'
 import db from '@models/_instance'
 import { Request } from 'express'
 import _ from 'lodash'
+import { Transaction } from 'sequelize'
 import roleSchema from './schema'
 
 const { Sequelize } = db
@@ -70,9 +71,12 @@ class RoleService {
    * @param formData
    * @returns
    */
-  public static async created(formData: RoleAttributes): Promise<RoleInstance> {
+  public static async create(
+    formData: RoleAttributes,
+    txn?: Transaction
+  ): Promise<RoleInstance> {
     const value = useValidation(roleSchema.create, formData)
-    const data = await Role.create(value)
+    const data = await Role.create(value, { transaction: txn })
 
     return data
   }
@@ -83,9 +87,10 @@ class RoleService {
    * @param formData
    * @returns
    */
-  public static async updated(
+  public static async update(
     id: string,
-    formData: RoleAttributes
+    formData: RoleAttributes,
+    txn?: Transaction
   ): Promise<RoleInstance> {
     const data = await this.findById(id)
 
@@ -94,7 +99,7 @@ class RoleService {
       ...formData,
     })
 
-    await data.update(value ?? {})
+    await data.update(value ?? {}, { transaction: txn })
 
     return data
   }
@@ -103,7 +108,7 @@ class RoleService {
    *
    * @param id
    */
-  public static async deleted(id: string, force?: boolean): Promise<void> {
+  public static async delete(id: string, force?: boolean): Promise<void> {
     const isForce = validateBoolean(force)
 
     const data = await this.findById(id)
@@ -125,7 +130,7 @@ class RoleService {
    * @param ids @example ids = ["id_1", "id_2"]
    * @param force
    */
-  public static async multipleDeleted(
+  public static async multipleDelete(
     ids: string[],
     force?: boolean
   ): Promise<void> {

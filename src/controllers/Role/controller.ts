@@ -36,10 +36,10 @@ route.post(
   '/role',
   Authorization,
   PermissionAccess([ConstRole.ID_ADMIN]),
-  asyncHandler(async function created(req: Request, res: Response) {
+  asyncHandler(async function create(req: Request, res: Response) {
     const formData = req.getBody()
 
-    const data = await RoleService.created(formData)
+    const data = await RoleService.create(formData)
 
     const httpResponse = HttpResponse.created({ data })
     return res.status(201).json(httpResponse)
@@ -50,11 +50,11 @@ route.put(
   '/role/:id',
   Authorization,
   PermissionAccess([ConstRole.ID_ADMIN]),
-  asyncHandler(async function updated(req: Request, res: Response) {
+  asyncHandler(async function update(req: Request, res: Response) {
     const { id } = req.getParams()
     const formData = req.getBody()
 
-    const data = await RoleService.updated(id, formData)
+    const data = await RoleService.update(id, formData)
 
     const httpResponse = HttpResponse.updated({ data })
     return res.status(200).json(httpResponse)
@@ -82,7 +82,7 @@ route.delete(
   asyncHandler(async function softDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    await RoleService.deleted(id)
+    await RoleService.delete(id)
 
     const httpResponse = HttpResponse.deleted({})
     return res.status(200).json(httpResponse)
@@ -96,7 +96,7 @@ route.delete(
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    await RoleService.deleted(id, true)
+    await RoleService.delete(id, true)
 
     const httpResponse = HttpResponse.deleted({})
     return res.status(200).json(httpResponse)
@@ -126,7 +126,7 @@ route.post(
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await RoleService.multipleDeleted(arrayIds)
+    await RoleService.multipleDelete(arrayIds)
 
     const httpResponse = HttpResponse.deleted({})
     return res.status(200).json(httpResponse)
@@ -141,7 +141,7 @@ route.post(
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await RoleService.multipleDeleted(arrayIds, true)
+    await RoleService.multipleDelete(arrayIds, true)
 
     const httpResponse = HttpResponse.deleted({})
     return res.status(200).json(httpResponse)
