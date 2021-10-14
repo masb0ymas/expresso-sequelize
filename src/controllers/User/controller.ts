@@ -123,7 +123,7 @@ route.post(
   PermissionAccess([ConstRole.ID_ADMIN]),
   uploadFile,
   setFileToBody,
-  asyncHandler(async function created(req: Request, res: Response) {
+  asyncHandler(async function create(req: Request, res: Response) {
     await createDirectory()
     const txn = await req.getTransaction()
     const formData = req.getBody()
@@ -156,7 +156,7 @@ route.post(
       picturePath: profilePath,
     }
 
-    const data = await UserService.created(newFormData, txn)
+    const data = await UserService.create(newFormData, txn)
 
     await txn.commit()
     const httpResponse = HttpResponse.created({ data })
@@ -167,11 +167,11 @@ route.post(
 route.put(
   '/user/:id',
   Authorization,
-  asyncHandler(async function created(req: Request, res: Response) {
+  asyncHandler(async function update(req: Request, res: Response) {
     const { id } = req.getParams()
     const formData = req.getBody()
 
-    const data = await UserService.updated(id, formData)
+    const data = await UserService.update(id, formData)
 
     const httpResponse = HttpResponse.updated({ data })
     return res.status(200).json(httpResponse)
@@ -199,7 +199,7 @@ route.delete(
   asyncHandler(async function softDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    await UserService.deleted(id)
+    await UserService.delete(id)
 
     const httpResponse = HttpResponse.deleted({})
     return res.status(200).json(httpResponse)
@@ -213,7 +213,7 @@ route.delete(
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
-    await UserService.deleted(id, true)
+    await UserService.delete(id, true)
 
     const httpResponse = HttpResponse.deleted({})
     return res.status(200).json(httpResponse)
@@ -243,7 +243,7 @@ route.post(
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await UserService.multipleDeleted(arrayIds)
+    await UserService.multipleDelete(arrayIds)
 
     const httpResponse = HttpResponse.deleted({})
     return res.status(200).json(httpResponse)
@@ -258,7 +258,7 @@ route.post(
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await UserService.multipleDeleted(arrayIds, true)
+    await UserService.multipleDelete(arrayIds, true)
 
     const httpResponse = HttpResponse.deleted({})
     return res.status(200).json(httpResponse)

@@ -117,7 +117,7 @@ class UserService {
    * @param txn
    * @returns
    */
-  public static async created(
+  public static async create(
     formData: UserAttributes,
     txn?: Transaction
   ): Promise<UserInstance> {
@@ -134,7 +134,7 @@ class UserService {
    * @param txn
    * @returns
    */
-  public static async updated(
+  public static async update(
     id: string,
     formData: UserAttributes,
     txn?: Transaction
@@ -160,7 +160,7 @@ class UserService {
    * @param id
    * @param force
    */
-  public static async deleted(id: string, force?: boolean): Promise<void> {
+  public static async delete(id: string, force?: boolean): Promise<void> {
     const isForce = validateBoolean(force)
 
     const data = await this.findById(id)
@@ -182,7 +182,7 @@ class UserService {
    * @param ids @example ids = ["id_1", "id_2"]
    * @param force
    */
-  public static async multipleDeleted(
+  public static async multipleDelete(
     ids: string[],
     force?: boolean
   ): Promise<void> {
