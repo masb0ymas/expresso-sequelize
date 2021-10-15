@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-throw-literal */
 import i18next from '@config/i18nextConfig'
 import winstonLogger, { winstonStream } from '@config/Logger'
 import allowedOrigins from '@expresso/constants/ConstAllowedOrigins'
@@ -19,6 +20,7 @@ import Express, { Application, NextFunction, Request, Response } from 'express'
 import UserAgent from 'express-useragent'
 import Helmet from 'helmet'
 import hpp from 'hpp'
+import http from 'http'
 import i18nextMiddleware from 'i18next-http-middleware'
 import Logger from 'morgan'
 import path from 'path'
@@ -139,11 +141,45 @@ class App {
       res.render('error')
     })
 
-    // Run listener
-    this.application.listen(this.port, () => {
-      const host = chalk.cyan(`http://localhost:${this.port}`)
+    // setup port
+    this.application.set('port', this.port)
+    const server = http.createServer(this.application)
+
+    const onError = (error: { syscall: string; code: string }): void => {
+      if (error.syscall !== 'listen') {
+        throw error
+      }
+
+      const bind =
+        typeof this.port === 'string'
+          ? `Pipe ${this.port}`
+          : `Port ${this.port}`
+
+      // handle specific listen errors with friendly messages
+      switch (error.code) {
+        case 'EACCES':
+          console.error(`${bind} requires elevated privileges`)
+          process.exit(1)
+        case 'EADDRINUSE':
+          console.error(`${bind} is already in use`)
+          process.exit(1)
+        default:
+          throw error
+      }
+    }
+
+    const onListening = (): void => {
+      const addr = server.address()
+      const bind = typeof addr === 'string' ? `${addr}` : `${addr?.port}`
+
+      const host = chalk.cyan(`http://localhost:${bind}`)
       console.log(`Server listening on ${host} & Env: ${chalk.blue(NODE_ENV)}`)
-    })
+    }
+
+    // Run listener
+    server.listen(this.port)
+    server.on('error', onError)
+    server.on('listening', onListening)
   }
 }
 
