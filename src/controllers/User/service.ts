@@ -136,19 +136,19 @@ class UserService {
    */
   public static async update(
     id: string,
-    formData: UserAttributes,
+    formData: Partial<UserAttributes>,
     txn?: Transaction
   ): Promise<UserInstance> {
     const data = await this.findById(id)
-
-    if (formData.email !== data.email) {
-      await this.validateEmail(formData.email)
-    }
 
     const value = useValidation(userSchema.create, {
       ...data.toJSON(),
       ...formData,
     })
+
+    if (value.email !== data.email) {
+      await this.validateEmail(value.email)
+    }
 
     await data.update(value ?? {}, { transaction: txn })
 

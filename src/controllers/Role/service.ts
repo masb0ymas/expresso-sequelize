@@ -89,7 +89,7 @@ class RoleService {
    */
   public static async update(
     id: string,
-    formData: RoleAttributes,
+    formData: Partial<RoleAttributes>,
     txn?: Transaction
   ): Promise<RoleInstance> {
     const data = await this.findById(id)
