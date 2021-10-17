@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-dynamic-delete */
-import db from '@models/_instance'
+import db from '@database/models/_instance'
 import { Request } from 'express'
 import _ from 'lodash'
 import { Transaction } from 'sequelize'

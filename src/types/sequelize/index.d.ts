@@ -1,4 +1,9 @@
+import { MyModels } from '@database/models/_instance'
 import sequelize from 'sequelize'
+import { ConnectionManager } from 'sequelize/types/lib/connection-manager'
+import * as DataTypes from 'sequelize/types/lib/data-types'
+import { HookReturn } from 'sequelize/types/lib/hooks'
+import { ValidationOptions } from 'sequelize/types/lib/instance-validator'
 import {
   BulkCreateOptions,
   CreateOptions,
@@ -11,32 +16,27 @@ import {
   ModelAttributes,
   ModelCtor,
   ModelOptions,
-  UpdateOptions,
+  UpdateOptions
 } from 'sequelize/types/lib/model'
-import { MyModels } from '@models/_instance'
-import { ValidationOptions } from 'sequelize/types/lib/instance-validator'
-import { HookReturn } from 'sequelize/types/lib/hooks'
 import { ModelManager } from 'sequelize/types/lib/model-manager'
-import { ConnectionManager } from 'sequelize/types/lib/connection-manager'
 import {
   ColumnsDescription,
   QueryInterface,
   QueryOptions,
   QueryOptionsWithModel,
-  QueryOptionsWithType,
+  QueryOptionsWithType
 } from 'sequelize/types/lib/query-interface'
-import * as DataTypes from 'sequelize/types/lib/data-types'
-import { Fn } from 'sequelize/types/lib/utils'
-import {
-  Transaction,
-  TransactionOptions,
-} from 'sequelize/types/lib/transaction'
 import {
   Config,
   Options,
   QueryOptionsTransactionRequired,
-  SyncOptions,
+  SyncOptions
 } from 'sequelize/types/lib/sequelize'
+import {
+  Transaction,
+  TransactionOptions
+} from 'sequelize/types/lib/transaction'
+import { Fn } from 'sequelize/types/lib/utils'
 
 interface Associate {
   associate: (models: MyModels) => void

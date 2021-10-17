@@ -1,18 +1,18 @@
 import SessionService from '@controllers/Session/service'
 import userSchema from '@controllers/User/schema'
 import UserService from '@controllers/User/service'
-import ConstRole from '@expresso/constants/ConstRole'
-import SendMail from '@expresso/helpers/SendMail'
-import { generateAccessToken, verifyAccessToken } from '@expresso/helpers/Token'
-import useValidation from '@expresso/hooks/useValidation'
-import ResponseError from '@expresso/modules/Response/ResponseError'
-import models from '@models/index'
+import models from '@database/models/index'
 import {
   LoginAttributes,
   UserAttributes,
   UserInstance,
   UserLoginAttributes,
-} from '@models/user'
+} from '@database/models/user'
+import ConstRole from '@expresso/constants/ConstRole'
+import SendMail from '@expresso/helpers/SendMail'
+import { generateAccessToken, verifyAccessToken } from '@expresso/helpers/Token'
+import useValidation from '@expresso/hooks/useValidation'
+import ResponseError from '@expresso/modules/Response/ResponseError'
 import _ from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 

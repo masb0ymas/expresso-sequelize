@@ -32,12 +32,10 @@
       "@expresso/*": ["@expresso/*"],
       "@config/*": ["config/*"],
       "@controllers/*": ["controllers/*"],
+      "@database/*": ["database/*"],
       "@jobs/*": ["jobs/*"],
       "@middlewares/*": ["middlewares/*"],
-      "@migrations/*": ["migrations/*"],
-      "@models/*": ["models/*"],
       "@routes/*": ["routes/*"],
-      "@seeds/*": ["seeds/*"],
       "@utils/*": ["utils/*"],
       "@views/*": ["views/*"],
     },                                                   /* Specify a set of entries that re-map imports to additional lookup locations. */

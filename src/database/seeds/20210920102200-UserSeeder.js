@@ -1,6 +1,6 @@
 'use strict'
 
-const ConstRole = require('../@expresso/constants/ConstRole')
+const ConstRole = require('../../@expresso/constants/ConstRole')
 const { v4: uuidv4 } = require('uuid')
 const bcrypt = require('bcrypt')
 

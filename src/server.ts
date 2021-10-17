@@ -4,8 +4,8 @@ import './pathAlias'
 import chalk from 'chalk'
 import dotenv from 'dotenv'
 import App from './app'
+import db from './database/models/_instance'
 import initialJobs from './jobs'
-import db from './models/_instance'
 
 dotenv.config()
 

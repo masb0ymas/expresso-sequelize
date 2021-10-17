@@ -142,12 +142,10 @@
     "@expresso/*": "dist/@expresso/*",
     "@config/*": "dist/config/*",
     "@controllers/*": "dist/controllers/*",
+    "@database/*": "dist/database/*",
     "@jobs/*": "dist/jobs/*",
     "@middlewares/*": "dist/middlewares/*",
-    "@migrations/*": "dist/migrations/*",
-    "@models/*": "dist/models/*",
     "@routes/*": "dist/routes/*",
-    "@seeds/*": "dist/seeds/*",
     "@utils/*": "dist/utils/*",
     "@views/*": "dist/views/*"
   }

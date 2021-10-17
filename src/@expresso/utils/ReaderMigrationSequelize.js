@@ -71,7 +71,7 @@ const fs = require('fs')
 const path = require('path')
 
 function read(sequelize, mockQueryInterface) {
-  const basePath = path.resolve(`src/migrations`)
+  const basePath = path.resolve(`src/database/migrations`)
 
   const files = fs.readdirSync(basePath)
   files.forEach((file) => {
