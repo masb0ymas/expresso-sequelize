@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/masb0ymas/expresso/compare/v3.0.1...v3.1.0) (2021-10-18)
+
+
+### Features
+
+* add endpoint health ([c464d06](https://github.com/masb0ymas/expresso/commit/c464d067aa4c62d2a2edbd884c9b9a862910f2c3))
+
+
+### Bug Fixes
+
+* check .env before generate key ([879785e](https://github.com/masb0ymas/expresso/commit/879785ec4152ab9c55531f102223739a146f3d6b))
+* dto paginate ([31f9cbd](https://github.com/masb0ymas/expresso/commit/31f9cbd13f98e966ecea44f4b05e607bedf689c0))
+* endpoint role ([69aa7e0](https://github.com/masb0ymas/expresso/commit/69aa7e0174134cf6a72e39828463ece4b5b10f20))
+* endpoint session ([05b5c74](https://github.com/masb0ymas/expresso/commit/05b5c749eb5806087085394ffc9973ba7d6a56b1))
+* endpoint user ([795bf8c](https://github.com/masb0ymas/expresso/commit/795bf8c9307546bd96778000ebb139f108e05954))
+* generate key ([eb03f80](https://github.com/masb0ymas/expresso/commit/eb03f80ac6ce1d9e6dbbdde605c9714c0d9b5393))
+* listening port with http server ([22c9932](https://github.com/masb0ymas/expresso/commit/22c9932467ad6d4d1d85db726d2ab9b34447d279))
+* message login failed account not found ([0220c58](https://github.com/masb0ymas/expresso/commit/0220c588089d58287db4b2b12b02964faccceb57))
+* multer with mimetype ([e31ecc7](https://github.com/masb0ymas/expresso/commit/e31ecc77d47bef299c6ffb5a9b2f345f8f14c7fe))
+* response endpoint health ([a6b952e](https://github.com/masb0ymas/expresso/commit/a6b952e82b286b35b3e48c59289ee5180f802c94))
+* server ([c76fee2](https://github.com/masb0ymas/expresso/commit/c76fee209c3c29aee5777359d8318f14fe4bfd9a))
+* typing update role & user service ([4aded02](https://github.com/masb0ymas/expresso/commit/4aded025f4bb30137edda66ca2295263df10fc09))
+* update profile user ([3acc42b](https://github.com/masb0ymas/expresso/commit/3acc42bd99ea0d5898ae25130946e5c56940d59b))
+
+
+### Other Commit
+
+* move migration, model & seeds to database folder ([754d6b7](https://github.com/masb0ymas/expresso/commit/754d6b78f959c58b25e3a6e2085c396c2b814ff7))
+
 ### [3.0.1](https://github.com/masb0ymas/expresso/compare/v3.0.0...v3.0.1) (2021-09-27)
 
 
