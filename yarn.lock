@@ -5154,10 +5154,10 @@ range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
-rate-limiter-flexible@^2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/rate-limiter-flexible/-/rate-limiter-flexible-2.2.4.tgz#fc3ee5ec610d7289717b5cbba58bf89332b074b1"
-  integrity sha512-8u4k5b1afuBcfydX0L0l3J2PNjgcuo3zua8plhvIisyDqOBldrCwfSFut/Fj00LAB1nxJYVM9jeszr2rZyDhQw==
+rate-limiter-flexible@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/rate-limiter-flexible/-/rate-limiter-flexible-2.3.1.tgz#e37cd5d8cae26235a425b0dae0a6d336fbf61757"
+  integrity sha512-u4Ual0ssf/RHHxK3rqKo9W2S7ulVoNdCAOrsk1gR9JLtzqg7fGw+yaCeyBAEncsL2n6XqHh/0qJk3BPDn49BjA==
 
 raw-body@2.4.0:
   version "2.4.0"
@@ -5505,10 +5505,10 @@ sequelize-pool@^6.0.0:
   resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-6.1.0.tgz#caaa0c1e324d3c2c3a399fed2c7998970925d668"
   integrity sha512-4YwEw3ZgK/tY/so+GfnSgXkdwIJJ1I32uZJztIEgZeAO6HMgj64OzySbWLgxj+tXhZCJnzRfkY9gINw8Ft8ZMg==
 
-sequelize@^6.6.5:
-  version "6.6.5"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.6.5.tgz#6f618e99f3df1fc81f28709e8a3139cec3ef1f0c"
-  integrity sha512-QyRrJrDRiwuiILqTMHUA1yWOPIL12KlfmgZ3hnzQwbMvp2vJ6fzu9bYJQB+qPMosck4mBUggY4Cjoc6Et8FBIQ==
+sequelize@^6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.7.0.tgz#6af3149ad9b39c4bfc8b563f25e1598e2a0cf881"
+  integrity sha512-OVw3psUggqQT9kYg5Z9fja/BMdBxX/Ua3Bwx2yif5g6QuYEE4UfWq5jW6LmbacGwgK6bgZs05Q2zCkJZCDFrSA==
   dependencies:
     debug "^4.1.1"
     dottie "^2.0.0"
