@@ -70,7 +70,9 @@ function createAxios(baseUri: string): AxiosInstance {
         }
 
         console.log(`${errAxios(error.message)}`)
-        throw new ResponseError.BadRequest(error.message)
+        throw new ResponseError.BadRequest(
+          error.response?.data ?? error.message
+        )
       }
       return await Promise.reject(error)
     }
