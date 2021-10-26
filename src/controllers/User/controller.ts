@@ -7,7 +7,7 @@ import useMulter, {
   allowedImage,
   allowedMimetypeImage,
 } from '@expresso/hooks/useMulter'
-import { FileAttributes } from '@expresso/interfaces/File'
+import { FileAttributes } from '@expresso/interfaces/Files'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import Authorization from '@middlewares/Authorization'
 import PermissionAccess from '@middlewares/PermissionAccess'
