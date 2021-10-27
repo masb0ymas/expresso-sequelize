@@ -8,7 +8,7 @@ import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
 import _ from 'lodash'
-import { Transaction } from 'sequelize'
+import { Includeable, Transaction } from 'sequelize'
 import roleSchema from './schema'
 
 const { Sequelize } = db
@@ -50,18 +50,34 @@ class RoleService {
    * @param paranoid
    * @returns
    */
-  public static async findById(
+  private static async findByPk(
     id: string,
-    paranoid?: boolean
+    paranoid?: boolean,
+    include?: Includeable | Includeable[]
   ): Promise<RoleInstance> {
     const newId = validateUUID(id)
-    const data = await Role.findByPk(newId, { paranoid })
+    const data = await Role.findByPk(newId, { include, paranoid })
 
     if (!data) {
       throw new ResponseError.NotFound(
         'role data not found or has been deleted'
       )
     }
+
+    return data
+  }
+
+  /**
+   *
+   * @param id
+   * @param paranoid
+   * @returns
+   */
+  public static async findById(
+    id: string,
+    paranoid?: boolean
+  ): Promise<RoleInstance> {
+    const data = await this.findByPk(id, paranoid)
 
     return data
   }
@@ -92,7 +108,7 @@ class RoleService {
     formData: Partial<RoleAttributes>,
     txn?: Transaction
   ): Promise<RoleInstance> {
-    const data = await this.findById(id)
+    const data = await this.findByPk(id)
 
     const value = useValidation(roleSchema.create, {
       ...data.toJSON(),
@@ -111,7 +127,7 @@ class RoleService {
   public static async delete(id: string, force?: boolean): Promise<void> {
     const isForce = validateBoolean(force)
 
-    const data = await this.findById(id)
+    const data = await this.findByPk(id)
     await data.destroy({ force: isForce })
   }
 
@@ -120,7 +136,7 @@ class RoleService {
    * @param id
    */
   public static async restore(id: string): Promise<void> {
-    const data = await this.findById(id, false)
+    const data = await this.findByPk(id, false)
 
     await data.restore()
   }

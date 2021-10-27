@@ -9,7 +9,7 @@ import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
 import _ from 'lodash'
-import { Transaction } from 'sequelize'
+import { Includeable, Transaction } from 'sequelize'
 import userSchema from './schema'
 
 interface DtoPaginate extends DtoFindAll {
@@ -53,14 +53,16 @@ class UserService {
    *
    * @param id
    * @param paranoid
+   * @param include
    * @returns
    */
-  public static async findById(
+  private static async findByPk(
     id: string,
-    paranoid?: boolean
+    paranoid?: boolean,
+    include?: Includeable | Includeable[]
   ): Promise<UserInstance> {
     const newId = validateUUID(id)
-    const data = await User.findByPk(newId, { include: including, paranoid })
+    const data = await User.findByPk(newId, { include, paranoid })
 
     if (!data) {
       throw new ResponseError.NotFound(
@@ -77,21 +79,26 @@ class UserService {
    * @param paranoid
    * @returns
    */
+  public static async findById(
+    id: string,
+    paranoid?: boolean
+  ): Promise<UserInstance> {
+    const data = await this.findByPk(id, paranoid, including)
+
+    return data
+  }
+
+  /**
+   *
+   * @param id
+   * @param paranoid
+   * @returns
+   */
   public static async findUserWithSession(
     id: string,
     paranoid?: boolean
   ): Promise<UserInstance> {
-    const newId = validateUUID(id)
-    const data = await User.findByPk(newId, {
-      include: includeSession,
-      paranoid,
-    })
-
-    if (!data) {
-      throw new ResponseError.NotFound(
-        'user data not found or has been deleted'
-      )
-    }
+    const data = await this.findByPk(id, paranoid, includeSession)
 
     return data
   }
@@ -139,7 +146,7 @@ class UserService {
     formData: Partial<UserAttributes>,
     txn?: Transaction
   ): Promise<UserInstance> {
-    const data = await this.findById(id)
+    const data = await this.findByPk(id)
 
     const value = useValidation(userSchema.create, {
       ...data.toJSON(),
@@ -163,7 +170,7 @@ class UserService {
   public static async delete(id: string, force?: boolean): Promise<void> {
     const isForce = validateBoolean(force)
 
-    const data = await this.findById(id)
+    const data = await this.findByPk(id)
     await data.destroy({ force: isForce })
   }
 
@@ -172,7 +179,7 @@ class UserService {
    * @param id
    */
   public static async restore(id: string): Promise<void> {
-    const data = await this.findById(id, false)
+    const data = await this.findByPk(id, false)
 
     await data.restore()
   }
