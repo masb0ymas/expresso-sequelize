@@ -42,7 +42,7 @@
     "node": ">=12.x"
   },
   "dependencies": {
-    "axios": "^0.21.4",
+    "axios": "^0.22.0",
     "bcrypt": "^5.0.1",
     "chalk": "^4.1.2",
     "compression": "^1.7.4",
