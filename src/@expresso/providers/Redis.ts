@@ -7,6 +7,11 @@ dotenv.config()
 const timeoutRedis = ms('1d') / 1000
 const expiryMode = 'PX' // PX = miliseconds || EX = seconds. full documentation https://redis.io/commands/set
 
+interface RedisOptionsProps {
+  expiryMode?: string | any[]
+  timeout?: string | number
+}
+
 class RedisProvider {
   private readonly client: RedisClient
 
@@ -22,9 +27,22 @@ class RedisProvider {
    *
    * @param key
    * @param data
+   * @param options
    */
-  public async set(key: string, data: any): Promise<void> {
-    await this.client.set(key, JSON.stringify(data), expiryMode, timeoutRedis)
+  public async set(
+    key: string,
+    data: any,
+    options?: RedisOptionsProps
+  ): Promise<void> {
+    const defaultExpiry = options?.expiryMode ?? expiryMode
+    const defaultTimeout = options?.timeout ?? timeoutRedis
+
+    await this.client.set(
+      key,
+      JSON.stringify(data),
+      defaultExpiry,
+      defaultTimeout
+    )
   }
 
   /**
