@@ -9,7 +9,7 @@ import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
 import _ from 'lodash'
-import { Includeable, Transaction } from 'sequelize'
+import { Includeable, Order, Transaction } from 'sequelize'
 import userSchema from './schema'
 
 interface DtoPaginate extends DtoFindAll {
@@ -52,17 +52,23 @@ class UserService {
   /**
    *
    * @param id
-   * @param paranoid
-   * @param include
+   * @param options
    * @returns
    */
-  private static async findByPk(
+  public static async findByPk(
     id: string,
-    paranoid?: boolean,
-    include?: Includeable | Includeable[]
+    options?: {
+      include?: Includeable | Includeable[]
+      order?: Order
+      paranoid?: boolean
+    }
   ): Promise<UserInstance> {
     const newId = validateUUID(id)
-    const data = await User.findByPk(newId, { include, paranoid })
+    const data = await User.findByPk(newId, {
+      include: options?.include,
+      order: options?.order,
+      paranoid: options?.paranoid,
+    })
 
     if (!data) {
       throw new ResponseError.NotFound(
@@ -83,7 +89,7 @@ class UserService {
     id: string,
     paranoid?: boolean
   ): Promise<UserInstance> {
-    const data = await this.findByPk(id, paranoid, including)
+    const data = await this.findByPk(id, { paranoid, include: including })
 
     return data
   }
@@ -98,7 +104,7 @@ class UserService {
     id: string,
     paranoid?: boolean
   ): Promise<UserInstance> {
-    const data = await this.findByPk(id, paranoid, includeSession)
+    const data = await this.findByPk(id, { paranoid, include: includeSession })
 
     return data
   }
@@ -179,7 +185,7 @@ class UserService {
    * @param id
    */
   public static async restore(id: string): Promise<void> {
-    const data = await this.findByPk(id, false)
+    const data = await this.findByPk(id, { paranoid: false })
 
     await data.restore()
   }

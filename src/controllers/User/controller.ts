@@ -25,9 +25,12 @@ async function createDirectory(): Promise<void> {
   pathDirectory.map((x) => createDirNotExist(x))
 }
 
+const onlyAdmin = [ConstRole.ID_SUPER_ADMIN, ConstRole.ID_ADMIN]
+
 route.get(
   '/user',
   Authorization,
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function findAll(req: Request, res: Response) {
     const data = await UserService.findAll(req)
 
@@ -39,6 +42,7 @@ route.get(
 route.get(
   '/user/:id',
   Authorization,
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function findById(req: Request, res: Response) {
     const { id } = req.getParams()
     const data = await UserService.findById(id)
@@ -51,6 +55,7 @@ route.get(
 route.get(
   '/user/:id/session',
   Authorization,
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function findUserWithSession(req: Request, res: Response) {
     const { id } = req.getParams()
     const data = await UserService.findUserWithSession(id)
@@ -63,7 +68,7 @@ route.get(
 route.get(
   '/user/generate-excel',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
     const streamExcel = await UserService.generateExcel(req)
     const filename = `${Date.now()}_generate_user.xlsx`
@@ -80,7 +85,7 @@ route.get(
 route.get(
   '/user/export-excel',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function generateExcelEvent(req: Request, res: Response) {
     const streamExcel = await UserService.generateExcel(req)
     const filename = `${Date.now()}_export_user.xlsx`
@@ -120,7 +125,7 @@ const setFileToBody = asyncHandler(async function setFileToBody(
 route.post(
   '/user',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   uploadFile,
   setFileToBody,
   asyncHandler(async function create(req: Request, res: Response) {
@@ -181,7 +186,7 @@ route.put(
 route.put(
   '/user/restore/:id',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function restore(req: Request, res: Response) {
     const { id } = req.getParams()
 
@@ -195,7 +200,7 @@ route.put(
 route.delete(
   '/user/soft-delete/:id',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function softDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
@@ -209,7 +214,7 @@ route.delete(
 route.delete(
   '/user/force-delete/:id',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
@@ -223,7 +228,7 @@ route.delete(
 route.post(
   '/user/multiple/restore',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -238,7 +243,7 @@ route.post(
 route.post(
   '/user/multiple/soft-delete',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -253,7 +258,7 @@ route.post(
 route.post(
   '/user/multiple/force-delete',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
