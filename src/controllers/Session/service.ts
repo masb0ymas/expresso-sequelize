@@ -6,7 +6,7 @@ import ResponseError from '@expresso/modules/Response/ResponseError'
 import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
-import { Transaction } from 'sequelize'
+import { Includeable, Order, Transaction } from 'sequelize'
 import sessionSchema from './schema'
 
 const { Session, User } = models
@@ -45,17 +45,40 @@ class SessionService {
   /**
    *
    * @param id
+   * @param options
    * @returns
    */
-  public static async findById(id: string): Promise<SessionInstance> {
+  public static async findByPk(
+    id: string,
+    options?: {
+      include?: Includeable | Includeable[]
+      order?: Order
+      paranoid?: boolean
+    }
+  ): Promise<SessionInstance> {
     const newId = validateUUID(id)
-    const data = await Session.findByPk(newId)
+    const data = await Session.findByPk(newId, {
+      include: options?.include,
+      order: options?.order,
+      paranoid: options?.paranoid,
+    })
 
     if (!data) {
       throw new ResponseError.NotFound(
         'session data not found or has been deleted'
       )
     }
+
+    return data
+  }
+
+  /**
+   *
+   * @param id
+   * @returns
+   */
+  public static async findById(id: string): Promise<SessionInstance> {
+    const data = await this.findByPk(id)
 
     return data
   }
