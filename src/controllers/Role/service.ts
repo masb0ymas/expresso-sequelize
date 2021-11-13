@@ -8,7 +8,7 @@ import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
 import _ from 'lodash'
-import { Includeable, Transaction } from 'sequelize'
+import { Includeable, Order, Transaction } from 'sequelize'
 import roleSchema from './schema'
 
 const { Sequelize } = db
@@ -47,16 +47,23 @@ class RoleService {
   /**
    *
    * @param id
-   * @param paranoid
+   * @param options
    * @returns
    */
-  private static async findByPk(
+  public static async findByPk(
     id: string,
-    paranoid?: boolean,
-    include?: Includeable | Includeable[]
+    options?: {
+      include?: Includeable | Includeable[]
+      order?: Order
+      paranoid?: boolean
+    }
   ): Promise<RoleInstance> {
     const newId = validateUUID(id)
-    const data = await Role.findByPk(newId, { include, paranoid })
+    const data = await Role.findByPk(newId, {
+      include: options?.include,
+      order: options?.order,
+      paranoid: options?.paranoid,
+    })
 
     if (!data) {
       throw new ResponseError.NotFound(
@@ -77,7 +84,7 @@ class RoleService {
     id: string,
     paranoid?: boolean
   ): Promise<RoleInstance> {
-    const data = await this.findByPk(id, paranoid)
+    const data = await this.findByPk(id, { paranoid })
 
     return data
   }
@@ -85,6 +92,7 @@ class RoleService {
   /**
    *
    * @param formData
+   * @param txn
    * @returns
    */
   public static async create(
@@ -101,6 +109,7 @@ class RoleService {
    *
    * @param id
    * @param formData
+   * @param txn
    * @returns
    */
   public static async update(
@@ -123,6 +132,7 @@ class RoleService {
   /**
    *
    * @param id
+   * @param force
    */
   public static async delete(id: string, force?: boolean): Promise<void> {
     const isForce = validateBoolean(force)
@@ -136,7 +146,7 @@ class RoleService {
    * @param id
    */
   public static async restore(id: string): Promise<void> {
-    const data = await this.findByPk(id, false)
+    const data = await this.findByPk(id, { paranoid: false })
 
     await data.restore()
   }

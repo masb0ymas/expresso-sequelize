@@ -8,9 +8,12 @@ import route from '@routes/v1'
 import { Request, Response } from 'express'
 import RoleService from './service'
 
+const onlyAdmin = [ConstRole.ID_SUPER_ADMIN, ConstRole.ID_ADMIN]
+
 route.get(
   '/role',
   Authorization,
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function findAll(req: Request, res: Response) {
     const data = await RoleService.findAll(req)
 
@@ -22,6 +25,7 @@ route.get(
 route.get(
   '/role/:id',
   Authorization,
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function findById(req: Request, res: Response) {
     const { id } = req.getParams()
 
@@ -35,7 +39,7 @@ route.get(
 route.post(
   '/role',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function create(req: Request, res: Response) {
     const formData = req.getBody()
 
@@ -49,7 +53,7 @@ route.post(
 route.put(
   '/role/:id',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function update(req: Request, res: Response) {
     const { id } = req.getParams()
     const formData = req.getBody()
@@ -64,7 +68,7 @@ route.put(
 route.put(
   '/role/restore/:id',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function restore(req: Request, res: Response) {
     const { id } = req.getParams()
 
@@ -78,7 +82,7 @@ route.put(
 route.delete(
   '/role/soft-delete/:id',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function softDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
@@ -92,7 +96,7 @@ route.delete(
 route.delete(
   '/role/force-delete/:id',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { id } = req.getParams()
 
@@ -106,7 +110,7 @@ route.delete(
 route.post(
   '/role/multiple/restore',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -121,7 +125,7 @@ route.post(
 route.post(
   '/role/multiple/soft-delete',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -136,7 +140,7 @@ route.post(
 route.post(
   '/role/multiple/force-delete',
   Authorization,
-  PermissionAccess([ConstRole.ID_ADMIN]),
+  PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
