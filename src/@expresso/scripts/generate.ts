@@ -2,6 +2,11 @@ import chalk from 'chalk'
 import fs from 'fs'
 import path from 'path'
 
+/**
+ *
+ * @param length
+ * @returns
+ */
 const getUniqueCodev2 = (length = 32): string => {
   let result = ''
   const characters =
@@ -13,6 +18,11 @@ const getUniqueCodev2 = (length = 32): string => {
   return result
 }
 
+/**
+ *
+ * @param value
+ * @param regExp
+ */
 function generateEnv(value: string, regExp: RegExp): void {
   const pathRes = path.resolve('.env')
 
