@@ -17,7 +17,7 @@ const URL_SERVER_PRODUCTION =
   process.env.URL_SERVER_PRODUCTION ?? 'https://api.example.com'
 
 const baseRoutes = path.resolve(`${__dirname}/../docs/swagger/routes`)
-// const baseSchemas = path.resolve('./docs/swagger/schemas')
+// const baseSchemas = path.resolve(`${__dirname}/../docs/swagger/schemas`)
 
 const getDocs = (basePath: string | Buffer): {} => {
   return fs.readdirSync(basePath).reduce((acc, file) => {
@@ -31,7 +31,7 @@ const getDocs = (basePath: string | Buffer): {} => {
 }
 
 const docsSources = getDocs(baseRoutes)
-// const docsSchemes = getDocs(baseSchemas, getPathSchemes)
+// const docsSchemes = getDocs(baseSchemas)
 
 let baseURLServer = []
 let swaggerOptURL = []
@@ -84,6 +84,15 @@ if (NODE_ENV === 'development') {
 
 export const swaggerOptions = {
   definition: {
+    info: {
+      title: `Api ${APP_NAME} Docs`,
+      description: `This is Api Documentation ${APP_NAME}`,
+      version: '1.0.0',
+      contact: {
+        name: `API ${APP_NAME}`,
+        url: 'https://github.com/masb0ymas/expresso',
+      },
+    },
     openapi: '3.0.1',
     servers: baseURLServer,
     // Set GLOBAL
@@ -131,10 +140,6 @@ export const swaggerOptions = {
           description: 'Example: [{"id": "createdAt", "desc": true}]',
         },
       },
-    },
-    info: {
-      title: `Api ${APP_NAME} Documentation`,
-      version: '1.0.0',
     },
     paths: docsSources,
   },
