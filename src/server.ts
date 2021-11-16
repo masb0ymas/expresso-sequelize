@@ -4,10 +4,13 @@ import './pathAlias'
 import chalk from 'chalk'
 import dotenv from 'dotenv'
 import App from './app'
+import initialAwsS3 from './config/clientS3'
 import db from './database/models/_instance'
 import initialJobs from './jobs'
 
 dotenv.config()
+
+const { AWS_ACCESS_KEY, AWS_SECRET_KEY } = process.env
 
 const dialect = process.env.DB_CONNECTION ?? 'mysql'
 
@@ -24,6 +27,12 @@ db.sequelize
   .catch((err: any) => {
     console.error('Unable to connect to the database: ', err)
   })
+
+// check if exist access & secret key aws
+if (AWS_ACCESS_KEY && AWS_SECRET_KEY) {
+  // initial client s3
+  void initialAwsS3()
+}
 
 // initial jobs
 initialJobs()
