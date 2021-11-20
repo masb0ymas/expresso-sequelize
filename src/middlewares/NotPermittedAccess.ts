@@ -1,3 +1,4 @@
+import { LOG_SERVER } from '@config/baseURL'
 import UserService from '@controllers/User/service'
 import { UserLoginAttributes } from '@database/models/user'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
@@ -12,7 +13,7 @@ function NotPermittedAccess(roles: string[]) {
     if (roles.includes(getUser.RoleId)) {
       const errType = `Not Permitted Access Error:`
       const message = 'You are not allowed'
-      console.log(chalk.red(errType), chalk.green(message))
+      console.log(LOG_SERVER, chalk.red(errType), chalk.green(message))
 
       const httpResponse = HttpResponse.get({
         code: 403,

@@ -1,3 +1,4 @@
+import { LOG_SERVER } from '@config/baseURL'
 import chalk from 'chalk'
 import { NextFunction, Request, Response } from 'express'
 import { ValidationError } from 'yup'
@@ -11,7 +12,7 @@ async function ExpressErrorYup(
   if (err instanceof ValidationError) {
     const errType = `Yup Validation Error:`
     const message = err.errors.join('<br/>') || 'Yup Validation Error !'
-    console.log(chalk.red(errType), chalk.green(message))
+    console.log(LOG_SERVER, chalk.red(errType), chalk.green(message))
 
     const error = {
       code: 422,

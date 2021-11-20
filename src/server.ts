@@ -7,6 +7,7 @@ import App from './app'
 import initialAwsS3 from './config/clientS3'
 import db from './database/models/_instance'
 import initialJobs from './jobs'
+import { LOG_SERVER } from '@config/baseURL'
 
 dotenv.config()
 
@@ -21,11 +22,13 @@ db.sequelize
   .authenticate()
   .then(() => {
     console.log(
-      `Connection ${chalk.cyan(dialect)} has been established successfully.`
+      `${LOG_SERVER} Connection ${chalk.cyan(
+        dialect
+      )} has been established successfully.`
     )
   })
   .catch((err: any) => {
-    console.error('Unable to connect to the database: ', err)
+    console.error(`${LOG_SERVER} Unable to connect to the database: `, err)
   })
 
 // check if exist access & secret key aws

@@ -1,3 +1,4 @@
+import { LOG_SERVER } from '@config/baseURL'
 import chalk from 'chalk'
 import { NextFunction, Request, Response } from 'express'
 import { get } from 'lodash'
@@ -24,7 +25,11 @@ async function ExpressErrorSequelize(
     if (err instanceof ValidationError) {
       const errors: any[] = get(err, 'errors', [])
       const errorMessage = get(errors, '0.message', null)
-      console.log(chalk.red('Sequelize Error:'), chalk.green(errorMessage))
+      console.log(
+        LOG_SERVER,
+        chalk.red('Sequelize Error:'),
+        chalk.green(errorMessage)
+      )
 
       const dataError = {
         code: 400,
@@ -37,7 +42,7 @@ async function ExpressErrorSequelize(
         }, {}),
       }
 
-      console.log(dataError.message, dataError.errors)
+      console.log(LOG_SERVER, dataError.message, dataError.errors)
 
       return res.status(400).json(dataError)
     }

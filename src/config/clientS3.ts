@@ -5,6 +5,7 @@ import {
 } from '@aws-sdk/client-s3'
 import chalk from 'chalk'
 import dotenv from 'dotenv'
+import { LOG_SERVER } from './baseURL'
 
 dotenv.config()
 
@@ -24,11 +25,14 @@ export const BUCKET_NAME = process.env.AWS_BUCKET_NAME ?? 'expresso'
 function createS3Bucket(): void {
   clientS3.createBucket({ Bucket: BUCKET_NAME }, function (err, data) {
     if (err) {
-      console.log(`${chalk.red('Aws S3 Err: ')}`, err)
+      console.log(`${LOG_SERVER} ${chalk.red('Aws S3 Err: ')}`, err)
 
       process.exit(1)
     } else {
-      console.log(`${chalk.cyan('Success create bucket')}`, data?.Location)
+      console.log(
+        `${LOG_SERVER} ${chalk.cyan('Success create bucket')}`,
+        data?.Location
+      )
     }
   })
 }
@@ -43,7 +47,10 @@ export const initialAwsS3 = async (): Promise<
       new GetBucketAclCommand({ Bucket: BUCKET_NAME })
     )
 
-    console.log(`${chalk.cyan('Success get bucket')}`, data.Grants)
+    console.log(
+      `${LOG_SERVER} ${chalk.cyan('Success get bucket')}`,
+      data.Grants
+    )
 
     return data
   } catch (err) {

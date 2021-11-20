@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-throw-literal */
+import { LOG_SERVER } from '@config/baseURL'
 import i18next from '@config/i18nextConfig'
 import winstonLogger, { winstonStream } from '@config/Logger'
 import allowedOrigins from '@expresso/constants/ConstAllowedOrigins'
@@ -175,7 +176,11 @@ class App {
       const bind = typeof addr === 'string' ? `${addr}` : `${addr?.port}`
 
       const host = chalk.cyan(`http://localhost:${bind}`)
-      console.log(`Server listening on ${host} & Env: ${chalk.blue(NODE_ENV)}`)
+      console.log(
+        `${LOG_SERVER} Server listening on ${host} & Env: ${chalk.blue(
+          NODE_ENV
+        )}`
+      )
     }
 
     // Run listener

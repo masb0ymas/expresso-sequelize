@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import chalk from 'chalk'
 import redis, { ClientOpts } from 'redis'
+import { LOG_SERVER } from './baseURL'
 
 dotenv.config()
 
@@ -15,12 +16,16 @@ const clientRedis = redis.createClient(optConfig)
 // client connect
 clientRedis.on('connect', function () {
   const name = chalk.cyan('Redis Client')
-  console.log(`${name} Connection has been established successfully.`)
+  console.log(
+    `${LOG_SERVER} ${name} Connection has been established successfully.`
+  )
 })
 
 // client error
 clientRedis.on('error', function (err) {
-  console.log(`${chalk.red('Redis Error:')} Something went wrong ${err}`)
+  console.log(
+    `${LOG_SERVER} ${chalk.red('Redis Error:')} Something went wrong ${err}`
+  )
 })
 
 export default clientRedis

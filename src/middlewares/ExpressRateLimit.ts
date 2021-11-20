@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
+import { LOG_SERVER } from '@config/baseURL'
 import clientRedis from '@config/clientRedis'
 import chalk from 'chalk'
 import dotenv from 'dotenv'
@@ -28,7 +29,7 @@ async function ExpressRateLimit(
   } catch (err) {
     const errType = `Limit Request Error:`
     const message = 'Too Many Requests'
-    console.log(chalk.red(errType), chalk.green(message))
+    console.log(LOG_SERVER, chalk.red(errType), chalk.green(message))
 
     return res.status(429).json({ code: 429, message })
   }

@@ -1,3 +1,5 @@
+import chalk from 'chalk'
+
 const {
   NODE_ENV,
   PORT,
@@ -25,5 +27,7 @@ const ENV = NODE_ENV ?? 'development'
 const BASE_URL_CLIENT: string = URL_CLIENT[ENV]
 // @ts-expect-error
 const BASE_URL_SERVER: string = URL_SERVER[ENV]
+
+export const LOG_SERVER = chalk.green('[server]')
 
 export { BASE_URL_CLIENT, BASE_URL_SERVER }

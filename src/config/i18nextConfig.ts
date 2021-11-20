@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 import i18next from 'i18next'
 import i18nextBackend from 'i18next-fs-backend'
+import { LOG_SERVER } from './baseURL'
 
 void i18next.use(i18nextBackend).init(
   {
@@ -17,7 +18,7 @@ void i18next.use(i18nextBackend).init(
     if (err) return console.error(err)
 
     const name = chalk.cyan('i18next')
-    console.log(`${name} is ready...`)
+    console.log(`${LOG_SERVER} ${name} is ready...`)
   }
 )
 
