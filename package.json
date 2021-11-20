@@ -56,7 +56,7 @@
     "dotenv": "^10.0.0",
     "exceljs": "^4.3.0",
     "express": "^4.17.1",
-    "express-async-handler": "^1.1.4",
+    "express-async-handler": "^1.2.0",
     "express-useragent": "^1.0.15",
     "googleapis": "^87.0.0",
     "handlebars": "^4.7.7",
