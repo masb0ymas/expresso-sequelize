@@ -4,7 +4,6 @@ import {
   S3,
 } from '@aws-sdk/client-s3'
 import chalk from 'chalk'
-
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -21,6 +20,7 @@ export const clientS3 = new S3({
 
 export const BUCKET_NAME = process.env.AWS_BUCKET_NAME ?? 'expresso'
 
+// Create AWS S3 Bucket
 function createS3Bucket(): void {
   clientS3.createBucket({ Bucket: BUCKET_NAME }, function (err, data) {
     if (err) {
@@ -33,6 +33,7 @@ function createS3Bucket(): void {
   })
 }
 
+// Initial AWS S3
 export const initialAwsS3 = async (): Promise<
   GetBucketAclCommandOutput | undefined
 > => {

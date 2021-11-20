@@ -12,11 +12,13 @@ const optConfig: ClientOpts = {
 
 const clientRedis = redis.createClient(optConfig)
 
+// client connect
 clientRedis.on('connect', function () {
   const name = chalk.cyan('Redis Client')
   console.log(`${name} Connection has been established successfully.`)
 })
 
+// client error
 clientRedis.on('error', function (err) {
   console.log(`${chalk.red('Redis Error:')} Something went wrong ${err}`)
 })
