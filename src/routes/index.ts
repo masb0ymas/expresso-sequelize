@@ -43,7 +43,11 @@ route.get('/health', function (req: Request, res: Response) {
     cpuUsage: process.cpuUsage(startUsage),
   }
 
-  res.status(200).json({ status })
+  const httpResponse = HttpResponse.get({
+    message: 'Server Uptime',
+    data: status,
+  })
+  res.status(200).json(httpResponse)
 })
 
 /* Forbidden Page. */
