@@ -107,7 +107,7 @@
     "@types/helmet": "^4.0.0",
     "@types/hpp": "^0.2.2",
     "@types/i18next-fs-backend": "^1.0.1",
-    "@types/ioredis": "^4.27.4",
+    "@types/ioredis": "^4.28.1",
     "@types/jsonwebtoken": "^8.5.5",
     "@types/lodash": "^4.14.173",
     "@types/module-alias": "^2.0.1",
