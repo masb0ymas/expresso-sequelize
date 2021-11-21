@@ -21,7 +21,7 @@ route.post(
     const data = await AuthService.signUp(formData)
 
     const httpResponse = HttpResponse.created({ data })
-    return res.status(201).json(httpResponse)
+    res.status(201).json(httpResponse)
   })
 )
 
@@ -44,7 +44,7 @@ route.post(
       longitude: validateEmpty(formData.longitude),
     })
 
-    return res
+    res
       .status(200)
       .cookie('token', data.accessToken, {
         maxAge: Number(data.expiresIn) * 1000,
@@ -66,7 +66,7 @@ route.get(
     const data = await AuthService.verifySession(userLogin.uid, getToken)
 
     const httpResponse = HttpResponse.get({ data })
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -85,10 +85,7 @@ route.post(
     const message = await AuthService.logout(userLogin.uid, getToken)
     const httpResponse = HttpResponse.get({ message })
 
-    return res
-      .status(200)
-      .clearCookie('token', { path: '/v1' })
-      .json(httpResponse)
+    res.status(200).clearCookie('token', { path: '/v1' }).json(httpResponse)
   })
 )
 
@@ -114,6 +111,6 @@ route.get(
       redirectUrl = `${BASE_URL_CLIENT}/email-verify/success`
     }
 
-    return res.redirect(redirectUrl)
+    res.redirect(redirectUrl)
   })
 )

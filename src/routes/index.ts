@@ -1,4 +1,5 @@
 import { BASE_URL_SERVER } from '@config/baseURL'
+import asyncHandler from '@expresso/helpers/asyncHandler'
 import { formatDateTime } from '@expresso/helpers/Date'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import ResponseError from '@expresso/modules/Response/ResponseError'
@@ -26,29 +27,32 @@ route.get('/', function (req: Request, res: Response) {
   }
 
   const httpResponse = HttpResponse.get(responseData)
-  return res.json(httpResponse)
+  res.json(httpResponse)
 })
 
-route.get('/health', function (req: Request, res: Response) {
-  const startUsage = process.cpuUsage()
+route.get(
+  '/health',
+  asyncHandler(async function getServerHealth(req: Request, res: Response) {
+    const startUsage = process.cpuUsage()
 
-  const status = {
-    uptime: process.uptime(),
-    message: 'Ok',
-    timezone: 'ID',
-    date: formatDateTime(new Date()),
-    node: process.version,
-    memory: process.memoryUsage,
-    platform: process.platform,
-    cpuUsage: process.cpuUsage(startUsage),
-  }
+    const status = {
+      uptime: process.uptime(),
+      message: 'Ok',
+      timezone: 'ID',
+      date: formatDateTime(new Date()),
+      node: process.version,
+      memory: process.memoryUsage,
+      platform: process.platform,
+      cpuUsage: process.cpuUsage(startUsage),
+    }
 
-  const httpResponse = HttpResponse.get({
-    message: 'Server Uptime',
-    data: status,
+    const httpResponse = HttpResponse.get({
+      message: 'Server Uptime',
+      data: status,
+    })
+    res.status(200).json(httpResponse)
   })
-  res.status(200).json(httpResponse)
-})
+)
 
 /* Forbidden Page. */
 route.get('/v1', function (req: Request, res: Response) {

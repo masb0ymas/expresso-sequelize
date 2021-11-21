@@ -35,7 +35,7 @@ route.get(
     const data = await UserService.findAll(req)
 
     const httpResponse = HttpResponse.get(data)
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -48,7 +48,7 @@ route.get(
     const data = await UserService.findById(id)
 
     const httpResponse = HttpResponse.get({ data })
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -61,7 +61,7 @@ route.get(
     const data = await UserService.findUserWithSession(id)
 
     const httpResponse = HttpResponse.get({ data })
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -78,7 +78,7 @@ route.get(
     const url = outputPath.replace('public', BASE_URL_SERVER)
 
     const httpResponse = HttpResponse.get({ data: { url } })
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -97,7 +97,7 @@ route.get(
     res.setHeader('Content-Disposition', `attachment; filename=${filename}`)
     res.setHeader('Content-Length', streamExcel.length)
 
-    return res.send(streamExcel)
+    res.send(streamExcel)
   })
 )
 
@@ -165,7 +165,7 @@ route.post(
 
     await txn.commit()
     const httpResponse = HttpResponse.created({ data })
-    return res.status(201).json(httpResponse)
+    res.status(201).json(httpResponse)
   })
 )
 
@@ -179,7 +179,7 @@ route.put(
     const data = await UserService.update(id, formData)
 
     const httpResponse = HttpResponse.updated({ data })
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -193,7 +193,7 @@ route.put(
     await UserService.restore(id)
 
     const httpResponse = HttpResponse.updated({})
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -207,7 +207,7 @@ route.delete(
     await UserService.delete(id)
 
     const httpResponse = HttpResponse.deleted({})
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -221,7 +221,7 @@ route.delete(
     await UserService.delete(id, true)
 
     const httpResponse = HttpResponse.deleted({})
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -236,7 +236,7 @@ route.post(
     await UserService.multipleRestore(arrayIds)
 
     const httpResponse = HttpResponse.updated({})
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -251,7 +251,7 @@ route.post(
     await UserService.multipleDelete(arrayIds)
 
     const httpResponse = HttpResponse.deleted({})
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -266,6 +266,6 @@ route.post(
     await UserService.multipleDelete(arrayIds, true)
 
     const httpResponse = HttpResponse.deleted({})
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )

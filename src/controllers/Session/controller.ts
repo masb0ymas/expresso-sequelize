@@ -12,7 +12,7 @@ route.get(
     const data = await SessionService.findAll(req)
 
     const httpResponse = HttpResponse.get(data)
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -25,7 +25,7 @@ route.get(
     const data = await SessionService.findById(id)
 
     const httpResponse = HttpResponse.get({ data })
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -38,7 +38,7 @@ route.post(
     const data = await SessionService.create(formData)
 
     const httpResponse = HttpResponse.created({ data })
-    return res.status(201).json(httpResponse)
+    res.status(201).json(httpResponse)
   })
 )
 
@@ -51,6 +51,6 @@ route.delete(
     await SessionService.delete(id)
 
     const httpResponse = HttpResponse.deleted({})
-    return res.status(200).json(httpResponse)
+    res.status(200).json(httpResponse)
   })
 )
