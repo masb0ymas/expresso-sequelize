@@ -9,9 +9,7 @@ import Express, { Request, Response } from 'express'
 const { NODE_ENV } = process.env
 const route = Express.Router()
 
-/**
- * Index Route
- */
+// Index Route
 route.get('/', function (req: Request, res: Response) {
   let responseData: any = {
     message: 'expresso',
@@ -30,6 +28,7 @@ route.get('/', function (req: Request, res: Response) {
   res.json(httpResponse)
 })
 
+// Get Health Server
 route.get(
   '/health',
   asyncHandler(async function getServerHealth(req: Request, res: Response) {
@@ -54,13 +53,14 @@ route.get(
   })
 )
 
-/* Forbidden Page. */
+// Forbidden Api
 route.get('/v1', function (req: Request, res: Response) {
   throw new ResponseError.Forbidden(
     `Forbidden, wrong access endpoint: ${req.url}`
   )
 })
 
+// Using Route v1
 route.use('/v1', v1Route)
 
 export default route
