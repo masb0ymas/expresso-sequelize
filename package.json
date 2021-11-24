@@ -1,6 +1,6 @@
 {
   "name": "expresso",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "expresso, typescript, sequelize and module alias",
   "main": "src/server.ts",
   "scripts": {

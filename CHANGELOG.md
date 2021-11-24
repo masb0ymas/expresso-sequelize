@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/masb0ymas/expresso/compare/v3.1.0...v3.2.0) (2021-11-24)
+
+
+### Features
+
+* add dependabot.yml ([1759920](https://github.com/masb0ymas/expresso/commit/1759920e976e8c5480e7bab50f22ffbf7679c57c))
+* add helper phone ([8cb905b](https://github.com/masb0ymas/expresso/commit/8cb905b3de9d93192204d056581f0f0f1c13d32f))
+* add s3 config ([5cf5927](https://github.com/masb0ymas/expresso/commit/5cf5927a938103c901f0c456923bba430472aef6))
+
+
+### Bug Fixes
+
+* add get uniq code ([44c72ab](https://github.com/masb0ymas/expresso/commit/44c72abeee6e1c5da69c769e1ce9a6057cbab6d2))
+* add package aws, libphonenumber & randomstring ([4a39ead](https://github.com/masb0ymas/expresso/commit/4a39ead9e4de59e616fc6cba5022a061a322feee))
+* catch error with original response ([39e558a](https://github.com/masb0ymas/expresso/commit/39e558a73cd2d68d2da441956ed1e82fb5674296))
+* config axios ([5d5d922](https://github.com/masb0ymas/expresso/commit/5d5d9221773d3706dcd044b24d2e2603a30cc7d9))
+* config dependabot ([f9fefcf](https://github.com/masb0ymas/expresso/commit/f9fefcfc3aa741a826052f9ad28dcb3e22156110))
+* config s3 & redis ([1c91cae](https://github.com/masb0ymas/expresso/commit/1c91cae0f7fbb130c6263d15db129c299d548a37))
+* confit client S3 ([1a72339](https://github.com/masb0ymas/expresso/commit/1a72339d57cb1508e25ba7f71b87218bae0643fd))
+* docs swagger ([0d121c0](https://github.com/masb0ymas/expresso/commit/0d121c08774adc271412940f341a5d01c51f8dc6))
+* endpoint role ([5b4e559](https://github.com/masb0ymas/expresso/commit/5b4e559345f8741a93d888a345af5edb4e28e7a6))
+* endpoint session ([33b48cd](https://github.com/masb0ymas/expresso/commit/33b48cd97da924ab2608d20d7abb0e3d98840fbb))
+* endpoint user ([e22c68b](https://github.com/masb0ymas/expresso/commit/e22c68b9f8547d8e249a49f1c4939e0147275fdb))
+* env example ([6b9347d](https://github.com/masb0ymas/expresso/commit/6b9347dbf549f474d10a440305462b95155e66c6))
+* import interface files ([d27d125](https://github.com/masb0ymas/expresso/commit/d27d12518392dc7f2e2b52b454946b038cf323b9))
+* option provider redis ([1c28fe2](https://github.com/masb0ymas/expresso/commit/1c28fe27660d502c9f000f7fdbd51ebdcc6ca3f9))
+* prettier config ([c631da7](https://github.com/masb0ymas/expresso/commit/c631da79055e3bcefdd5abf648ab90deccd74f7a))
+* private function find by pk ([e3cbb23](https://github.com/masb0ymas/expresso/commit/e3cbb2306c42c28c029d82321e8fdbd12c07e937))
+* rename interface files ([05d6dca](https://github.com/masb0ymas/expresso/commit/05d6dca5e6f2de7190f6cfebfd0a9dae635d877a))
+* response console log app ([3159534](https://github.com/masb0ymas/expresso/commit/315953426667a381179292bc8f023c907789d2b7))
+* response endpoint health ([c6bc286](https://github.com/masb0ymas/expresso/commit/c6bc2866c902aaa46ee5812e0e997b737b6afa40))
+* return response async handler ([6b967a2](https://github.com/masb0ymas/expresso/commit/6b967a2765581a9dc2ddc8a8395293a6a734414c))
+* run development mode ([cf94cca](https://github.com/masb0ymas/expresso/commit/cf94cca11c788224c05833dcc74c84a55fb2466d))
+* seeder ([6081c46](https://github.com/masb0ymas/expresso/commit/6081c46b3d0d73b0b4feebe92983a298eb2ff001))
+* type parameter ([bd54533](https://github.com/masb0ymas/expresso/commit/bd54533fb473c26744898cb5dc562fb6adbba502))
+* update eslint & typescript eslint ([fabcca6](https://github.com/masb0ymas/expresso/commit/fabcca67064bebc490d231eea8c4e322d8b34bb3))
+
 ## [3.1.0](https://github.com/masb0ymas/expresso/compare/v3.0.1...v3.1.0) (2021-10-18)
 
 
