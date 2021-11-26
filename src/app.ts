@@ -31,7 +31,7 @@ import swaggerUI from 'swagger-ui-express'
 dotenv.config()
 
 const NODE_ENV = process.env.NODE_ENV ?? 'development'
-const APP_PORT = Number(process.env.PORT) ?? 8000
+const APP_PORT = Number(process.env.APP_PORT) ?? 8000
 
 const optCors: Cors.CorsOptions = {
   origin: allowedOrigins,

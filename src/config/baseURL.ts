@@ -1,4 +1,5 @@
 import chalk from 'chalk'
+import dotenv from 'dotenv'
 
 const {
   NODE_ENV,
@@ -8,6 +9,8 @@ const {
   URL_CLIENT_PRODUCTION,
   URL_SERVER_PRODUCTION,
 } = process.env
+
+dotenv.config()
 
 const URL_CLIENT = {
   development: 'http://localhost:3000',

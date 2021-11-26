@@ -4,7 +4,10 @@ import { formatDateTime } from '@expresso/helpers/Date'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import v1Route from '@routes/v1'
+import dotenv from 'dotenv'
 import Express, { Request, Response } from 'express'
+
+dotenv.config()
 
 const { NODE_ENV } = process.env
 const route = Express.Router()

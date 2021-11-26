@@ -1,13 +1,13 @@
 import 'module-alias/register'
 import './pathAlias'
 
+import { LOG_SERVER } from '@config/baseURL'
+import initialAwsS3 from '@config/clientS3'
+import db from '@database/models/_instance'
+import initialJobs from '@jobs/index'
 import chalk from 'chalk'
 import dotenv from 'dotenv'
 import App from './app'
-import initialAwsS3 from './config/clientS3'
-import db from './database/models/_instance'
-import initialJobs from './jobs'
-import { LOG_SERVER } from '@config/baseURL'
 
 dotenv.config()
 
