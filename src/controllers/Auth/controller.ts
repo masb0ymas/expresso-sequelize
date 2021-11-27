@@ -1,5 +1,5 @@
 import { BASE_URL_CLIENT } from '@config/baseURL'
-import SessionService from '@controllers/Session/service'
+import SessionService from '@controllers/Account/Session/service'
 import User, { UserLoginAttributes } from '@database/models/user'
 import asyncHandler from '@expresso/helpers/asyncHandler'
 import { validateEmpty } from '@expresso/helpers/Formatter'

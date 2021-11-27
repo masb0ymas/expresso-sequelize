@@ -5,7 +5,9 @@ const route = Express.Router()
 export default route
 
 require('@controllers/Auth/controller')
-require('@controllers/User/controller')
-require('@controllers/Role/controller')
-require('@controllers/Session/controller')
 require('@controllers/Upload/controller')
+
+// Account
+require('@controllers/Account/Role')
+require('@controllers/Account/Session/controller')
+require('@controllers/Account/User/controller')

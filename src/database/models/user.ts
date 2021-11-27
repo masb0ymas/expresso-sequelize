@@ -1,4 +1,4 @@
-import userSchema from '@controllers/User/schema'
+import userSchema from '@controllers/Account/User/schema'
 import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
 import bcrypt from 'bcrypt'
 import { DataTypes, Model, Optional } from 'sequelize'

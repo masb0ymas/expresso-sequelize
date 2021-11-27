@@ -1,6 +1,6 @@
-import SessionService from '@controllers/Session/service'
-import userSchema from '@controllers/User/schema'
-import UserService from '@controllers/User/service'
+import SessionService from '@controllers/Account/Session/service'
+import userSchema from '@controllers/Account/User/schema'
+import UserService from '@controllers/Account/User/service'
 import models from '@database/models/index'
 import {
   LoginAttributes,

@@ -1,6 +1,5 @@
 import { LOG_SERVER } from '@config/baseURL'
-import UserService from '@controllers/User/service'
-import { UserLoginAttributes } from '@database/models/user'
+import User, { UserLoginAttributes } from '@database/models/user'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import chalk from 'chalk'
 import { NextFunction, Request, Response } from 'express'
@@ -8,11 +7,13 @@ import { NextFunction, Request, Response } from 'express'
 function NotPermittedAccess(roles: string[]) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const userLogin = req.getState('userLogin') as UserLoginAttributes
-    const getUser = await UserService.findById(userLogin.uid)
+    const getUser = await User.findByPk(userLogin.uid)
 
-    if (roles.includes(getUser.RoleId)) {
-      const errType = `Not Permitted Access Error:`
-      const message = 'You are not allowed'
+    const errType = `Not Permitted Access Error:`
+    const message = 'You are not allowed'
+
+    if (getUser && roles.includes(getUser.RoleId)) {
+      // log error
       console.log(LOG_SERVER, chalk.red(errType), chalk.green(message))
 
       const httpResponse = HttpResponse.get({
