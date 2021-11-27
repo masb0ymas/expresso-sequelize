@@ -1,11 +1,13 @@
 import Role from './role'
 import Session from './session'
+import Upload from './upload'
 import User from './user'
 
 const models = {
   Role,
   User,
   Session,
+  Upload,
 }
 
 export default models
