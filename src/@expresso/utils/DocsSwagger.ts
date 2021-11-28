@@ -88,10 +88,6 @@ export const swaggerOptions = {
       title: `Api ${APP_NAME} Docs`,
       description: `This is Api Documentation ${APP_NAME}`,
       version: '1.0.0',
-      contact: {
-        name: `API ${APP_NAME}`,
-        url: 'https://github.com/masb0ymas/expresso',
-      },
     },
     openapi: '3.0.1',
     servers: baseURLServer,
