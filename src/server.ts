@@ -37,6 +37,12 @@ if (AWS_ACCESS_KEY && AWS_SECRET_KEY) {
   void initialAwsS3()
 }
 
+// initial firebase
+// const serviceAccountKey = path.resolve('./serviceAccountKey.json')
+
+// admin.initializeApp({ credential: admin.credential.cert(serviceAccountKey) })
+// firebase.initializeApp(initialFirebase)
+
 // initial jobs
 initialJobs()
 
