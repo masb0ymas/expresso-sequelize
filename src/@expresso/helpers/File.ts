@@ -64,14 +64,18 @@ export function createDirNotExist(pathDir: string): void {
 /**
  *
  * @param filePath
+ * @example
+ * ```sh
+ * public/uploads/images/logo.png
+ * ```
  */
-export function deleteFile(filePath: String): void {
+export function deleteFile(filePath: string): void {
   if (!_.isEmpty(filePath)) {
     // check file exsits or not
-    if (fs.existsSync(path.resolve(`public/${filePath}`))) {
+    if (fs.existsSync(path.resolve(filePath))) {
       // remove file
       console.log(`file ${filePath} has been deleted`)
-      fs.unlinkSync(path.resolve(`public/${filePath}`))
+      fs.unlinkSync(path.resolve(filePath))
     } else {
       console.log(`file ${filePath} not exist`)
     }
