@@ -1,9 +1,15 @@
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { E164Number, parsePhoneNumberFromString } from 'libphonenumber-js'
 
+/**
+ *
+ * @param phone {string}
+ * @returns {E164Number | undefined}
+ */
 function formatPhone(phone: string): E164Number | undefined {
   let transformPhone = ''
 
+  // indonesian phone format
   if (phone.startsWith('+62')) {
     transformPhone = phone.replace('+62', '0')
   } else if (phone.startsWith('62')) {
@@ -22,6 +28,11 @@ function formatPhone(phone: string): E164Number | undefined {
   return newPhone
 }
 
+/**
+ *
+ * @param phone {string}
+ * @returns {string}
+ */
 function formatPhoneWhatsApp(phone: string): string {
   let newPhone = ''
 
