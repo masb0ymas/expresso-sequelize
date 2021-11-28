@@ -45,8 +45,8 @@ class Excel {
 
   /**
    *
-   * @param path
-   * @param options options is used when there is only 1 sheet
+   * @param path {string | Buffer}
+   * @param options {OptionConvert} options is used when there is only 1 sheet
    * @returns
    */
   public static convertToJson(
