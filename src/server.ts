@@ -21,14 +21,17 @@ const Server = new App()
 db.sequelize
   .authenticate()
   .then(() => {
+    const dbName = chalk.cyan(dialect)
     console.log(
-      `${LOG_SERVER} Connection ${chalk.cyan(
-        dialect
-      )} has been established successfully.`
+      `${LOG_SERVER} Connection ${dbName} has been established successfully.`
     )
   })
   .catch((err: any) => {
-    console.error(`${LOG_SERVER} Unable to connect to the database: `, err)
+    const dbName = chalk.cyan(dialect)
+    console.error(
+      `${LOG_SERVER} Unable to connect to the database: ${dbName}`,
+      err
+    )
   })
 
 // check if exist access & secret key aws
