@@ -8,6 +8,6 @@ require('@controllers/Auth/controller')
 require('@controllers/Upload/controller')
 
 // Account
-require('@controllers/Account/Role')
+require('@controllers/Account/Role/controller')
 require('@controllers/Account/Session/controller')
 require('@controllers/Account/User/controller')
