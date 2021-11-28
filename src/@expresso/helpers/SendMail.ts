@@ -40,6 +40,7 @@ class SendMail {
       )
     }
 
+    // read html template email
     readHTMLFile(templatePath, (err: Error, html: any) => {
       if (err) console.log(err)
 
