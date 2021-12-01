@@ -19,6 +19,7 @@ import { FileAttributes } from '@expresso/interfaces/Files'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
+import { endOfDay, startOfDay } from 'date-fns'
 import { Request } from 'express'
 import fs from 'fs'
 import _ from 'lodash'
@@ -269,6 +270,48 @@ class UploadService {
     }
 
     return { dataAwsS3, resUpload }
+  }
+
+  /**
+   * Update Signed URL Aws S3
+   */
+  public static async updateSignedUrl(): Promise<void> {
+    const getUploads = await Upload.findAll({
+      where: {
+        expiryDateUrl: {
+          [Op.and]: [
+            { [Op.gte]: startOfDay(new Date()) },
+            { [Op.lt]: endOfDay(new Date()) },
+          ],
+        },
+      },
+    })
+
+    const chunkUploads = _.chunk(getUploads, 50)
+
+    // chunk uploads data
+    if (!_.isEmpty(chunkUploads)) {
+      for (let i = 0; i < chunkUploads.length; i += 1) {
+        const itemUploads = chunkUploads[i]
+
+        // check uploads
+        if (!_.isEmpty(itemUploads)) {
+          for (let i = 0; i < itemUploads.length; i += 1) {
+            const item = itemUploads[i]
+
+            const signedUrl = await this.getSignedUrlS3(item.keyFile)
+
+            const formUpload = {
+              signedUrl,
+              expiresUrlDate: s3ExpiresDate,
+            }
+
+            // update signed url & expires url
+            await item.update(formUpload)
+          }
+        }
+      }
+    }
   }
 }
 

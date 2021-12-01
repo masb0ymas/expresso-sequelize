@@ -1,9 +1,9 @@
-import ExampleJob from './ExampleJob'
+import UploadJob from './UploadJob'
 
 function initialJobs(): void {
-  // Example Jobs
-  const exampleTask = ExampleJob.getTask()
-  exampleTask.start()
+  // Upload Job
+  const uploadTask = UploadJob.getTask()
+  uploadTask.start()
 }
 
 export default initialJobs
