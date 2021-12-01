@@ -64,6 +64,38 @@ module.exports = {
       },
     },
   },
+  '/upload/presign-url': {
+    post: {
+      tags: ['Upload'],
+      summary: 'Create New Upload',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                keyFile: {
+                  type: 'string',
+                },
+              },
+              required: ['keyFile'],
+            },
+          },
+        },
+      },
+      responses: {
+        201: {
+          description: 'Create New Upload',
+        },
+      },
+    },
+  },
   '/upload/multiple/restore': {
     post: {
       tags: ['Upload'],

@@ -33,6 +33,20 @@ route.get(
   })
 )
 
+route.post(
+  '/upload/presign-url',
+  Authorization,
+  asyncHandler(async function findById(req: Request, res: Response) {
+    const { keyFile } = req.getBody()
+
+    // signed url from bucket S3
+    const signedUrl = await UploadService.getSignedUrlS3(keyFile)
+
+    const httpResponse = HttpResponse.get({ data: signedUrl })
+    res.status(200).json(httpResponse)
+  })
+)
+
 const uploadFile = useMulter({
   dest: 'public/uploads/temp',
 }).fields([{ name: 'fileUpload', maxCount: 1 }])

@@ -202,6 +202,21 @@ class UploadService {
 
   /**
    *
+   * @param keyFile
+   * @returns
+   */
+  public static async getSignedUrlS3(keyFile: string): Promise<string> {
+    // signed url from bucket S3
+    const command = new GetObjectCommand({ Bucket: BUCKET_NAME, Key: keyFile })
+    const signedUrl = await getSignedUrl(clientS3, command, {
+      expiresIn: s3ObjectExpired,
+    })
+
+    return signedUrl
+  }
+
+  /**
+   *
    * @param fieldUpload
    * @param directory
    * @param UploadId
@@ -235,10 +250,7 @@ class UploadService {
     // const expiresIn = sevenDays * 60 * 60
 
     // signed url from bucket S3
-    const command = new GetObjectCommand({ Bucket: BUCKET_NAME, Key: keyFile })
-    const signedUrl = await getSignedUrl(clientS3, command, {
-      expiresIn: s3ObjectExpired,
-    })
+    const signedUrl = await this.getSignedUrlS3(keyFile)
 
     const formUpload = {
       ...fieldUpload,
