@@ -1,5 +1,4 @@
 /* eslint-disable import/no-duplicates */
-import chalk from 'chalk'
 import dotenv from 'dotenv'
 import { Request } from 'express'
 import { IncomingHttpHeaders } from 'http'
@@ -11,6 +10,7 @@ import jwt, {
 } from 'jsonwebtoken'
 import _ from 'lodash'
 import ms from 'ms'
+import { logErrServer } from './Formatter'
 
 dotenv.config()
 
@@ -107,17 +107,17 @@ function verifyAccessToken(token: string): DtoVerifyAccessToken {
     return { data, message: 'Token is verify' }
   } catch (err) {
     if (err instanceof TokenExpiredError) {
-      console.log(chalk.red('JWT Expired Error:'), chalk.green(err.message))
+      console.log(logErrServer('JWT Expired Error:', err.message))
       return { data: null, message: `JWT Expired Error: ${err.message}` }
     }
 
     if (err instanceof JsonWebTokenError) {
-      console.log(chalk.red('JWT Token Error:'), chalk.green(err.message))
+      console.log(logErrServer('JWT Token Error:', err.message))
       return { data: null, message: `JWT Token Error: ${err.message}` }
     }
 
     if (err instanceof NotBeforeError) {
-      console.log(chalk.red('JWT Not Before Error:'), chalk.green(err.message))
+      console.log(logErrServer('JWT Not Before Error:', err.message))
       return { data: null, message: `JWT Not Before Error: ${err.message}` }
     }
   }

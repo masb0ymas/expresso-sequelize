@@ -1,9 +1,9 @@
 import 'module-alias/register'
 import './pathAlias'
 
-import { LOG_SERVER } from '@config/baseURL'
 import initialAwsS3 from '@config/clientS3'
 import db from '@database/models/_instance'
+import { logErrServer, logServer } from '@expresso/helpers/Formatter'
 import initialJobs from '@jobs/index'
 import chalk from 'chalk'
 import dotenv from 'dotenv'
@@ -22,16 +22,19 @@ db.sequelize
   .authenticate()
   .then(() => {
     const dbName = chalk.cyan(dialect)
-    console.log(
-      `${LOG_SERVER} Connection ${dbName} has been established successfully.`
-    )
+
+    const msgType = `Sequelize`
+    const message = `Connection ${dbName} has been established successfully.`
+
+    console.log(logServer(msgType, message))
   })
   .catch((err: any) => {
     const dbName = chalk.cyan(dialect)
-    console.error(
-      `${LOG_SERVER} Unable to connect to the database: ${dbName}`,
-      err
-    )
+
+    const errType = `Sequelize Error:`
+    const message = `Unable to connect to the database: ${dbName}`
+
+    console.log(logErrServer(errType, message), err)
   })
 
 // check if exist access & secret key aws

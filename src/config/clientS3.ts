@@ -3,11 +3,10 @@ import {
   GetBucketAclCommandOutput,
   S3,
 } from '@aws-sdk/client-s3'
-import chalk from 'chalk'
+import { logErrServer, logServer } from '@expresso/helpers/Formatter'
 import { addDays } from 'date-fns'
 import dotenv from 'dotenv'
 import ms from 'ms'
-import { LOG_SERVER } from './baseURL'
 
 dotenv.config()
 
@@ -27,14 +26,14 @@ export const BUCKET_NAME = process.env.AWS_BUCKET_NAME ?? 'expresso'
 function createS3Bucket(): void {
   clientS3.createBucket({ Bucket: BUCKET_NAME }, function (err, data) {
     if (err) {
-      console.log(`${LOG_SERVER} ${chalk.red('Aws S3 Err: ')}`, err)
+      console.log(logErrServer('Aws S3 Error:', err))
 
       process.exit(1)
     } else {
-      console.log(
-        `${LOG_SERVER} ${chalk.cyan('Success create bucket')}`,
-        data?.Location
-      )
+      const msgType = `Aws S3`
+      const message = `Success create bucket ${data?.Location}`
+
+      console.log(logServer(msgType, message))
     }
   })
 }
@@ -49,14 +48,17 @@ const initialAwsS3 = async (): Promise<
       new GetBucketAclCommand({ Bucket: BUCKET_NAME })
     )
 
-    console.log(
-      `${LOG_SERVER} ${chalk.cyan('Success get bucket')}`,
-      data.Grants
-    )
+    const msgType = `Aws S3`
+    const message = `Success Get Bucket, ${data.Grants}`
+
+    console.log(logServer(msgType, message))
 
     return data
   } catch (err) {
-    console.log(err)
+    const errType = `Aws S3 Error:`
+    const message = `${err}`
+
+    console.log(logErrServer(errType, message))
 
     // create bucket if doesn't exist
     createS3Bucket()

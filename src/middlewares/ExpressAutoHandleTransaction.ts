@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { LOG_SERVER } from '@config/baseURL'
+import { logErrServer } from '@expresso/helpers/Formatter'
 import { NextFunction, Request, Response } from 'express'
 import { Transaction } from 'sequelize'
 
@@ -14,12 +15,16 @@ async function ExpressAutoHandleTransaction(
       const txn = _transaction[i] as Transaction & {
         finished?: string
       }
+
       if (!txn?.finished) {
         const endpoint = req.originalUrl
-        console.warn(
-          `${LOG_SERVER} endpoint ${endpoint} potentianlly can lead to bug`
-        )
+
+        const errType = 'Sequelize Error:'
+        const message = `endpoint ${endpoint} potentianlly can lead to bug`
+
+        console.log(logErrServer(errType, message))
         console.log(`${LOG_SERVER} AUTO COMMIT!!!`)
+
         txn.commit()
       }
     }

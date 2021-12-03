@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-throw-literal */
-import { LOG_SERVER } from '@config/baseURL'
 import i18next from '@config/i18nextConfig'
 import winstonLogger, { winstonStream } from '@config/Logger'
 import allowedOrigins from '@expresso/constants/ConstAllowedOrigins'
+import { logServer } from '@expresso/helpers/Formatter'
 import withState from '@expresso/helpers/withState'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { optionsSwaggerUI, swaggerSpec } from '@expresso/utils/DocsSwagger'
@@ -32,6 +32,7 @@ dotenv.config()
 
 const NODE_ENV = process.env.NODE_ENV ?? 'development'
 const APP_PORT = Number(process.env.APP_PORT) ?? 8000
+const APP_NAME = process.env.APP_NAME ?? 'expresso'
 
 const optCors: Cors.CorsOptions = {
   origin: allowedOrigins,
@@ -176,11 +177,13 @@ class App {
       const bind = typeof addr === 'string' ? `${addr}` : `${addr?.port}`
 
       const host = chalk.cyan(`http://localhost:${bind}`)
-      console.log(
-        `${LOG_SERVER} Server listening on ${host} & Env: ${chalk.blue(
-          NODE_ENV
-        )}`
-      )
+
+      const msgType = `${APP_NAME}`
+      const message = `Server listening on ${host} & Env: ${chalk.blue(
+        NODE_ENV
+      )}`
+
+      console.log(logServer(msgType, message))
     }
 
     // Run listener

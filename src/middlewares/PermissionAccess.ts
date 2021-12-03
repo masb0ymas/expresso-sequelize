@@ -1,7 +1,6 @@
-import { LOG_SERVER } from '@config/baseURL'
 import User, { UserLoginAttributes } from '@database/models/user'
+import { logErrServer } from '@expresso/helpers/Formatter'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
-import chalk from 'chalk'
 import { NextFunction, Request, Response } from 'express'
 
 function PermissionAccess(roles: string[]) {
@@ -14,7 +13,7 @@ function PermissionAccess(roles: string[]) {
 
     if (getUser && !roles.includes(getUser.RoleId)) {
       // log error
-      console.log(LOG_SERVER, chalk.red(errType), chalk.green(message))
+      console.log(logErrServer(errType, message))
 
       const httpResponse = HttpResponse.get({
         code: 403,

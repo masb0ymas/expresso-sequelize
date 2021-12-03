@@ -1,7 +1,6 @@
+import { logErrServer, logServer } from '@expresso/helpers/Formatter'
 import dotenv from 'dotenv'
-import chalk from 'chalk'
 import redis, { ClientOpts } from 'redis'
-import { LOG_SERVER } from './baseURL'
 
 dotenv.config()
 
@@ -15,17 +14,18 @@ const clientRedis = redis.createClient(optConfig)
 
 // client connect
 clientRedis.on('connect', function () {
-  const name = chalk.cyan('Redis Client')
-  console.log(
-    `${LOG_SERVER} ${name} Connection has been established successfully.`
-  )
+  const msgType = `Redis`
+  const message = `Connection has been established successfully.`
+
+  console.log(logServer(msgType, message))
 })
 
 // client error
 clientRedis.on('error', function (err) {
-  console.log(
-    `${LOG_SERVER} ${chalk.red('Redis Error:')} Something went wrong ${err}`
-  )
+  const errType = `Redis Error:`
+  const message = `Something went wrong ${err}`
+
+  console.log(logErrServer(errType, message))
 })
 
 export default clientRedis

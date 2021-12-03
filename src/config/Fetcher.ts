@@ -1,3 +1,4 @@
+import { logErrServer } from '@expresso/helpers/Formatter'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import RedisProvider from '@expresso/providers/Redis'
 import axios, { AxiosError, AxiosInstance } from 'axios'
@@ -50,17 +51,17 @@ function createAxios(baseUri: string): AxiosInstance {
       const errAxios = (type: string): string => chalk.red(`Axios Err: ${type}`)
 
       if (statusCode === 401) {
-        console.log(`${LOG_SERVER} ${errAxios('Unauhtorized')}, ${message}`)
+        console.log(logErrServer(errAxios('Unauhtorized'), message))
         throw new ResponseError.Unauthorized(message)
       }
 
       if (statusCode === 400) {
-        console.log(`${LOG_SERVER} ${errAxios('Bad Request')}, ${message}`)
+        console.log(logErrServer(errAxios('Bad Request'), message))
         throw new ResponseError.BadRequest(message)
       }
 
       if (statusCode === 404) {
-        console.log(`${LOG_SERVER} ${errAxios('Not Found')}, ${message}`)
+        console.log(logErrServer(errAxios('Not Found'), message))
         throw new ResponseError.NotFound(message)
       }
 
@@ -68,9 +69,7 @@ function createAxios(baseUri: string): AxiosInstance {
       // @ts-expect-error
       if (!handleError || !handleError(error)) {
         if (error.code === 'ECONNREFUSED') {
-          console.log(
-            `${LOG_SERVER} ${errAxios('Service Unavailable')}, ${message}`
-          )
+          console.log(logErrServer(errAxios('Service Unavailable'), message))
           throw new ResponseError.InternalServer('Service Unavailable')
         }
 

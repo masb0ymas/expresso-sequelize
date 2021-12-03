@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import fs from 'fs'
 import _ from 'lodash'
 import path from 'path'
@@ -25,7 +26,7 @@ export function readHTMLFile(filePath: string, callback: any): void {
 export function writeFileStream(outputPath: string, fileStream: Buffer): void {
   fs.writeFile(outputPath, fileStream, function (err) {
     if (err) return console.log(err)
-    console.log('generate file successfully')
+    console.log('generate file successfully', chalk.cyan(outputPath))
   })
 }
 
@@ -74,10 +75,10 @@ export function deleteFile(filePath: string): void {
     // check file exsits or not
     if (fs.existsSync(path.resolve(filePath))) {
       // remove file
-      console.log(`file ${filePath} has been deleted`)
+      console.log(chalk.cyan(`file ${filePath} has been deleted`))
       fs.unlinkSync(path.resolve(filePath))
     } else {
-      console.log(`file ${filePath} not exist`)
+      console.log(chalk.cyan(`file ${filePath} not exist`))
     }
   }
 }
