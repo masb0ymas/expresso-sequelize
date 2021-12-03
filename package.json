@@ -111,7 +111,7 @@
     "@types/helmet": "^4.0.0",
     "@types/hpp": "^0.2.2",
     "@types/i18next-fs-backend": "^1.1.2",
-    "@types/ioredis": "^4.28.1",
+    "@types/ioredis": "^4.28.2",
     "@types/jsonwebtoken": "^8.5.6",
     "@types/lodash": "^4.14.177",
     "@types/module-alias": "^2.0.1",
