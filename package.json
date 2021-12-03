@@ -43,8 +43,8 @@
     "node": ">=12.x"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.42.0",
-    "@aws-sdk/s3-request-presigner": "^3.42.0",
+    "@aws-sdk/client-s3": "^3.44.0",
+    "@aws-sdk/s3-request-presigner": "^3.44.0",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "chalk": "^4.1.2",
@@ -60,7 +60,7 @@
     "express-useragent": "^1.0.15",
     "firebase": "9.5.0",
     "firebase-admin": "9.12.0",
-    "googleapis": "^91.0.0",
+    "googleapis": "^92.0.0",
     "handlebars": "^4.7.7",
     "helmet": "^4.6.0",
     "hpp": "^0.2.3",
@@ -68,7 +68,7 @@
     "i18next": "^21.5.2",
     "i18next-fs-backend": "^1.1.4",
     "i18next-http-middleware": "^3.1.4",
-    "ioredis": "^4.28.0",
+    "ioredis": "^4.28.2",
     "jsonwebtoken": "^8.5.1",
     "libphonenumber-js": "^1.9.43",
     "lodash": "^4.17.21",
@@ -93,7 +93,7 @@
     "sharp": "^0.29.3",
     "slugify": "^1.6.3",
     "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.1.6",
+    "swagger-ui-express": "^4.2.0",
     "uuid": "^8.3.2",
     "winston": "^3.3.3",
     "yup": "0.31.0"
