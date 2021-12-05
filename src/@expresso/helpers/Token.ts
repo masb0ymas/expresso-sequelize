@@ -39,7 +39,8 @@ type DtoVerifyAccessToken =
  * @returns
  */
 function generateAccessToken(payload: any): PayloadAccessToken {
-  const expiresIn = ms(JWT_ACCESS_TOKEN_EXPIRED) / 1000
+  const getMilliSecondExpires = ms(JWT_ACCESS_TOKEN_EXPIRED)
+  const expiresIn = Number(getMilliSecondExpires) / 1000
 
   const accessToken = jwt.sign(
     JSON.parse(JSON.stringify(payload)),
