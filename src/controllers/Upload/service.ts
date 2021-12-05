@@ -19,7 +19,7 @@ import { FileAttributes } from '@expresso/interfaces/Files'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
-import { endOfDay, startOfDay } from 'date-fns'
+import { endOfYesterday } from 'date-fns'
 import { Request } from 'express'
 import fs from 'fs'
 import _ from 'lodash'
@@ -277,14 +277,7 @@ class UploadService {
    */
   public static async updateSignedUrl(): Promise<void> {
     const getUploads = await Upload.findAll({
-      where: {
-        expiryDateUrl: {
-          [Op.and]: [
-            { [Op.gte]: startOfDay(new Date()) },
-            { [Op.lt]: endOfDay(new Date()) },
-          ],
-        },
-      },
+      where: { expiryDateUrl: { [Op.lt]: endOfYesterday() } },
     })
 
     const chunkUploads = _.chunk(getUploads, 50)
