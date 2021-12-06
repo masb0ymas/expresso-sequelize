@@ -64,6 +64,9 @@ module.exports = {
                 password: {
                   type: 'string',
                 },
+                deviceToken: {
+                  type: 'string',
+                },
                 latitude: {
                   type: 'string',
                 },

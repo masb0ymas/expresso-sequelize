@@ -1,4 +1,5 @@
 import { BASE_URL_CLIENT } from '@config/baseURL'
+import FcmTokenService from '@controllers/Account/FCMToken/service'
 import SessionService from '@controllers/Account/Session/service'
 import User, { UserLoginAttributes } from '@database/models/user'
 import asyncHandler from '@expresso/helpers/asyncHandler'
@@ -43,6 +44,14 @@ route.post(
       latitude: validateEmpty(formData.latitude),
       longitude: validateEmpty(formData.longitude),
     })
+
+    // save device token
+    if (formData.deviceToken) {
+      await FcmTokenService.createOrUpdate({
+        UserId: data.user.uid,
+        token: formData.deviceToken,
+      })
+    }
 
     res
       .status(200)
