@@ -6,6 +6,7 @@ export default route
 
 require('@controllers/Auth/controller')
 require('@controllers/Upload/controller')
+require('@controllers/Notification/controller')
 
 // Account
 require('@controllers/Account/Role/controller')
