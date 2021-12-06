@@ -1,3 +1,5 @@
+import FCMToken from './fcmtoken'
+import Notification from './notification'
 import Role from './role'
 import Session from './session'
 import Upload from './upload'
@@ -8,6 +10,8 @@ const models = {
   User,
   Session,
   Upload,
+  Notification,
+  FCMToken,
 }
 
 export default models
