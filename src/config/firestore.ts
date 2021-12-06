@@ -19,6 +19,6 @@ admin.initializeApp({
   databaseURL: FIREBASE_DATABASE_URL,
 })
 
-const db = admin.firestore()
+const dbFirestore = admin.firestore()
 
-export { db }
+export { dbFirestore }
