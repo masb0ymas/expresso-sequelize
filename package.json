@@ -143,7 +143,7 @@
     "eslint-plugin-promise": "^5.1.1",
     "husky": "^7.0.4",
     "nodemon": "^2.0.15",
-    "prettier": "^2.4.1",
+    "prettier": "^2.5.1",
     "standard-version": "^9.3.2",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.2"
