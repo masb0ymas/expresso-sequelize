@@ -179,7 +179,7 @@ class App {
       const host = chalk.cyan(`http://localhost:${bind}`)
 
       const msgType = `${APP_NAME}`
-      const message = `Server listening on ${host} & Env: ${chalk.blue(
+      const message = `Server listening on ${host} & ENV: ${chalk.blue(
         NODE_ENV
       )}`
 
