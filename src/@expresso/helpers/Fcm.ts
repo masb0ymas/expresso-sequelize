@@ -1,71 +1,73 @@
 import * as admin from 'firebase-admin'
 
-interface sendToDevicesProps {
+interface sendToMessageAttributes {
   title: string
+  message: string
+  type: string
+  data: string
+}
+
+interface sendMulticastAttributes extends sendToMessageAttributes {
   deviceTokens: string[]
-  message: string
-  type: string
-  data: string
 }
 
-interface sendToMessageProps {
-  title: string
-  message: string
-  type: string
-  data: string
-}
-
-const title = 'expresso'
+const defaultTitle = 'expresso'
 const clickAction = 'REACT_NOTIFICATION_CLICK'
 
 // Firebase Cloud Messaging
 class FCMHelper {
   /**
    *
-   * @param props {sendToDevicesProps}
+   * @param values
    * @returns
    */
-  public static async sendToDevices(
-    props: sendToDevicesProps
+  public static async sendMulticast(
+    values: sendMulticastAttributes
   ): Promise<admin.messaging.BatchResponse> {
-    const message = {
-      tokens: props.deviceTokens,
-      notification: {
-        title: props.title || title,
-        body: props.message,
-      },
-      data: {
-        click_action: clickAction,
-        type: props.type,
-        data: props.data,
-      },
-    }
+    const { deviceTokens, title, message, type, data: jsonData } = values
 
-    const data = await admin.messaging().sendMulticast(message)
+    const data = await admin.messaging().sendMulticast({
+      tokens: deviceTokens,
+      notification: { title: title ?? defaultTitle, body: message },
+      data: { click_action: clickAction, type, data: jsonData },
+    })
 
     return data
   }
 
   /**
    *
-   * @param props {sendToMessageProps}
+   * @param values
    * @returns
    */
-  public static async sendToAll(props: sendToMessageProps): Promise<string> {
-    const message = {
-      topic: 'all',
-      notification: {
-        title: props.title || title,
-        body: props.message,
-      },
-      data: {
-        click_action: clickAction,
-        type: props.type,
-        data: props.data,
-      },
-    }
+  public static async sendToDevice(
+    values: sendMulticastAttributes
+  ): Promise<admin.messaging.MessagingDevicesResponse> {
+    const { deviceTokens, title, message, type, data: jsonData } = values
 
-    const data = await admin.messaging().send(message)
+    const data = await admin.messaging().sendToDevice(deviceTokens, {
+      notification: { title: title ?? defaultTitle, body: message },
+      data: { click_action: clickAction, type, data: jsonData },
+    })
+
+    return data
+  }
+
+  /**
+   *
+   * @param values
+   * @returns
+   */
+  public static async sendTopics(
+    values: sendToMessageAttributes
+  ): Promise<string> {
+    const { title, message, type, data: jsonData } = values
+
+    const data = await admin.messaging().send({
+      topic: 'all',
+      notification: { title: title ?? defaultTitle, body: message },
+      data: { click_action: clickAction, type, data: jsonData },
+    })
 
     return data
   }
