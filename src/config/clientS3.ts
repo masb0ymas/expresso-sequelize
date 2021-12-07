@@ -31,9 +31,9 @@ function createS3Bucket(): void {
       process.exit(1)
     } else {
       const msgType = `Aws S3`
-      const message = `Success create bucket ${data?.Location}`
+      const message = `Success create bucket`
 
-      console.log(logServer(msgType, message))
+      console.log(logServer(msgType, message), data?.Location)
     }
   })
 }
@@ -49,9 +49,9 @@ const initialAwsS3 = async (): Promise<
     )
 
     const msgType = `Aws S3`
-    const message = `Success Get Bucket, ${data.Grants}`
+    const message = `Success Get Bucket`
 
-    console.log(logServer(msgType, message))
+    console.log(logServer(msgType, message), data.Grants)
 
     return data
   } catch (err) {
