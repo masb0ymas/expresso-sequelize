@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/masb0ymas/expresso/compare/v3.2.0...v3.3.0) (2021-12-11)
+
+
+### Features
+
+* add config env ([d6b5e1e](https://github.com/masb0ymas/expresso/commit/d6b5e1e29a3b08da33fc4e3d9ffa5d55f30f6644))
+* add endpoint notification ([62e1de9](https://github.com/masb0ymas/expresso/commit/62e1de9ff13d793c89a5c442865e23c19efc5516))
+* add endpoint pre sign url s3 ([d2eab46](https://github.com/masb0ymas/expresso/commit/d2eab46b604dc93b22665abcc995bd66a65dc7e9))
+* add endpoint upload s3 ([d172068](https://github.com/masb0ymas/expresso/commit/d172068260cb4b11d55c271127fbbf91b36dab4b))
+* add fcm helper ([9606b5b](https://github.com/masb0ymas/expresso/commit/9606b5b063de1d5ba47a55b4fb4bc1f9b2c6e313))
+* add fcm token service ([052864d](https://github.com/masb0ymas/expresso/commit/052864d44b7e161e43b3b955d4840fd246bdd077))
+* add firebase config ([0ab83ac](https://github.com/masb0ymas/expresso/commit/0ab83acc16765960c4764f116cef1619c476ffde))
+* add log server ([13a005a](https://github.com/masb0ymas/expresso/commit/13a005aaddff0ac0b1925e16251ca51492531a31))
+* add model notification ([c28f203](https://github.com/masb0ymas/expresso/commit/c28f20325634e92c0db9e1cb36627e14241ad7ea))
+* add model upload ([2ab9c2e](https://github.com/masb0ymas/expresso/commit/2ab9c2e0763b42d72d0e69b2db3d5b103daa0e76))
+* add package firebase ([2447f8d](https://github.com/masb0ymas/expresso/commit/2447f8dd801fb79df32829422715182bf4b33e36))
+* add upload job ([34da85d](https://github.com/masb0ymas/expresso/commit/34da85d6e1b37ec77671c28076a08cae420203c8))
+
+
+### Bug Fixes
+
+* add log server name ([c088bf9](https://github.com/masb0ymas/expresso/commit/c088bf968a73f572acc5cd9926e684f6ab8ca146))
+* annotation compiler date helper ([4c80b21](https://github.com/masb0ymas/expresso/commit/4c80b21e0642553a6f3e3ac8e702d031636991e7))
+* annotation compiler excel helper ([e1c2bf3](https://github.com/masb0ymas/expresso/commit/e1c2bf31e83d0080539e77e0bcf2113edf4e0eae))
+* annotation compiler getter object helper ([21a75b4](https://github.com/masb0ymas/expresso/commit/21a75b4d4d4cc945dd138d0bcdfa656ecf07f0db))
+* annotation compiler hash otp ([b88c3d4](https://github.com/masb0ymas/expresso/commit/b88c3d45eee6d59c052abe639f92001e519fb2c9))
+* annotation compiler phone helper ([33dded5](https://github.com/masb0ymas/expresso/commit/33dded5c28e72d7e50b41631cdd12033e161c47f))
+* bug route role ([98353ef](https://github.com/masb0ymas/expresso/commit/98353efb1ba132384d3894451a9aefa8f3e27171))
+* config dotenv ([c88cc41](https://github.com/masb0ymas/expresso/commit/c88cc4117a8e0886d8cf7099579324e3372c1a56))
+* delete file helper ([e923d8d](https://github.com/masb0ymas/expresso/commit/e923d8d248a123ec493163c898bcbb38a3e76046))
+* docs swagger ([12a7749](https://github.com/masb0ymas/expresso/commit/12a77491d51af0b6f80798f2f45739778722af28))
+* docs swagger user create ([005f1a5](https://github.com/masb0ymas/expresso/commit/005f1a591c819d3da63518d49a9659d32d4ccee7))
+* export db firestore ([b3d3068](https://github.com/masb0ymas/expresso/commit/b3d30682fe751e52842bb70fcdd5f2577a2d9826))
+* fcm helper ([ecbcd9d](https://github.com/masb0ymas/expresso/commit/ecbcd9d9268c79e067c8bd97c1db1edc7da5f624))
+* import config env ([b35052c](https://github.com/masb0ymas/expresso/commit/b35052c512d38df4fea111b41ef075f05f9ebe3d))
+* improve user agent helper ([87f9584](https://github.com/masb0ymas/expresso/commit/87f9584e89c169ccf8a6a765df108b62041f7a67))
+* log resoponse client s3 ([9e5a551](https://github.com/masb0ymas/expresso/commit/9e5a551c3ada14a2e93e387828a20ba870a69866))
+* log server ([fa461a0](https://github.com/masb0ymas/expresso/commit/fa461a0dfb682ef57ab5996e0c13c3a5fa5c4e90))
+* log server i18next ([20c5ed2](https://github.com/masb0ymas/expresso/commit/20c5ed2a141b5192ba2e565577384a616f064297))
+* logging initial db ([464c0a1](https://github.com/masb0ymas/expresso/commit/464c0a112069f6d25d4e21404c556b40bc679503))
+* login with device token fcm ([592d121](https://github.com/masb0ymas/expresso/commit/592d121b40be1b4dedae2e0b38432f5446f61c4f))
+* move controller user, role, session to account controller ([6bc7260](https://github.com/masb0ymas/expresso/commit/6bc7260eb90e36ef3fdfce0d2340b0481de2d78c))
+* query update signed url ([6a6ed3e](https://github.com/masb0ymas/expresso/commit/6a6ed3e5b648c4eaeaf00f20580003807e22aa25))
+* ts config ([332a0be](https://github.com/masb0ymas/expresso/commit/332a0be61996a90108900f21254ed7d06f22f6c8))
+* upgrade firebase-admin from 9.6.0 to 9.12.0 ([c7c269d](https://github.com/masb0ymas/expresso/commit/c7c269da34842c7c409a070390a4274d31d89ef9))
+* value ms ([a3b84ae](https://github.com/masb0ymas/expresso/commit/a3b84ae39816bb07eab7f0f14440089d990ebbfe))
+
 ## [3.2.0](https://github.com/masb0ymas/expresso/compare/v3.1.0...v3.2.0) (2021-11-24)
 
 
