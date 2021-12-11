@@ -1,20 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { BASE_URL_SERVER } from '@config/baseURL'
-import dotenv from 'dotenv'
+import {
+  APP_NAME,
+  NODE_ENV,
+  URL_SERVER_PRODUCTION,
+  URL_SERVER_SANDBOX,
+} from '@config/env'
 import fs from 'fs'
 import _ from 'lodash'
 import path from 'path'
 import swaggerJSDoc from 'swagger-jsdoc'
-
-dotenv.config()
-
-const APP_NAME = process.env.APP_NAME ?? 'expresso'
-const NODE_ENV = process.env.NODE_ENV ?? 'development'
-
-const URL_SERVER_STAGING =
-  process.env.URL_SERVER_STAGING ?? 'https://api-staging.example.com'
-const URL_SERVER_PRODUCTION =
-  process.env.URL_SERVER_PRODUCTION ?? 'https://api.example.com'
 
 const baseRoutes = path.resolve(`${__dirname}/../docs/swagger/routes`)
 // const baseSchemas = path.resolve(`${__dirname}/../docs/swagger/schemas`)
@@ -43,7 +38,7 @@ if (NODE_ENV === 'development') {
       description: `${_.capitalize(NODE_ENV)} Server`,
     },
     {
-      url: `${URL_SERVER_STAGING}/v1`,
+      url: `${URL_SERVER_SANDBOX}/v1`,
       description: 'Staging Server',
     },
     {
@@ -58,7 +53,7 @@ if (NODE_ENV === 'development') {
       name: `${_.capitalize(NODE_ENV)} Server`,
     },
     {
-      url: `${URL_SERVER_STAGING}/v1/api-docs.json`,
+      url: `${URL_SERVER_SANDBOX}/v1/api-docs.json`,
       name: 'Staging Server',
     },
     {

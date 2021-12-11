@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-throw-literal */
+import { APP_NAME, APP_PORT, NODE_ENV } from '@config/env'
 import i18next from '@config/i18nextConfig'
 import winstonLogger, { winstonStream } from '@config/Logger'
 import allowedOrigins from '@expresso/constants/ConstAllowedOrigins'
@@ -16,7 +17,6 @@ import chalk from 'chalk'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import Cors from 'cors'
-import dotenv from 'dotenv'
 import Express, { Application, NextFunction, Request, Response } from 'express'
 import UserAgent from 'express-useragent'
 import Helmet from 'helmet'
@@ -27,12 +27,6 @@ import Logger from 'morgan'
 import path from 'path'
 import requestIp from 'request-ip'
 import swaggerUI from 'swagger-ui-express'
-
-dotenv.config()
-
-const NODE_ENV = process.env.NODE_ENV ?? 'development'
-const APP_PORT = Number(process.env.APP_PORT) ?? 8000
-const APP_NAME = process.env.APP_NAME ?? 'expresso'
 
 const optCors: Cors.CorsOptions = {
   origin: allowedOrigins,

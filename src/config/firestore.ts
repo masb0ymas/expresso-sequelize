@@ -1,8 +1,7 @@
 import * as admin from 'firebase-admin'
 import path from 'path'
 import fs from 'fs'
-
-const { FIREBASE_DATABASE_URL } = process.env
+import { FIREBASE_DATABASE_URL } from './env'
 
 const serviceAccountKey = path.resolve('./serviceAccountKey.json')
 

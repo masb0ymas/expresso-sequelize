@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+import { DB_CONNECTION } from '@config/env'
 import SqlizeQuery, {
   getPrimitiveDataType,
   transfromIncludeToQueryable,
 } from '@expresso/modules/SqlizeQuery/SqlizeQuery'
-import dotenv from 'dotenv'
 import _ from 'lodash'
 import { Includeable, IncludeOptions, ModelCtor, Op } from 'sequelize'
 import { validate as uuidValidate } from 'uuid'
@@ -13,10 +13,6 @@ import {
   GenerateOptions,
   ReqGenerate,
 } from './interface'
-
-dotenv.config()
-
-const { DB_CONNECTION } = process.env
 
 /**
  *

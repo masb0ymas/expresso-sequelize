@@ -1,30 +1,26 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
+import {
+  APP_NAME,
+  MAILGUN_API_KEY,
+  MAILGUN_DOMAIN,
+  MAIL_AUTH_TYPE,
+  MAIL_DRIVER,
+  MAIL_HOST,
+  MAIL_PASSWORD,
+  MAIL_PORT,
+  MAIL_USERNAME,
+  OAUTH_CLIENT_ID,
+  OAUTH_CLIENT_SECRET,
+  OAUTH_REDIRECT_URL,
+  OAUTH_REFRESH_TOKEN,
+} from '@config/env'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import chalk from 'chalk'
-import dotenv from 'dotenv'
 import { Headers } from 'gaxios'
 import { google } from 'googleapis'
 import { isEmpty } from 'lodash'
 import nodemailer from 'nodemailer'
 import mg from 'nodemailer-mailgun-transport'
-
-dotenv.config()
-
-const {
-  APP_NAME,
-  MAIL_DRIVER,
-  MAIL_HOST,
-  MAIL_PORT,
-  MAIL_USERNAME,
-  MAIL_PASSWORD,
-  MAIL_AUTH_TYPE,
-  MAILGUN_API_KEY,
-  MAILGUN_DOMAIN,
-  OAUTH_CLIENT_ID,
-  OAUTH_CLIENT_SECRET,
-  OAUTH_REFRESH_TOKEN,
-  OAUTH_REDIRECT_URL,
-} = process.env
 
 const isMailgunAPI = !isEmpty(MAILGUN_API_KEY) || !isEmpty(MAILGUN_DOMAIN)
 

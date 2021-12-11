@@ -1,11 +1,6 @@
+import { EXPIRED_OTP, SECRET_OTP } from '@config/env'
 import crypto from 'crypto'
-import dotenv from 'dotenv'
 import ms from 'ms'
-
-dotenv.config()
-
-const { SECRET_OTP }: any = process.env
-const EXPIRED_OTP = process.env.EXPIRED_OTP ?? '5m'
 
 interface HashOTPAttributes {
   phone: string

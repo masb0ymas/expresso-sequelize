@@ -1,3 +1,4 @@
+import { createDirNotExist } from '@expresso/helpers/File'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { Request } from 'express'
 import multer from 'multer'
@@ -54,9 +55,13 @@ const defaultAllowedMimetype = [
 ]
 
 const useMulter = (props: MulterSetupProps): multer.Multer => {
+  // always check destination
+  const destination = props.dest ?? defaultDestination
+  createDirNotExist(destination)
+
   // config storage
   const storage = multer.diskStorage({
-    destination: props.dest ?? defaultDestination,
+    destination,
     filename(req: Request, file: Express.Multer.File, cb): void {
       const slugFilename = slugify(file.originalname, {
         replacement: '_',

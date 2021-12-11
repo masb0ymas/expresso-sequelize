@@ -2,14 +2,14 @@
 
 const { v4: uuidv4 } = require('uuid')
 const bcrypt = require('bcrypt')
-const chalk = require('chalk')
 const randomstring = require('randomstring')
 const ConstRole = require('../../@expresso/constants/ConstRole')
+const { logServer } = require('../../@expresso/helpers/Formatter')
 
 const salt = 10
 const defaultPassword = randomstring.generate(10)
 
-console.log(chalk.cyan('your default password: '), { defaultPassword })
+console.log(logServer('Seed', 'your default password: '), { defaultPassword })
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

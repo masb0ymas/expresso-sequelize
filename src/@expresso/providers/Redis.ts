@@ -1,11 +1,12 @@
+import { REDIS_HOST, REDIS_PASSWORD, REDIS_PORT } from '@config/env'
 import dotenv from 'dotenv'
 import Redis, { Redis as RedisClient } from 'ioredis'
 import ms from 'ms'
 
 dotenv.config()
 
-const timeoutRedis = ms('1d') / 1000
-const expiryMode = 'PX' // PX = miliseconds || EX = seconds. full documentation https://redis.io/commands/set
+const defaultTimeout = ms('1d') / 1000
+const defaultExpiry = 'PX' // PX = miliseconds || EX = seconds. full documentation https://redis.io/commands/set
 
 interface RedisOptionsProps {
   expiryMode?: string | any[]
@@ -17,9 +18,9 @@ class RedisProvider {
 
   constructor() {
     this.client = new Redis({
-      host: process.env.REDIS_HOST ?? '127.0.0.1',
-      port: Number(process.env.REDIS_PORT) ?? 6379,
-      password: process.env.REDIS_PASSWORD ?? undefined,
+      host: REDIS_HOST,
+      port: REDIS_PORT,
+      password: REDIS_PASSWORD,
     })
   }
 
@@ -34,15 +35,10 @@ class RedisProvider {
     data: any,
     options?: RedisOptionsProps
   ): Promise<void> {
-    const defaultExpiry = options?.expiryMode ?? expiryMode
-    const defaultTimeout = options?.timeout ?? timeoutRedis
+    const expiryMode = options?.expiryMode ?? defaultExpiry
+    const timeoutRedis = options?.timeout ?? defaultTimeout
 
-    await this.client.set(
-      key,
-      JSON.stringify(data),
-      defaultExpiry,
-      defaultTimeout
-    )
+    await this.client.set(key, JSON.stringify(data), expiryMode, timeoutRedis)
   }
 
   /**

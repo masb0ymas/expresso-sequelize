@@ -1,13 +1,21 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config()
+import {
+  DB_CONNECTION,
+  DB_DATABASE,
+  DB_HOST,
+  DB_OPERATOR_ALIAS,
+  DB_PASSWORD,
+  DB_PORT,
+  DB_TIMEZONE,
+  DB_USERNAME,
+} from './env'
 
 module.exports = {
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  dialect: process.env.DB_CONNECTION,
-  operatorsAliases: process.env.DB_OPERATOR_ALIAS,
-  timezone: process.env.DB_TIMEZONE,
+  username: DB_USERNAME,
+  password: DB_PASSWORD,
+  database: DB_DATABASE,
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: DB_CONNECTION,
+  operatorsAliases: DB_OPERATOR_ALIAS,
+  timezone: DB_TIMEZONE,
 }

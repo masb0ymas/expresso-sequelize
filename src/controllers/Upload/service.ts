@@ -4,12 +4,8 @@ import {
   PutObjectCommandOutput,
 } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import {
-  BUCKET_NAME,
-  clientS3,
-  s3ExpiresDate,
-  s3ObjectExpired,
-} from '@config/clientS3'
+import { clientS3, s3ExpiresDate, s3ObjectExpired } from '@config/clientS3'
+import { AWS_BUCKET_NAME } from '@config/env'
 import models from '@database/models/index'
 import { UploadAttributes, UploadInstance } from '@database/models/upload'
 import db from '@database/models/_instance'
@@ -208,7 +204,10 @@ class UploadService {
    */
   public static async getSignedUrlS3(keyFile: string): Promise<string> {
     // signed url from bucket S3
-    const command = new GetObjectCommand({ Bucket: BUCKET_NAME, Key: keyFile })
+    const command = new GetObjectCommand({
+      Bucket: AWS_BUCKET_NAME,
+      Key: keyFile,
+    })
     const signedUrl = await getSignedUrl(clientS3, command, {
       expiresIn: s3ObjectExpired,
     })
@@ -238,7 +237,7 @@ class UploadService {
     // send file upload to AWS S3
     const dataAwsS3 = await clientS3.send(
       new PutObjectCommand({
-        Bucket: BUCKET_NAME,
+        Bucket: AWS_BUCKET_NAME,
         Key: keyFile,
         Body: fs.createReadStream(fieldUpload.path),
         ContentType: fieldUpload.mimetype, // <-- this is what you need!

@@ -3,15 +3,11 @@ import ResponseError from '@expresso/modules/Response/ResponseError'
 import RedisProvider from '@expresso/providers/Redis'
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import chalk from 'chalk'
-import dotenv from 'dotenv'
 import _ from 'lodash'
 import { LOG_SERVER } from './baseURL'
-
-dotenv.config()
+import { AXIOS_TIMEOUT } from './env'
 
 const Redis = new RedisProvider()
-
-const AXIOS_TIMEOUT = Number(process.env.AXIOS_TIMEOUT) ?? 5000
 
 function createAxios(baseUri: string): AxiosInstance {
   const instanceAxios = axios.create({

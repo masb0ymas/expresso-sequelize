@@ -2,18 +2,12 @@ import 'module-alias/register'
 import './pathAlias'
 
 import initialAwsS3 from '@config/clientS3'
+import { AWS_ACCESS_KEY, AWS_SECRET_KEY, DB_CONNECTION } from '@config/env'
 import db from '@database/models/_instance'
 import { logErrServer, logServer } from '@expresso/helpers/Formatter'
 import initialJobs from '@jobs/index'
 import chalk from 'chalk'
-import dotenv from 'dotenv'
 import App from './app'
-
-dotenv.config()
-
-const { AWS_ACCESS_KEY, AWS_SECRET_KEY } = process.env
-
-const dialect = process.env.DB_CONNECTION ?? 'mysql'
 
 const Server = new App()
 
@@ -21,7 +15,7 @@ const Server = new App()
 db.sequelize
   .authenticate()
   .then(() => {
-    const dbName = chalk.cyan(dialect)
+    const dbName = chalk.cyan(DB_CONNECTION)
 
     const msgType = `Sequelize`
     const message = `Connection ${dbName} has been established successfully.`
@@ -29,7 +23,7 @@ db.sequelize
     console.log(logServer(msgType, message))
   })
   .catch((err: any) => {
-    const dbName = chalk.cyan(dialect)
+    const dbName = chalk.cyan(DB_CONNECTION)
 
     const errType = `Sequelize Error:`
     const message = `Unable to connect to the database: ${dbName}`

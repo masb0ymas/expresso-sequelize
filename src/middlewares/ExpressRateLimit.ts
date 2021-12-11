@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 import clientRedis from '@config/clientRedis'
+import { RATE_LIMIT } from '@config/env'
 import { logErrServer } from '@expresso/helpers/Formatter'
-import dotenv from 'dotenv'
 import { NextFunction, Request, Response } from 'express'
 import { RateLimiterRedis } from 'rate-limiter-flexible'
-
-dotenv.config()
-
-const RATE_LIMIT = Number(process.env.RATE_LIMIT) || 50
 
 // Rate Limit Request
 const rateLimiter = new RateLimiterRedis({

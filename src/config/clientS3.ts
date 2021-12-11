@@ -5,26 +5,26 @@ import {
 } from '@aws-sdk/client-s3'
 import { logErrServer, logServer } from '@expresso/helpers/Formatter'
 import { addDays } from 'date-fns'
-import dotenv from 'dotenv'
 import ms from 'ms'
-
-dotenv.config()
-
-const { AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_REGION }: any = process.env
+import {
+  AWS_ACCESS_KEY,
+  AWS_BUCKET_NAME,
+  AWS_REGION,
+  AWS_S3_EXPIRED,
+  AWS_SECRET_KEY,
+} from './env'
 
 export const clientS3 = new S3({
   credentials: {
     accessKeyId: AWS_ACCESS_KEY,
     secretAccessKey: AWS_SECRET_KEY,
   },
-  region: AWS_REGION ?? 'ap-southeast-1',
+  region: AWS_REGION,
 })
-
-export const BUCKET_NAME = process.env.AWS_BUCKET_NAME ?? 'expresso'
 
 // Create AWS S3 Bucket
 function createS3Bucket(): void {
-  clientS3.createBucket({ Bucket: BUCKET_NAME }, function (err, data) {
+  clientS3.createBucket({ Bucket: AWS_BUCKET_NAME }, function (err, data) {
     if (err) {
       console.log(logErrServer('Aws S3 Error:', err))
 
@@ -45,7 +45,7 @@ const initialAwsS3 = async (): Promise<
   try {
     // initial bucket
     const data = await clientS3.send(
-      new GetBucketAclCommand({ Bucket: BUCKET_NAME })
+      new GetBucketAclCommand({ Bucket: AWS_BUCKET_NAME })
     )
 
     const msgType = `Aws S3`
@@ -64,8 +64,6 @@ const initialAwsS3 = async (): Promise<
     createS3Bucket()
   }
 }
-
-const AWS_S3_EXPIRED = process.env.AWS_S3_EXPIRED ?? '7d'
 
 const getNumberExpires = AWS_S3_EXPIRED.replace(/[^0-9]/g, '')
 const getMilliSecondExpires = ms(AWS_S3_EXPIRED)
