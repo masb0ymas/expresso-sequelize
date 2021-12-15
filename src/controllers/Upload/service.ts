@@ -20,6 +20,7 @@ import { Request } from 'express'
 import fs from 'fs'
 import _ from 'lodash'
 import { Includeable, Order, Transaction } from 'sequelize'
+import { validate as uuidValidate } from 'uuid'
 import uploadSchema from './schema'
 
 const { Sequelize } = db
@@ -259,11 +260,16 @@ class UploadService {
       expiryDateUrl: s3ExpiresDate,
     }
 
-    // check file upload
-    const getUpload = await Upload.findByPk(String(UploadId))
+    // check uuid
+    if (!_.isEmpty(UploadId) && uuidValidate(String(UploadId))) {
+      // find upload
+      const getUpload = await Upload.findByPk(String(UploadId))
 
-    if (getUpload) {
-      resUpload = await getUpload.update(formUpload)
+      if (getUpload) {
+        resUpload = await getUpload.update(formUpload)
+      } else {
+        resUpload = await this.create(formUpload)
+      }
     } else {
       resUpload = await this.create(formUpload)
     }
