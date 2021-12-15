@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.swcrc
 package-lock.json
 pnpm-lock.yaml
 serviceAccountKey.json
