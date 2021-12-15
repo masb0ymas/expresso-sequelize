@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1](https://github.com/masb0ymas/expresso/compare/v3.3.0...v3.3.1) (2021-12-15)
+
+
+### Bug Fixes
+
+* config database problem import module ([b47a4b2](https://github.com/masb0ymas/expresso/commit/b47a4b22f401bf22a6942bd7dedfedfbbc84aec3))
+* user seeder ([8c87421](https://github.com/masb0ymas/expresso/commit/8c8742184792557fdee09d79caab23406ca621cd))
+
 ## [3.3.0](https://github.com/masb0ymas/expresso/compare/v3.2.0...v3.3.0) (2021-12-11)
 
 
