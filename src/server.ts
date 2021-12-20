@@ -2,7 +2,12 @@ import 'module-alias/register'
 import './pathAlias'
 
 import initialAwsS3 from '@config/clientS3'
-import { AWS_ACCESS_KEY, AWS_SECRET_KEY, DB_CONNECTION } from '@config/env'
+import {
+  AWS_ACCESS_KEY,
+  AWS_SECRET_KEY,
+  DB_CONNECTION,
+  DB_DATABASE,
+} from '@config/env'
 import db from '@database/models/_instance'
 import { logErrServer, logServer } from '@expresso/helpers/Formatter'
 import initialJobs from '@jobs/index'
@@ -15,10 +20,11 @@ const Server = new App()
 db.sequelize
   .authenticate()
   .then(() => {
-    const dbName = chalk.cyan(DB_CONNECTION)
+    const dbDialect = chalk.cyan(DB_CONNECTION)
+    const dbName = chalk.cyan(DB_DATABASE)
 
     const msgType = `Sequelize`
-    const message = `Connection ${dbName} has been established successfully.`
+    const message = `Connection ${dbDialect}: ${dbName} has been established successfully.`
 
     console.log(logServer(msgType, message))
   })
