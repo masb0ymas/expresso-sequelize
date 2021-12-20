@@ -19,7 +19,7 @@ const defaultFileSize = 1 * 1024 * 1024 // 1mb
 const defaultDestination = 'public/uploads/'
 
 // extension
-export const allowedZIP = ['.zip']
+export const allowedZIP = ['.zip', '.7z']
 export const allowedPDF = ['.pdf']
 export const allowedImage = ['.png', '.jpg', '.jpeg', '.svg']
 export const allowedExcel = ['.xlsx', '.xls']
@@ -34,7 +34,11 @@ const defaultAllowedExt = [
 ]
 
 // mimetype
-export const allowedMimetypeZIP = ['application/zip']
+export const allowedMimetypeZIP = [
+  'application/zip',
+  'application/x-zip-compressed',
+  'application/x-7z-compressed',
+]
 export const allowedMimetypePDF = ['application/pdf']
 export const allowedMimetypeImage = ['image/jpeg', 'image/png', 'image/svg+xml']
 export const allowedMimetypeExcel = [
@@ -77,8 +81,11 @@ const useMulter = (props: MulterSetupProps): multer.Multer => {
     fileFilter(req, file, cb) {
       const allowedMimetype = props.allowedMimetype ?? defaultAllowedMimetype
       const allowedExt = props.allowedExt ?? defaultAllowedExt
+      const mimetype = file.mimetype.toLowerCase()
 
-      if (!allowedMimetype.includes(file.mimetype.toLowerCase())) {
+      console.log({ mimetype })
+
+      if (!allowedMimetype.includes(mimetype)) {
         return cb(
           new ResponseError.BadRequest(
             `Only ${allowedExt.join(', ')} ext are allowed`
