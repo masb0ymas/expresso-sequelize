@@ -1,6 +1,7 @@
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { NextFunction, Request, Response } from 'express'
 import _ from 'lodash'
+import multer from 'multer'
 
 function generateErrorResponseError(
   e: Error,
@@ -20,6 +21,10 @@ async function ExpressErrorResponse(
   res: Response,
   next: NextFunction
 ): Promise<Response<any, Record<string, any>> | undefined> {
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json(generateErrorResponseError(err, 400))
+  }
+
   if (err instanceof ResponseError.BaseResponse) {
     return res
       .status(err.statusCode)
