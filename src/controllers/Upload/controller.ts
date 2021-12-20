@@ -1,4 +1,5 @@
 import asyncHandler from '@expresso/helpers/asyncHandler'
+import { deleteFile } from '@expresso/helpers/File'
 import { arrayFormatter } from '@expresso/helpers/Formatter'
 import useMulter from '@expresso/hooks/useMulter'
 import { FileAttributes } from '@expresso/interfaces/Files'
@@ -71,15 +72,12 @@ route.post(
     const formData = req.getBody()
 
     const fieldUpload = _.get(formData, 'fileUpload', {}) as FileAttributes
-    const pathUpload = fieldUpload.path
-      ? fieldUpload.path.replace('public', '')
-      : null
 
     let dataS3
     let UploadData
 
     // Upload to AWS S3
-    if (!_.isEmpty(pathUpload)) {
+    if (!_.isEmpty(fieldUpload) && !_.isEmpty(fieldUpload.path)) {
       const directory = formData.type ?? 'uploads'
 
       const resUploadS3 = await UploadService.uploadFileWithSignedUrl(
@@ -89,6 +87,8 @@ route.post(
 
       dataS3 = resUploadS3.dataAwsS3
       UploadData = resUploadS3.resUpload
+
+      deleteFile(fieldUpload.path)
     }
 
     const httpResponse = HttpResponse.created({
@@ -109,15 +109,12 @@ route.put(
     const formData = req.getBody()
 
     const fieldUpload = _.get(formData, 'fileUpload', {}) as FileAttributes
-    const pathUpload = fieldUpload.path
-      ? fieldUpload.path.replace('public', '')
-      : null
 
     let dataS3
     let UploadData
 
     // Upload to AWS S3
-    if (!_.isEmpty(pathUpload)) {
+    if (!_.isEmpty(fieldUpload) && !_.isEmpty(fieldUpload.path)) {
       const directory = formData.type ?? 'uploads'
 
       const resUploadS3 = await UploadService.uploadFileWithSignedUrl(
@@ -128,6 +125,8 @@ route.put(
 
       dataS3 = resUploadS3.dataAwsS3
       UploadData = resUploadS3.resUpload
+
+      deleteFile(fieldUpload.path)
     } else {
       // get upload file
       const getUpload = await UploadService.findById(id)
