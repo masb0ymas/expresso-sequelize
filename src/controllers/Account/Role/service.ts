@@ -1,7 +1,6 @@
 import UserService from '@controllers/Account/User/service'
 import models from '@database/models/index'
 import { RoleAttributes, RoleInstance } from '@database/models/role'
-import { UserInstance } from '@database/models/user'
 import db from '@database/models/_instance'
 import { validateBoolean, validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
@@ -133,11 +132,15 @@ class RoleService {
 
   /**
    *
-   * @param Users
+   * @param ModelEntity
+   * @param target
    */
-  private static async validateDelete(Users: UserInstance[]): Promise<void> {
-    if (!_.isEmpty(Users)) {
-      const collectRoleIds = _.map(Users, 'RoleId')
+  private static async validateDelete<T>(
+    ModelEntity: T[],
+    target: string
+  ): Promise<void> {
+    if (!_.isEmpty(ModelEntity)) {
+      const collectRoleIds = _.map(ModelEntity, 'RoleId')
       const uniqRoleIds = [...new Set(collectRoleIds)]
 
       const getRoles = await Role.findAll({
@@ -146,9 +149,10 @@ class RoleService {
 
       if (!_.isEmpty(getRoles)) {
         const collectRoles = _.map(getRoles, 'name')
+        const getName = collectRoles.join(', ')
 
         throw new ResponseError.BadRequest(
-          `Role ${collectRoles.join(', ')} is being used in users`
+          `Role ${getName} is being used in ${target}`
         )
       }
     }
@@ -166,8 +170,8 @@ class RoleService {
 
     if (isForce) {
       // check when delete role is being used in users
-      const getUsersByRole = await UserService.findByRoleIds([id])
-      await this.validateDelete(getUsersByRole)
+      const getUsers = await UserService.findByRoleIds([id])
+      await this.validateDelete(getUsers, 'User')
     }
 
     await data.destroy({ force: isForce })
@@ -200,8 +204,8 @@ class RoleService {
 
     if (isForce) {
       // check when delete role is being used in users
-      const getUsersByRole = await UserService.findByRoleIds(ids)
-      await this.validateDelete(getUsersByRole)
+      const getUsers = await UserService.findByRoleIds(ids)
+      await this.validateDelete(getUsers, 'User')
     }
 
     await Role.destroy({
