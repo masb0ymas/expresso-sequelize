@@ -29,10 +29,11 @@ db.sequelize
     console.log(logServer(msgType, message))
   })
   .catch((err: any) => {
-    const dbName = chalk.cyan(DB_CONNECTION)
+    const dbDialect = chalk.cyan(DB_CONNECTION)
+    const dbName = chalk.cyan(DB_DATABASE)
 
     const errType = `Sequelize Error:`
-    const message = `Unable to connect to the database: ${dbName}`
+    const message = `Unable to connect to the database ${dbDialect}: ${dbName}`
 
     console.log(logErrServer(errType, message), err)
   })
