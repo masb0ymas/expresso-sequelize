@@ -126,6 +126,21 @@ class UserService {
 
   /**
    *
+   * @param RoleIds
+   * @returns
+   */
+  public static async findByRoleIds(
+    RoleIds: string[]
+  ): Promise<UserInstance[]> {
+    const data = await User.findAll({
+      where: { RoleId: { [Op.in]: RoleIds } },
+    })
+
+    return data
+  }
+
+  /**
+   *
    * @param formData
    * @param txn
    * @returns

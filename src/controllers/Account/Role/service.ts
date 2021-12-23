@@ -1,5 +1,7 @@
+import UserService from '@controllers/Account/User/service'
 import models from '@database/models/index'
 import { RoleAttributes, RoleInstance } from '@database/models/role'
+import { UserInstance } from '@database/models/user'
 import db from '@database/models/_instance'
 import { validateBoolean, validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
@@ -131,6 +133,29 @@ class RoleService {
 
   /**
    *
+   * @param Users
+   */
+  private static async validateDelete(Users: UserInstance[]): Promise<void> {
+    if (!_.isEmpty(Users)) {
+      const collectRoleIds = _.map(Users, 'RoleId')
+      const uniqRoleIds = [...new Set(collectRoleIds)]
+
+      const getRoles = await Role.findAll({
+        where: { id: { [Op.in]: uniqRoleIds } },
+      })
+
+      if (!_.isEmpty(getRoles)) {
+        const collectRoles = _.map(getRoles, 'name')
+
+        throw new ResponseError.BadRequest(
+          `Role ${collectRoles.join(', ')} is being used in users`
+        )
+      }
+    }
+  }
+
+  /**
+   *
    * @param id
    * @param force
    */
@@ -138,6 +163,13 @@ class RoleService {
     const isForce = validateBoolean(force)
 
     const data = await this.findByPk(id)
+
+    if (isForce) {
+      // check when delete role is being used in users
+      const getUsersByRole = await UserService.findByRoleIds([id])
+      await this.validateDelete(getUsersByRole)
+    }
+
     await data.destroy({ force: isForce })
   }
 
@@ -164,6 +196,12 @@ class RoleService {
 
     if (_.isEmpty(ids)) {
       throw new ResponseError.BadRequest('ids cannot be empty')
+    }
+
+    if (isForce) {
+      // check when delete role is being used in users
+      const getUsersByRole = await UserService.findByRoleIds(ids)
+      await this.validateDelete(getUsersByRole)
     }
 
     await Role.destroy({
