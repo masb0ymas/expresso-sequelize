@@ -69,10 +69,10 @@ function createAxios(baseUri: string): AxiosInstance {
           throw new ResponseError.InternalServer('Service Unavailable')
         }
 
-        console.log(`${LOG_SERVER} ${errAxios(error.message)}`)
-        throw new ResponseError.BadRequest(
-          error.response?.data ?? error.message
-        )
+        const errMessage = error.response?.data ?? error.message
+
+        console.log(`${LOG_SERVER} ${errAxios(errMessage)}`)
+        throw new ResponseError.BadRequest(errMessage)
       }
       return await Promise.reject(error)
     }
