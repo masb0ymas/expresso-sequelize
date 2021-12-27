@@ -22,7 +22,7 @@
     "db:migrate-fresh": "npx sequelize-cli db:migrate:undo:all && npm run db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:drop": "npx sequelize-cli db:drop",
-    "db:reset": "npm run db:drop && npx sequelize-cli db:create && npm run db:migrate && npm run db:seed",
+    "db:reset": "yarn && npm run db:drop && npx sequelize-cli db:create && npm run db:migrate && npm run db:seed",
     "release": "standard-version",
     "release:pre": "npm run release -- --prerelease",
     "release:patch": "npm run release -- --release-as patch",
