@@ -1835,10 +1835,10 @@
   dependencies:
     i18next "^21.0.1"
 
-"@types/ioredis@^4.28.2":
-  version "4.28.2"
-  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.28.2.tgz#7ff68944cbb58afefb2a1d8b250ebf48760e93c9"
-  integrity sha512-kOCG4ExodOAoslFjsUzwAK1fxqVRx3JX5m7lm3MkWf5WkDwNTtXBtlBig6cQyFwS7P7TPaTWRreQaMwl7e1FFA==
+"@types/ioredis@^4.28.6":
+  version "4.28.6"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.28.6.tgz#f30b4b09f26af96f0418beecc4bfb56f3bb892b3"
+  integrity sha512-oD2Dr1lyXgqWC0bQooZlqPGq5lgl/47uSa3YADTLbtnT+RU82nn/9qhejCbuoSmTcqE23vmsdihg2tcA8Vw1Dw==
   dependencies:
     "@types/node" "*"
 
