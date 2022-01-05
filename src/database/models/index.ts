@@ -14,13 +14,21 @@ const models = {
   FCMToken,
 }
 
+// relation
+User.belongsTo(Role)
+User.hasMany(Session)
+
+Notification.belongsTo(User)
+
+Session.belongsTo(User, { foreignKey: 'UserId' })
+
 export default models
 
-export type MyModels = typeof models
+// export type MyModels = typeof models
 
-Object.entries(models).map(([, model]) => {
-  if (model?.associate) {
-    model.associate(models)
-  }
-  return model
-})
+// Object.entries(models).map(([, model]) => {
+//   if (model?.associate) {
+//     model.associate(models)
+//   }
+//   return model
+// })

@@ -1,8 +1,8 @@
 import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
 import { Model, Optional } from 'sequelize'
-import { MyModels } from './index'
 import db from './_instance'
 
+// entity
 export interface NotificationAttributes {
   id?: string
   UserId?: string
@@ -18,23 +18,42 @@ export interface NotificationAttributes {
   deletedAt?: Date | null
 }
 
+// creation attributes
 interface NotificationCreationAttributes
   extends Optional<NotificationAttributes, 'id'> {}
 
+// instance
 export interface NotificationInstance
   extends Model<NotificationAttributes, NotificationCreationAttributes>,
     NotificationAttributes {}
 
-const Notification = db.sequelize.define<NotificationInstance>(
-  'Notifications',
+// class entity
+class Notification
+  extends Model<NotificationAttributes, NotificationCreationAttributes>
+  implements NotificationAttributes
+{
+  declare id: string
+  declare UserId?: string | undefined
+  declare title: string
+  declare text: string
+  declare html: string
+  declare type: string
+  declare isRead?: boolean | null | undefined
+  declare sendAt?: Date | null | undefined
+  declare isSend?: boolean | null | undefined
+
+  declare readonly createdAt: Date
+  declare readonly updatedAt: Date
+  declare readonly deletedAt: Date
+}
+
+// init model
+Notification.init(
   {
     ...SequelizeAttributes.Notifications,
   },
-  { paranoid: true }
+  // @ts-expect-error
+  { sequelize: db.sequelize, tableName: 'Notifications', paranoid: true }
 )
-
-Notification.associate = (models: MyModels) => {
-  Notification.belongsTo(models.User)
-}
 
 export default Notification

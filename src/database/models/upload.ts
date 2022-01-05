@@ -2,6 +2,7 @@ import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
 import { Model, Optional } from 'sequelize'
 import db from './_instance'
 
+// entity
 export interface UploadAttributes {
   id?: string
   keyFile: string
@@ -15,18 +16,39 @@ export interface UploadAttributes {
   deletedAt?: Date | null
 }
 
+// creation attributes
 interface UploadCreationAttributes extends Optional<UploadAttributes, 'id'> {}
 
+// instance
 export interface UploadInstance
   extends Model<UploadAttributes, UploadCreationAttributes>,
     UploadAttributes {}
 
-const Upload = db.sequelize.define<UploadInstance>(
-  'Uploads',
+// class entity
+class Upload
+  extends Model<UploadAttributes, UploadCreationAttributes>
+  implements UploadAttributes
+{
+  declare id: string
+  declare keyFile: string
+  declare filename: string
+  declare mimetype: string
+  declare size: number
+  declare signedUrl: string
+  declare expiryDateUrl: Date
+
+  declare readonly createdAt: Date
+  declare readonly updatedAt: Date
+  declare readonly deletedAt: Date
+}
+
+// init model
+Upload.init(
   {
     ...SequelizeAttributes.Uploads,
   },
-  { paranoid: true }
+  // @ts-expect-error
+  { sequelize: db.sequelize, tableName: 'Uploads', paranoid: true }
 )
 
 export default Upload

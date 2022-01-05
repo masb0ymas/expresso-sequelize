@@ -2,9 +2,9 @@ import userSchema from '@controllers/Account/User/schema'
 import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
 import bcrypt from 'bcrypt'
 import { DataTypes, Model, Optional } from 'sequelize'
-import { MyModels } from './index'
 import db from './_instance'
 
+// entity
 export interface UserAttributes {
   id: string
   firstName: string
@@ -35,16 +35,44 @@ export interface TokenAttributes {
 
 export type LoginAttributes = Pick<UserAttributes, 'email' | 'password'>
 
+// creation attributes
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
+// instance
 export interface UserInstance
   extends Model<UserAttributes, UserCreationAttributes>,
     UserAttributes {
   comparePassword: (password: string) => Promise<boolean>
 }
 
-const User = db.sequelize.define<UserInstance>(
-  'Users',
+// class entity
+class User
+  extends Model<UserAttributes, UserCreationAttributes>
+  implements UserAttributes
+{
+  declare id: string
+  declare firstName: string
+  declare lastName: string
+  declare phone?: string | null | undefined
+  declare email: string
+  declare password?: string | null | undefined
+  declare isActive?: boolean | null | undefined
+  declare isBlocked?: boolean | null | undefined
+  declare tokenVerify?: string | null | undefined
+  declare picturePath?: string | null | undefined
+  declare RoleId: string
+  declare newPassword?: string | undefined
+  declare confirmNewPassword?: string | undefined
+
+  declare readonly createdAt: Date
+  declare readonly updatedAt: Date
+  declare readonly deletedAt: Date
+
+  comparePassword: (password: string) => Promise<boolean>
+}
+
+// init model
+User.init(
   {
     ...SequelizeAttributes.Users,
     newPassword: {
@@ -55,6 +83,9 @@ const User = db.sequelize.define<UserInstance>(
     },
   },
   {
+    // @ts-expect-error
+    sequelize: db.sequelize,
+    tableName: 'Users',
     paranoid: true,
     defaultScope: {
       attributes: {
@@ -95,16 +126,15 @@ User.prototype.comparePassword = async function (
   candidatePassword: string
 ): Promise<boolean> {
   return await new Promise((resolve, reject) => {
-    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-      if (err) reject(err)
-      resolve(isMatch)
-    })
+    void bcrypt.compare(
+      candidatePassword,
+      String(this.password),
+      function (err, isMatch) {
+        if (err) reject(err)
+        resolve(isMatch)
+      }
+    )
   })
-}
-
-User.associate = (models: MyModels) => {
-  User.belongsTo(models.Role)
-  User.hasMany(models.Session)
 }
 
 export default User
