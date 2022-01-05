@@ -40,32 +40,6 @@ route.get(
 )
 
 route.get(
-  '/user/:id',
-  Authorization,
-  PermissionAccess(onlyAdmin),
-  asyncHandler(async function findById(req: Request, res: Response) {
-    const { id } = req.getParams()
-    const data = await UserService.findById(id)
-
-    const httpResponse = HttpResponse.get({ data })
-    res.status(200).json(httpResponse)
-  })
-)
-
-route.get(
-  '/user/:id/session',
-  Authorization,
-  PermissionAccess(onlyAdmin),
-  asyncHandler(async function findUserWithSession(req: Request, res: Response) {
-    const { id } = req.getParams()
-    const data = await UserService.findUserWithSession(id)
-
-    const httpResponse = HttpResponse.get({ data })
-    res.status(200).json(httpResponse)
-  })
-)
-
-route.get(
   '/user/generate-excel',
   Authorization,
   PermissionAccess(onlyAdmin),
@@ -98,6 +72,32 @@ route.get(
     res.setHeader('Content-Length', streamExcel.length)
 
     res.send(streamExcel)
+  })
+)
+
+route.get(
+  '/user/:id/session',
+  Authorization,
+  PermissionAccess(onlyAdmin),
+  asyncHandler(async function findUserWithSession(req: Request, res: Response) {
+    const { id } = req.getParams()
+    const data = await UserService.findUserWithSession(id)
+
+    const httpResponse = HttpResponse.get({ data })
+    res.status(200).json(httpResponse)
+  })
+)
+
+route.get(
+  '/user/:id',
+  Authorization,
+  PermissionAccess(onlyAdmin),
+  asyncHandler(async function findById(req: Request, res: Response) {
+    const { id } = req.getParams()
+    const data = await UserService.findById(id)
+
+    const httpResponse = HttpResponse.get({ data })
+    res.status(200).json(httpResponse)
   })
 )
 
