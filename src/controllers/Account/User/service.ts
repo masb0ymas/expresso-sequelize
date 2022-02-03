@@ -89,7 +89,7 @@ class UserService {
     id: string,
     paranoid?: boolean
   ): Promise<UserInstance> {
-    const data = await this.findByPk(id, { paranoid, include: including })
+    const data = await this.findByPk(id, { paranoid, include: includeSession })
 
     return data
   }
