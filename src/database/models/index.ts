@@ -20,7 +20,7 @@ User.hasMany(Session)
 
 Notification.belongsTo(User)
 
-Session.belongsTo(User, { foreignKey: 'UserId' })
+Session.belongsTo(User)
 
 export default models
 

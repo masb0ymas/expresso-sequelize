@@ -2,7 +2,7 @@
 import path from 'path'
 import Sequelize from 'sequelize'
 
-const optConfig = require(path.join(`${__dirname}/../../config/database`))
+const optConfig = require(path.resolve(`${__dirname}/../../config/database`))
 
 const sequelize = new Sequelize.Sequelize(
   optConfig.database,
