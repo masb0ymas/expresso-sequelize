@@ -36,7 +36,7 @@ route.get(
 
     const status = {
       uptime: process.uptime(),
-      message: 'Ok',
+      status: 'Ok',
       timezone: 'ID',
       date: formatDateTime(new Date()),
       node: process.version,
