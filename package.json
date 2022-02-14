@@ -69,7 +69,7 @@
     "i18next-http-middleware": "^3.1.6",
     "ioredis": "^4.28.5",
     "jsonwebtoken": "^8.5.1",
-    "libphonenumber-js": "^1.9.44",
+    "libphonenumber-js": "^1.9.49",
     "lodash": "^4.17.21",
     "mariadb": "^2.5.5",
     "module-alias": "^2.2.2",
