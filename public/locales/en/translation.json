@@ -1,7 +1,12 @@
 {
   "welcome": "Welcome",
   "errors": {
-    "permissionAccess": "You are not allowed"
+    "permissionAccess": "You are not allowed",
+    "mailTemplate": "Invalid template path for email registration",
+    "accountNotFound": "Account not found or not registered",
+    "pleaseCheckYourEmail": "Please check your email account to verify your email and continue the registration process",
+    "incorrectEmailOrPassword": "Incorrect email or password",
+    "invalidUserLogin": "Invalid user login"
   },
   "success": {
     "register": "Registration is successful",

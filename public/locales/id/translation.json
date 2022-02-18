@@ -1,7 +1,12 @@
 {
   "welcome": "Selamat Datang",
   "errors": {
-    "permissionAccess": "Anda tidak diijinkan"
+    "permissionAccess": "Anda tidak diijinkan",
+    "mailTemplate": "Direktori template email pendaftaran tidak benar",
+    "accountNotFound": "Akun tidak ditemukan atau tidak terdaftar",
+    "pleaseCheckYourEmail": "Silakan periksa akun email Anda untuk memverifikasi email Anda dan melanjutkan proses pendaftaran",
+    "incorrectEmailOrPassword": "Email atau kata sandi salah",
+    "invalidUserLogin": "Invalid user login"
   },
   "success": {
     "register": "Pendaftaran berhasil",
