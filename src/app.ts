@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-throw-literal */
 import { APP_NAME, APP_PORT, NODE_ENV } from '@config/env'
-import i18next from '@config/i18nextConfig'
+import { i18NConfig } from '@config/i18nextConfig'
 import winstonLogger, { winstonStream } from '@config/Logger'
 import allowedOrigins from '@expresso/constants/ConstAllowedOrigins'
 import { logServer } from '@expresso/helpers/Formatter'
@@ -63,7 +63,7 @@ class App {
     this.application.use(hpp())
     this.application.use(requestIp.mw())
     this.application.use(UserAgent.express())
-    this.application.use(i18nextMiddleware.handle(i18next))
+    this.application.use(i18nextMiddleware.handle(i18NConfig))
     this.application.use(ExpressRateLimit)
     this.application.use(function (
       req: Request,

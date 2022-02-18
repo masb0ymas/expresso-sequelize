@@ -20,4 +20,6 @@ void i18next.use(i18nextBackend).init(
   }
 )
 
-export default i18next
+const i18NConfig = i18next
+
+export { i18NConfig }
