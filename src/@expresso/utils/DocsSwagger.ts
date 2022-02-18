@@ -130,6 +130,12 @@ export const swaggerOptions = {
           default: [],
           description: 'Example: [{"id": "createdAt", "desc": true}]',
         },
+        lang: {
+          in: 'query',
+          name: 'lang',
+          schema: { type: 'string', enum: ['en', 'id'] },
+          default: 'en',
+        },
       },
     },
     paths: docsSources,

@@ -22,6 +22,9 @@ module.exports = {
         {
           $ref: '#/components/parameters/sorted',
         },
+        {
+          $ref: '#/components/parameters/lang',
+        },
       ],
       responses: {
         200: {
@@ -35,6 +38,11 @@ module.exports = {
       security: [
         {
           auth_token: [],
+        },
+      ],
+      parameters: [
+        {
+          $ref: '#/components/parameters/lang',
         },
       ],
       requestBody: {
@@ -101,6 +109,11 @@ module.exports = {
           auth_token: [],
         },
       ],
+      parameters: [
+        {
+          $ref: '#/components/parameters/lang',
+        },
+      ],
       requestBody: {
         required: true,
         content: {
@@ -134,6 +147,11 @@ module.exports = {
           auth_token: [],
         },
       ],
+      parameters: [
+        {
+          $ref: '#/components/parameters/lang',
+        },
+      ],
       requestBody: {
         required: true,
         content: {
@@ -165,6 +183,11 @@ module.exports = {
       security: [
         {
           auth_token: [],
+        },
+      ],
+      parameters: [
+        {
+          $ref: '#/components/parameters/lang',
         },
       ],
       requestBody: {
@@ -211,6 +234,9 @@ module.exports = {
           },
           description: 'User Id',
         },
+        {
+          $ref: '#/components/parameters/lang',
+        },
       ],
       responses: {
         200: {
@@ -235,6 +261,9 @@ module.exports = {
             type: 'string',
           },
           description: 'User Id',
+        },
+        {
+          $ref: '#/components/parameters/lang',
         },
       ],
       requestBody: {
@@ -292,6 +321,9 @@ module.exports = {
           },
           description: 'User Id',
         },
+        {
+          $ref: '#/components/parameters/lang',
+        },
       ],
       responses: {
         200: {
@@ -320,6 +352,9 @@ module.exports = {
           },
           description: 'User Id',
         },
+        {
+          $ref: '#/components/parameters/lang',
+        },
       ],
       responses: {
         200: {
@@ -347,6 +382,9 @@ module.exports = {
             type: 'string',
           },
           description: 'User Id',
+        },
+        {
+          $ref: '#/components/parameters/lang',
         },
       ],
       responses: {

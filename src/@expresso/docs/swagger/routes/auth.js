@@ -3,6 +3,11 @@ module.exports = {
     post: {
       tags: ['Auth'],
       summary: 'Create New Account',
+      parameters: [
+        {
+          $ref: '#/components/parameters/lang',
+        },
+      ],
       requestBody: {
         required: true,
         content: {
@@ -51,6 +56,11 @@ module.exports = {
     post: {
       tags: ['Auth'],
       summary: 'Login Your Account',
+      parameters: [
+        {
+          $ref: '#/components/parameters/lang',
+        },
+      ],
       requestBody: {
         required: true,
         content: {
@@ -96,6 +106,11 @@ module.exports = {
           auth_token: [],
         },
       ],
+      parameters: [
+        {
+          $ref: '#/components/parameters/lang',
+        },
+      ],
       responses: {
         200: {
           description: 'Verify Session',
@@ -111,6 +126,11 @@ module.exports = {
       security: [
         {
           auth_token: [],
+        },
+      ],
+      parameters: [
+        {
+          $ref: '#/components/parameters/lang',
         },
       ],
       requestBody: {
