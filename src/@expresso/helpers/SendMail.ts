@@ -6,6 +6,8 @@ import Handlebars from 'handlebars'
 import path from 'path'
 import { readHTMLFile } from './File'
 import { APP_NAME } from '@config/env'
+import { i18NConfig } from '@config/i18nextConfig'
+import { TOptions } from 'i18next'
 
 interface AccountRegistrationProps {
   email: string
@@ -19,8 +21,14 @@ class SendMail {
   /**
    *
    * @param formData
+   * @param lang
    */
-  public static AccountRegistration(formData: AccountRegistrationProps): void {
+  public static AccountRegistration(
+    formData: AccountRegistrationProps,
+    lang?: string
+  ): void {
+    const i18nOpt: string | TOptions = { lng: lang }
+
     const templatePath = path.resolve(
       `${__dirname}/../../../public/templates/emails/register.html`
     )
@@ -31,9 +39,8 @@ class SendMail {
     const templateData = { APP_NAME, tokenUrl, ...formData }
 
     if (!fs.existsSync(templatePath)) {
-      throw new ResponseError.BadRequest(
-        'invalid template path for email registration'
-      )
+      const message = i18NConfig.t('errors.mailTemplate', i18nOpt)
+      throw new ResponseError.BadRequest(message)
     }
 
     // read html template email
