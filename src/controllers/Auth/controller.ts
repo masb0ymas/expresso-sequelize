@@ -1,4 +1,5 @@
 import { BASE_URL_CLIENT } from '@config/baseURL'
+import { i18NConfig } from '@config/i18nextConfig'
 import FcmTokenService from '@controllers/Account/FCMToken/service'
 import SessionService from '@controllers/Account/Session/service'
 import User, { UserLoginAttributes } from '@database/models/user'
@@ -11,17 +12,23 @@ import ResponseError from '@expresso/modules/Response/ResponseError'
 import Authorization from '@middlewares/Authorization'
 import route from '@routes/v1'
 import { Request, Response } from 'express'
+import { TOptions } from 'i18next'
 import _ from 'lodash'
 import AuthService from './service'
 
 route.post(
   '/auth/sign-up',
   asyncHandler(async function signUp(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+    const i18nOpt: string | TOptions = { lng: lang }
+
     const formData = req.getBody()
 
-    const data = await AuthService.signUp(formData)
+    const data = await AuthService.signUp(formData, defaultLang)
+    const message = i18NConfig.t('success.register', i18nOpt)
 
-    const httpResponse = HttpResponse.created({ data })
+    const httpResponse = HttpResponse.created({ message, data })
     res.status(201).json(httpResponse)
   })
 )
@@ -29,9 +36,12 @@ route.post(
 route.post(
   '/auth/sign-in',
   asyncHandler(async function signIn(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
 
-    const data = await AuthService.signIn(formData)
+    const data = await AuthService.signIn(formData, defaultLang)
     const httpResponse = HttpResponse.get(data)
 
     // create session
@@ -83,15 +93,25 @@ route.post(
   '/logout',
   Authorization,
   asyncHandler(async function logout(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
+    const i18nOpt: string | TOptions = { lng: lang }
+
     const formData = req.getBody()
     const getToken = currentToken(req)
     const userLogin = req.getState('userLogin') as UserLoginAttributes
 
     if (userLogin.uid !== formData.UserId) {
-      throw new ResponseError.BadRequest('invalid user login')
+      const message = i18NConfig.t('errors.invalidUserLogin', i18nOpt)
+      throw new ResponseError.BadRequest(message)
     }
 
-    const message = await AuthService.logout(userLogin.uid, getToken)
+    const message = await AuthService.logout(
+      userLogin.uid,
+      getToken,
+      defaultLang
+    )
     const httpResponse = HttpResponse.get({ message })
 
     res.status(200).clearCookie('token', { path: '/v1' }).json(httpResponse)
