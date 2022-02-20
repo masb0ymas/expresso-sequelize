@@ -1,14 +1,19 @@
+import { i18nConfig } from '@config/i18nextConfig'
 import models from '@database/models'
 import { FCMTokenAttributes, FCMTokenInstance } from '@database/models/fcmtoken'
 import db from '@database/models/_instance'
 import { validateBoolean, validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
+import {
+  DtoFindAll,
+  SqlizeOptions,
+} from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
+import { TOptions } from 'i18next'
 import _ from 'lodash'
-import { Includeable, Order, Transaction, WhereOptions } from 'sequelize'
+import { WhereOptions } from 'sequelize'
 import fcmTokenSchema from './schema'
 
 const { Sequelize } = db
@@ -26,6 +31,10 @@ class FcmTokenService {
    * @returns
    */
   public static async findAll(req: Request): Promise<DtoPaginate> {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+    const i18nOpt: string | TOptions = { lng: defaultLang }
+
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
       req.query,
       FCMToken,
@@ -41,7 +50,8 @@ class FcmTokenService {
       where: queryFind.where,
     })
 
-    return { message: `${total} data has been received.`, data, total }
+    const message = i18nConfig.t('success.dataReceived', i18nOpt)
+    return { message: `${total} ${message}`, data, total }
   }
 
   /**
@@ -52,12 +62,10 @@ class FcmTokenService {
    */
   public static async findByPk(
     id: string,
-    options?: {
-      include?: Includeable | Includeable[]
-      order?: Order
-      paranoid?: boolean
-    }
+    options?: SqlizeOptions
   ): Promise<FCMTokenInstance> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
     const newId = validateUUID(id)
     const data = await FCMToken.findByPk(newId, {
       include: options?.include,
@@ -66,9 +74,8 @@ class FcmTokenService {
     })
 
     if (!data) {
-      throw new ResponseError.NotFound(
-        'fcm token data not found or has been deleted'
-      )
+      const message = i18nConfig.t('errors.notFound', i18nOpt)
+      throw new ResponseError.NotFound(`fcm token ${message}`)
     }
 
     return data
@@ -82,12 +89,10 @@ class FcmTokenService {
    */
   public static async findByCondition(
     condition: WhereOptions<FCMTokenAttributes>,
-    options?: {
-      include?: Includeable | Includeable[]
-      order?: Order
-      paranoid?: boolean
-    }
+    options?: SqlizeOptions
   ): Promise<FCMTokenInstance> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
     const data = await FCMToken.findOne({
       where: condition,
       include: options?.include,
@@ -96,9 +101,8 @@ class FcmTokenService {
     })
 
     if (!data) {
-      throw new ResponseError.NotFound(
-        'fcm token data not found or has been deleted'
-      )
+      const message = i18nConfig.t('errors.notFound', i18nOpt)
+      throw new ResponseError.NotFound(`fcm token ${message}`)
     }
 
     return data
@@ -121,10 +125,14 @@ class FcmTokenService {
   /**
    *
    * @param UserId
+   * @param options
    * @returns
    */
-  public static async findByUser(UserId: string): Promise<FCMTokenInstance> {
-    const data = await this.findByCondition({ UserId })
+  public static async findByUser(
+    UserId: string,
+    options?: SqlizeOptions
+  ): Promise<FCMTokenInstance> {
+    const data = await this.findByCondition({ UserId }, { lang: options?.lang })
 
     return data
   }
@@ -132,14 +140,14 @@ class FcmTokenService {
   /**
    *
    * @param id
-   * @param paranoid
+   * @param options
    * @returns
    */
   public static async findById(
     id: string,
-    paranoid?: boolean
+    options?: SqlizeOptions
   ): Promise<FCMTokenInstance> {
-    const data = await this.findByPk(id, { paranoid })
+    const data = await this.findByPk(id, { ...options })
 
     return data
   }
@@ -147,15 +155,17 @@ class FcmTokenService {
   /**
    *
    * @param formData
-   * @param txn
+   * @param options
    * @returns
    */
   public static async create(
     formData: FCMTokenAttributes,
-    txn?: Transaction
+    options?: SqlizeOptions
   ): Promise<FCMTokenInstance> {
     const value = useValidation(fcmTokenSchema.create, formData)
-    const data = await FCMToken.create(value, { transaction: txn })
+    const data = await FCMToken.create(value, {
+      transaction: options?.transaction,
+    })
 
     return data
   }
@@ -164,22 +174,22 @@ class FcmTokenService {
    *
    * @param id
    * @param formData
-   * @param txn
+   * @param options
    * @returns
    */
   public static async update(
     id: string,
     formData: Partial<FCMTokenAttributes>,
-    txn?: Transaction
+    options?: SqlizeOptions
   ): Promise<FCMTokenInstance> {
-    const data = await this.findByPk(id)
+    const data = await this.findByPk(id, { lang: options?.lang })
 
     const value = useValidation(fcmTokenSchema.create, {
       ...data.toJSON(),
       ...formData,
     })
 
-    await data.update(value ?? {}, { transaction: txn })
+    await data.update(value ?? {}, { transaction: options?.transaction })
 
     return data
   }
@@ -187,21 +197,31 @@ class FcmTokenService {
   /**
    *
    * @param id
-   * @param force
+   * @param options
    */
-  public static async delete(id: string, force?: boolean): Promise<void> {
-    const isForce = validateBoolean(force)
+  public static async delete(
+    id: string,
+    options?: SqlizeOptions
+  ): Promise<void> {
+    const isForce = validateBoolean(options?.force)
 
-    const data = await this.findByPk(id)
+    const data = await this.findByPk(id, { lang: options?.lang })
     await data.destroy({ force: isForce })
   }
 
   /**
    *
    * @param id
+   * @param options
    */
-  public static async restore(id: string): Promise<void> {
-    const data = await this.findByPk(id, { paranoid: false })
+  public static async restore(
+    id: string,
+    options?: SqlizeOptions
+  ): Promise<void> {
+    const data = await this.findByPk(id, {
+      paranoid: false,
+      lang: options?.lang,
+    })
 
     await data.restore()
   }
@@ -209,16 +229,18 @@ class FcmTokenService {
   /**
    *
    * @param ids @example ids = ["id_1", "id_2"]
-   * @param force
+   * @param options
    */
   public static async multipleDelete(
     ids: string[],
-    force?: boolean
+    options?: SqlizeOptions
   ): Promise<void> {
-    const isForce = validateBoolean(force)
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+    const isForce = validateBoolean(options?.force)
 
     if (_.isEmpty(ids)) {
-      throw new ResponseError.BadRequest('ids cannot be empty')
+      const message = i18nConfig.t('errors.cantBeEmpty', i18nOpt)
+      throw new ResponseError.BadRequest(`ids ${message}`)
     }
 
     await FCMToken.destroy({
@@ -230,10 +252,17 @@ class FcmTokenService {
   /**
    *
    * @param ids @example ids = ["id_1", "id_2"]
+   * @param options
    */
-  public static async multipleRestore(ids: string[]): Promise<void> {
+  public static async multipleRestore(
+    ids: string[],
+    options?: SqlizeOptions
+  ): Promise<void> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
     if (_.isEmpty(ids)) {
-      throw new ResponseError.BadRequest('ids cannot be empty')
+      const message = i18nConfig.t('errors.cantBeEmpty', i18nOpt)
+      throw new ResponseError.BadRequest(`ids ${message}`)
     }
 
     await FCMToken.restore({
@@ -244,18 +273,18 @@ class FcmTokenService {
   /**
    *
    * @param formData
-   * @param txn
+   * @param options
    */
   public static async createOrUpdate(
     formData: FCMTokenAttributes,
-    txn?: Transaction
+    options?: SqlizeOptions
   ): Promise<void> {
     const data = await FCMToken.findOne({ where: { UserId: formData.UserId } })
 
     if (!data) {
-      await this.create(formData, txn)
+      await this.create(formData, { transaction: options?.transaction })
     } else {
-      await data.update(formData, { transaction: txn })
+      await data.update(formData, { transaction: options?.transaction })
     }
   }
 }
