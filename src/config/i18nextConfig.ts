@@ -20,6 +20,6 @@ void i18next.use(i18nextBackend).init(
   }
 )
 
-const i18NConfig = i18next
+const i18nConfig = i18next
 
-export { i18NConfig }
+export { i18nConfig }
