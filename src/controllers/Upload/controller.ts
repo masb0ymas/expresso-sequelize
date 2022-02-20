@@ -25,9 +25,12 @@ route.get(
   '/upload/:id',
   Authorization,
   asyncHandler(async function findById(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    const data = await UploadService.findById(id)
+    const data = await UploadService.findById(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.get({ data })
     res.status(200).json(httpResponse)
@@ -105,6 +108,9 @@ route.put(
   uploadFile,
   setFileToBody,
   asyncHandler(async function update(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
     const formData = req.getBody()
 
@@ -129,7 +135,7 @@ route.put(
       deleteFile(fieldUpload.path)
     } else {
       // get upload file
-      const getUpload = await UploadService.findById(id)
+      const getUpload = await UploadService.findById(id, { lang: defaultLang })
 
       UploadData = getUpload
     }
@@ -146,9 +152,12 @@ route.put(
   '/upload/restore/:id',
   Authorization,
   asyncHandler(async function restore(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    await UploadService.restore(id)
+    await UploadService.restore(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.updated({})
     res.status(200).json(httpResponse)
@@ -159,9 +168,12 @@ route.delete(
   '/upload/soft-delete/:id',
   Authorization,
   asyncHandler(async function softDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    await UploadService.delete(id)
+    await UploadService.delete(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
@@ -172,9 +184,12 @@ route.delete(
   '/upload/force-delete/:id',
   Authorization,
   asyncHandler(async function forceDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    await UploadService.delete(id, true)
+    await UploadService.delete(id, { force: true, lang: defaultLang })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
@@ -185,10 +200,13 @@ route.post(
   '/upload/multiple/restore',
   Authorization,
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await UploadService.multipleRestore(arrayIds)
+    await UploadService.multipleRestore(arrayIds, { lang: defaultLang })
 
     const httpResponse = HttpResponse.updated({})
     res.status(200).json(httpResponse)
@@ -199,10 +217,13 @@ route.post(
   '/upload/multiple/soft-delete',
   Authorization,
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await UploadService.multipleDelete(arrayIds)
+    await UploadService.multipleDelete(arrayIds, { lang: defaultLang })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
@@ -213,10 +234,16 @@ route.post(
   '/upload/multiple/force-delete',
   Authorization,
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await UploadService.multipleDelete(arrayIds, true)
+    await UploadService.multipleDelete(arrayIds, {
+      force: true,
+      lang: defaultLang,
+    })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
