@@ -80,8 +80,14 @@ route.get(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function findUserWithSession(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
-    const data = await UserService.findUserWithSession(id)
+
+    const data = await UserService.findUserWithSession(id, {
+      lang: defaultLang,
+    })
 
     const httpResponse = HttpResponse.get({ data })
     res.status(200).json(httpResponse)
@@ -93,8 +99,12 @@ route.get(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function findById(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
-    const data = await UserService.findById(id)
+
+    const data = await UserService.findById(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.get({ data })
     res.status(200).json(httpResponse)
@@ -161,7 +171,7 @@ route.post(
       picturePath: profilePath,
     }
 
-    const data = await UserService.create(newFormData, txn)
+    const data = await UserService.create(newFormData, { transaction: txn })
 
     await txn.commit()
     const httpResponse = HttpResponse.created({ data })
@@ -173,10 +183,13 @@ route.put(
   '/user/:id',
   Authorization,
   asyncHandler(async function update(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
     const formData = req.getBody()
 
-    const data = await UserService.update(id, formData)
+    const data = await UserService.update(id, formData, { lang: defaultLang })
 
     const httpResponse = HttpResponse.updated({ data })
     res.status(200).json(httpResponse)
@@ -188,9 +201,12 @@ route.put(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function restore(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    await UserService.restore(id)
+    await UserService.restore(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.updated({})
     res.status(200).json(httpResponse)
@@ -202,9 +218,12 @@ route.delete(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function softDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    await UserService.delete(id)
+    await UserService.delete(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
@@ -216,9 +235,12 @@ route.delete(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function forceDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    await UserService.delete(id, true)
+    await UserService.delete(id, { force: true, lang: defaultLang })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
@@ -230,10 +252,13 @@ route.post(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await UserService.multipleRestore(arrayIds)
+    await UserService.multipleRestore(arrayIds, { lang: defaultLang })
 
     const httpResponse = HttpResponse.updated({})
     res.status(200).json(httpResponse)
@@ -245,10 +270,13 @@ route.post(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await UserService.multipleDelete(arrayIds)
+    await UserService.multipleDelete(arrayIds, { lang: defaultLang })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
@@ -260,10 +288,16 @@ route.post(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await UserService.multipleDelete(arrayIds, true)
+    await UserService.multipleDelete(arrayIds, {
+      force: true,
+      lang: defaultLang,
+    })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
