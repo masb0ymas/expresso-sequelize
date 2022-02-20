@@ -27,9 +27,12 @@ route.get(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function findById(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    const data = await RoleService.findById(id)
+    const data = await RoleService.findById(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.get({ data })
     res.status(200).json(httpResponse)
@@ -41,9 +44,12 @@ route.post(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function create(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
 
-    const data = await RoleService.create(formData)
+    const data = await RoleService.create(formData, { lang: defaultLang })
 
     const httpResponse = HttpResponse.created({ data })
     res.status(201).json(httpResponse)
@@ -55,10 +61,13 @@ route.put(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function update(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
     const formData = req.getBody()
 
-    const data = await RoleService.update(id, formData)
+    const data = await RoleService.update(id, formData, { lang: defaultLang })
 
     const httpResponse = HttpResponse.updated({ data })
     res.status(200).json(httpResponse)
@@ -70,9 +79,12 @@ route.put(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function restore(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    await RoleService.restore(id)
+    await RoleService.restore(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.updated({})
     res.status(200).json(httpResponse)
@@ -84,9 +96,12 @@ route.delete(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function softDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    await RoleService.delete(id)
+    await RoleService.delete(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
@@ -98,9 +113,12 @@ route.delete(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function forceDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const { id } = req.getParams()
 
-    await RoleService.delete(id, true)
+    await RoleService.delete(id, { force: true, lang: defaultLang })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
@@ -112,10 +130,13 @@ route.post(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await RoleService.multipleRestore(arrayIds)
+    await RoleService.multipleRestore(arrayIds, { lang: defaultLang })
 
     const httpResponse = HttpResponse.updated({})
     res.status(200).json(httpResponse)
@@ -127,10 +148,13 @@ route.post(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await RoleService.multipleDelete(arrayIds)
+    await RoleService.multipleDelete(arrayIds, { lang: defaultLang })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)
@@ -142,10 +166,16 @@ route.post(
   Authorization,
   PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
 
-    await RoleService.multipleDelete(arrayIds, true)
+    await RoleService.multipleDelete(arrayIds, {
+      force: true,
+      lang: defaultLang,
+    })
 
     const httpResponse = HttpResponse.deleted({})
     res.status(200).json(httpResponse)

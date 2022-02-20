@@ -1,3 +1,4 @@
+import { i18nConfig } from '@config/i18nextConfig'
 import UserService from '@controllers/Account/User/service'
 import models from '@database/models/index'
 import { RoleAttributes, RoleInstance } from '@database/models/role'
@@ -5,11 +6,14 @@ import db from '@database/models/_instance'
 import { validateBoolean, validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
+import {
+  DtoFindAll,
+  SqlizeOptions,
+} from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
+import { TOptions } from 'i18next'
 import _ from 'lodash'
-import { Includeable, Order, Transaction } from 'sequelize'
 import roleSchema from './schema'
 
 const { Sequelize } = db
@@ -27,6 +31,10 @@ class RoleService {
    * @returns
    */
   public static async findAll(req: Request): Promise<DtoPaginate> {
+    const { lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+    const i18nOpt: string | TOptions = { lng: defaultLang }
+
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
       req.query,
       Role,
@@ -42,7 +50,8 @@ class RoleService {
       where: queryFind.where,
     })
 
-    return { message: `${total} data has been received.`, data, total }
+    const message = i18nConfig.t('success.dataReceived', i18nOpt)
+    return { message: `${total} ${message}`, data, total }
   }
 
   /**
@@ -53,12 +62,10 @@ class RoleService {
    */
   public static async findByPk(
     id: string,
-    options?: {
-      include?: Includeable | Includeable[]
-      order?: Order
-      paranoid?: boolean
-    }
+    options?: SqlizeOptions
   ): Promise<RoleInstance> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
     const newId = validateUUID(id)
     const data = await Role.findByPk(newId, {
       include: options?.include,
@@ -67,9 +74,8 @@ class RoleService {
     })
 
     if (!data) {
-      throw new ResponseError.NotFound(
-        'role data not found or has been deleted'
-      )
+      const message = i18nConfig.t('errors.notFound', i18nOpt)
+      throw new ResponseError.NotFound(`role ${message}`)
     }
 
     return data
@@ -78,14 +84,14 @@ class RoleService {
   /**
    *
    * @param id
-   * @param paranoid
+   * @param options
    * @returns
    */
   public static async findById(
     id: string,
-    paranoid?: boolean
+    options?: SqlizeOptions
   ): Promise<RoleInstance> {
-    const data = await this.findByPk(id, { paranoid })
+    const data = await this.findByPk(id, { ...options })
 
     return data
   }
@@ -93,15 +99,15 @@ class RoleService {
   /**
    *
    * @param formData
-   * @param txn
+   * @param options
    * @returns
    */
   public static async create(
     formData: RoleAttributes,
-    txn?: Transaction
+    options?: SqlizeOptions
   ): Promise<RoleInstance> {
     const value = useValidation(roleSchema.create, formData)
-    const data = await Role.create(value, { transaction: txn })
+    const data = await Role.create(value, { transaction: options?.transaction })
 
     return data
   }
@@ -110,22 +116,22 @@ class RoleService {
    *
    * @param id
    * @param formData
-   * @param txn
+   * @param options
    * @returns
    */
   public static async update(
     id: string,
     formData: Partial<RoleAttributes>,
-    txn?: Transaction
+    options?: SqlizeOptions
   ): Promise<RoleInstance> {
-    const data = await this.findByPk(id)
+    const data = await this.findByPk(id, { lang: options?.lang })
 
     const value = useValidation(roleSchema.create, {
       ...data.toJSON(),
       ...formData,
     })
 
-    await data.update(value ?? {}, { transaction: txn })
+    await data.update(value ?? {}, { transaction: options?.transaction })
 
     return data
   }
@@ -134,11 +140,15 @@ class RoleService {
    *
    * @param ModelEntity
    * @param target
+   * @param options
    */
   private static async validateDelete<T>(
     ModelEntity: T[],
-    target: string
+    target: string,
+    options?: SqlizeOptions
   ): Promise<void> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
     if (!_.isEmpty(ModelEntity)) {
       const collectRoleIds = _.map(ModelEntity, 'RoleId')
       const uniqRoleIds = [...new Set(collectRoleIds)]
@@ -151,8 +161,9 @@ class RoleService {
         const collectRoles = _.map(getRoles, 'name')
         const getName = collectRoles.join(', ')
 
+        const message = i18nConfig.t('errors.isBeingUsed', i18nOpt)
         throw new ResponseError.BadRequest(
-          `Role ${getName} is being used in ${target}`
+          `Role ${getName} ${message} ${target}`
         )
       }
     }
@@ -161,12 +172,15 @@ class RoleService {
   /**
    *
    * @param id
-   * @param force
+   * @param options
    */
-  public static async delete(id: string, force?: boolean): Promise<void> {
-    const isForce = validateBoolean(force)
+  public static async delete(
+    id: string,
+    options?: SqlizeOptions
+  ): Promise<void> {
+    const isForce = validateBoolean(options?.force)
 
-    const data = await this.findByPk(id)
+    const data = await this.findByPk(id, { lang: options?.lang })
 
     if (isForce) {
       // check when delete role is being used in users
@@ -180,9 +194,16 @@ class RoleService {
   /**
    *
    * @param id
+   * @param options
    */
-  public static async restore(id: string): Promise<void> {
-    const data = await this.findByPk(id, { paranoid: false })
+  public static async restore(
+    id: string,
+    options?: SqlizeOptions
+  ): Promise<void> {
+    const data = await this.findByPk(id, {
+      paranoid: false,
+      lang: options?.lang,
+    })
 
     await data.restore()
   }
@@ -190,16 +211,18 @@ class RoleService {
   /**
    *
    * @param ids @example ids = ["id_1", "id_2"]
-   * @param force
+   * @param options
    */
   public static async multipleDelete(
     ids: string[],
-    force?: boolean
+    options?: SqlizeOptions
   ): Promise<void> {
-    const isForce = validateBoolean(force)
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+    const isForce = validateBoolean(options?.force)
 
     if (_.isEmpty(ids)) {
-      throw new ResponseError.BadRequest('ids cannot be empty')
+      const message = i18nConfig.t('errors.cantBeEmpty', i18nOpt)
+      throw new ResponseError.BadRequest(`ids ${message}`)
     }
 
     if (isForce) {
@@ -217,10 +240,17 @@ class RoleService {
   /**
    *
    * @param ids @example ids = ["id_1", "id_2"]
+   * @param options
    */
-  public static async multipleRestore(ids: string[]): Promise<void> {
+  public static async multipleRestore(
+    ids: string[],
+    options?: SqlizeOptions
+  ): Promise<void> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
     if (_.isEmpty(ids)) {
-      throw new ResponseError.BadRequest('ids cannot be empty')
+      const message = i18nConfig.t('errors.cantBeEmpty', i18nOpt)
+      throw new ResponseError.BadRequest(`ids ${message}`)
     }
 
     await Role.restore({
