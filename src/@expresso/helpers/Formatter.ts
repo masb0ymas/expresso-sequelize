@@ -1,6 +1,9 @@
 import { LOG_SERVER } from '@config/baseURL'
+import { i18nConfig } from '@config/i18nextConfig'
 import ResponseError from '@expresso/modules/Response/ResponseError'
+import { SqlizeOptions } from '@expresso/modules/SqlizeQuery/interface'
 import chalk from 'chalk'
+import { TOptions } from 'i18next'
 import _ from 'lodash'
 import { validate as uuidValidate } from 'uuid'
 
@@ -67,11 +70,15 @@ function validateBoolean(value: string | boolean | number | any): boolean {
 /**
  *
  * @param value
+ * @param options
  * @returns
  */
-function validateUUID(value: string): string {
+function validateUUID(value: string, options?: SqlizeOptions): string {
+  const i18nOpt: string | TOptions = { lng: options?.lang }
+
   if (!uuidValidate(value)) {
-    throw new ResponseError.BadRequest('incorrect uuid format')
+    const message = i18nConfig.t('errors.incorrectUUIDFormat', i18nOpt)
+    throw new ResponseError.BadRequest(message)
   }
 
   return value
