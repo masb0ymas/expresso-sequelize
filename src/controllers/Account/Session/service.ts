@@ -1,12 +1,16 @@
+import { i18nConfig } from '@config/i18nextConfig'
 import models from '@database/models/index'
 import { SessionAttributes, SessionInstance } from '@database/models/session'
 import { validateUUID } from '@expresso/helpers/Formatter'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import { DtoFindAll } from '@expresso/modules/SqlizeQuery/interface'
+import {
+  DtoFindAll,
+  SqlizeOptions,
+} from '@expresso/modules/SqlizeQuery/interface'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
-import { Includeable, Order, Transaction } from 'sequelize'
+import { TOptions } from 'i18next'
 import sessionSchema from './schema'
 
 const { Session, User } = models
@@ -23,7 +27,10 @@ class SessionService {
    * @returns
    */
   public static async findAll(req: Request): Promise<DtoPaginate> {
-    const { filtered } = req.getQuery()
+    const { filtered, lang } = req.getQuery()
+    const defaultLang = lang ?? 'en'
+    const i18nOpt: string | TOptions = { lng: defaultLang }
+
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
       req.query,
       Session,
@@ -39,7 +46,8 @@ class SessionService {
       where: queryFind.where,
     })
 
-    return { message: `${total} data has been received.`, data, total }
+    const message = i18nConfig.t('success.dataReceived', i18nOpt)
+    return { message: `${total} ${message}`, data, total }
   }
 
   /**
@@ -50,12 +58,10 @@ class SessionService {
    */
   public static async findByPk(
     id: string,
-    options?: {
-      include?: Includeable | Includeable[]
-      order?: Order
-      paranoid?: boolean
-    }
+    options?: SqlizeOptions
   ): Promise<SessionInstance> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
     const newId = validateUUID(id)
     const data = await Session.findByPk(newId, {
       include: options?.include,
@@ -64,9 +70,8 @@ class SessionService {
     })
 
     if (!data) {
-      throw new ResponseError.NotFound(
-        'session data not found or has been deleted'
-      )
+      const message = i18nConfig.t('errors.notFound', i18nOpt)
+      throw new ResponseError.NotFound(`session ${message}`)
     }
 
     return data
@@ -75,10 +80,14 @@ class SessionService {
   /**
    *
    * @param id
+   * @param options
    * @returns
    */
-  public static async findById(id: string): Promise<SessionInstance> {
-    const data = await this.findByPk(id)
+  public static async findById(
+    id: string,
+    options?: SqlizeOptions
+  ): Promise<SessionInstance> {
+    const data = await this.findByPk(id, { ...options })
 
     return data
   }
@@ -87,18 +96,21 @@ class SessionService {
    *
    * @param UserId
    * @param token
+   * @param options
    * @returns
    */
   public static async findByUserToken(
     UserId: string,
-    token: string
+    token: string,
+    options?: SqlizeOptions
   ): Promise<SessionInstance> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
     const data = await Session.findOne({ where: { UserId, token } })
 
     if (!data) {
-      throw new ResponseError.Unauthorized(
-        'the login session has ended, please re-login'
-      )
+      const message = i18nConfig.t('errors.sessionEnded', i18nOpt)
+      throw new ResponseError.Unauthorized(message)
     }
 
     return data
@@ -107,15 +119,17 @@ class SessionService {
   /**
    *
    * @param formData
-   * @param txn
+   * @param options
    * @returns
    */
   public static async create(
     formData: SessionAttributes,
-    txn?: Transaction
+    options?: SqlizeOptions
   ): Promise<SessionInstance> {
     const value = useValidation(sessionSchema.create, formData)
-    const data = await Session.create(value, { transaction: txn })
+    const data = await Session.create(value, {
+      transaction: options?.transaction,
+    })
 
     return data
   }
@@ -123,19 +137,19 @@ class SessionService {
   /**
    *
    * @param formData
-   * @param txn
+   * @param options
    */
   public static async createOrUpdate(
     formData: SessionAttributes,
-    txn?: Transaction
+    options?: SqlizeOptions
   ): Promise<void> {
     const value = useValidation(sessionSchema.create, formData)
     const data = await Session.findOne({ where: { UserId: value.UserId } })
 
     if (!data) {
-      await this.create(formData, txn)
+      await this.create(formData, { transaction: options?.transaction })
     } else {
-      await data.update(value, { transaction: txn })
+      await data.update(value, { transaction: options?.transaction })
     }
   }
 
@@ -154,9 +168,13 @@ class SessionService {
   /**
    *
    * @param id
+   * @param options
    */
-  public static async delete(id: string): Promise<void> {
-    const data = await this.findById(id)
+  public static async delete(
+    id: string,
+    options?: SqlizeOptions
+  ): Promise<void> {
+    const data = await this.findById(id, { lang: options?.lang })
     await data.destroy()
   }
 }
