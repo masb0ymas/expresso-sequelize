@@ -1,4 +1,4 @@
-import { i18NConfig } from '@config/i18nextConfig'
+import { i18nConfig } from '@config/i18nextConfig'
 import SessionService from '@controllers/Account/Session/service'
 import userSchema from '@controllers/Account/User/schema'
 import UserService from '@controllers/Account/User/service'
@@ -15,21 +15,13 @@ import SendMail from '@expresso/helpers/SendMail'
 import { generateAccessToken, verifyAccessToken } from '@expresso/helpers/Token'
 import useValidation from '@expresso/hooks/useValidation'
 import ResponseError from '@expresso/modules/Response/ResponseError'
+import { SqlizeOptions } from '@expresso/modules/SqlizeQuery/interface'
 import { TOptions } from 'i18next'
 import _ from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
+import { DtoLogin } from './interface'
 
 const { User } = models
-
-interface DtoLogin {
-  tokenType: string
-  user: {
-    uid: string
-  }
-  accessToken: string
-  expiresIn: number
-  message: string
-}
 
 class AuthService {
   /**
@@ -40,7 +32,7 @@ class AuthService {
    */
   public static async signUp(
     formData: UserAttributes,
-    lang?: string
+    options?: SqlizeOptions
   ): Promise<UserInstance> {
     const randomToken = generateAccessToken({ uuid: uuidv4() })
 
@@ -63,7 +55,7 @@ class AuthService {
         fullName: `${value.firstName} ${value.lastName}`,
         token: randomToken.accessToken,
       },
-      lang
+      options?.lang
     )
 
     return data
@@ -72,14 +64,14 @@ class AuthService {
   /**
    *
    * @param formData
-   * @param lang
+   * @param options
    * @returns
    */
   public static async signIn(
     formData: LoginAttributes,
-    lang?: string
+    options?: SqlizeOptions
   ): Promise<DtoLogin> {
-    const i18nOpt: string | TOptions = { lng: lang }
+    const i18nOpt: string | TOptions = { lng: options?.lang }
 
     const value = useValidation(userSchema.login, formData)
 
@@ -89,13 +81,13 @@ class AuthService {
 
     // check user account
     if (!getUser) {
-      const message = i18NConfig.t('errors.accountNotFound', i18nOpt)
+      const message = i18nConfig.t('errors.accountNotFound', i18nOpt)
       throw new ResponseError.NotFound(message)
     }
 
     // check active account
     if (!getUser.isActive) {
-      const message = i18NConfig.t('errors.pleaseCheckYourEmail', i18nOpt)
+      const message = i18nConfig.t('errors.pleaseCheckYourEmail', i18nOpt)
       throw new ResponseError.BadRequest(message)
     }
 
@@ -103,14 +95,14 @@ class AuthService {
 
     // compare password
     if (!matchPassword) {
-      const message = i18NConfig.t('errors.incorrectEmailOrPassword', i18nOpt)
+      const message = i18nConfig.t('errors.incorrectEmailOrPassword', i18nOpt)
       throw new ResponseError.BadRequest(message)
     }
 
     const payloadToken = { uid: getUser.id }
     const accessToken = generateAccessToken(payloadToken)
 
-    const message = i18NConfig.t('success.login', i18nOpt)
+    const message = i18nConfig.t('success.login', i18nOpt)
 
     const newData = {
       message,
@@ -126,13 +118,17 @@ class AuthService {
    *
    * @param UserId
    * @param token
+   * @param options
    * @returns
    */
   public static async verifySession(
     UserId: string,
-    token: string
+    token: string,
+    options?: SqlizeOptions
   ): Promise<UserInstance | null> {
-    const getSession = await SessionService.findByUserToken(UserId, token)
+    const getSession = await SessionService.findByUserToken(UserId, token, {
+      lang: options?.lang,
+    })
     const verifyToken = verifyAccessToken(getSession.token)
 
     const userToken = verifyToken?.data as UserLoginAttributes
@@ -149,21 +145,21 @@ class AuthService {
    *
    * @param UserId
    * @param token
-   * @param lang
+   * @param options
    * @returns
    */
   public static async logout(
     UserId: string,
     token: string,
-    lang?: string
+    options?: SqlizeOptions
   ): Promise<string> {
-    const i18nOpt: string | TOptions = { lng: lang }
+    const i18nOpt: string | TOptions = { lng: options?.lang }
 
     const getUser = await UserService.findById(UserId)
 
     // clean session
     await SessionService.deleteByUserToken(getUser.id, token)
-    const message = i18NConfig.t('success.logout', i18nOpt)
+    const message = i18nConfig.t('success.logout', i18nOpt)
 
     return message
   }
