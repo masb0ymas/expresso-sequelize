@@ -1,13 +1,13 @@
 import { BASE_URL_SERVER } from '@config/baseURL'
+import { APP_NAME } from '@config/env'
+import { i18nConfig } from '@config/i18nextConfig'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import EmailProvider from '@expresso/providers/Email'
 import fs from 'fs'
 import Handlebars from 'handlebars'
+import { TOptions } from 'i18next'
 import path from 'path'
 import { readHTMLFile } from './File'
-import { APP_NAME } from '@config/env'
-import { i18NConfig } from '@config/i18nextConfig'
-import { TOptions } from 'i18next'
 
 interface AccountRegistrationProps {
   email: string
@@ -39,7 +39,7 @@ class SendMail {
     const templateData = { APP_NAME, tokenUrl, ...formData }
 
     if (!fs.existsSync(templatePath)) {
-      const message = i18NConfig.t('errors.mailTemplate', i18nOpt)
+      const message = i18nConfig.t('errors.mailTemplate', i18nOpt)
       throw new ResponseError.BadRequest(message)
     }
 
