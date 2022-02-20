@@ -77,7 +77,7 @@ class UploadService {
   ): Promise<UploadInstance> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    const newId = validateUUID(id)
+    const newId = validateUUID(id, { lang: options?.lang })
     const data = await Upload.findByPk(newId, {
       include: options?.include,
       order: options?.order,

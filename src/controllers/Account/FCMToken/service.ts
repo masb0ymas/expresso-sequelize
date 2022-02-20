@@ -66,7 +66,7 @@ class FcmTokenService {
   ): Promise<FCMTokenInstance> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    const newId = validateUUID(id)
+    const newId = validateUUID(id, { lang: options?.lang })
     const data = await FCMToken.findByPk(newId, {
       include: options?.include,
       order: options?.order,
