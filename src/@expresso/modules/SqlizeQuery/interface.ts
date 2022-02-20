@@ -1,3 +1,4 @@
+import { Includeable, Order, Transaction } from 'sequelize'
 import SqlizeQuery from './SqlizeQuery'
 
 export interface FilterIncludeHandledOnlyProps {
@@ -22,6 +23,15 @@ export interface OnBeforeBuildQuery {
 export interface DtoFindAll {
   message: string
   total: number
+}
+
+export interface SqlizeOptions {
+  include?: Includeable | Includeable[]
+  order?: Order
+  paranoid?: boolean
+  transaction?: Transaction
+  force?: boolean
+  lang?: string
 }
 
 export interface GenerateOptions {
