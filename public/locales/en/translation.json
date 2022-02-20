@@ -2,15 +2,22 @@
   "welcome": "Welcome",
   "errors": {
     "permissionAccess": "You are not allowed",
-    "mailTemplate": "Invalid template path for email registration",
-    "accountNotFound": "Account not found or not registered",
-    "pleaseCheckYourEmail": "Please check your email account to verify your email and continue the registration process",
-    "incorrectEmailOrPassword": "Incorrect email or password",
-    "invalidUserLogin": "Invalid user login"
+    "mailTemplate": "invalid template path for email registration",
+    "accountNotFound": "account not found or not registered",
+    "pleaseCheckYourEmail": "please check your email account to verify your email and continue the registration process",
+    "incorrectEmailOrPassword": "incorrect email or password",
+    "invalidUserLogin": "invalid user login",
+    "notFound": "data not found or has been deleted",
+    "cantBeEmpty": "can't be empty",
+    "alreadyEmail": "email address already in use",
+    "isBeingUsed": "is being used in",
+    "sessionEnded": "the login session has ended, please re-login",
+    "incorrectUUIDFormat": "incorrect uuid format"
   },
   "success": {
     "register": "Registration is successful",
     "login": "Login successfully",
-    "logout": "You have logged out of the application"
+    "logout": "You have logged out of the application",
+    "dataReceived": "data has been received"
   }
 }
