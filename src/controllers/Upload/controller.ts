@@ -1,3 +1,4 @@
+import { APP_LANG } from '@config/env'
 import asyncHandler from '@expresso/helpers/asyncHandler'
 import { deleteFile } from '@expresso/helpers/File'
 import { arrayFormatter } from '@expresso/helpers/Formatter'
@@ -26,7 +27,7 @@ route.get(
   Authorization,
   asyncHandler(async function findById(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 
@@ -109,7 +110,7 @@ route.put(
   setFileToBody,
   asyncHandler(async function update(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
     const formData = req.getBody()
@@ -153,7 +154,7 @@ route.put(
   Authorization,
   asyncHandler(async function restore(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 
@@ -169,7 +170,7 @@ route.delete(
   Authorization,
   asyncHandler(async function softDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 
@@ -185,7 +186,7 @@ route.delete(
   Authorization,
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 
@@ -201,7 +202,7 @@ route.post(
   Authorization,
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -218,7 +219,7 @@ route.post(
   Authorization,
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -235,7 +236,7 @@ route.post(
   Authorization,
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)

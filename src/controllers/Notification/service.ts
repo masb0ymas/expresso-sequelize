@@ -1,3 +1,4 @@
+import { APP_LANG } from '@config/env'
 import { i18nConfig } from '@config/i18nextConfig'
 import FcmTokenService from '@controllers/Account/FCMToken/service'
 import models from '@database/models'
@@ -37,7 +38,7 @@ class NotificationService {
    */
   public static async findAll(req: Request): Promise<DtoPaginate> {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
     const i18nOpt: string | TOptions = { lng: defaultLang }
 
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(

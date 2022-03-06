@@ -1,3 +1,4 @@
+import { APP_LANG } from '@config/env'
 import { i18nConfig } from '@config/i18nextConfig'
 import User, { UserLoginAttributes } from '@database/models/user'
 import { logErrServer } from '@expresso/helpers/Formatter'
@@ -8,7 +9,7 @@ import { TOptions } from 'i18next'
 function NotPermittedAccess(roles: string[]) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const i18nOpt: string | TOptions = { lng: defaultLang }
 

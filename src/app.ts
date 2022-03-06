@@ -55,7 +55,10 @@ class App {
     this.application.use(Logger('combined', { stream: winstonStream }))
     this.application.use(Express.urlencoded({ extended: true }))
     this.application.use(
-      Express.json({ limit: '200mb', type: 'application/json' })
+      Express.json({
+        limit: '200mb',
+        type: 'application/json',
+      })
     )
     this.application.use(cookieParser())
     this.application.use(compression())

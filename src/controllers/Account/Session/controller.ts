@@ -1,3 +1,4 @@
+import { APP_LANG } from '@config/env'
 import asyncHandler from '@expresso/helpers/asyncHandler'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import Authorization from '@middlewares/Authorization'
@@ -21,7 +22,7 @@ route.get(
   Authorization,
   asyncHandler(async function findById(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 
@@ -37,7 +38,7 @@ route.post(
   Authorization,
   asyncHandler(async function create(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const formData = req.getBody()
 
@@ -53,7 +54,7 @@ route.delete(
   Authorization,
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 

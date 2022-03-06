@@ -5,7 +5,7 @@ import {
 } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { clientS3, s3ExpiresDate, s3ObjectExpired } from '@config/clientS3'
-import { AWS_BUCKET_NAME } from '@config/env'
+import { APP_LANG, AWS_BUCKET_NAME } from '@config/env'
 import { i18nConfig } from '@config/i18nextConfig'
 import models from '@database/models/index'
 import { UploadAttributes, UploadInstance } from '@database/models/upload'
@@ -43,7 +43,7 @@ class UploadService {
    */
   public static async findAll(req: Request): Promise<DtoPaginate> {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
     const i18nOpt: string | TOptions = { lng: defaultLang }
 
     const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(

@@ -36,7 +36,7 @@ class AuthService {
   ): Promise<UserInstance> {
     const randomToken = generateAccessToken({ uuid: uuidv4() })
 
-    await UserService.validateEmail(formData.email)
+    await UserService.validateEmail(formData.email, { ...options })
 
     const newFormData = {
       ...formData,
@@ -127,14 +127,14 @@ class AuthService {
     options?: SqlizeOptions
   ): Promise<UserInstance | null> {
     const getSession = await SessionService.findByUserToken(UserId, token, {
-      lang: options?.lang,
+      ...options,
     })
     const verifyToken = verifyAccessToken(getSession.token)
 
     const userToken = verifyToken?.data as UserLoginAttributes
 
     if (!_.isEmpty(userToken.uid)) {
-      const getUser = await UserService.findById(userToken.uid)
+      const getUser = await UserService.findById(userToken.uid, { ...options })
       return getUser
     }
 
@@ -155,7 +155,7 @@ class AuthService {
   ): Promise<string> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    const getUser = await UserService.findById(UserId)
+    const getUser = await UserService.findById(UserId, { ...options })
 
     // clean session
     await SessionService.deleteByUserToken(getUser.id, token)

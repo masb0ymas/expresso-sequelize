@@ -1,4 +1,5 @@
 import { BASE_URL_CLIENT } from '@config/baseURL'
+import { APP_LANG } from '@config/env'
 import { i18nConfig } from '@config/i18nextConfig'
 import FcmTokenService from '@controllers/Account/FCMToken/service'
 import SessionService from '@controllers/Account/Session/service'
@@ -20,8 +21,7 @@ route.post(
   '/auth/sign-up',
   asyncHandler(async function signUp(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
-
+    const defaultLang = lang ?? APP_LANG
     const i18nOpt: string | TOptions = { lng: lang }
 
     const formData = req.getBody()
@@ -38,7 +38,7 @@ route.post(
   '/auth/sign-in',
   asyncHandler(async function signIn(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const formData = req.getBody()
 
@@ -81,7 +81,7 @@ route.get(
   Authorization,
   asyncHandler(async function verifySession(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const getToken = currentToken(req)
     const userLogin = req.getState('userLogin') as UserLoginAttributes
@@ -100,8 +100,7 @@ route.post(
   Authorization,
   asyncHandler(async function logout(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
-
+    const defaultLang = lang ?? APP_LANG
     const i18nOpt: string | TOptions = { lng: lang }
 
     const formData = req.getBody()

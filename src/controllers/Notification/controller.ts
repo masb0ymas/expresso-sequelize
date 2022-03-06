@@ -1,3 +1,4 @@
+import { APP_LANG } from '@config/env'
 import ConstRole from '@expresso/constants/ConstRole'
 import asyncHandler from '@expresso/helpers/asyncHandler'
 import { arrayFormatter } from '@expresso/helpers/Formatter'
@@ -26,7 +27,7 @@ route.get(
   Authorization,
   asyncHandler(async function findById(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 
@@ -43,7 +44,7 @@ route.post(
   PermissionAccess(onlyAdmin),
   asyncHandler(async function create(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const formData = req.getBody()
 
@@ -62,7 +63,7 @@ route.put(
   PermissionAccess(onlyAdmin),
   asyncHandler(async function update(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
     const formData = req.getBody()
@@ -82,7 +83,7 @@ route.put(
   PermissionAccess(onlyAdmin),
   asyncHandler(async function restore(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 
@@ -99,7 +100,7 @@ route.delete(
   PermissionAccess(onlyAdmin),
   asyncHandler(async function softDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 
@@ -116,7 +117,7 @@ route.delete(
   PermissionAccess(onlyAdmin),
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
 
@@ -133,7 +134,7 @@ route.post(
   PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -151,7 +152,7 @@ route.post(
   PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
@@ -169,7 +170,7 @@ route.post(
   PermissionAccess(onlyAdmin),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
-    const defaultLang = lang ?? 'en'
+    const defaultLang = lang ?? APP_LANG
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)

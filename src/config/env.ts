@@ -8,6 +8,7 @@ export const NODE_ENV = process.env.NODE_ENV ?? 'development'
 
 // app
 export const APP_KEY = process.env.APP_KEY
+export const APP_LANG = process.env.APP_LANG ?? 'id'
 export const APP_NAME = process.env.APP_NAME ?? 'expresso'
 export const APP_PORT = Number(process.env.APP_PORT) ?? 8000
 
