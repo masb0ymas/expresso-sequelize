@@ -5,7 +5,6 @@ import path from 'path'
 import Sequelize from 'sequelize'
 
 const pathEnv = path.resolve('.env')
-console.log({ pathEnv })
 
 if (!fs.existsSync(pathEnv)) {
   const envExample = chalk.cyan('.env.example')
