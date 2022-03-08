@@ -4,6 +4,7 @@ import {
   S3,
 } from '@aws-sdk/client-s3'
 import { logErrServer, logServer } from '@expresso/helpers/Formatter'
+import chalk from 'chalk'
 import { addDays } from 'date-fns'
 import ms from 'ms'
 import {
@@ -22,6 +23,8 @@ export const clientS3 = new S3({
   region: AWS_REGION,
 })
 
+const bucketName = chalk.cyan(AWS_BUCKET_NAME)
+
 // Create AWS S3 Bucket
 function createS3Bucket(): void {
   clientS3.createBucket({ Bucket: AWS_BUCKET_NAME }, function (err, data) {
@@ -31,7 +34,7 @@ function createS3Bucket(): void {
       process.exit(1)
     } else {
       const msgType = `Aws S3`
-      const message = `Success create bucket : ${AWS_BUCKET_NAME}`
+      const message = `Success create bucket : ${bucketName}`
 
       console.log(logServer(msgType, message), data?.Location)
     }
@@ -49,7 +52,7 @@ const initialAwsS3 = async (): Promise<
     )
 
     const msgType = `Aws S3`
-    const message = `Success Get Bucket : ${AWS_BUCKET_NAME}`
+    const message = `Success Get Bucket : ${bucketName}`
 
     console.log(logServer(msgType, message), data.Grants)
 
