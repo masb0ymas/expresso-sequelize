@@ -2,6 +2,58 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0](https://github.com/masb0ymas/expresso/compare/v3.3.1...v3.4.0) (2022-03-09)
+
+
+### Features
+
+* add currency helper ([9d141cf](https://github.com/masb0ymas/expresso/commit/9d141cf3c2c437de99fccbbc372da2dafbffd589))
+* add env app lang ([5cdccf6](https://github.com/masb0ymas/expresso/commit/5cdccf6d63c3cc58b36eee09dcd27a3b23b2a69e))
+* add SqlizeOption interface ([12fe135](https://github.com/masb0ymas/expresso/commit/12fe135b0ae40e0a152610b7b1d1db9411c831d3))
+* add validate delete role ([2949996](https://github.com/masb0ymas/expresso/commit/29499961cbdcb93762c646db6bbefc82822a89d7))
+
+
+### Bug Fixes
+
+* add error translate ([845448c](https://github.com/masb0ymas/expresso/commit/845448ce652db7b297a57a2b1d1a0ad734040ff5))
+* add parameter lang ([1a70257](https://github.com/masb0ymas/expresso/commit/1a702573f70feb14b00972f3409ec7d89ce228e0))
+* add translate ([af0fd28](https://github.com/masb0ymas/expresso/commit/af0fd281086eb81078f9657d31245d132aefd1da))
+* allowed mimetype zip & 7z ([4175daa](https://github.com/masb0ymas/expresso/commit/4175daa188853e98c13fa1efb370f1ee844f630a))
+* catch error axios ([4d663d5](https://github.com/masb0ymas/expresso/commit/4d663d558910a90d5ae9299a4a7a10aa73d5d4c3))
+* change define model to class model init ([67913f4](https://github.com/masb0ymas/expresso/commit/67913f4051d23acd626fae700826aacd9a16121e))
+* change i18next config ([8d37fe9](https://github.com/masb0ymas/expresso/commit/8d37fe9d65d600a2ccdfb892f25a92f3168386dc))
+* check .env ([9f478f6](https://github.com/masb0ymas/expresso/commit/9f478f6f44418f0145ac05bedb84a53b62378d22))
+* config sequelize database ([3d24e13](https://github.com/masb0ymas/expresso/commit/3d24e13a25e0369079d2fb3acd1e12d78f69c39f))
+* endpoint user ([4f69f49](https://github.com/masb0ymas/expresso/commit/4f69f4913a4cde1ec7973c483b695a75473fc37e))
+* env url client & server ([d47dfe1](https://github.com/masb0ymas/expresso/commit/d47dfe101baa5dedcda707cb74eac247f6639b22))
+* export i18n config ([3ce272f](https://github.com/masb0ymas/expresso/commit/3ce272fe267202161904b4c5dfa81c083d2b120b))
+* fcm token service ([6d3b20f](https://github.com/masb0ymas/expresso/commit/6d3b20f687033cd547c02630468f05b4d3904e39))
+* formatter helper ([eb9a3cb](https://github.com/masb0ymas/expresso/commit/eb9a3cb6224dc5453b381ba7b4e44308fc0731d6))
+* handle error multer ([b19b5ba](https://github.com/masb0ymas/expresso/commit/b19b5baba081782c203417f6b2648a378eb1d6e6))
+* implement translate endpoint auth ([dab7f02](https://github.com/masb0ymas/expresso/commit/dab7f02ac1f199ab6d278214448f3107726a4ebb))
+* include user find one ([40af7b7](https://github.com/masb0ymas/expresso/commit/40af7b7d278b68a819f05dd77fcf242782793c04))
+* log bucket name aws ([654c3be](https://github.com/masb0ymas/expresso/commit/654c3be707e0dc076f4064cbf4ad78f50d6c139b))
+* log get db connection ([0e5808d](https://github.com/masb0ymas/expresso/commit/0e5808ddf1e6cf78036cffcc851f761804229e8e))
+* logging client s3 ([b4e7ad2](https://github.com/masb0ymas/expresso/commit/b4e7ad24d769df022edc134790a9a0dc57d51fdf))
+* model instance ([e9a40d8](https://github.com/masb0ymas/expresso/commit/e9a40d8e249790befa6a922b7071a79efbe9b0e5))
+* provider redis ([3d4075d](https://github.com/masb0ymas/expresso/commit/3d4075d28da9fcc7b52bee478c85ea25795e5920))
+* return endpoint /health ([d816de3](https://github.com/masb0ymas/expresso/commit/d816de346ac6bc1c7999319573ad21044dacfd58))
+* script reset db ([4f87bd9](https://github.com/masb0ymas/expresso/commit/4f87bd9e2ef876f3ae893b9f9ff91e562406eb82))
+* sendmail helper ([658fccb](https://github.com/masb0ymas/expresso/commit/658fccbafea12b9824213f9b9ea566d7b26918e8))
+* target build typescript ([8eedd8c](https://github.com/masb0ymas/expresso/commit/8eedd8c12de27091590db94bd15978f9168cb7d2))
+* translate endpoint auth ([818707c](https://github.com/masb0ymas/expresso/commit/818707c4a0557796fe751059ebaa0762d78e678f))
+* translate endpoint notification ([6c81e4f](https://github.com/masb0ymas/expresso/commit/6c81e4f7f2dd20dd4564aa2af559554813ebf46c))
+* translate endpoint role ([feb0133](https://github.com/masb0ymas/expresso/commit/feb0133a26f7b42adc77364fbd662ca7d77a472b))
+* translate endpoint session ([6843c28](https://github.com/masb0ymas/expresso/commit/6843c287669ba58d687bb7d5928678d5c3c15a69))
+* translate endpoint upload ([5ac0b2a](https://github.com/masb0ymas/expresso/commit/5ac0b2a16417408100be3e11636cb341b90d4e0d))
+* translate endpoint user ([291c8e2](https://github.com/masb0ymas/expresso/commit/291c8e285734ecad8371212519fce5f2bc74a447))
+* translate error send mail account register ([31ae09e](https://github.com/masb0ymas/expresso/commit/31ae09e098d3ccb5094f0f756718f6d7b057bec3))
+* translate permission access ([2a8945b](https://github.com/masb0ymas/expresso/commit/2a8945b6c00339c300d61283ea252e9d25d1eb34))
+* translate validate uuid ([59095ef](https://github.com/masb0ymas/expresso/commit/59095efa75ba86afadbf5f701c4266dc1d7f7620))
+* typing validate delete ([9e0b5c7](https://github.com/masb0ymas/expresso/commit/9e0b5c7209bfdcfb3304544b8e592199d8234365))
+* upload file ([f6d1205](https://github.com/masb0ymas/expresso/commit/f6d1205832d0d6162139b306f96a1f5eb60dfe67))
+* validate uuid upload id ([fcf7626](https://github.com/masb0ymas/expresso/commit/fcf7626cd91726001aaddd68f24b6bbefc37bc42))
+
 ### [3.3.1](https://github.com/masb0ymas/expresso/compare/v3.3.0...v3.3.1) (2021-12-15)
 
 
