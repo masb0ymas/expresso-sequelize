@@ -10,13 +10,13 @@ import {
 
 const URL_CLIENT = {
   development: 'http://localhost:3000',
-  sandbox: URL_CLIENT_SANDBOX,
+  staging: URL_CLIENT_SANDBOX,
   production: URL_CLIENT_PRODUCTION,
 }
 
 const URL_SERVER = {
   development: `http://localhost:${APP_PORT ?? 8000}`,
-  sandbox: URL_SERVER_SANDBOX,
+  staging: URL_SERVER_SANDBOX,
   production: URL_SERVER_PRODUCTION,
 }
 
