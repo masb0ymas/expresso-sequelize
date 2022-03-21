@@ -9,10 +9,21 @@ Excel upload function like this:
 ```js
 // controllers/role/controller.ts
 
+const allowExtension = ['.xlsx', '.xls']
+const allowMimetype = [
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+]
+
 // set config multer
 const uploadFile = useMulter({
   dest: 'public/uploads/excel',
-  allowedExt: ['.xlsx', '.xls'],
+  allowedExt: allowExtension,
+  allowedMimetype: allowMimetype,
+  limit: {
+    fieldSize: 50 * 1024 * 1024, // 50 mb
+    fileSize: 20 * 1024 * 1024, // 20 mb
+  },
 }).fields([{ name: 'fileExcel', maxCount: 1 }])
 
 // set file upload to request body with `setBody`
@@ -41,9 +52,9 @@ routes.post(
     const fieldExcel = get(formData, 'fileExcel', {})
 
     const data = await RoleService.importExcel(fieldExcel)
-    const buildResponse = BuildResponse.created(data)
 
-    return res.status(200).json(buildResponse)
+    const httpResponse = HttpResponse.created(data)
+    res.status(200).json(httpResponse)
   })
 )
 ```
@@ -61,7 +72,6 @@ public static async importExcel(fieldFiles: FileAttributes) {
 ```
 
 Helpers convert to json
-
 
 ```js
 // helpers/Excel.ts
@@ -134,7 +144,7 @@ public static async generateExcel(req: Request) {
     newData.push({
       ...item,
       // example custom data with get lodash
-      // roleName: get(item, 'Role.name', '-')
+      // roleName: _.get(item, 'Role.name', '-')
     })
   }
 

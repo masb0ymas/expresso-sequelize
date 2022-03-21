@@ -19,11 +19,12 @@ const uploadFile = useMulter({
 
 The only parameters that the `useMulter()` accepts are the `dest`, `allowExt`, and the file upload `limit`.
 
-| key      | value           | example                       |
-| -------- | --------------- | ----------------------------- |
-| dest     | string          | 'public/uploads/excel'        |
-| allowExt | Array of string | ['.xlsx', '.xls']             |
-| limit    | object          | { fieldSize: 9, fileSize: 9 } |
+| key             | value           | example                       |
+| --------------- | --------------- | ----------------------------- |
+| dest            | string          | 'public/uploads/excel'        |
+| allowedExt      | Array of string | ['.xlsx', '.xls']             |
+| allowedMimetype | Array of string | ['application/vnd.ms-excel']  |
+| limit           | object          | { fieldSize: 9, fileSize: 9 } |
 
 ## Single Upload
 
@@ -32,10 +33,17 @@ Using single upload like this:
 ```js
 // controllers/role/controller.ts
 
+const allowExtension = ['.xlsx', '.xls']
+const allowMimetype = [
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+]
+
 // set config multer
 const uploadFile = useMulter({
   dest: 'public/uploads/excel',
-  allowedExt: ['.xlsx', '.xls'],
+  allowedExt: allowExtension,
+  allowedMimetype: allowMimetype,
   limit: {
     fieldSize: 10 * 1024 * 1024, // 10mb
     fileSize: 5 * 1024 * 1024, // 5mb
@@ -68,9 +76,9 @@ routes.post(
     const fieldExcel = get(formData, 'fileExcel', {})
 
     const data = await RoleService.importExcel(fieldExcel)
-    const httpResponse = HttpResponse.created(data)
 
-    return res.status(200).json(httpResponse)
+    const httpResponse = HttpResponse.created(data)
+    res.status(200).json(httpResponse)
   })
 )
 ```
@@ -82,10 +90,17 @@ Using multiple upload like this:
 ```js
 // controllers/role/controller.ts
 
+const allowExtension = ['.xlsx', '.xls']
+const allowMimetype = [
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+]
+
 // set config multer
 const uploadFile = useMulter({
   dest: 'public/uploads/excel',
-  allowedExt: ['.xlsx', '.xls'],
+  allowedExt: allowExtension,
+  allowedMimetype: allowMimetype,
   limit: {
     fieldSize: 10 * 1024 * 1024, // 10mb
     fileSize: 5 * 1024 * 1024, // 5mb
@@ -123,9 +138,9 @@ routes.post(
     const fieldPDF = get(formData, 'filePDF', {})
 
     const data = await RoleService.importExcel(fieldExcel)
-    const httpResponse = HttpResponse.created(data)
 
-    return res.status(200).json(httpResponse)
+    const httpResponse = HttpResponse.created(data)
+    res.status(200).json(httpResponse)
   })
 )
 ```

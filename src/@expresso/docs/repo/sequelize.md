@@ -8,15 +8,15 @@ After you create the migration model, then you just need to reset the contents o
 
 ### Model by default
 
-This model after generate with `npx sequelize model:generate`
+This model after generate with `npx sequelize-cli model:generate --name Role --attributes name:string`
 
 ```js
-// models/gender.js
+// models/role.js
 
 'use strict'
 const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  class Gender extends Model {
+  class Role extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -26,16 +26,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Gender.init(
+  Role.init(
     {
       name: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: 'Gender',
+      tableName: 'Roles',
     }
   )
-  return Gender
+  return Role
 }
 ```
 
@@ -44,14 +44,14 @@ module.exports = (sequelize, DataTypes) => {
 You can change it like this:
 
 ```js
-// models/gender.ts
+// models/role.ts
 
 import SequelizeAttributes from '@expresso/utils/SequelizeAttributes'
 import { Model, Optional } from 'sequelize'
-
 import db from './_instance'
 
-export interface GenderAttributes {
+// entity
+export interface RoleAttributes {
   id: string
   name: string
   createdAt?: Date
@@ -59,21 +59,38 @@ export interface GenderAttributes {
   deletedAt?: Date | null
 }
 
-interface GenderCreationAttributes extends Optional<GenderAttributes, 'id'> {}
+// creation attributes
+interface RoleCreationAttributes extends Optional<RoleAttributes, 'id'> {}
 
-export interface GenderInstance
-  extends Model<GenderAttributes, GenderCreationAttributes>,
-    GenderAttributes {}
+// instance
+export interface RoleInstance
+  extends Model<RoleAttributes, RoleCreationAttributes>,
+    RoleAttributes {}
 
-const Gender = db.sequelize.define<GenderInstance>(
-  'Genders',
+// class entity
+class Role
+  extends Model<RoleAttributes, RoleCreationAttributes>
+  implements RoleAttributes
+{
+  declare id: string
+  declare name: string
+
+  declare readonly createdAt: Date
+  declare readonly updatedAt: Date
+  declare readonly deletedAt: Date
+}
+
+// init model
+Role.init(
   {
-    ...SequelizeAttributes.Genders,
+    ...SequelizeAttributes.Roles,
   },
-  { paranoid: true }
+  // @ts-expect-error
+  { sequelize: db.sequelize, tableName: 'Roles', paranoid: true }
 )
 
-export default Gender
+export default Role
+
 ```
 
 You must also import the index model
@@ -81,12 +98,17 @@ You must also import the index model
 ```js
 // models/index.ts
 
+import User from './user.ts'
+import Role from './role.ts'
+import Session from './session.ts'
+
 ...
 
 const models = {
   ...
+  Role,
+  User,
   Session,
-  Gender,
 }
 
 ```
@@ -96,17 +118,29 @@ const models = {
 If you want to use associate you can use this method:
 
 ```js
-// models/user.ts
+// models/index.ts
 
 ...
 
-User.associate = (models: MyModels) => {
-  // has many relationship
-  User.hasMany(models.Session, { foreignKey: 'UserId' })
+import User from './user.ts'
+import Role from './role.ts'
+import Session from './session.ts'
 
-  // belongs to many relationship
-  User.belongsToMany(models.Role, { through: models.UserRole })
+
+const models = {
+  ...
+  Role,
+  User,
+  Session,
 }
+
+// relation
+User.belongsTo(Role)
+User.hasMany(Session)
+
+Session.belongsTo(User)
+
+export default models
 
 ```
 
@@ -156,9 +190,14 @@ If the query filters don't work the way you want, you can also use manual querie
 
 ```js
 // controllers/user/service.ts
+...
+import models from '@database/models/index'
+
+const { User, Role, Session } = models
+const including = [{ model:Role }, { model:Session }]
 
 public static async getAll(req: Request) {
-  const { filtered, active } = req.query
+  const { filtered, active } = req.getQuery()
   const { includeCount, order, ...queryFind } = PluginSqlizeQuery.generate(
     req.query,
     User,
