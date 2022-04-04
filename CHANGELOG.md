@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.5.0](https://github.com/masb0ymas/expresso/compare/v3.4.0...v3.5.0) (2022-04-04)
+
+
+### Features
+
+* add helper routing ([ef8507c](https://github.com/masb0ymas/expresso/commit/ef8507c01d119f26966df7eedfd18ba8f4b30c17))
+
+
+### Bug Fixes
+
+* base url staging ([a7d7c4d](https://github.com/masb0ymas/expresso/commit/a7d7c4d613e8f5e5ccee6eed260536822109a099))
+* mapping route ([005410c](https://github.com/masb0ymas/expresso/commit/005410cb328f47d83698b0b87ed99d0c5e25ff4e))
+* readme repo ([fb4e566](https://github.com/masb0ymas/expresso/commit/fb4e566fe0f5ddf512f4b8225f6ee898a919aadd))
+* update  setup dependanbot ([1f07b0e](https://github.com/masb0ymas/expresso/commit/1f07b0eefe42d7820dbf106aeee0a150d1c67d91))
+* update helper routing ([e8cd289](https://github.com/masb0ymas/expresso/commit/e8cd28998fd8fd653b50d7f2c6ad67e7f853bb11))
+
 ## [3.4.0](https://github.com/masb0ymas/expresso/compare/v3.3.1...v3.4.0) (2022-03-09)
 
 
