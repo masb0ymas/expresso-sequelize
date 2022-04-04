@@ -2,7 +2,7 @@
 <h3 align="center">( Express TS Sequelize )</h3>
 <br/>
 
-[![version](https://img.shields.io/badge/version-3.4.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso/releases/tag/v3.4.0)
+[![version](https://img.shields.io/badge/version-3.5.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso/releases/tag/v3.5.0)
 [![Node](https://img.shields.io/badge/Node-12.18.0-informational?logo=node.js&color=43853D)](https://nodejs.org/docs/latest-v12.x/api/index.html)
 [![TypeScript](https://img.shields.io/badge/Typescript-4.5.5-informational?logo=typescript&color=2F74C0)](https://www.typescriptlang.org/)
 [![Express](https://img.shields.io/badge/Express-4.17.3-informational?logo=express&color=B1B1B1)](https://expressjs.com/)
