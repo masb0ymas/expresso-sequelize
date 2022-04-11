@@ -17,6 +17,7 @@
     "deploy": "npm run build && pm2 reload ecosystem.config.js",
     "serve:staging": "NODE_ENV=staging node ./dist/server.js",
     "serve:production": "NODE_ENV=production node ./dist/server.js",
+    "serve:staging-docker": "NODE_ENV=staging pm2-runtime ./dist/server.js",
     "serve:production-docker": "NODE_ENV=production pm2-runtime ./dist/server.js",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate-fresh": "npx sequelize-cli db:migrate:undo:all && npm run db:migrate",

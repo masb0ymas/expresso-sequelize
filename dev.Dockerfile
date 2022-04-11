@@ -60,10 +60,11 @@ COPY --from=builder /app/.env ./.env
 
 # initial app
 RUN node ./dist/@expresso/scripts/generate.js
+RUN yarn db:reset
 
 # USER expresso
 
 EXPOSE 8000
 
-# Run for production
-CMD ["yarn", "serve:production-docker"]
+# Run for staging
+CMD ["yarn", "serve:staging-docker"]
