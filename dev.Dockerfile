@@ -38,7 +38,7 @@ RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 FROM node:14-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+ENV NODE_ENV staging
 
 # RUN addgroup -g 1001 -S nodejs
 # RUN adduser -S expresso -u 1001
