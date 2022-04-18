@@ -60,7 +60,7 @@
     "express": "^4.17.3",
     "express-async-handler": "^1.2.0",
     "express-useragent": "^1.0.15",
-    "firebase": "^9.6.8",
+    "firebase": "^9.6.10",
     "firebase-admin": "9.12.0",
     "googleapis": "^96.0.0",
     "handlebars": "^4.7.7",
