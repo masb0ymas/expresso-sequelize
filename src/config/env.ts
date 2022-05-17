@@ -13,7 +13,7 @@ export const APP_NAME = process.env.APP_NAME ?? 'expresso'
 export const APP_PORT = Number(process.env.APP_PORT) ?? 8000
 
 // axios
-export const AXIOS_TIMEOUT = Number(process.env.AXIOS_TIMEOUT) ?? 5000
+export const AXIOS_TIMEOUT = process.env.AXIOS_TIMEOUT ?? '5m'
 
 // rate limit request
 export const RATE_LIMIT = Number(process.env.RATE_LIMIT) ?? 100
