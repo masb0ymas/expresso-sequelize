@@ -31,20 +31,20 @@ export const JWT_SECRET_REFRESH_TOKEN: any = process.env.JWT_SECRET_REFRESH_TOKE
 export const JWT_REFRESH_TOKEN_EXPIRED = process.env.JWT_REFRESH_TOKEN_EXPIRED ?? '7d'
 
 // url sandbox
-export const URL_CLIENT_SANDBOX = process.env.URL_CLIENT_SANDBOX ?? 'https://sandbox.example.com'
-export const URL_SERVER_SANDBOX = process.env.URL_SERVER_SANDBOX ?? 'https://api-sandbox.example.com'
+export const URL_CLIENT_STAGING = process.env.URL_CLIENT_STAGING ?? 'https://sandbox.example.com'
+export const URL_SERVER_STAGING = process.env.URL_SERVER_STAGING ?? 'https://api-sandbox.example.com'
 
 // url production
 export const URL_CLIENT_PRODUCTION = process.env.URL_CLIENT_PRODUCTION ?? 'https://example.com'
 export const URL_SERVER_PRODUCTION = process.env.URL_SERVER_PRODUCTION ?? 'https://api.example.com'
 
 // database
-export const DB_CONNECTION = process.env.DB_CONNECTION ?? 'mysql'
+export const DB_CONNECTION = process.env.DB_CONNECTION ?? 'postgres'
 export const DB_HOST = process.env.DB_HOST ?? '127.0.0.1'
-export const DB_PORT = Number(process.env.DB_PORT) ?? 3306
-export const DB_DATABASE = process.env.DB_DATABASE ?? 'example'
-export const DB_USERNAME = process.env.DB_USERNAME ?? 'root'
-export const DB_PASSWORD = process.env.DB_PASSWORD ?? undefined
+export const DB_PORT = Number(process.env.DB_PORT) ?? 5432
+export const DB_DATABASE = process.env.DB_DATABASE ?? 'your_database'
+export const DB_USERNAME = process.env.DB_USERNAME ?? 'postgres'
+export const DB_PASSWORD = process.env.DB_PASSWORD ?? 'postgres'
 export const DB_OPERATOR_ALIAS = process.env.DB_OPERATOR_ALIAS ?? undefined
 export const DB_TIMEZONE = process.env.DB_TIMEZONE ?? '+07:00' // for mysql = +07:00, for postgres = Asia/Jakarta
 

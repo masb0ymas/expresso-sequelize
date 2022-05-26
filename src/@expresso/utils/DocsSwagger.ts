@@ -4,7 +4,7 @@ import {
   APP_NAME,
   NODE_ENV,
   URL_SERVER_PRODUCTION,
-  URL_SERVER_SANDBOX,
+  URL_SERVER_STAGING,
 } from '@config/env'
 import fs from 'fs'
 import _ from 'lodash'
@@ -38,7 +38,7 @@ if (NODE_ENV === 'development') {
       description: `${_.capitalize(NODE_ENV)} Server`,
     },
     {
-      url: `${URL_SERVER_SANDBOX}/v1`,
+      url: `${URL_SERVER_STAGING}/v1`,
       description: 'Staging Server',
     },
     {
@@ -53,7 +53,7 @@ if (NODE_ENV === 'development') {
       name: `${_.capitalize(NODE_ENV)} Server`,
     },
     {
-      url: `${URL_SERVER_SANDBOX}/v1/api-docs.json`,
+      url: `${URL_SERVER_STAGING}/v1/api-docs.json`,
       name: 'Staging Server',
     },
     {
