@@ -4965,10 +4965,10 @@ i18next-http-middleware@^3.2.0:
   resolved "https://registry.yarnpkg.com/i18next-http-middleware/-/i18next-http-middleware-3.2.0.tgz#baabe77c70964229d022e47ab2faa7fbab27498c"
   integrity sha512-xsQls5hMeHTuDYt0SSS2rgJP7EtNQ1YuYzSQUSloUH3bhz/vahXQuJYm9n+ajdG1fpTEjo7yDpLwDWzRu+o1HQ==
 
-i18next@^21.0.1, i18next@^21.8.2:
-  version "21.8.4"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.8.4.tgz#646e23065752036b38d9fda8898c18139b9e8ebe"
-  integrity sha512-b3LQ5n9V1juu8UItb5x1QTI4OTvNqsNs/wetwQlBvfijEqks+N5HKMKSoevf8w0/RGUrDQ7g4cvVzF8WBp9pUw==
+i18next@^21.0.1, i18next@^21.8.9:
+  version "21.8.9"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-21.8.9.tgz#c79edd5bba61e0a0d5b43a93d52e2d13a526de82"
+  integrity sha512-PY9a/8ADVmnju1tETeglbbVQi+nM5pcJQWm9kvKMTE3GPgHHtpDsHy5HQ/hccz2/xtW7j3vuso23JdQSH0EttA==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
