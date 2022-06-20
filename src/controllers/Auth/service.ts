@@ -1,3 +1,4 @@
+import { MAIL_PASSWORD, MAIL_USERNAME } from '@config/env'
 import { i18nConfig } from '@config/i18nextConfig'
 import SessionService from '@controllers/Account/Session/service'
 import userSchema from '@controllers/Account/User/schema'
@@ -48,15 +49,18 @@ class AuthService {
     const value = useValidation(userSchema.register, newFormData)
     const data = await User.create(value)
 
-    // send email notification
-    SendMail.AccountRegistration(
-      {
-        email: value.email,
-        fullName: value.fullName,
-        token: randomToken.accessToken,
-      },
-      options?.lang
-    )
+    // check smtp mail
+    if (!_.isEmpty(MAIL_USERNAME) && !_.isEmpty(MAIL_PASSWORD)) {
+      // send email notification
+      SendMail.AccountRegistration(
+        {
+          email: value.email,
+          fullName: value.fullName,
+          token: randomToken.accessToken,
+        },
+        options?.lang
+      )
+    }
 
     return data
   }
