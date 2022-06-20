@@ -3,20 +3,20 @@ import {
   APP_PORT,
   NODE_ENV,
   URL_CLIENT_PRODUCTION,
-  URL_CLIENT_SANDBOX,
+  URL_CLIENT_STAGING,
   URL_SERVER_PRODUCTION,
-  URL_SERVER_SANDBOX,
+  URL_SERVER_STAGING,
 } from './env'
 
 const URL_CLIENT = {
   development: 'http://localhost:3000',
-  staging: URL_CLIENT_SANDBOX,
+  staging: URL_CLIENT_STAGING,
   production: URL_CLIENT_PRODUCTION,
 }
 
 const URL_SERVER = {
   development: `http://localhost:${APP_PORT ?? 8000}`,
-  staging: URL_SERVER_SANDBOX,
+  staging: URL_SERVER_STAGING,
   production: URL_SERVER_PRODUCTION,
 }
 

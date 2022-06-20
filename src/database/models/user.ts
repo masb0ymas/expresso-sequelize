@@ -7,8 +7,7 @@ import db from './_instance'
 // entity
 export interface UserAttributes {
   id: string
-  firstName: string
-  lastName: string
+  fullName: string
   phone?: string | null
   email: string
   password?: string | null
@@ -51,8 +50,7 @@ class User
   implements UserAttributes
 {
   declare id: string
-  declare firstName: string
-  declare lastName: string
+  declare fullName: string
   declare phone?: string | null | undefined
   declare email: string
   declare password?: string | null | undefined

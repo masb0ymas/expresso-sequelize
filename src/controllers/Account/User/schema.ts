@@ -14,8 +14,7 @@ const createPassword = yup.object().shape({
 const create = yup
   .object()
   .shape({
-    firstName: yup.string().required('first name is required'),
-    lastName: yup.string().required('last name is required'),
+    fullName: yup.string().required('full name is required'),
     email: yup.string().email('invalid email').required('email is required'),
     phone: yup.string().nullable(),
     tokenVerify: yup.string().nullable(),

@@ -103,7 +103,7 @@ class UserService {
   /**
    *
    * @param id
-   * @param paranoid
+   * @param options
    * @returns
    */
   public static async findUserWithSession(

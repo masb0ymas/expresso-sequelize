@@ -27,7 +27,7 @@ class AuthService {
   /**
    *
    * @param formData
-   * @param lang
+   * @param options
    * @returns
    */
   public static async signUp(
@@ -52,7 +52,7 @@ class AuthService {
     SendMail.AccountRegistration(
       {
         email: value.email,
-        fullName: `${value.firstName} ${value.lastName}`,
+        fullName: value.fullName,
         token: randomToken.accessToken,
       },
       options?.lang
