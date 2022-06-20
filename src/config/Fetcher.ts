@@ -71,7 +71,10 @@ function createAxios(baseUri: string): AxiosInstance {
 
         const errMessage = error.response?.data ?? error.message
 
+        // @ts-expect-error
         console.log(`${LOG_SERVER} ${errAxios(errMessage)}`)
+
+        // @ts-expect-error
         throw new ResponseError.BadRequest(errMessage)
       }
       return await Promise.reject(error)
