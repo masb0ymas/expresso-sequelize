@@ -1,68 +1,114 @@
 import { logServer } from '@expresso/helpers/Formatter'
 import chalk from 'chalk'
 import fs from 'fs'
+import _ from 'lodash'
+
+function getController(controllerPath: string, filePath: string): void {
+  // check file TS
+  if (fs.existsSync(`${controllerPath}.ts`)) {
+    const msgType = 'Route TS'
+
+    const routeDir = chalk.cyan(filePath)
+    const message = `Controller ${routeDir} Registered`
+
+    console.log(logServer(msgType, message))
+
+    // require controller
+    require(controllerPath)
+  }
+
+  // check file JS
+  if (fs.existsSync(`${controllerPath}.js`)) {
+    const msgType = 'Route JS'
+
+    const routeDir = chalk.cyan(filePath)
+    const message = `Controller ${routeDir} Registered`
+
+    console.log(logServer(msgType, message))
+
+    // require controller
+    require(controllerPath)
+  }
+}
 
 /**
  * Get Routes
  * @param basePath
  */
 export const getRoutes = (basePath: string | Buffer): void => {
-  const msgType = 'Route'
   // loop main controller directory
   return fs.readdirSync(basePath).forEach((file) => {
-    // read controller on main controller directory
-    const getController = `${basePath}/${file}/controller`
+    const filePath = `${file}`
 
-    // check sub dir controller exists
-    if (!fs.existsSync(`${getController}.js`)) {
-      const subDir = `${basePath}/${file}`
+    const groupDir = `${basePath}/${file}`
+    const controllerPath = `${groupDir}/controller`
 
-      // loop sub directory controller
-      fs.readdirSync(subDir).forEach((subFile) => {
-        // read controller
-        const getSubController = `${subDir}/${subFile}/controller`
+    // @ts-expect-error
+    const checkTS = basePath.match('src')
 
-        // check sub-sub dir controller exists
-        if (!fs.existsSync(`${getSubController}.js`)) {
-          const sub2Dir = `${basePath}/${file}/${subFile}`
+    // @ts-expect-error
+    const checkJS = basePath.match('dist')
 
-          // loop sub directory
-          fs.readdirSync(sub2Dir).forEach((sub2File) => {
-            // read controller
-            const getSub2Controller = `${sub2Dir}/${sub2File}/controller`
+    // check TS file from src
+    if (!_.isEmpty(checkTS)) {
+      const controllerTSExist = fs.existsSync(`${controllerPath}.ts`)
 
-            // check sub dir controller exists
-            if (fs.existsSync(`${getSub2Controller}.js`)) {
-              const routeSub2Dir = chalk.cyan(`${file}/${subFile}/${sub2File}`)
-              const message = `Controller ${routeSub2Dir} Registered`
+      if (!controllerTSExist) {
+        fs.readdirSync(groupDir).forEach((subFile) => {
+          const subFilePath = `${file}/${subFile}`
 
-              console.log(logServer(msgType, message))
+          const subGroupDir = `${groupDir}/${subFile}`
+          const subControllerPath = `${subGroupDir}/controller`
 
-              // require controller
-              require(getSub2Controller)
-            }
-          })
-        }
+          const subControllerTSExist = fs.existsSync(`${subControllerPath}.ts`)
 
-        // check sub dir controller exists
-        if (fs.existsSync(`${getSubController}.js`)) {
-          const routeSubDir = chalk.cyan(`${file}/${subFile}`)
-          const message = `Controller ${routeSubDir} Registered`
+          if (!subControllerTSExist) {
+            fs.readdirSync(subGroupDir).forEach((sub2File) => {
+              const sub2FilePath = `${file}/${subFile}/${sub2File}`
 
-          console.log(logServer(msgType, message))
+              const sub2GroupDir = `${subGroupDir}/${sub2File}`
+              const sub2ControllerPath = `${sub2GroupDir}/controller`
 
-          // require controller
-          require(getSubController)
-        }
-      })
-    } else {
-      const routeDir = chalk.cyan(file)
-      const message = `Controller ${routeDir} Registered`
+              getController(sub2ControllerPath, sub2FilePath)
+            })
+          }
 
-      console.log(logServer(msgType, message))
+          getController(subControllerPath, subFilePath)
+        })
+      }
 
-      // require controller
-      require(getController)
+      getController(controllerPath, filePath)
+    }
+
+    // check JS file from dist
+    if (checkJS) {
+      const controllerJSExist = fs.existsSync(`${controllerPath}.js`)
+
+      if (!controllerJSExist) {
+        fs.readdirSync(groupDir).forEach((subFile) => {
+          const subFilePath = `${file}/${subFile}`
+
+          const subGroupDir = `${groupDir}/${subFile}`
+          const subControllerPath = `${subGroupDir}/controller`
+
+          const subControllerJSExist = fs.existsSync(`${subControllerPath}.js`)
+
+          if (!subControllerJSExist) {
+            fs.readdirSync(subGroupDir).forEach((sub2File) => {
+              const sub2FilePath = `${file}/${subFile}/${sub2File}`
+
+              const sub2GroupDir = `${subGroupDir}/${sub2File}`
+              const sub2ControllerPath = `${sub2GroupDir}/controller`
+
+              getController(sub2ControllerPath, sub2FilePath)
+            })
+          }
+
+          getController(subControllerPath, subFilePath)
+        })
+      }
+
+      getController(controllerPath, filePath)
     }
   })
 }
