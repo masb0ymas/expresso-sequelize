@@ -385,6 +385,7 @@ OAUTH_REFRESH_TOKEN=your_refresh_token
 
 [<img height="40" src="https://trakteer.id/images/mix/navbar-logo-lite.png">](https://trakteer.id/masb0ymas)
 
+[<img height="40" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1280px-PayPal.svg.png">](https://www.paypal.com/paypalme/masb0ymas)
 ## Show your support
 
 Give a ⭐️ if this project helped you!
