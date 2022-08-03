@@ -39,6 +39,7 @@ module.exports = {
     '@typescript-eslint/no-extraneous-class': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
     'node/no-path-concat': 'off',
+    'n/no-path-concat': 'off',
   },
   env: {
     browser: true,
