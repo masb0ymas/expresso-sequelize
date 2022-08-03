@@ -95,7 +95,7 @@ class UserService {
     id: string,
     options?: SqlizeOptions
   ): Promise<UserInstance> {
-    const data = await this.findByPk(id, { ...options })
+    const data = await this.findByPk(id, { include: including, ...options })
 
     return data
   }
