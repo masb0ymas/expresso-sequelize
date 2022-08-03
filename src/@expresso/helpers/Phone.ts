@@ -54,4 +54,26 @@ function formatPhoneWhatsApp(phone: string): string {
   return result
 }
 
-export { formatPhone, formatPhoneWhatsApp }
+/**
+ *
+ * @param phone
+ * @returns
+ */
+function formatHidePhone(phone: string): string {
+  const newPhone = formatPhone(phone) as String
+  const splitPhone = newPhone.split('+62') // ['+62', '81234567890']
+
+  const phoneNumber = splitPhone[1] // '81234567890'
+
+  const lengthPhone = splitPhone[1].length
+  const hideLength = lengthPhone - 6
+
+  const startPhone = phoneNumber.slice(0, hideLength) // '81234'
+  const endPhone = phoneNumber.slice(hideLength + 3) // '890'
+
+  const resultPhone = `+62${startPhone}***${endPhone}` // '+6281234***890'
+
+  return resultPhone
+}
+
+export { formatPhone, formatPhoneWhatsApp, formatHidePhone }
