@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false,
+      "decorators": true,
+      "dynamicImport": false
+    },
+    "paths": {
+      "@expresso/*": ["dist/@expresso/*"],
+      "@config/*": ["dist/config/*"],
+      "@controllers/*": ["dist/controllers/*"],
+      "@database/*": ["dist/database/*"],
+      "@jobs/*": ["dist/jobs/*"],
+      "@middlewares/*": ["dist/middlewares/*"],
+      "@routes/*": ["dist/routes/*"],
+      "@utils/*": ["dist/utils/*"],
+      "@views/*": ["dist/views/*"]
+    },
+    "transform": {
+      "legacyDecorator": true,
+      "decoratorMetadata": true
+    },
+    "target": "es2016",
+    "loose": true,
+    "externalHelpers": false,
+    // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+    "keepClassNames": false
+  },
+  "module": {
+    "type": "commonjs",
+
+    // These are defaults.
+    "strict": false,
+    "strictMode": true,
+    "lazy": false,
+    "noInterop": false
+  },
+  "minify": false
+  // "exclude": ["src/database/migrations/"]
+}
