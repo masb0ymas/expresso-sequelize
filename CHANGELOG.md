@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/masb0ymas/expresso/compare/v3.5.0...v4.0.0) (2022-08-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **code:** improve model entites with sequelize-typescript decorator
+
+### Features
+
+* add config dev dockerfile ([a308526](https://github.com/masb0ymas/expresso/commit/a308526bb85e5e829b32586ec3118c1fd4de3d96))
+* add format hide phone ([629a6ab](https://github.com/masb0ymas/expresso/commit/629a6abcf91955862b9c9453ac2a8da41b6850a8))
+* add script build with swc ([f8a9e2b](https://github.com/masb0ymas/expresso/commit/f8a9e2b9ed1e1775c556cefb2fa2c3c6976ed7c8))
+
+
+### Bug Fixes
+
+* add button support me on paypal ([2fcb2de](https://github.com/masb0ymas/expresso/commit/2fcb2de64e1aee9a1b5e2b49ab0ad5c7cb5f0e19))
+* change connection to postgres ([53b09e7](https://github.com/masb0ymas/expresso/commit/53b09e7a89d3f8def27a91287d603a6247f78007))
+* config runner dockerfile ([fb66fd3](https://github.com/masb0ymas/expresso/commit/fb66fd35892bc9e6c40cb5ed9042625a27fed5cf))
+* dockerfile config ([d6324de](https://github.com/masb0ymas/expresso/commit/d6324debb88d2e9548705d279b39f90ede109a63))
+* env docker ([9a1bbe4](https://github.com/masb0ymas/expresso/commit/9a1bbe43725bbd6d6bef4134f0535426b1eb059e))
+* env staging dev docker ([e41f2c4](https://github.com/masb0ymas/expresso/commit/e41f2c495fba4cbe2c695d586cd353bf6c75c6a6))
+* eslint config ([08bc0b2](https://github.com/masb0ymas/expresso/commit/08bc0b2769d0f047c4ef600f2a3b95ae911fab23))
+* field user ([651c361](https://github.com/masb0ymas/expresso/commit/651c361bcb19f5b40eee2ea83a63d187ab7f1669))
+* ignore unkown typing axios fetcher ([bd585d3](https://github.com/masb0ymas/expresso/commit/bd585d38fca877c3563159000ff01c2c609dee6a))
+* include user role ([c24a0bb](https://github.com/masb0ymas/expresso/commit/c24a0bbaef38d6382117adc42ea7c2d6aec83318))
+* read route from src (TS) and dist (JS) ([f19d0a0](https://github.com/masb0ymas/expresso/commit/f19d0a0b4921b1e1db166ed49b78f508d6edf689))
+* register check smtp mail ([7f11965](https://github.com/masb0ymas/expresso/commit/7f11965da3190a0054ea0c58904527008a782be5))
+* root routes ([a2ba766](https://github.com/masb0ymas/expresso/commit/a2ba766b4865af053542eb30c7ce7100fbed85ee))
+* script initial app docker ([70b5e7d](https://github.com/masb0ymas/expresso/commit/70b5e7d1d7d9d2dcdc99b042697dce359c4256cf))
+* seeder ([c3ddcb6](https://github.com/masb0ymas/expresso/commit/c3ddcb68ee022ca199d971e45283b5024d3918a5))
+* set redis ([52a7db5](https://github.com/masb0ymas/expresso/commit/52a7db5922ee1ff4c88083233a6aadb15aefe808))
+* timeout axios with ms ([c14e3b3](https://github.com/masb0ymas/expresso/commit/c14e3b31249e8aa01a603f8af9c968677e77fd4f))
+* url staging ([f587560](https://github.com/masb0ymas/expresso/commit/f587560bbc35a4f1c4e75dbf10927e43c86cdd81))
+
+
+### Other Commit
+
+* **code:** improve model entites with sequelize-typescript decorator ([e9a0e28](https://github.com/masb0ymas/expresso/commit/e9a0e28a9f0782e4f212ac588e99d103de624de1))
+* fix swagger auth register ([da142b9](https://github.com/masb0ymas/expresso/commit/da142b997f2eb38a06933d9c61c35477129e3535))
+
 ## [3.5.0](https://github.com/masb0ymas/expresso/compare/v3.4.0...v3.5.0) (2022-04-04)
 
 
