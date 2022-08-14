@@ -36,75 +36,59 @@ git clone https://github.com/masb0ymas/expresso.git
 
 After cloning this repo, make sure you have `duplicated` the `.env.example` file to `.env`, don't let the .env.example file be deleted or renamed.
 
-## Install
+### Install
 
 ```sh
-npm install
-
-or
-
 yarn
 ```
 
-## Enabled Husky
+### Enabled Husky
 
 ```sh
 npx husky install
+```
 
 or
 
+```sh
 yarn husky install
 ```
 
-## Generate Secret Key
+### Generate Secret Key
 
 ```sh
-npm run key:generate
-
-or
-
 yarn key:generate
 ```
 
-## Usage Development
+### Usage Development
 
 ```sh
-npm run dev
-
-or
-
 yarn dev
 ```
 
-## Type Check
+### Lint Check
 
 ```sh
-npm run test:types
+yarn test:lint
+```
 
-or
+### Type Check
 
+```sh
 yarn test:types
 ```
 
-## Type Check Watch mode
+### Type Check Watch mode
 
 ```sh
-npm run test:types-watch
-
-or
-
 yarn test:types-watch
 ```
 
-## Build
+### Build
 
 by default build codebase with `SWC`, if you want to build with TypeScript, run this command : `yarn build:ts`
 
 ```sh
-npm run build
-
-or
-
 yarn build
 ```
 
@@ -127,24 +111,16 @@ then after that you can adjust the database config in `DB_DATABASE`, `DB_USERNAM
 now you can run this command :
 
 ```sh
-npm run db:reset
-
-or
-
 yarn db:reset
 ```
 
-## Usage Production
+### Usage Production
 
 ```sh
-npm run serve:production
-
-or
-
 yarn serve:production
 ```
 
-## Usage PM2 for Cluster Process
+### Usage PM2 for Cluster Process
 
 ```sh
 pm2 start ecosystem.config.js --env=production
@@ -221,13 +197,9 @@ Percentage of the requests served within a certain time
  100%      419 ms (longest request)
 ```
 
-## Run tests
+### Run tests
 
 ```sh
-npm run test
-
-or
-
 yarn test
 ```
 
@@ -310,15 +282,11 @@ Detached mode: Run containers in the background,
 docker-compose up -d
 ```
 
-## Release your version app
+### Release your version app
 
 if you want to release the app version, you can use the following command :
 
 ```sh
-npm run release
-
-or
-
 yarn release
 ```
 
