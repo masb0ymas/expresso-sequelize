@@ -10,26 +10,23 @@ import Express, { Request, Response } from 'express'
 const route = Express.Router()
 
 // Index Route
-route.get(
-  '/',
-  asyncHandler(function (req: Request, res: Response) {
-    let responseData: any = {
-      message: 'expresso',
-      maintaner: 'masb0ymas, <n.fajri@outlook.com>',
-      source: 'https://github.com/masb0ymas/expresso',
-    }
+route.get('/', function (req: Request, res: Response) {
+  let responseData: any = {
+    message: 'expresso',
+    maintaner: 'masb0ymas, <n.fajri@outlook.com>',
+    source: 'https://github.com/masb0ymas/expresso',
+  }
 
-    if (NODE_ENV !== 'production') {
-      responseData = {
-        ...responseData,
-        docs: `${BASE_URL_SERVER}/v1/api-docs`,
-      }
+  if (NODE_ENV !== 'production') {
+    responseData = {
+      ...responseData,
+      docs: `${BASE_URL_SERVER}/v1/api-docs`,
     }
+  }
 
-    const httpResponse = HttpResponse.get(responseData)
-    res.json(httpResponse)
-  })
-)
+  const httpResponse = HttpResponse.get(responseData)
+  res.json(httpResponse)
+})
 
 // Get Health Server
 route.get(
@@ -39,7 +36,7 @@ route.get(
 
     const status = {
       uptime: process.uptime(),
-      status: 'Ok',
+      message: 'Ok',
       timezone: 'ID',
       date: formatDateTime(new Date()),
       node: process.version,

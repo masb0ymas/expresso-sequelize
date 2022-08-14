@@ -35,7 +35,7 @@ class RedisProvider {
     // const expiryMode = options?.expiryMode ?? defaultExpiry
     const timeoutRedis = options?.timeout ?? defaultTimeout
 
-    await this.client.setex(key, timeoutRedis, data)
+    await this.client.setex(key, timeoutRedis, JSON.stringify(data))
   }
 
   /**

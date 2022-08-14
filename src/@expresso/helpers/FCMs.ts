@@ -1,3 +1,4 @@
+import { APP_NAME } from '@config/env'
 import * as admin from 'firebase-admin'
 
 interface sendToMessageAttributes {
@@ -11,7 +12,7 @@ interface sendMulticastAttributes extends sendToMessageAttributes {
   deviceTokens: string[]
 }
 
-const defaultTitle = 'expresso'
+const defaultTitle = APP_NAME
 const clickAction = 'REACT_NOTIFICATION_CLICK'
 
 // Firebase Cloud Messaging

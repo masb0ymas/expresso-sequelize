@@ -1,23 +1,11 @@
 import { LOG_SERVER } from '@config/baseURL'
 import { i18nConfig } from '@config/i18nextConfig'
+import { ReqOptions } from '@expresso/interfaces/ReqOptions'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import { SqlizeOptions } from '@expresso/modules/SqlizeQuery/interface'
 import chalk from 'chalk'
 import { TOptions } from 'i18next'
 import _ from 'lodash'
 import { validate as uuidValidate } from 'uuid'
-
-const invalidValues = [
-  null,
-  undefined,
-  '',
-  false,
-  0,
-  'false',
-  '0',
-  'null',
-  'undefined',
-]
 
 /**
  *
@@ -60,6 +48,18 @@ function validateEmpty(value: any): any {
 }
 
 function validateBoolean(value: string | boolean | number | any): boolean {
+  const invalidValues = [
+    null,
+    undefined,
+    '',
+    false,
+    0,
+    'false',
+    '0',
+    'null',
+    'undefined',
+  ]
+
   if (invalidValues.includes(value)) {
     return false
   }
@@ -73,11 +73,11 @@ function validateBoolean(value: string | boolean | number | any): boolean {
  * @param options
  * @returns
  */
-function validateUUID(value: string, options?: SqlizeOptions): string {
+function validateUUID(value: string, options?: ReqOptions): string {
   const i18nOpt: string | TOptions = { lng: options?.lang }
 
   if (!uuidValidate(value)) {
-    const message = i18nConfig.t('errors.incorrectUUIDFormat', i18nOpt)
+    const message = i18nConfig.t('errors.incorrect_UUID_format', i18nOpt)
     throw new ResponseError.BadRequest(message)
   }
 

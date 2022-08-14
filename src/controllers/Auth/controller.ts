@@ -1,12 +1,9 @@
-import { BASE_URL_CLIENT } from '@config/baseURL'
 import { APP_LANG } from '@config/env'
 import { i18nConfig } from '@config/i18nextConfig'
-import FcmTokenService from '@controllers/Account/FCMToken/service'
 import SessionService from '@controllers/Account/Session/service'
-import User, { UserLoginAttributes } from '@database/models/user'
+import { UserLoginAttributes } from '@database/entities/User'
 import asyncHandler from '@expresso/helpers/asyncHandler'
-import { validateEmpty } from '@expresso/helpers/Formatter'
-import { currentToken, verifyAccessToken } from '@expresso/helpers/Token'
+import { currentToken } from '@expresso/helpers/Token'
 import userAgentHelper from '@expresso/helpers/userAgent'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
 import ResponseError from '@expresso/modules/Response/ResponseError'
@@ -14,7 +11,6 @@ import Authorization from '@middlewares/Authorization'
 import route from '@routes/v1'
 import { Request, Response } from 'express'
 import { TOptions } from 'i18next'
-import _ from 'lodash'
 import AuthService from './service'
 
 route.post(
@@ -22,15 +18,15 @@ route.post(
   asyncHandler(async function signUp(req: Request, res: Response) {
     const { lang } = req.getQuery()
     const defaultLang = lang ?? APP_LANG
-    const i18nOpt: string | TOptions = { lng: lang }
+    const i18nOpt: string | TOptions = { lng: defaultLang }
 
     const formData = req.getBody()
 
-    const data = await AuthService.signUp(formData, { lang: defaultLang })
+    const data = await AuthService.signUp(formData)
     const message = i18nConfig.t('success.register', i18nOpt)
 
-    const httpResponse = HttpResponse.created({ message, data })
-    res.status(201).json(httpResponse)
+    const httpResponse = HttpResponse.get({ data, message })
+    res.status(200).json(httpResponse)
   })
 )
 
@@ -47,22 +43,12 @@ route.post(
 
     // create session
     await SessionService.createOrUpdate({
-      UserId: data.user.uid,
+      UserId: data.user.uid as unknown as string,
       token: data.accessToken,
       ipAddress: req.clientIp?.replace('::ffff:', ''),
       device: userAgentHelper.currentDevice(req),
       platform: userAgentHelper.currentPlatform(req),
-      latitude: validateEmpty(formData.latitude),
-      longitude: validateEmpty(formData.longitude),
     })
-
-    // save device token
-    if (formData.deviceToken) {
-      await FcmTokenService.createOrUpdate({
-        UserId: data.user.uid,
-        token: formData.deviceToken,
-      })
-    }
 
     res
       .status(200)
@@ -101,48 +87,22 @@ route.post(
   asyncHandler(async function logout(req: Request, res: Response) {
     const { lang } = req.getQuery()
     const defaultLang = lang ?? APP_LANG
-    const i18nOpt: string | TOptions = { lng: lang }
+    const i18nOpt: string | TOptions = { lng: defaultLang }
 
     const formData = req.getBody()
     const getToken = currentToken(req)
     const userLogin = req.getState('userLogin') as UserLoginAttributes
 
     if (userLogin.uid !== formData.UserId) {
-      const message = i18nConfig.t('errors.invalidUserLogin', i18nOpt)
+      const message = i18nConfig.t('errors.invalid_user_login', i18nOpt)
       throw new ResponseError.BadRequest(message)
     }
 
     const message = await AuthService.logout(userLogin.uid, getToken, {
       lang: defaultLang,
     })
+
     const httpResponse = HttpResponse.get({ message })
-
     res.status(200).clearCookie('token', { path: '/v1' }).json(httpResponse)
-  })
-)
-
-route.get(
-  '/email/verify',
-  asyncHandler(async function emailVerify(req: Request, res: Response) {
-    const { token } = req.getQuery()
-    const tokenVerify = verifyAccessToken(token)
-
-    console.log({ tokenVerify })
-
-    let redirectUrl = ''
-    const getUser = await User.findOne({ where: { tokenVerify: token } })
-
-    if (!getUser || _.isEmpty(tokenVerify?.data)) {
-      // redirect error page frontend web
-      redirectUrl = `${BASE_URL_CLIENT}/email-verify/error`
-    } else {
-      // update is active user
-      await getUser.update({ isActive: true })
-
-      // redirect success page frontend web
-      redirectUrl = `${BASE_URL_CLIENT}/email-verify/success`
-    }
-
-    res.redirect(redirectUrl)
   })
 )

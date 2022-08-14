@@ -6,7 +6,7 @@ import SqlizeQuery, {
   transfromIncludeToQueryable,
 } from '@expresso/modules/SqlizeQuery/SqlizeQuery'
 import _ from 'lodash'
-import { Includeable, IncludeOptions, ModelCtor, Op } from 'sequelize'
+import { Includeable, IncludeOptions, ModelStatic, Op } from 'sequelize'
 import { validate as uuidValidate } from 'uuid'
 import {
   FilterIncludeHandledOnlyProps,
@@ -63,7 +63,7 @@ function getExactQueryIdModel(id: string, prefixName: any): string | undefined {
  * @param prefixName
  * @returns
  */
-function getFilteredQuery(model?: ModelCtor<any>, prefixName?: string): any {
+function getFilteredQuery(model?: ModelStatic<any>, prefixName?: string): any {
   const sequelizeQuery = new SqlizeQuery()
   sequelizeQuery.addValueParser(parserString)
   sequelizeQuery.addQueryBuilder(

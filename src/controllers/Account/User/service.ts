@@ -1,32 +1,28 @@
 import { APP_LANG } from '@config/env'
 import { i18nConfig } from '@config/i18nextConfig'
-import models from '@database/models/index'
-import { UserAttributes, UserInstance } from '@database/models/user'
-import db from '@database/models/_instance'
-import Excel from '@expresso/helpers/Excel'
-import { validateBoolean, validateUUID } from '@expresso/helpers/Formatter'
-import useValidation from '@expresso/hooks/useValidation'
-import ResponseError from '@expresso/modules/Response/ResponseError'
+import Role from '@database/entities/Role'
+import Session from '@database/entities/Session'
+import User, { UserAttributes } from '@database/entities/User'
 import {
-  DtoFindAll,
-  SqlizeOptions,
-} from '@expresso/modules/SqlizeQuery/interface'
+  validateBoolean,
+  validateEmpty,
+  validateUUID,
+} from '@expresso/helpers/Formatter'
+import { DtoFindAll } from '@expresso/interfaces/Paginate'
+import { ReqOptions } from '@expresso/interfaces/ReqOptions'
+import ResponseError from '@expresso/modules/Response/ResponseError'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
 import { Request } from 'express'
 import { TOptions } from 'i18next'
 import _ from 'lodash'
+import { Op } from 'sequelize'
 import userSchema from './schema'
 
 interface DtoPaginate extends DtoFindAll {
-  data: UserInstance[]
+  data: User[]
 }
 
-const { Sequelize } = db
-const { Op } = Sequelize
-
-const { User, Role, Session } = models
-const including = [{ model: Role }]
-const includeSession = [{ model: Role }, { model: Session }]
+const including = [{ model: Role }, { model: Session }]
 
 class UserService {
   /**
@@ -35,7 +31,8 @@ class UserService {
    * @returns
    */
   public static async findAll(req: Request): Promise<DtoPaginate> {
-    const { filtered, lang } = req.getQuery()
+    const { lang, filtered } = req.getQuery()
+
     const defaultLang = lang ?? APP_LANG
     const i18nOpt: string | TOptions = { lng: defaultLang }
 
@@ -54,35 +51,8 @@ class UserService {
       where: queryFind.where,
     })
 
-    const message = i18nConfig.t('success.dataReceived', i18nOpt)
+    const message = i18nConfig.t('success.data_received', i18nOpt)
     return { message: `${total} ${message}`, data, total }
-  }
-
-  /**
-   *
-   * @param id
-   * @param options
-   * @returns
-   */
-  public static async findByPk(
-    id: string,
-    options?: SqlizeOptions
-  ): Promise<UserInstance> {
-    const i18nOpt: string | TOptions = { lng: options?.lang }
-
-    const newId = validateUUID(id, { lang: options?.lang })
-    const data = await User.findByPk(newId, {
-      include: options?.include,
-      order: options?.order,
-      paranoid: options?.paranoid,
-    })
-
-    if (!data) {
-      const message = i18nConfig.t('errors.notFound', i18nOpt)
-      throw new ResponseError.NotFound(`user ${message}`)
-    }
-
-    return data
   }
 
   /**
@@ -93,27 +63,21 @@ class UserService {
    */
   public static async findById(
     id: string,
-    options?: SqlizeOptions
-  ): Promise<UserInstance> {
-    const data = await this.findByPk(id, { include: including, ...options })
+    options?: ReqOptions
+  ): Promise<User> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    return data
-  }
-
-  /**
-   *
-   * @param id
-   * @param options
-   * @returns
-   */
-  public static async findUserWithSession(
-    id: string,
-    options?: SqlizeOptions
-  ): Promise<UserInstance> {
-    const data = await this.findByPk(id, {
-      paranoid: options?.paranoid,
-      include: includeSession,
+    const newId = validateUUID(id, { ...options })
+    const data = await User.findOne({
+      where: { id: newId },
+      include: including,
+      paranoid: options?.isParanoid,
     })
+
+    if (!data) {
+      const message = i18nConfig.t('errors.not_found', i18nOpt)
+      throw new ResponseError.NotFound(`user ${message}`)
+    }
 
     return data
   }
@@ -122,50 +86,41 @@ class UserService {
    *
    * @param email
    * @param options
-   * @returns
    */
   public static async validateEmail(
     email: string,
-    options?: SqlizeOptions
-  ): Promise<null> {
+    options?: ReqOptions
+  ): Promise<void> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
-    const data = await User.findOne({ where: { email } })
 
-    if (data) {
-      const message = i18nConfig.t('errors.alreadyEmail', i18nOpt)
-      throw new ResponseError.BadRequest(message)
-    }
-
-    return null
-  }
-
-  /**
-   *
-   * @param RoleIds
-   * @returns
-   */
-  public static async findByRoleIds(
-    RoleIds: string[]
-  ): Promise<UserInstance[]> {
-    const data = await User.findAll({
-      where: { RoleId: { [Op.in]: RoleIds } },
+    const data = await User.findOne({
+      where: { email },
     })
 
-    return data
+    if (data) {
+      const message = i18nConfig.t('errors.already_email', i18nOpt)
+      throw new ResponseError.BadRequest(message)
+    }
   }
 
   /**
    *
    * @param formData
-   * @param options
    * @returns
    */
-  public static async create(
-    formData: UserAttributes,
-    options?: SqlizeOptions
-  ): Promise<UserInstance> {
-    const value = useValidation(userSchema.register, formData)
-    const data = await User.create(value, { transaction: options?.transaction })
+  public static async create(formData: UserAttributes): Promise<User> {
+    const value = userSchema.create.validateSync(formData, {
+      abortEarly: false,
+      stripUnknown: true,
+    })
+
+    const newFormData = {
+      ...value,
+      phone: validateEmpty(value?.phone),
+      password: validateEmpty(value?.confirmNewPassword),
+    }
+
+    const data = await User.create(newFormData)
 
     return data
   }
@@ -180,22 +135,30 @@ class UserService {
   public static async update(
     id: string,
     formData: Partial<UserAttributes>,
-    options?: SqlizeOptions
-  ): Promise<UserInstance> {
-    const data = await this.findByPk(id)
+    options?: ReqOptions
+  ): Promise<User> {
+    const data = await this.findById(id, { ...options })
 
-    const value = useValidation(userSchema.create, {
-      ...data.toJSON(),
-      ...formData,
-    })
-
-    if (value.email !== data.email) {
-      await this.validateEmail(value.email)
+    // validate email from request
+    if (!_.isEmpty(formData.email) && formData.email !== data.email) {
+      await this.validateEmail(String(formData.email), { ...options })
     }
 
-    await data.update(value ?? {}, { transaction: options?.transaction })
+    const value = userSchema.create.validateSync(
+      { ...data, ...formData },
+      { abortEarly: false, stripUnknown: true }
+    )
 
-    return data
+    const newFormData = {
+      ...data,
+      ...value,
+      phone: validateEmpty(value?.phone),
+      password: validateEmpty(value?.confirmNewPassword),
+    }
+
+    const newData = await data.update(newFormData)
+
+    return newData
   }
 
   /**
@@ -203,13 +166,21 @@ class UserService {
    * @param id
    * @param options
    */
-  public static async delete(
-    id: string,
-    options?: SqlizeOptions
-  ): Promise<void> {
-    const isForce = validateBoolean(options?.force)
+  public static async restore(id: string, options?: ReqOptions): Promise<void> {
+    const data = await this.findById(id, { isParanoid: false, ...options })
+    await data.restore()
+  }
 
-    const data = await this.findByPk(id, { lang: options?.lang })
+  /**
+   *
+   * @param id
+   * @param options
+   */
+  private static async delete(id: string, options?: ReqOptions): Promise<void> {
+    // if true = force delete else soft delete
+    const isForce = validateBoolean(options?.isForce)
+
+    const data = await this.findById(id, { ...options })
     await data.destroy({ force: isForce })
   }
 
@@ -218,32 +189,64 @@ class UserService {
    * @param id
    * @param options
    */
-  public static async restore(
+  public static async softDelete(
     id: string,
-    options?: SqlizeOptions
+    options?: ReqOptions
   ): Promise<void> {
-    const data = await this.findByPk(id, {
-      paranoid: false,
-      lang: options?.lang,
-    })
-
-    await data.restore()
+    // soft delete
+    await this.delete(id, options)
   }
 
   /**
    *
-   * @param ids @example ids = ["id_1", "id_2"]
+   * @param id
    * @param options
    */
-  public static async multipleDelete(
+  public static async forceDelete(
+    id: string,
+    options?: ReqOptions
+  ): Promise<void> {
+    // force delete
+    await this.delete(id, { isForce: true, ...options })
+  }
+
+  /**
+   *
+   * @param ids
+   * @param options
+   */
+  public static async multipleRestore(
     ids: string[],
-    options?: SqlizeOptions
+    options?: ReqOptions
   ): Promise<void> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
-    const isForce = validateBoolean(options?.force)
 
     if (_.isEmpty(ids)) {
-      const message = i18nConfig.t('errors.cantBeEmpty', i18nOpt)
+      const message = i18nConfig.t('errors.cant_be_empty', i18nOpt)
+      throw new ResponseError.BadRequest(`ids ${message}`)
+    }
+
+    await User.restore({
+      where: { id: { [Op.in]: ids } },
+    })
+  }
+
+  /**
+   *
+   * @param ids
+   * @param options
+   */
+  private static async multipleDelete(
+    ids: string[],
+    options?: ReqOptions
+  ): Promise<void> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
+    // if true = force delete else soft delete
+    const isForce = validateBoolean(options?.isForce)
+
+    if (_.isEmpty(ids)) {
+      const message = i18nConfig.t('errors.cant_be_empty', i18nOpt)
       throw new ResponseError.BadRequest(`ids ${message}`)
     }
 
@@ -255,55 +258,28 @@ class UserService {
 
   /**
    *
-   * @param ids @example ids = ["id_1", "id_2"]
+   * @param ids
    * @param options
    */
-  public static async multipleRestore(
+  public static async multipleSoftDelete(
     ids: string[],
-    options?: SqlizeOptions
+    options?: ReqOptions
   ): Promise<void> {
-    const i18nOpt: string | TOptions = { lng: options?.lang }
-
-    if (_.isEmpty(ids)) {
-      const message = i18nConfig.t('errors.cantBeEmpty', i18nOpt)
-      throw new ResponseError.BadRequest(`ids ${message}`)
-    }
-
-    await User.restore({
-      where: { id: { [Op.in]: ids } },
-    })
+    // multiple soft delete
+    await this.multipleDelete(ids, options)
   }
 
   /**
    *
-   * @param req
-   * @returns
+   * @param ids
+   * @param options
    */
-  public static async generateExcel(req: Request): Promise<Buffer> {
-    const { data } = await this.findAll(req)
-    const jsonData = JSON.parse(JSON.stringify(data))
-
-    const header = [
-      { header: 'No', key: 'no', width: 5 },
-      { header: 'First Name', key: 'firstName', width: 20 },
-      { header: 'Last Name', key: 'lastName', width: 20 },
-      { header: 'Email', key: 'email', width: 20 },
-      { header: 'Phone', key: 'phone', width: 20 },
-      { header: 'Role', key: 'role', width: 20 },
-    ]
-
-    const newData = []
-    for (let i = 0; i < jsonData.length; i += 1) {
-      const item = jsonData[i]
-      newData.push({
-        ...item,
-        role: _.get(item, 'Role.name', '-'),
-      })
-    }
-
-    const stream: Buffer = await Excel.generate(header, newData)
-
-    return stream
+  public static async multipleForceDelete(
+    ids: string[],
+    options?: ReqOptions
+  ): Promise<void> {
+    // multiple force delete
+    await this.multipleDelete(ids, { isForce: true, ...options })
   }
 }
 

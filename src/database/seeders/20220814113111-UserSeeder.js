@@ -54,10 +54,10 @@ if (!_.isEmpty(data)) {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Users', formData)
+    await queryInterface.bulkInsert('user', formData)
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Users', null, {})
+    await queryInterface.bulkDelete('user', null, {})
   },
 }

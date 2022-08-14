@@ -25,7 +25,6 @@ route.get(
     const defaultLang = lang ?? APP_LANG
 
     const { id } = req.getParams()
-
     const data = await SessionService.findById(id, { lang: defaultLang })
 
     const httpResponse = HttpResponse.get({ data })
@@ -37,12 +36,8 @@ route.post(
   '/session',
   Authorization,
   asyncHandler(async function create(req: Request, res: Response) {
-    const { lang } = req.getQuery()
-    const defaultLang = lang ?? APP_LANG
-
     const formData = req.getBody()
-
-    const data = await SessionService.create(formData, { lang: defaultLang })
+    const data = await SessionService.create(formData)
 
     const httpResponse = HttpResponse.created({ data })
     res.status(201).json(httpResponse)

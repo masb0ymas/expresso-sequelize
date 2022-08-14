@@ -20,9 +20,6 @@ module.exports = {
           $ref: '#/components/parameters/filtered',
         },
         {
-          $ref: '#/components/parameters/sorted',
-        },
-        {
           $ref: '#/components/parameters/lang',
         },
       ],
@@ -40,22 +37,14 @@ module.exports = {
           auth_token: [],
         },
       ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
-        },
-      ],
       requestBody: {
         required: true,
         content: {
-          'multipart/form-data': {
+          'application/x-www-form-urlencoded': {
             schema: {
               type: 'object',
               properties: {
-                firstName: {
-                  type: 'string',
-                },
-                lastName: {
+                fullName: {
                   type: 'string',
                 },
                 email: {
@@ -73,17 +62,9 @@ module.exports = {
                 RoleId: {
                   type: 'string',
                 },
-                profileImage: {
-                  type: 'file',
-                  items: {
-                    type: 'string',
-                    format: 'binary',
-                  },
-                },
               },
               required: [
-                'firstName',
-                'lastName',
+                'fullName',
                 'email',
                 'newPassword',
                 'confirmNewPassword',
@@ -107,11 +88,6 @@ module.exports = {
       security: [
         {
           auth_token: [],
-        },
-      ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       requestBody: {
@@ -147,11 +123,6 @@ module.exports = {
           auth_token: [],
         },
       ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
-        },
-      ],
       requestBody: {
         required: true,
         content: {
@@ -183,11 +154,6 @@ module.exports = {
       security: [
         {
           auth_token: [],
-        },
-      ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       requestBody: {
@@ -234,9 +200,6 @@ module.exports = {
           },
           description: 'User Id',
         },
-        {
-          $ref: '#/components/parameters/lang',
-        },
       ],
       responses: {
         200: {
@@ -262,9 +225,6 @@ module.exports = {
           },
           description: 'User Id',
         },
-        {
-          $ref: '#/components/parameters/lang',
-        },
       ],
       requestBody: {
         required: true,
@@ -273,10 +233,7 @@ module.exports = {
             schema: {
               type: 'object',
               properties: {
-                firstName: {
-                  type: 'string',
-                },
-                lastName: {
+                fullName: {
                   type: 'string',
                 },
                 email: {
@@ -289,7 +246,7 @@ module.exports = {
                   type: 'string',
                 },
               },
-              required: ['firstName', 'lastName', 'email', 'RoleId'],
+              required: ['fullName', 'email', 'RoleId'],
             },
           },
         },
@@ -321,9 +278,6 @@ module.exports = {
           },
           description: 'User Id',
         },
-        {
-          $ref: '#/components/parameters/lang',
-        },
       ],
       responses: {
         200: {
@@ -352,9 +306,6 @@ module.exports = {
           },
           description: 'User Id',
         },
-        {
-          $ref: '#/components/parameters/lang',
-        },
       ],
       responses: {
         200: {
@@ -382,9 +333,6 @@ module.exports = {
             type: 'string',
           },
           description: 'User Id',
-        },
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       responses: {

@@ -1,12 +1,5 @@
 import _ from 'lodash'
 
-/**
- *
- * @param object
- * @param path
- * @param defaultValue
- * @returns
- */
 function getterObject<
   TObject extends object,
   TKey extends keyof TObject,

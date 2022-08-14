@@ -1,3 +1,5 @@
+import { defaultAllowedExt } from '@expresso/constants/ConstExt'
+import { defaultAllowedMimetype } from '@expresso/constants/ConstMimetype'
 import { createDirNotExist } from '@expresso/helpers/File'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { Request } from 'express'
@@ -17,46 +19,6 @@ interface MulterSetupProps {
 const defaultFieldSize = 10 * 1024 * 1024 // 10mb
 const defaultFileSize = 1 * 1024 * 1024 // 1mb
 const defaultDestination = 'public/uploads/'
-
-// extension
-export const allowedZIP = ['.zip', '.7z']
-export const allowedPDF = ['.pdf']
-export const allowedImage = ['.png', '.jpg', '.jpeg', '.svg']
-export const allowedExcel = ['.xlsx', '.xls']
-export const allowedDoc = ['.doc', '.docx']
-
-const defaultAllowedExt = [
-  ...allowedZIP,
-  ...allowedPDF,
-  ...allowedImage,
-  ...allowedExcel,
-  ...allowedDoc,
-]
-
-// mimetype
-export const allowedMimetypeZIP = [
-  'application/zip',
-  'application/x-zip-compressed',
-  'application/x-7z-compressed',
-]
-export const allowedMimetypePDF = ['application/pdf']
-export const allowedMimetypeImage = ['image/jpeg', 'image/png', 'image/svg+xml']
-export const allowedMimetypeExcel = [
-  'application/vnd.ms-excel',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-]
-export const allowedMimetypeDoc = [
-  'application/msword',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-]
-
-const defaultAllowedMimetype = [
-  ...allowedMimetypeZIP,
-  ...allowedMimetypePDF,
-  ...allowedMimetypeImage,
-  ...allowedMimetypeExcel,
-  ...allowedMimetypeDoc,
-]
 
 const useMulter = (props: MulterSetupProps): multer.Multer => {
   // always check destination

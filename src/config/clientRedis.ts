@@ -1,14 +1,14 @@
 import { logErrServer, logServer } from '@expresso/helpers/Formatter'
-import redis, { ClientOpts } from 'redis'
+import { createClient } from 'redis'
 import { REDIS_HOST, REDIS_PASSWORD, REDIS_PORT } from './env'
 
-const optConfig: ClientOpts = {
+const optConfig = {
   host: REDIS_HOST,
   port: REDIS_PORT,
   password: REDIS_PASSWORD,
 }
 
-const clientRedis = redis.createClient(optConfig)
+const clientRedis = createClient(optConfig)
 
 // client connect
 clientRedis.on('connect', function () {

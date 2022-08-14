@@ -117,10 +117,10 @@ class App {
       next(err)
     })
 
-    this.application.use(ExpressErrorYup)
     this.application.use(ExpressErrorSequelize)
-    this.application.use(ExpressErrorResponse)
+    this.application.use(ExpressErrorYup)
     this.application.use(ExpressAutoHandleTransaction)
+    this.application.use(ExpressErrorResponse)
 
     // Error handler
     this.application.use(function (err: any, req: Request, res: Response) {

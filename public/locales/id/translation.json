@@ -1,23 +1,29 @@
 {
   "welcome": "Selamat Datang",
   "errors": {
-    "permissionAccess": "Anda tidak diijinkan",
-    "mailTemplate": "direktori template email pendaftaran tidak benar",
-    "accountNotFound": "akun tidak ditemukan atau tidak terdaftar",
-    "pleaseCheckYourEmail": "silakan periksa akun email Anda untuk memverifikasi email Anda dan melanjutkan proses pendaftaran",
-    "incorrectEmailOrPassword": "email atau kata sandi salah",
-    "invalidUserLogin": "user login tidak benar",
-    "notFound": "data tidak ditemukan atau telah dihapus",
-    "cantBeEmpty": "tidak boleh kosong",
-    "alreadyEmail": "alamat email sudah ada yang menggunakan",
-    "isBeingUsed": "sedang digunakan di",
-    "sessionEnded": "sesi masuk telah berakhir, harap masuk kembali",
-    "incorrectUUIDFormat": "format uuid tidak benar"
+    "permission_access": "Anda tidak diijinkan",
+    "already_phone": "Nomor telepon sudah digunakan",
+    "already_email": "Email sudah digunakan",
+    "incorrect_email_or_pass": "email atau kata sandi salah",
+    "incorrect_phone": "Nomor telepon salah",
+    "incorrect_pin": "Pin salah",
+    "incorrect_UUID_format": "Format uuid tidak benar",
+    "invalid_user_login": "Login pengguna tidak valid",
+    "session_ended": "Sesi masuk telah berakhir, harap masuk kembali.",
+    "otp_expired": "OTP kedaluwarsa",
+    "in_active_account": "Akunmu tidak aktif",
+    "account_not_found": "Akun tidak ditemukan atau tidak terdaftar",
+    "block_policy": "Akun Anda telah diblokir karena melanggar kebijakan",
+    "cant_be_empty": "tidak boleh kosong",
+    "not_found": "data tidak ditemukan atau telah dihapus",
+    "mail_template": "Direktori template email pendaftaran tidak benar",
+    "too_many_request": "Terlalu Banyak Permintaan",
+    "please_check_your_email": "silakan periksa akun email Anda untuk memverifikasi email Anda dan melanjutkan proses pendaftaran"
   },
   "success": {
     "register": "Pendaftaran berhasil",
     "login": "Berhasil masuk",
     "logout": "Anda telah keluar dari aplikasi",
-    "dataReceived": "data telah diterima"
+    "data_received": "data telah diterima"
   }
 }

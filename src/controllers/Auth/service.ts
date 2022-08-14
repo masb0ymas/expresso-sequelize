@@ -3,81 +3,79 @@ import { i18nConfig } from '@config/i18nextConfig'
 import SessionService from '@controllers/Account/Session/service'
 import userSchema from '@controllers/Account/User/schema'
 import UserService from '@controllers/Account/User/service'
-import models from '@database/models/index'
-import {
+import User, {
   LoginAttributes,
   UserAttributes,
-  UserInstance,
   UserLoginAttributes,
-} from '@database/models/user'
+} from '@database/entities/User'
 import ConstRole from '@expresso/constants/ConstRole'
-import { validateEmpty } from '@expresso/helpers/Formatter'
+import { validateBoolean, validateEmpty } from '@expresso/helpers/Formatter'
 import SendMail from '@expresso/helpers/SendMail'
 import { generateAccessToken, verifyAccessToken } from '@expresso/helpers/Token'
-import useValidation from '@expresso/hooks/useValidation'
+import { ReqOptions } from '@expresso/interfaces/ReqOptions'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import { SqlizeOptions } from '@expresso/modules/SqlizeQuery/interface'
 import { TOptions } from 'i18next'
 import _ from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 import { DtoLogin } from './interface'
 
-const { User } = models
-
 class AuthService {
   /**
    *
    * @param formData
-   * @param options
    * @returns
    */
-  public static async signUp(
-    formData: UserAttributes,
-    options?: SqlizeOptions
-  ): Promise<UserInstance> {
+  public static async signUp(formData: UserAttributes): Promise<User> {
     const randomToken = generateAccessToken({ uuid: uuidv4() })
-
-    await UserService.validateEmail(formData.email, { ...options })
 
     const newFormData = {
       ...formData,
-      phone: validateEmpty(formData.phone),
+      isActive: validateBoolean(formData.isActive),
       tokenVerify: randomToken.accessToken,
       RoleId: ConstRole.ID_USER,
     }
 
-    const value = useValidation(userSchema.register, newFormData)
-    const data = await User.create(value)
+    const value = userSchema.register.validateSync(newFormData, {
+      abortEarly: false,
+      stripUnknown: true,
+    })
 
-    // check smtp mail
-    if (!_.isEmpty(MAIL_USERNAME) && !_.isEmpty(MAIL_PASSWORD)) {
-      // send email notification
-      SendMail.AccountRegistration(
-        {
-          email: value.email,
-          fullName: value.fullName,
-          token: randomToken.accessToken,
-        },
-        options?.lang
-      )
+    const formRegistration = {
+      ...value,
+      phone: validateEmpty(formData.phone),
+      password: value.confirmNewPassword,
     }
 
-    return data
+    const newData = await User.create(formRegistration)
+
+    // check if exist mail_username & mail_password
+    if (MAIL_USERNAME && MAIL_PASSWORD) {
+      // send email notification
+      SendMail.AccountRegistration({
+        email: value.email,
+        fullName: value.fullName,
+        token: randomToken.accessToken,
+      })
+    }
+
+    return newData
   }
 
   /**
    *
    * @param formData
-   * @param options
    * @returns
    */
   public static async signIn(
     formData: LoginAttributes,
-    options?: SqlizeOptions
+    options?: ReqOptions
   ): Promise<DtoLogin> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    const value = useValidation(userSchema.login, formData)
+    const value = userSchema.login.validateSync(formData, {
+      abortEarly: false,
+      stripUnknown: true,
+    })
 
     const getUser = await User.scope('withPassword').findOne({
       where: { email: value.email },
@@ -85,21 +83,21 @@ class AuthService {
 
     // check user account
     if (!getUser) {
-      const message = i18nConfig.t('errors.accountNotFound', i18nOpt)
+      const message = i18nConfig.t('errors.account_not_found', i18nOpt)
       throw new ResponseError.NotFound(message)
     }
 
     // check active account
     if (!getUser.isActive) {
-      const message = i18nConfig.t('errors.pleaseCheckYourEmail', i18nOpt)
+      const message = i18nConfig.t('errors.please_check_your_email', i18nOpt)
       throw new ResponseError.BadRequest(message)
     }
 
-    const matchPassword = await getUser.comparePassword(value.password)
+    const matchPassword = getUser.comparePassword(value.password)
 
     // compare password
     if (!matchPassword) {
-      const message = i18nConfig.t('errors.incorrectEmailOrPassword', i18nOpt)
+      const message = i18nConfig.t('errors.incorrect_email_or_pass', i18nOpt)
       throw new ResponseError.BadRequest(message)
     }
 
@@ -128,17 +126,16 @@ class AuthService {
   public static async verifySession(
     UserId: string,
     token: string,
-    options?: SqlizeOptions
-  ): Promise<UserInstance | null> {
-    const getSession = await SessionService.findByUserToken(UserId, token, {
-      ...options,
-    })
+    options?: ReqOptions
+  ): Promise<User | null> {
+    const getSession = await SessionService.findByUserToken(UserId, token)
     const verifyToken = verifyAccessToken(getSession.token)
 
     const userToken = verifyToken?.data as UserLoginAttributes
 
     if (!_.isEmpty(userToken.uid)) {
       const getUser = await UserService.findById(userToken.uid, { ...options })
+
       return getUser
     }
 
@@ -155,7 +152,7 @@ class AuthService {
   public static async logout(
     UserId: string,
     token: string,
-    options?: SqlizeOptions
+    options?: ReqOptions
   ): Promise<string> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 

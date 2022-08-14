@@ -1,18 +1,12 @@
 'use strict'
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('FCMTokens', {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('role', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-      },
-      UserId: {
-        type: Sequelize.UUID,
-      },
-      token: {
-        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
@@ -26,9 +20,12 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DATE,
       },
+      name: {
+        type: Sequelize.STRING,
+      },
     })
   },
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('FCMTokens')
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('role')
   },
 }

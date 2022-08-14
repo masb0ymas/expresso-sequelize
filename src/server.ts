@@ -2,24 +2,24 @@ import 'module-alias/register'
 import './pathAlias'
 
 import initialAwsS3 from '@config/clientS3'
+import { logErrServer, logServer } from '@expresso/helpers/Formatter'
+import chalk from 'chalk'
+import App from './app'
 import {
   AWS_ACCESS_KEY,
   AWS_SECRET_KEY,
   DB_CONNECTION,
   DB_DATABASE,
-} from '@config/env'
-import db from '@database/models/_instance'
-import { logErrServer, logServer } from '@expresso/helpers/Formatter'
-import initialJobs from '@jobs/index'
-import chalk from 'chalk'
-import App from './app'
+  DB_SYNC,
+} from './config/env'
+import db from './database/data-source'
+import initialJobs from './jobs'
 
 const Server = new App()
 
-// initial database
 db.sequelize
   .authenticate()
-  .then(() => {
+  .then(async () => {
     const dbDialect = chalk.cyan(DB_CONNECTION)
     const dbName = chalk.cyan(DB_DATABASE)
 
@@ -27,6 +27,14 @@ db.sequelize
     const message = `Connection ${dbDialect}: ${dbName} has been established successfully.`
 
     console.log(logServer(msgType, message))
+
+    // not recommended when running in production mode
+    if (DB_SYNC) {
+      await db.sequelize.sync({ force: true })
+      console.log(logServer(msgType, 'All Sync Database Successfully'))
+    }
+
+    Server.run()
   })
   .catch((err: any) => {
     const dbDialect = chalk.cyan(DB_CONNECTION)
@@ -44,13 +52,11 @@ if (AWS_ACCESS_KEY && AWS_SECRET_KEY) {
   void initialAwsS3()
 }
 
-// initial firebase
-// const serviceAccountKey = path.resolve('./serviceAccountKey.json')
-
+// initial firebase admin
 // admin.initializeApp({ credential: admin.credential.cert(serviceAccountKey) })
-// firebase.initializeApp(initialFirebase)
+
+// initial firebase
+// initializeApp(initialFirebase)
 
 // initial jobs
 initialJobs()
-
-Server.run()

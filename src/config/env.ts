@@ -1,15 +1,33 @@
 /* eslint-disable prettier/prettier */
-import dotenv from 'dotenv'
+import 'dotenv/config'
 
-dotenv.config()
+function validateBoolean(value: string | boolean | number | any): boolean {
+  const invalidValues = [
+    null,
+    undefined,
+    '',
+    false,
+    0,
+    'false',
+    '0',
+    'null',
+    'undefined',
+  ]
+
+  if (invalidValues.includes(value)) {
+    return false
+  }
+
+  return true
+}
 
 // node env
 export const NODE_ENV = process.env.NODE_ENV ?? 'development'
 
 // app
 export const APP_KEY = process.env.APP_KEY
-export const APP_LANG = process.env.APP_LANG ?? 'id'
 export const APP_NAME = process.env.APP_NAME ?? 'expresso'
+export const APP_LANG = process.env.APP_LANG ?? 'id'
 export const APP_PORT = Number(process.env.APP_PORT) ?? 8000
 
 // axios
@@ -30,7 +48,7 @@ export const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED ?? 
 export const JWT_SECRET_REFRESH_TOKEN: any = process.env.JWT_SECRET_REFRESH_TOKEN
 export const JWT_REFRESH_TOKEN_EXPIRED = process.env.JWT_REFRESH_TOKEN_EXPIRED ?? '7d'
 
-// url sandbox
+// url staging
 export const URL_CLIENT_STAGING = process.env.URL_CLIENT_STAGING ?? 'https://sandbox.example.com'
 export const URL_SERVER_STAGING = process.env.URL_SERVER_STAGING ?? 'https://api-sandbox.example.com'
 
@@ -45,7 +63,7 @@ export const DB_PORT = Number(process.env.DB_PORT) ?? 5432
 export const DB_DATABASE = process.env.DB_DATABASE ?? 'your_database'
 export const DB_USERNAME = process.env.DB_USERNAME ?? 'postgres'
 export const DB_PASSWORD = process.env.DB_PASSWORD ?? 'postgres'
-export const DB_OPERATOR_ALIAS = process.env.DB_OPERATOR_ALIAS ?? undefined
+export const DB_SYNC = validateBoolean(process.env.DB_SYNC) ?? false
 export const DB_TIMEZONE = process.env.DB_TIMEZONE ?? '+07:00' // for mysql = +07:00, for postgres = Asia/Jakarta
 
 // smtp

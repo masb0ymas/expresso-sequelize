@@ -18,11 +18,11 @@ import ResponseError from '@expresso/modules/Response/ResponseError'
 import chalk from 'chalk'
 import { Headers } from 'gaxios'
 import { google } from 'googleapis'
-import { isEmpty } from 'lodash'
+import _ from 'lodash'
 import nodemailer from 'nodemailer'
 import mg from 'nodemailer-mailgun-transport'
 
-const isMailgunAPI = !isEmpty(MAILGUN_API_KEY) || !isEmpty(MAILGUN_DOMAIN)
+const isMailgunAPI = !_.isEmpty(MAILGUN_API_KEY) || !_.isEmpty(MAILGUN_DOMAIN)
 
 class EmailProvider {
   private mailConfig: nodemailer.SentMessageInfo

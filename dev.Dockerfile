@@ -5,7 +5,7 @@ LABEL author="masb0ymas"
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 RUN apk add --update --no-cache curl py-pip
-RUN apk add --no-cache make python2 g++ gcc libgcc libstdc++
+RUN apk add --no-cache make python3 g++ gcc libgcc libstdc++
 RUN npm install --quiet node-gyp -g
 
 # install for sharp library
@@ -29,7 +29,7 @@ RUN export NODE_OPTIONS=\"--max_old_space_size=4096\"
 
 COPY . .
 
-RUN cp .env.docker.staging .env
+RUN cp .env.docker-staging .env
 
 COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
@@ -54,6 +54,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
 COPY --from=builder /app/.sequelizerc ./.sequelizerc
+COPY --from=builder /app/.swcrc ./.swcrc
 COPY --from=builder /app/logs ./logs
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/src ./src

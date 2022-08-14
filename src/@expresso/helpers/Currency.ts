@@ -1,6 +1,6 @@
 const locale = 'id-ID'
 
-const formatCurrencyIDR = (value: string | number | any): string => {
+export const formatCurrencyIDR = (value: string | number | any): string => {
   if (value && Number(value)) {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
@@ -12,7 +12,7 @@ const formatCurrencyIDR = (value: string | number | any): string => {
   return '-'
 }
 
-const formatCurrency = (value: string | number | any): string => {
+export const formatCurrency = (value: string | number | any): string => {
   if (value && Number(value)) {
     return new Intl.NumberFormat(locale, {
       minimumFractionDigits: 0,
@@ -22,7 +22,7 @@ const formatCurrency = (value: string | number | any): string => {
   return '-'
 }
 
-const currencyParser = (value: string | number | any): any => {
+export const currencyParser = (value: string | number | any): any => {
   try {
     // for when the input gets clears
     if (typeof value === 'string' && !value.length) {
@@ -55,5 +55,3 @@ const currencyParser = (value: string | number | any): any => {
     console.error(error)
   }
 }
-
-export { formatCurrencyIDR, formatCurrency, currencyParser }

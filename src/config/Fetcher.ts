@@ -9,7 +9,6 @@ import { LOG_SERVER } from './baseURL'
 import { AXIOS_TIMEOUT } from './env'
 
 const Redis = new RedisProvider()
-
 const timeout = ms(AXIOS_TIMEOUT)
 
 function createAxios(baseUri: string): AxiosInstance {
