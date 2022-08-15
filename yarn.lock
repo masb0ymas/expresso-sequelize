@@ -687,10 +687,10 @@
     "@aws-sdk/types" "3.127.0"
     tslib "^2.3.1"
 
-"@aws-sdk/s3-request-presigner@^3.145.0":
-  version "3.145.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/s3-request-presigner/-/s3-request-presigner-3.145.0.tgz#cc3443fc997683f936fe9dc481509f90c4edc010"
-  integrity sha512-GFUyhtF8RfGjsgadkuruJVdoxwQrEweTuAJPrfIn6FIYnPofJ/8BiYt43xsxlh3BGrEulu9hwOoI0ZIVabcsXw==
+"@aws-sdk/s3-request-presigner@^3.150.0":
+  version "3.150.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/s3-request-presigner/-/s3-request-presigner-3.150.0.tgz#086a167f2529b9e342ee5df44a19c8b1cc269b13"
+  integrity sha512-CnnDZG7bHi4Nt7xsotxqZKZNkGHQUnGRLbXTJbueTg4KNDngj6Zt4InicEW4BZVVnSXqPUxHAVC6eKZCeMHsHg==
   dependencies:
     "@aws-sdk/middleware-sdk-s3" "3.127.0"
     "@aws-sdk/protocol-http" "3.127.0"
