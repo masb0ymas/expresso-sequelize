@@ -84,10 +84,18 @@ class User extends BaseEntity {
   @Column({ type: DataType.TEXT })
   tokenVerify?: string
 
-  @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false })
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  })
   isActive?: boolean
 
-  @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false })
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  })
   isBlocked?: boolean
 
   @IsUUID(4)
@@ -104,7 +112,10 @@ class User extends BaseEntity {
 
   @IsUUID(4)
   @ForeignKey(() => Upload)
-  @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+  })
   UploadId: string
 
   // many to one
