@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/masb0ymas/expresso/compare/v4.0.0...v4.0.1) (2022-08-16)
+
+
+### Bug Fixes
+
+* move dir script to src ([be5986a](https://github.com/masb0ymas/expresso/commit/be5986ab9221e1cb07a1cd2702687f37e236a632))
+* move docs swagger to helper ([5ddf560](https://github.com/masb0ymas/expresso/commit/5ddf5605f57859638a3a8a0029f03b4aa969cc85))
+* readme ([f263423](https://github.com/masb0ymas/expresso/commit/f2634236ab4f95b4a91b51eb7b88b0abecc61119))
+
 ## [4.0.0](https://github.com/masb0ymas/expresso/compare/v3.5.0...v4.0.0) (2022-08-14)
 
 
