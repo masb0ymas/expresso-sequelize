@@ -61,7 +61,7 @@ COPY --from=builder /app/src ./src
 COPY --from=builder /app/.env ./.env
 
 # initial app
-RUN node ./dist/@expresso/scripts/generate.js
+RUN node ./dist/scripts/generate.js
 
 # USER expresso
 
