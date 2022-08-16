@@ -86,22 +86,6 @@ function validateUUID(value: string, options?: ReqOptions): string {
 
 /**
  *
- * @param length
- * @returns
- */
-function getUniqueCodev2(length = 32): string {
-  let result = ''
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  const charactersLength = characters.length
-  for (let i = 0; i < length; i += 1) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength))
-  }
-  return result
-}
-
-/**
- *
  * @param type
  * @param message
  * @returns
@@ -127,7 +111,6 @@ export {
   validateEmpty,
   validateBoolean,
   validateUUID,
-  getUniqueCodev2,
   logServer,
   logErrServer,
 }
