@@ -15,7 +15,7 @@
       "@jobs/*": ["dist/jobs/*"],
       "@middlewares/*": ["dist/middlewares/*"],
       "@routes/*": ["dist/routes/*"],
-      "@utils/*": ["dist/utils/*"],
+      "@scripts/*": ["dist/scripts/*"],
       "@views/*": ["dist/views/*"]
     },
     "transform": {

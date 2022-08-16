@@ -8,6 +8,6 @@ ModuleAlias.addAliases({
   '@jobs': `${__dirname}/jobs`,
   '@middlewares': `${__dirname}/middlewares`,
   '@routes': `${__dirname}/routes`,
-  '@utils': `${__dirname}/utils`,
+  '@scripts': `${__dirname}/scripts`,
   '@views': `${__dirname}/views`,
 })

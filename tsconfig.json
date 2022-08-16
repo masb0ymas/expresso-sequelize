@@ -19,7 +19,7 @@
       "@jobs/*": ["jobs/*"],
       "@middlewares/*": ["middlewares/*"],
       "@routes/*": ["routes/*"],
-      "@utils/*": ["utils/*"],
+      "@scripts/*": ["scripts/*"],
       "@views/*": ["views/*"],
     },
     "typeRoots": ["./src/types"],

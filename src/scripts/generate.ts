@@ -7,7 +7,7 @@ import path from 'path'
  * @param length
  * @returns
  */
-const getUniqueCodev2 = (length = 32): string => {
+export const getUniqueCodev2 = (length = 32): string => {
   let result = ''
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
