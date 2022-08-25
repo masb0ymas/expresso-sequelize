@@ -12,6 +12,7 @@ import ConstRole from '@expresso/constants/ConstRole'
 import { validateBoolean, validateEmpty } from '@expresso/helpers/Formatter'
 import SendMail from '@expresso/helpers/SendMail'
 import { generateAccessToken, verifyAccessToken } from '@expresso/helpers/Token'
+import { optionsYup } from '@expresso/helpers/Validation'
 import { ReqOptions } from '@expresso/interfaces/ReqOptions'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import { TOptions } from 'i18next'
@@ -35,10 +36,7 @@ class AuthService {
       RoleId: ConstRole.ID_USER,
     }
 
-    const value = userSchema.register.validateSync(newFormData, {
-      abortEarly: false,
-      stripUnknown: true,
-    })
+    const value = userSchema.register.validateSync(newFormData, optionsYup)
 
     const formRegistration = {
       ...value,
@@ -72,10 +70,7 @@ class AuthService {
   ): Promise<DtoLogin> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    const value = userSchema.login.validateSync(formData, {
-      abortEarly: false,
-      stripUnknown: true,
-    })
+    const value = userSchema.login.validateSync(formData, optionsYup)
 
     const getUser = await User.scope('withPassword').findOne({
       where: { email: value.email },

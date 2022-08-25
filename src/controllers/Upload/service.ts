@@ -15,6 +15,7 @@ import {
   validateBoolean,
   validateUUID,
 } from '@expresso/helpers/Formatter'
+import { optionsYup } from '@expresso/helpers/Validation'
 import { FileAttributes } from '@expresso/interfaces/Files'
 import { DtoFindAll } from '@expresso/interfaces/Paginate'
 import { ReqOptions } from '@expresso/interfaces/ReqOptions'
@@ -101,10 +102,7 @@ class UploadService {
    * @returns
    */
   public static async create(formData: UploadAttributes): Promise<Upload> {
-    const value = uploadSchema.create.validateSync(formData, {
-      abortEarly: false,
-      stripUnknown: true,
-    })
+    const value = uploadSchema.create.validateSync(formData, optionsYup)
 
     const data = await Upload.create(value)
 
@@ -127,7 +125,7 @@ class UploadService {
 
     const value = uploadSchema.create.validateSync(
       { ...data, ...formData },
-      { abortEarly: false, stripUnknown: true }
+      optionsYup
     )
 
     const newData = await data.update({ ...data, ...value })

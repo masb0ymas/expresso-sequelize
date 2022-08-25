@@ -8,6 +8,7 @@ import {
   validateEmpty,
   validateUUID,
 } from '@expresso/helpers/Formatter'
+import { optionsYup } from '@expresso/helpers/Validation'
 import { DtoFindAll } from '@expresso/interfaces/Paginate'
 import { ReqOptions } from '@expresso/interfaces/ReqOptions'
 import ResponseError from '@expresso/modules/Response/ResponseError'
@@ -109,10 +110,7 @@ class UserService {
    * @returns
    */
   public static async create(formData: UserAttributes): Promise<User> {
-    const value = userSchema.create.validateSync(formData, {
-      abortEarly: false,
-      stripUnknown: true,
-    })
+    const value = userSchema.create.validateSync(formData, optionsYup)
 
     const newFormData = {
       ...value,
@@ -146,7 +144,7 @@ class UserService {
 
     const value = userSchema.create.validateSync(
       { ...data, ...formData },
-      { abortEarly: false, stripUnknown: true }
+      optionsYup
     )
 
     const newFormData = {

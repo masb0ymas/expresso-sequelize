@@ -2,6 +2,7 @@ import { APP_LANG } from '@config/env'
 import { i18nConfig } from '@config/i18nextConfig'
 import Role, { RoleAttributes } from '@database/entities/Role'
 import { validateBoolean, validateUUID } from '@expresso/helpers/Formatter'
+import { optionsYup } from '@expresso/helpers/Validation'
 import { DtoFindAll } from '@expresso/interfaces/Paginate'
 import { ReqOptions } from '@expresso/interfaces/ReqOptions'
 import ResponseError from '@expresso/modules/Response/ResponseError'
@@ -79,10 +80,7 @@ class RoleService {
    * @returns
    */
   public static async create(formData: RoleAttributes): Promise<Role> {
-    const value = roleSchema.create.validateSync(formData, {
-      abortEarly: false,
-      stripUnknown: true,
-    })
+    const value = roleSchema.create.validateSync(formData, optionsYup)
 
     const data = await Role.create(value)
 
@@ -105,7 +103,7 @@ class RoleService {
 
     const value = roleSchema.create.validateSync(
       { ...data, ...formData },
-      { abortEarly: false, stripUnknown: true }
+      optionsYup
     )
 
     const newData = await data.update({ ...data, ...value })

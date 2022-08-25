@@ -2,6 +2,7 @@ import { APP_LANG } from '@config/env'
 import { i18nConfig } from '@config/i18nextConfig'
 import Session, { SessionAttributes } from '@database/entities/Session'
 import { validateUUID } from '@expresso/helpers/Formatter'
+import { optionsYup } from '@expresso/helpers/Validation'
 import { DtoFindAll } from '@expresso/interfaces/Paginate'
 import { ReqOptions } from '@expresso/interfaces/ReqOptions'
 import ResponseError from '@expresso/modules/Response/ResponseError'
@@ -101,10 +102,7 @@ class SessionService {
    * @returns
    */
   public static async create(formData: SessionAttributes): Promise<Session> {
-    const value = sessionSchema.create.validateSync(formData, {
-      abortEarly: false,
-      stripUnknown: true,
-    })
+    const value = sessionSchema.create.validateSync(formData, optionsYup)
 
     const data = await Session.create(value)
 
@@ -118,10 +116,7 @@ class SessionService {
   public static async createOrUpdate(
     formData: SessionAttributes
   ): Promise<void> {
-    const value = sessionSchema.create.validateSync(formData, {
-      abortEarly: false,
-      stripUnknown: true,
-    })
+    const value = sessionSchema.create.validateSync(formData, optionsYup)
 
     const data = await Session.findOne({
       where: { UserId: value.UserId },
