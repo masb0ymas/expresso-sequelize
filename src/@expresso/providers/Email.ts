@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
 import {
   APP_NAME,
   MAILGUN_API_KEY,
@@ -14,8 +13,8 @@ import {
   OAUTH_REDIRECT_URL,
   OAUTH_REFRESH_TOKEN,
 } from '@config/env'
+import { logErrServer, logServer } from '@expresso/helpers/Formatter'
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import chalk from 'chalk'
 import { Headers } from 'gaxios'
 import { google } from 'googleapis'
 import _ from 'lodash'
@@ -38,7 +37,7 @@ class EmailProvider {
     to: string | string[],
     subject: string,
     template: string
-  ): void | string[] => {
+  ): void => {
     const dest: string = Array.isArray(to) ? to.join(',') : to
     const text: string = template
 
@@ -82,7 +81,7 @@ class EmailProvider {
       configTransport.auth.refreshToken = OAUTH_REFRESH_TOKEN
       configTransport.auth.accessToken = accessToken()
     } else if (isMailgunAPI) {
-      // SMPT with Mailgun API
+      // SMTP with Mailgun API
       configTransport.auth.api_key = MAILGUN_API_KEY
       configTransport.auth.domain = MAILGUN_DOMAIN
     } else {
@@ -126,7 +125,7 @@ class EmailProvider {
     dest: string,
     subject: string,
     text: string
-  ): void | string[] => {
+  ): void => {
     this.mailConfig = isMailgunAPI
       ? mg(this.setMailConfig())
       : this.setMailConfig()
@@ -138,15 +137,14 @@ class EmailProvider {
 
     transporter.sendMail(this.mailOptions, (err, info) => {
       if (err) {
-        const errMessage = `${chalk.red(
-          'Nodemailer Error:'
-        )} Something went wrong!, ${err.message}`
-        console.log(errMessage)
+        const errMessage = `Something went wrong!, ${err.message}`
+        console.log(logErrServer('Nodemailer Error: ', errMessage))
+
         throw new ResponseError.BadRequest(errMessage)
       }
 
-      const sending = chalk.cyan('email has been sent')
-      console.log(`Success, ${sending}`, info)
+      const message = 'email has been sent'
+      console.log(logServer('Nodemailer: ', `Success, ${message}`), info)
     })
   }
 }
