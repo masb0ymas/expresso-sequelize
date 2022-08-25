@@ -48,11 +48,10 @@ const useMulter = (props: MulterSetupProps): multer.Multer => {
       console.log({ mimetype })
 
       if (!allowedMimetype.includes(mimetype)) {
-        return cb(
-          new ResponseError.BadRequest(
-            `Only ${allowedExt.join(', ')} ext are allowed`
-          )
-        )
+        const getExtension = allowedExt.join(', ') // .png, .jpg, .pdf
+        const message = `Only ${getExtension} ext are allowed, please check your mimetype file`
+
+        return cb(new ResponseError.BadRequest(message))
       }
 
       cb(null, true)
