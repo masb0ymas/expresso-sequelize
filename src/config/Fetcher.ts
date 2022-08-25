@@ -61,19 +61,17 @@ function createAxios(baseUri: string): AxiosInstance {
       }
 
       const handleError = error?.response?.headers?.handleError
-      // @ts-expect-error
-      if (!handleError || !handleError(error)) {
+
+      if (!handleError) {
         if (error.code === 'ECONNREFUSED') {
           console.log(logErrServer(errAxios('Service Unavailable'), message))
           throw new ResponseError.InternalServer('Service Unavailable')
         }
 
-        const errMessage = error.response?.data ?? error.message
+        const errMessage: any = error.response?.data ?? error.message
 
-        // @ts-expect-error
         console.log(`${LOG_SERVER} ${errAxios(errMessage)}`)
 
-        // @ts-expect-error
         throw new ResponseError.BadRequest(errMessage)
       }
       return await Promise.reject(error)
