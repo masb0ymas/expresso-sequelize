@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/masb0ymas/expresso/compare/v4.0.1...v4.1.0) (2022-08-25)
+
+
+### Features
+
+* **helper:** add validation yup ([ce0e9c2](https://github.com/masb0ymas/expresso/commit/ce0e9c2a9dc40afc4de914fe8b4d61f4024f8a57))
+
+
+### Bug Fixes
+
+*  add url client & server env ([1f9d13f](https://github.com/masb0ymas/expresso/commit/1f9d13fe3494d2dd6a8425bb09ff28902a5e4807))
+* **config:** fixed error typing optional axios ([7e728b4](https://github.com/masb0ymas/expresso/commit/7e728b45e178d7e2a1ff3669429a8386a396544a))
+* implementation option yup ([0471443](https://github.com/masb0ymas/expresso/commit/0471443285dc8550d1f9a8ecd133e77e280fd4ea))
+* return error multer ([4bf8ddd](https://github.com/masb0ymas/expresso/commit/4bf8ddd7f98914d0a1898c0ca7e5190723e81907))
+* return error nodemailer ([99eb3dd](https://github.com/masb0ymas/expresso/commit/99eb3dd5e59d20a4dcc0658cb0232c0a956e11d4))
+* script docker ([273a95d](https://github.com/masb0ymas/expresso/commit/273a95da9354662eeb3629372b22fe5a7e31ee6f))
+
 ### [4.0.1](https://github.com/masb0ymas/expresso/compare/v4.0.0...v4.0.1) (2022-08-16)
 
 
