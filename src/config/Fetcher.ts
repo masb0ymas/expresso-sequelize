@@ -69,7 +69,6 @@ function createAxios(baseUri: string): AxiosInstance {
         }
 
         const errMessage: any = error.response?.data ?? error.message
-
         console.log(`${LOG_SERVER} ${errAxios(errMessage)}`)
 
         throw new ResponseError.BadRequest(errMessage)
