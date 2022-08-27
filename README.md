@@ -4,7 +4,7 @@
 [![maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/masb0ymas/expresso/graphs/commit-activity)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/masb0ymas/expresso/blob/master/LICENSE.md)
 
-[![Version](https://img.shields.io/badge/Version-4.0.1-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso/releases/tag/v4.0.1)
+[![Version](https://img.shields.io/badge/Version-4.1.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso/releases/tag/v4.1.0)
 [![Express](https://img.shields.io/badge/Express-4.18.1-informational?logo=express&color=22272E)](https://expressjs.com/)
 ![Node](https://badges.aleen42.com/src/node.svg)
 ![Eslint](https://badges.aleen42.com/src/eslint.svg)
@@ -47,8 +47,6 @@ yarn
 ```sh
 npx husky install
 ```
-
-or
 
 ```sh
 yarn husky install
@@ -205,81 +203,70 @@ yarn test
 
 ## Run with Docker
 
+before the first docker build, we first check `IPv4 private` so that we can access the `Database` outside the `docker container`.
+
 Adjust the config in .env like this:
 
 ```sh
 ...
 
-PORT=8000 # change this port according to your needs
-
-...
-
 DB_CONNECTION=mysql
-DB_HOST=db # access to service db in docker
+DB_HOST=172.26.9.187 # example IPv4 private
 DB_PORT=3306
 DB_DATABASE=example
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
-DB_OPERATOR_ALIAS=
+DB_SYNC=
 DB_TIMEZONE=+07:00
 
 ...
 
-REDIS_HOST=redis # access to service redis in docker
+REDIS_HOST=172.26.9.187 # example IPv4 private
 REDIS_PASSWORD=your_password
 REDIS_PORT=6379
 ```
 
-`container_name` in each service is customizable.
-
-`PORT=...` If you want to use a port other than `8000`, you must also change the port in the services `app`
-
-```yaml
-services:
-  app:
-    build:
-      context: .
-    container_name: express_app
-    depends_on:
-      - db
-      - redis
-    restart: always
-    ports:
-      - '8000:8000'
-```
-
-`DB_HOST=..`. must be accessed using IPv4 Docker Network services `db`.
-
-```yaml
-db:
-  image: mariadb
-  container_name: express_db
-  volumes:
-    - ./storage/mariadb-volume:/var/lib/mysql
-  environment:
-    MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-    MYSQL_DATABASE: ${DB_DATABASE}
-    MYSQL_USER: ${DB_USERNAME}
-    MYSQL_PASSWORD: ${DB_PASSWORD}
-  restart: always
-  ports:
-    - '3307:3306'
-  networks:
-    - express_network
-```
-
-After all the above configuration is adjusted, you can run it with the command:
-
-Command aggregates the output of each container
+### Building image docker
 
 ```sh
-docker-compose up
+docker build . -t <your username>/expresso
 ```
 
-Detached mode: Run containers in the background,
+Your image will now be listed by Docker:
 
 ```sh
-docker-compose up -d
+$ docker images
+
+# Example
+REPOSITORY                      TAG        ID              CREATED
+node                            16         3b66eb585643    5 days ago
+<your username>/expresso        latest     d64d3505b0d2    1 minute ago
+```
+
+### Run Image
+
+```sh
+docker run -p 7000:8000 -d <your username>/expresso
+```
+
+Print the output of your app:
+
+```sh
+# Get container ID
+$ docker ps
+
+# Print app output
+$ docker logs <container id>
+
+# Example
+Running on http://localhost:8080
+```
+
+If you need to go inside the container you can use the `exec` command:
+
+```sh
+# Enter the container
+$ docker exec -it <container id> /bin/bash
 ```
 
 ### Release your version app
@@ -332,12 +319,11 @@ OAUTH_REFRESH_TOKEN=your_refresh_token
 
 ## Author
 
-👤 **masb0ymas**
+👤 [**masb0ymas** (Resume)](https://masb0ymas.netlify.app/)
 
-- Website: https://resume.masb0ymas.vercel.app
-- Twitter: [@masb0ymas](https://twitter.com/masb0ymas)
-- Github: [@masb0ymas](https://github.com/masb0ymas)
-- LinkedIn: [@masb0ymas](https://www.linkedin.com/in/masb0ymas/)
+[![Github](https://badges.aleen42.com/src/github.svg)](https://github.com/masb0ymas)
+[![Twitter](https://badges.aleen42.com/src/twitter.svg)](https://twitter.com/masb0ymas)
+[![Linkedin](https://img.shields.io/badge/Linkedin-Informational?logo=linkedin&color=0A66C2&logoColor=white)](https://www.linkedin.com/in/masb0ymas)
 
 ## Support Me
 
