@@ -24,6 +24,9 @@
     "register": "Pendaftaran berhasil",
     "login": "Berhasil masuk",
     "logout": "Anda telah keluar dari aplikasi",
-    "data_received": "data telah diterima"
+    "data_received": "data telah diterima",
+    "data_added": "data telah ditambahkan",
+    "data_updated": "data telah diperbarui",
+    "data_deleted": "data telah dihapus"
   }
 }

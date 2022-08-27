@@ -24,6 +24,9 @@
     "register": "Registration is successful",
     "login": "Login successfully",
     "logout": "You have logged out of the application",
-    "data_received": "data has been received"
+    "data_received": "data has been received",
+    "data_added": "data has been added",
+    "data_updated": "data has been updated",
+    "data_deleted": "data has been deleted"
   }
 }
