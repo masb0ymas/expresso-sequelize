@@ -49,6 +49,7 @@ class App {
     this.routes()
   }
 
+  // Setup Plugin & Middleware
   private plugins(): void {
     this.application.use(Helmet())
     this.application.use(Cors(optCors))
@@ -78,6 +79,7 @@ class App {
     })
   }
 
+  // Setup Docs Swagger
   private docsSwagger(): void {
     this.application.get('/v1/api-docs.json', (req: Request, res: Response) => {
       res.setHeader('Content-Type', 'application/json')
@@ -91,6 +93,7 @@ class App {
     )
   }
 
+  // Setup Routes
   private routes(): void {
     this.application.use(indexRoutes)
 
@@ -102,6 +105,7 @@ class App {
     })
   }
 
+  // Run App
   public run(): void {
     // rollback transaction sequelize
     this.application.use(async function handleRollbackTransaction(
