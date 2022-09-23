@@ -31,7 +31,6 @@ export interface SqlizeOptions {
   paranoid?: boolean
   transaction?: Transaction
   force?: boolean
-  lang?: string
 }
 
 export interface GenerateOptions {

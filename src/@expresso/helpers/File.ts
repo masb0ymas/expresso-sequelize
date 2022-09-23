@@ -27,10 +27,9 @@ export function readHTMLFile(filePath: string, callback: any): void {
 export function writeFileStream(outputPath: string, fileStream: Buffer): void {
   fs.writeFile(outputPath, fileStream, function (err) {
     if (err) return console.log(err)
-    console.log(
-      logServer('path stream', 'generate file successfully'),
-      chalk.cyan(outputPath)
-    )
+
+    console.log(logServer('path stream', 'generate file successfully'))
+    console.log(chalk.cyan(outputPath))
   })
 }
 
@@ -45,17 +44,20 @@ export function writeFileFromBase64(
 ): boolean {
   const bufferData = Buffer.from(base64Data, 'base64')
 
+  const logType = 'file from base64'
+
   if (fs.existsSync(path.resolve(filePath))) {
-    console.log(logServer('file from base64', 'file exist, location... '), {
-      filePath,
-    })
+    console.log(logServer(logType, `file exist, location => ${filePath}`))
+    console.log({ filePath })
+
     return true
   }
 
   console.log(
-    logServer('file from base64', 'file not exist, creating file... '),
-    { filePath }
+    logServer(logType, `file not exist, creating file => ${filePath}`)
   )
+  console.log({ filePath })
+
   fs.writeFileSync(filePath, bufferData)
   return false
 }
@@ -67,7 +69,7 @@ export function writeFileFromBase64(
 export function createDirNotExist(pathDir: string): void {
   if (!fs.existsSync(path.resolve(pathDir))) {
     fs.mkdirSync(pathDir, { recursive: true })
-    console.log(logServer('path', `created directory ${pathDir}`))
+    console.log(logServer('path', `created directory => ${pathDir}`))
   }
 }
 
