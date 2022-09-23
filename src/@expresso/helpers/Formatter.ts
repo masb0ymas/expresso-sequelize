@@ -47,6 +47,11 @@ function validateEmpty(value: any): any {
   return value
 }
 
+/**
+ *
+ * @param value
+ * @returns
+ */
 function validateBoolean(value: string | boolean | number | any): boolean {
   const invalidValues = [
     null,

@@ -3,6 +3,11 @@ import chalk from 'chalk'
 import fs from 'fs'
 import _ from 'lodash'
 
+/**
+ *
+ * @param controllerPath
+ * @param filePath
+ */
 function getController(controllerPath: string, filePath: string): void {
   // check file TS
   if (fs.existsSync(`${controllerPath}.ts`)) {

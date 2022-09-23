@@ -1,5 +1,10 @@
 const locale = 'id-ID'
 
+/**
+ *
+ * @param value
+ * @returns
+ */
 export const formatCurrencyIDR = (value: string | number | any): string => {
   if (value && Number(value)) {
     return new Intl.NumberFormat(locale, {
@@ -12,6 +17,11 @@ export const formatCurrencyIDR = (value: string | number | any): string => {
   return '-'
 }
 
+/**
+ *
+ * @param value
+ * @returns
+ */
 export const formatCurrency = (value: string | number | any): string => {
   if (value && Number(value)) {
     return new Intl.NumberFormat(locale, {
@@ -22,6 +32,11 @@ export const formatCurrency = (value: string | number | any): string => {
   return '-'
 }
 
+/**
+ *
+ * @param value
+ * @returns
+ */
 export const currencyParser = (value: string | number | any): any => {
   try {
     // for when the input gets clears

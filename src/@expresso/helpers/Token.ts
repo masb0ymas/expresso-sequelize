@@ -37,11 +37,10 @@ function generateAccessToken(payload: any): PayloadAccessToken {
   const getMilliSecondExpires = ms(JWT_ACCESS_TOKEN_EXPIRED)
   const expiresIn = Number(getMilliSecondExpires) / 1000
 
-  const accessToken = jwt.sign(
-    JSON.parse(JSON.stringify(payload)),
-    JWT_SECRET_ACCESS_TOKEN,
-    { expiresIn }
-  )
+  const payloadData = JSON.parse(JSON.stringify(payload)) // payload data jwt
+  const secretKey = JWT_SECRET_ACCESS_TOKEN // secret or private key
+
+  const accessToken = jwt.sign(payloadData, secretKey, { expiresIn })
 
   return { accessToken, expiresIn }
 }
@@ -55,8 +54,10 @@ function getToken(headers: IncomingHttpHeaders): string | null | any {
   if (headers?.authorization) {
     const parted = headers.authorization.split(' ')
 
+    const AuthorizationAllowed = ['Bearer', 'JWT', 'Token']
+
     // Check Bearer xxx || JWT xxx
-    if (parted[0] === 'Bearer' || parted[0] === 'JWT') {
+    if (AuthorizationAllowed.includes(parted[0])) {
       if (parted.length === 2) {
         return parted[1]
       }

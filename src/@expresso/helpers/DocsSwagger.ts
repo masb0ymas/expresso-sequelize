@@ -13,6 +13,11 @@ import swaggerJSDoc from 'swagger-jsdoc'
 const baseRoutes = path.resolve(`${__dirname}/../docs/swagger/routes`)
 // const baseSchemas = path.resolve(`${__dirname}/../docs/swagger/schemas`)
 
+/**
+ *
+ * @param basePath
+ * @returns
+ */
 const getDocs = (basePath: string | Buffer): {} => {
   return fs.readdirSync(basePath).reduce((acc, file) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires

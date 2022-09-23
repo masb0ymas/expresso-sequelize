@@ -11,6 +11,11 @@ import { AXIOS_TIMEOUT } from './env'
 const Redis = new RedisProvider()
 const timeout = ms(AXIOS_TIMEOUT)
 
+/**
+ *
+ * @param baseUri
+ * @returns
+ */
 function createAxios(baseUri: string): AxiosInstance {
   const instanceAxios = axios.create({ baseURL: baseUri, timeout })
 
