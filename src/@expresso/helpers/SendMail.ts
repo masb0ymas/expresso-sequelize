@@ -7,7 +7,7 @@ import path from 'path'
 import { readHTMLFile } from './File'
 import { APP_NAME } from '@config/env'
 
-interface AccountRegistrationProps {
+interface AccountRegistrationEntity {
   email: string
   fullName: string
   token: string
@@ -18,17 +18,30 @@ const SMTPEmail = new EmailProvider()
 class SendMail {
   /**
    *
-   * @param formData
+   * @param html
+   * @returns
    */
-  public static AccountRegistration(formData: AccountRegistrationProps): void {
+  private static getPath(html: string): string {
     const templatePath = path.resolve(
-      `${__dirname}/../../../public/templates/emails/register.html`
+      `${__dirname}/../../../public/templates/emails/${html}`
     )
     console.log({ templatePath })
 
-    const subject = 'Email Verification'
-    const tokenUrl = `${BASE_URL_SERVER}/v1/email/verify?token=${formData.token}`
-    const templateData = { APP_NAME, tokenUrl, ...formData }
+    return templatePath
+  }
+
+  /**
+   *
+   * @param values
+   */
+  public static AccountRegistration(values: AccountRegistrationEntity): void {
+    const templatePath = this.getPath('register.html')
+
+    const { email, token } = values
+    const subject = `Email Verification`
+
+    const tokenUrl = `${BASE_URL_SERVER}/v1/email/verify?token=${token}`
+    const templateData = { APP_NAME, tokenUrl, ...values }
 
     if (!fs.existsSync(templatePath)) {
       throw new ResponseError.BadRequest(
@@ -43,7 +56,7 @@ class SendMail {
       const template = Handlebars.compile(html)
       const htmlToSend = template(templateData)
 
-      SMTPEmail.send(formData.email, subject, htmlToSend)
+      SMTPEmail.send(email, subject, htmlToSend)
     })
   }
 }
