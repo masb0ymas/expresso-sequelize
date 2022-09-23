@@ -213,16 +213,26 @@ class UserService {
    * @param ids
    * @param options
    */
-  public static async multipleRestore(
-    ids: string[],
-    options?: ReqOptions
-  ): Promise<void> {
+  private static validateIds(ids: string[], options?: ReqOptions): void {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
     if (_.isEmpty(ids)) {
       const message = i18nConfig.t('errors.cant_be_empty', i18nOpt)
       throw new ResponseError.BadRequest(`ids ${message}`)
     }
+  }
+
+  /**
+   *
+   * @param ids
+   * @param options
+   */
+  public static async multipleRestore(
+    ids: string[],
+    options?: ReqOptions
+  ): Promise<void> {
+    // validate empty ids
+    this.validateIds(ids, options)
 
     await User.restore({
       where: { id: { [Op.in]: ids } },
@@ -238,15 +248,11 @@ class UserService {
     ids: string[],
     options?: ReqOptions
   ): Promise<void> {
-    const i18nOpt: string | TOptions = { lng: options?.lang }
+    // validate empty ids
+    this.validateIds(ids, options)
 
     // if true = force delete else soft delete
     const isForce = validateBoolean(options?.isForce)
-
-    if (_.isEmpty(ids)) {
-      const message = i18nConfig.t('errors.cant_be_empty', i18nOpt)
-      throw new ResponseError.BadRequest(`ids ${message}`)
-    }
 
     await User.destroy({
       where: { id: { [Op.in]: ids } },
