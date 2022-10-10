@@ -3,7 +3,6 @@ module.exports = {
     get: {
       tags: ['Role'],
       summary: 'Get All Role',
-      produces: ['application/json'],
       security: [
         {
           auth_token: [],
@@ -40,11 +39,6 @@ module.exports = {
           auth_token: [],
         },
       ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
-        },
-      ],
       requestBody: {
         required: true,
         content: {
@@ -75,11 +69,6 @@ module.exports = {
       security: [
         {
           auth_token: [],
-        },
-      ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       requestBody: {
@@ -115,11 +104,6 @@ module.exports = {
           auth_token: [],
         },
       ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
-        },
-      ],
       requestBody: {
         required: true,
         content: {
@@ -153,11 +137,6 @@ module.exports = {
           auth_token: [],
         },
       ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
-        },
-      ],
       requestBody: {
         required: true,
         content: {
@@ -186,7 +165,6 @@ module.exports = {
     get: {
       tags: ['Role'],
       summary: 'Get Role By Id',
-      produces: ['application/json'],
       security: [
         {
           auth_token: [],
@@ -201,9 +179,6 @@ module.exports = {
             type: 'string',
           },
           description: 'Role Id',
-        },
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       responses: {
@@ -229,9 +204,6 @@ module.exports = {
             type: 'string',
           },
           description: 'Role Id',
-        },
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       requestBody: {
@@ -266,7 +238,6 @@ module.exports = {
           auth_token: [],
         },
       ],
-      produces: ['application/json'],
       parameters: [
         {
           in: 'path',
@@ -276,9 +247,6 @@ module.exports = {
             type: 'string',
           },
           description: 'Role Id',
-        },
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       responses: {
@@ -297,7 +265,6 @@ module.exports = {
           auth_token: [],
         },
       ],
-      produces: ['application/json'],
       parameters: [
         {
           in: 'path',
@@ -307,9 +274,6 @@ module.exports = {
             type: 'string',
           },
           description: 'Role Id',
-        },
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       responses: {
@@ -328,7 +292,6 @@ module.exports = {
           auth_token: [],
         },
       ],
-      produces: ['application/json'],
       parameters: [
         {
           in: 'path',
@@ -338,9 +301,6 @@ module.exports = {
             type: 'string',
           },
           description: 'Role Id',
-        },
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       responses: {

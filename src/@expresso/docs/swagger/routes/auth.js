@@ -3,11 +3,6 @@ module.exports = {
     post: {
       tags: ['Auth'],
       summary: 'Create New Account',
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
-        },
-      ],
       requestBody: {
         required: true,
         content: {
@@ -52,11 +47,6 @@ module.exports = {
     post: {
       tags: ['Auth'],
       summary: 'Login Your Account',
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
-        },
-      ],
       requestBody: {
         required: true,
         content: {
@@ -96,15 +86,9 @@ module.exports = {
     get: {
       tags: ['Auth'],
       summary: 'Verify Session',
-      produces: ['application/json'],
       security: [
         {
           auth_token: [],
-        },
-      ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       responses: {
@@ -118,15 +102,9 @@ module.exports = {
     post: {
       tags: ['Auth'],
       summary: 'Logout',
-      produces: ['application/json'],
       security: [
         {
           auth_token: [],
-        },
-      ],
-      parameters: [
-        {
-          $ref: '#/components/parameters/lang',
         },
       ],
       requestBody: {
