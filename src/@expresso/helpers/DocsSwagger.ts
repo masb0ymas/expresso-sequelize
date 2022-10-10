@@ -11,27 +11,40 @@ import path from 'path'
 import swaggerJSDoc from 'swagger-jsdoc'
 
 const baseRoutes = path.resolve(`${__dirname}/../docs/swagger/routes`)
-// const baseSchemas = path.resolve(`${__dirname}/../docs/swagger/schemas`)
+const baseSchemas = path.resolve(`${__dirname}/../docs/swagger/schemas`)
 
 /**
  *
  * @param basePath
  * @returns
  */
-const getDocs = (basePath: string | Buffer): {} => {
+const getRoutesDocs = (basePath: string | Buffer): {} => {
   return fs.readdirSync(basePath).reduce((acc, file) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const data = require(`${baseRoutes}/${file}`)
-    acc = {
-      ...acc,
-      ...data,
-    }
+    acc = { ...acc, ...data }
+
     return acc
   }, {})
 }
 
-const docsSources = getDocs(baseRoutes)
-// const docsSchemes = getDocs(baseSchemas)
+/**
+ *
+ * @param basePath
+ * @returns
+ */
+const getSchemaDocs = (basePath: string | Buffer): {} => {
+  return fs.readdirSync(basePath).reduce((acc, file) => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const data = require(`${baseSchemas}/${file}`)
+    acc = { ...acc, ...data }
+
+    return acc
+  }, {})
+}
+
+const docsRoutes = getRoutesDocs(baseRoutes)
+const docsSchemas = getSchemaDocs(baseSchemas)
 
 let baseURLServer = []
 let swaggerOptURL = []
@@ -87,6 +100,10 @@ export const swaggerOptions = {
     info: {
       title: `Api ${APP_NAME} Docs`,
       description: `This is Api Documentation ${APP_NAME}`,
+      license: {
+        name: 'MIT',
+        url: 'https://github.com/masb0ymas/expresso/blob/main/LICENSE.md',
+      },
       version: '1.0.0',
     },
     openapi: '3.0.1',
@@ -107,32 +124,32 @@ export const swaggerOptions = {
             'JWT Authorization header using the JWT scheme. Example: “Authorization: JWT {token}”',
         },
       },
-      // schemas: docsSchemes,
+      schemas: docsSchemas,
       parameters: {
         page: {
           in: 'query',
           name: 'page',
+          schema: { type: 'string' },
           required: false,
-          default: 1,
         },
         pageSize: {
           in: 'query',
           name: 'pageSize',
+          schema: { type: 'string' },
           required: false,
-          default: 10,
         },
         filtered: {
           in: 'query',
           name: 'filtered',
+          schema: { type: 'string' },
           required: false,
-          default: [],
           description: 'Example: [{"id": "email", "value": "anyValue"}]',
         },
         sorted: {
           in: 'query',
           name: 'sorted',
+          schema: { type: 'string' },
           required: false,
-          default: [],
           description: 'Example: [{"id": "createdAt", "desc": true}]',
         },
         lang: {
@@ -143,7 +160,7 @@ export const swaggerOptions = {
         },
       },
     },
-    paths: docsSources,
+    paths: docsRoutes,
   },
   apis: [],
 }
