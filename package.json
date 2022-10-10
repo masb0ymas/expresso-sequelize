@@ -59,7 +59,7 @@
     "firebase-admin": "^11.1.0",
     "googleapis": "^108.0.0",
     "handlebars": "^4.7.7",
-    "helmet": "^5.1.1",
+    "helmet": "^6.0.0",
     "hpp": "^0.2.3",
     "i18next": "^21.10.0",
     "i18next-fs-backend": "^1.1.5",
