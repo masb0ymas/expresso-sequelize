@@ -1,12 +1,8 @@
 import { Column, DeletedAt, Table } from 'sequelize-typescript'
-import BaseEntity from './Base'
+import Base, { BaseEntity } from './Base'
 
-interface RoleEntity {
-  id?: string
+interface RoleEntity extends BaseEntity {
   name: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date | null
 }
 
 export type RoleAttributes = Omit<
@@ -15,7 +11,7 @@ export type RoleAttributes = Omit<
 >
 
 @Table({ tableName: 'role', paranoid: true })
-class Role extends BaseEntity {
+class Role extends Base {
   @DeletedAt
   @Column
   deletedAt?: Date

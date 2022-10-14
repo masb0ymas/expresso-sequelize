@@ -1,17 +1,13 @@
 import { Column, DataType, DeletedAt, Table } from 'sequelize-typescript'
-import BaseEntity from './Base'
+import Base, { BaseEntity } from './Base'
 
-interface UploadEntity {
-  id?: string
+interface UploadEntity extends BaseEntity {
   keyFile: string
   filename: string
   mimetype: string
   size: number
   signedURL: string
   expiryDateURL: Date
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date | null
 }
 
 export type UploadAttributes = Omit<
@@ -20,7 +16,7 @@ export type UploadAttributes = Omit<
 >
 
 @Table({ tableName: 'upload', paranoid: true })
-class Upload extends BaseEntity {
+class Upload extends Base {
   @DeletedAt
   @Column
   deletedAt?: Date

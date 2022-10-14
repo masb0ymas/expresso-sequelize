@@ -15,13 +15,12 @@ import {
   Table,
   Unique,
 } from 'sequelize-typescript'
-import BaseEntity from './Base'
+import Base, { BaseEntity } from './Base'
 import Role from './Role'
 import Session from './Session'
 import Upload from './Upload'
 
-interface UserEntity {
-  id?: string
+interface UserEntity extends BaseEntity {
   fullName: string
   email: string
   newPassword?: string | null
@@ -33,9 +32,6 @@ interface UserEntity {
   isBlocked?: boolean | null
   UploadId?: string | null
   RoleId: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date | null
 }
 
 export interface UserLoginAttributes {
@@ -63,7 +59,7 @@ export type UserAttributes = Omit<
   withPassword: {},
 }))
 @Table({ tableName: 'user', paranoid: true })
-class User extends BaseEntity {
+class User extends Base {
   @DeletedAt
   @Column
   deletedAt?: Date

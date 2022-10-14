@@ -6,7 +6,7 @@ import {
   IsUUID,
   Table,
 } from 'sequelize-typescript'
-import BaseEntity from './Base'
+import Base from './Base'
 import User from './User'
 
 interface SessionEntity {
@@ -26,7 +26,7 @@ export type SessionAttributes = Omit<
 >
 
 @Table({ tableName: 'session' })
-class Session extends BaseEntity {
+class Session extends Base {
   @IsUUID(4)
   @ForeignKey(() => User)
   @Column({

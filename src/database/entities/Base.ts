@@ -9,8 +9,15 @@ import {
   UpdatedAt,
 } from 'sequelize-typescript'
 
+export interface BaseEntity {
+  id?: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date | null
+}
+
 @Table({ tableName: 'base' })
-class BaseEntity extends Model {
+class Base extends Model {
   @IsUUID(4)
   @PrimaryKey
   @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
@@ -25,4 +32,4 @@ class BaseEntity extends Model {
   updatedAt!: Date
 }
 
-export default BaseEntity
+export default Base
