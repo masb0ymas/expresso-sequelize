@@ -13,17 +13,13 @@ import _ from 'lodash'
 import { Op } from 'sequelize'
 import roleSchema from './schema'
 
-interface DtoPaginate extends DtoFindAll {
-  data: Role[]
-}
-
 class RoleService {
   /**
    *
    * @param req
    * @returns
    */
-  public static async findAll(req: Request): Promise<DtoPaginate> {
+  public static async findAll(req: Request): Promise<DtoFindAll<Role>> {
     const { lang } = req.getQuery()
 
     const defaultLang = lang ?? APP_LANG

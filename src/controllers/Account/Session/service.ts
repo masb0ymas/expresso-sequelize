@@ -11,17 +11,13 @@ import { Request } from 'express'
 import { TOptions } from 'i18next'
 import sessionSchema from './schema'
 
-interface DtoPaginate extends DtoFindAll {
-  data: Session[]
-}
-
 class SessionService {
   /**
    *
    * @param req
    * @returns
    */
-  public static async findAll(req: Request): Promise<DtoPaginate> {
+  public static async findAll(req: Request): Promise<DtoFindAll<Session>> {
     const { lang } = req.getQuery()
 
     const defaultLang = lang ?? APP_LANG

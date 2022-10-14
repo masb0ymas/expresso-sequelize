@@ -19,10 +19,6 @@ import _ from 'lodash'
 import { Op } from 'sequelize'
 import userSchema from './schema'
 
-interface DtoPaginate extends DtoFindAll {
-  data: User[]
-}
-
 const including = [{ model: Role }, { model: Session }]
 
 class UserService {
@@ -31,7 +27,7 @@ class UserService {
    * @param req
    * @returns
    */
-  public static async findAll(req: Request): Promise<DtoPaginate> {
+  public static async findAll(req: Request): Promise<DtoFindAll<User>> {
     const { lang, filtered } = req.getQuery()
 
     const defaultLang = lang ?? APP_LANG

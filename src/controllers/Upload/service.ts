@@ -30,10 +30,6 @@ import { Op } from 'sequelize'
 import { validate as uuidValidate } from 'uuid'
 import uploadSchema from './schema'
 
-interface DtoPaginate extends DtoFindAll {
-  data: Upload[]
-}
-
 interface DtoUploadWithSignedUrlEntity {
   dataAwsS3: PutObjectCommandOutput
   resUpload: Upload
@@ -45,7 +41,7 @@ class UploadService {
    * @param req
    * @returns
    */
-  public static async findAll(req: Request): Promise<DtoPaginate> {
+  public static async findAll(req: Request): Promise<DtoFindAll<Upload>> {
     const { lang } = req.getQuery()
 
     const defaultLang = lang ?? APP_LANG
