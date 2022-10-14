@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.1](https://github.com/masb0ymas/expresso/compare/v4.1.0...v4.1.1) (2022-10-14)
+
+
+### Bug Fixes
+
+* add validate ids ([ba746d7](https://github.com/masb0ymas/expresso/commit/ba746d75d915e7d09314cb3e7ccc1c406345f71a))
+* docs routes swagger ([485148f](https://github.com/masb0ymas/expresso/commit/485148f5040f4be53ede134cf9c3334468654a2b))
+* improve base entity ([1c90bf8](https://github.com/masb0ymas/expresso/commit/1c90bf8495d1752d8494d4e996a417673bd511d3))
+* **improve:** translation http response ([9cb1731](https://github.com/masb0ymas/expresso/commit/9cb17317b4959ff1649998092cd5651118d17b41))
+* mapping docs schema swagger ([2276b79](https://github.com/masb0ymas/expresso/commit/2276b79628176b3a001556537f90ebce30ca1700))
+* rename FCM helper ([c02d438](https://github.com/masb0ymas/expresso/commit/c02d43834cda57f3ae4a49db987782809b817c8a))
+* script pre release ([f3059c2](https://github.com/masb0ymas/expresso/commit/f3059c211ae059d637a3411bbfa009c5e99b7f5d))
+* Send mail helper ([f702223](https://github.com/masb0ymas/expresso/commit/f702223b2d236e331406817f0888315b4377df49))
+
 ## [4.1.0](https://github.com/masb0ymas/expresso/compare/v4.0.1...v4.1.0) (2022-08-25)
 
 
