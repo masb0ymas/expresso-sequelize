@@ -57,7 +57,7 @@
     "express-async-handler": "^1.2.0",
     "express-useragent": "^1.0.15",
     "firebase": "^9.11.0",
-    "firebase-admin": "^11.1.0",
+    "firebase-admin": "^11.2.0",
     "googleapis": "^108.0.0",
     "handlebars": "^4.7.7",
     "helmet": "^6.0.0",
