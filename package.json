@@ -80,7 +80,7 @@
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
     "randomstring": "^1.2.2",
-    "rate-limiter-flexible": "^2.3.11",
+    "rate-limiter-flexible": "^2.4.1",
     "redis": "^3.1.2",
     "reflect-metadata": "^0.1.13",
     "request-ip": "^3.3.0",
