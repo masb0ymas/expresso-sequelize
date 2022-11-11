@@ -51,25 +51,27 @@ function createAxios(baseUri: string): AxiosInstance {
       const errAxios = (type: string): string => chalk.red(`Axios Err: ${type}`)
 
       if (statusCode === 401) {
-        console.log(logErrServer(errAxios('Unauhtorized'), message))
-        throw new ResponseError.Unauthorized(message)
+        console.log(logErrServer(errAxios('Unauhtorized'), String(message)))
+        throw new ResponseError.Unauthorized(String(message))
       }
 
       if (statusCode === 400) {
-        console.log(logErrServer(errAxios('Bad Request'), message))
-        throw new ResponseError.BadRequest(message)
+        console.log(logErrServer(errAxios('Bad Request'), String(message)))
+        throw new ResponseError.BadRequest(String(message))
       }
 
       if (statusCode === 404) {
-        console.log(logErrServer(errAxios('Not Found'), message))
-        throw new ResponseError.NotFound(message)
+        console.log(logErrServer(errAxios('Not Found'), String(message)))
+        throw new ResponseError.NotFound(String(message))
       }
 
       const handleError = error?.response?.headers?.handleError
 
       if (!handleError) {
         if (error.code === 'ECONNREFUSED') {
-          console.log(logErrServer(errAxios('Service Unavailable'), message))
+          console.log(
+            logErrServer(errAxios('Service Unavailable'), String(message))
+          )
           throw new ResponseError.InternalServer('Service Unavailable')
         }
 

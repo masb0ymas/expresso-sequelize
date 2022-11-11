@@ -1,7 +1,7 @@
 import { LOG_SERVER } from '@config/baseURL'
 import { logErrServer } from '@expresso/helpers/Formatter'
 import { NextFunction, Request, Response } from 'express'
-import { get } from 'lodash'
+import _ from 'lodash'
 import { BaseError, EmptyResultError, ValidationError } from 'sequelize'
 
 function msg(message: string): string {
@@ -23,10 +23,10 @@ async function ExpressErrorSequelize(
     }
 
     if (err instanceof ValidationError) {
-      const errors: any[] = get(err, 'errors', [])
-      const errorMessage = get(errors, '0.message', null)
+      const errors: any[] = _.get(err, 'errors', [])
+      const errorMessage = _.get(errors, '0.message', null)
 
-      console.log(logErrServer('Sequelize Error:', errorMessage))
+      console.log(logErrServer('Sequelize Error:', String(errorMessage)))
 
       const dataError = {
         code: 400,
