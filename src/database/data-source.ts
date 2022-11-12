@@ -9,6 +9,7 @@ import {
   DB_DATABASE,
   DB_HOST,
   DB_PASSWORD,
+  DB_PORT,
   DB_TIMEZONE,
   DB_USERNAME,
 } from '../config/env'
@@ -27,6 +28,7 @@ const sequelizeOptions: SequelizeOptions = {
   // @ts-expect-error
   dialect: DB_CONNECTION,
   host: DB_HOST,
+  port: DB_PORT,
   logQueryParameters: true,
   timezone: DB_TIMEZONE,
   models: [`${__dirname}/entities`],
