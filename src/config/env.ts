@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import 'dotenv/config'
 
-function validateBoolean(value: string | boolean | number | any): boolean {
+function validateBoolean(value: any): boolean {
   const invalidValues = [
     null,
     undefined,
