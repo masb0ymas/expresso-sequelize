@@ -7,7 +7,7 @@ import getterObject from './getterObject'
 import Multers from './Multer'
 
 class withState {
-  private req: Request
+  private readonly req: Request
 
   constructor(req: Request) {
     this.req = req
