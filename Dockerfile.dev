@@ -33,7 +33,7 @@ RUN export NODE_OPTIONS=\"--max_old_space_size=4096\"
 COPY . .
 
 # copy environment
-RUN cp .env.docker-production .env
+RUN cp .env.docker-staging .env
 
 COPY --from=deps /temp-deps/node_modules ./node_modules
 
@@ -55,7 +55,7 @@ RUN npm i -g pm2
 # Set the Current Working Directory inside the container
 WORKDIR /app
 
-ENV NODE_ENV production
+ENV NODE_ENV staging
 
 # Setup Timezone
 RUN apk add tzdata
@@ -80,5 +80,5 @@ RUN node ./dist/scripts/generate.js
 # This container exposes port 8000 to the outside world
 EXPOSE 8000
 
-# Run for production
-CMD ["yarn", "serve:production-docker"]
+# Run for staging
+CMD ["yarn", "serve:staging-docker"]
