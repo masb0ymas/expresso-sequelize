@@ -1,19 +1,13 @@
-import { BASE_URL_SERVER } from '@config/baseURL'
+import { APP_NAME } from '@config/env'
+import { AccountRegistrationEntity } from '@expresso/interfaces/SendMail'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import EmailProvider from '@expresso/providers/Email'
 import fs from 'fs'
 import Handlebars from 'handlebars'
 import path from 'path'
 import { readHTMLFile } from './File'
-import { APP_NAME } from '@config/env'
 
-interface AccountRegistrationEntity {
-  email: string
-  fullName: string
-  token: string
-}
-
-const SMTPEmail = new EmailProvider()
+const MailProvider = new EmailProvider()
 
 class SendMail {
   /**
@@ -32,32 +26,44 @@ class SendMail {
 
   /**
    *
-   * @param values
+   * @param _path
+   * @param mailTo
+   * @param subject
+   * @param data
    */
-  public static AccountRegistration(values: AccountRegistrationEntity): void {
-    const templatePath = this.getPath('register.html')
-
-    const { email, token } = values
-    const subject = `Email Verification`
-
-    const tokenUrl = `${BASE_URL_SERVER}/v1/email/verify?token=${token}`
-    const templateData = { APP_NAME, tokenUrl, ...values }
-
-    if (!fs.existsSync(templatePath)) {
-      throw new ResponseError.BadRequest(
-        'invalid template path for email registration'
-      )
+  private static sendTemplateMail(
+    _path: string,
+    mailTo: string,
+    subject: string,
+    data: string | any
+  ): void {
+    if (!fs.existsSync(_path)) {
+      throw new ResponseError.BadRequest('invalid template path ')
     }
 
-    // read html template email
-    readHTMLFile(templatePath, (err: Error, html: any) => {
+    readHTMLFile(_path, (err: Error, html: any) => {
       if (err) console.log(err)
 
       const template = Handlebars.compile(html)
-      const htmlToSend = template(templateData)
+      const htmlToSend = template(data)
 
-      SMTPEmail.send(email, subject, htmlToSend)
+      MailProvider.send(mailTo, subject, htmlToSend)
     })
+  }
+
+  /**
+   *
+   * @param values
+   */
+  public static AccountRegistration(values: AccountRegistrationEntity): void {
+    const _path = this.getPath('register.html')
+
+    const { fullName, email } = values
+    const subject = `${fullName}, Terima kasih telah mendaftar di App ${APP_NAME}`
+
+    const data = { ...values }
+
+    this.sendTemplateMail(_path, email, subject, data)
   }
 }
 
