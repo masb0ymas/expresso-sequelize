@@ -1,19 +1,19 @@
 /* eslint-disable prettier/prettier */
 import 'dotenv/config'
 
-function validateBoolean(value: any): boolean {
-  const invalidValues = [
-    null,
-    undefined,
-    '',
-    false,
-    0,
-    'false',
-    '0',
-    'null',
-    'undefined',
-  ]
+const invalidValues = [
+  null,
+  undefined,
+  '',
+  false,
+  0,
+  'false',
+  '0',
+  'null',
+  'undefined',
+]
 
+function validateBoolean(value: any): boolean {
   if (invalidValues.includes(value)) {
     return false
   }
@@ -106,3 +106,9 @@ export const AWS_SECRET_KEY: any = process.env.AWS_SECRET_KEY ?? undefined
 export const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME ?? 'expresso'
 export const AWS_REGION = process.env.AWS_REGION ?? 'ap-southeast-1'
 export const AWS_S3_EXPIRED = process.env.AWS_S3_EXPIRED ?? '7d'
+
+// google cloud platform
+export const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID ?? undefined
+export const GCS_BUCKET_NAME = process.env.GCS_BUCKET_NAME ?? 'expresso'
+export const GCS_REGION = process.env.GCS_REGION ?? 'asia-southeast2'
+export const GCS_EXPIRED = process.env.GCS_EXPIRED ?? '7d'

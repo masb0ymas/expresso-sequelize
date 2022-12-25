@@ -69,10 +69,9 @@ const initialAwsS3 = async (): Promise<
 }
 
 const getNumberExpires = AWS_S3_EXPIRED.replace(/[^0-9]/g, '')
-const getMilliSecondExpires = ms(AWS_S3_EXPIRED)
 
 // S3 Object Expired ( 7 days )
-export const s3ObjectExpired = Number(getMilliSecondExpires) / 1000
+export const s3ObjectExpired = ms(AWS_S3_EXPIRED) / 1000
 
 // S3 Expires in 7 days
 export const s3ExpiresDate = addDays(new Date(), Number(getNumberExpires))
