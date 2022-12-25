@@ -1,12 +1,17 @@
 import ResponseError from '@expresso/modules/Response/ResponseError'
-import { E164Number, parsePhoneNumberFromString } from 'libphonenumber-js'
+import {
+  CountryCode,
+  E164Number,
+  parsePhoneNumber,
+  parsePhoneNumberFromString,
+} from 'libphonenumber-js'
 
 /**
  *
  * @param phone {string}
  * @returns {E164Number | undefined}
  */
-function formatPhone(phone: string): E164Number | undefined {
+export function formatPhone(phone: string): E164Number | undefined {
   let transformPhone = ''
 
   // indonesian phone format
@@ -33,19 +38,12 @@ function formatPhone(phone: string): E164Number | undefined {
  * @param phone {string}
  * @returns {string}
  */
-function formatPhoneWhatsApp(phone: string): string {
-  let newPhone = ''
-
-  if (phone.startsWith('08')) {
-    // @ts-expect-error
-    newPhone = formatPhone(phone)
-  } else {
-    newPhone = phone
-  }
+export function formatPhoneWhatsApp(phone: string): string {
+  const newPhone = formatPhone(phone)
 
   let formatted = ''
 
-  if (!newPhone.endsWith('@c.us')) {
+  if (!newPhone?.endsWith('@c.us')) {
     formatted = `${newPhone}@c.us`
   }
 
@@ -59,21 +57,23 @@ function formatPhoneWhatsApp(phone: string): string {
  * @param phone
  * @returns
  */
-function formatHidePhone(phone: string): string {
-  const newPhone = formatPhone(phone) as String
-  const splitPhone = newPhone.split('+62') // ['+62', '81234567890']
+export function formatHidePhone(
+  phone: string,
+  options?: { country?: CountryCode }
+): string {
+  const defaultCountry = options?.country ?? 'ID'
 
-  const phoneNumber = splitPhone[1] // '81234567890'
+  const newPhone = parsePhoneNumber(phone, defaultCountry) // +621234567890
+  const phoneNumber = newPhone.nationalNumber // '81234567890'
+  const countryCode = newPhone.countryCallingCode // 62
 
-  const lengthPhone = splitPhone[1].length
+  const lengthPhone = phoneNumber.length
   const hideLength = lengthPhone - 6
 
   const startPhone = phoneNumber.slice(0, hideLength) // '81234'
   const endPhone = phoneNumber.slice(hideLength + 3) // '890'
 
-  const resultPhone = `+62${startPhone}***${endPhone}` // '+6281234***890'
+  const resultPhone = `+${countryCode}${startPhone}***${endPhone}` // '+6281234***890'
 
   return resultPhone
 }
-
-export { formatPhone, formatPhoneWhatsApp, formatHidePhone }
