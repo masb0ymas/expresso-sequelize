@@ -1,6 +1,13 @@
 import { EXPIRED_OTP, SECRET_OTP } from '@config/env'
+import { i18nConfig } from '@config/i18nextConfig'
+import { ReqOptions } from '@expresso/interfaces/ReqOptions'
+import ResponseError from '@expresso/modules/Response/ResponseError'
+import RedisProvider from '@expresso/providers/Redis'
 import crypto from 'crypto'
+import { TOptions } from 'i18next'
 import ms from 'ms'
+
+const redisProvider = new RedisProvider()
 
 interface HashOTPAttributes {
   phone: string
@@ -74,4 +81,44 @@ export function verifyHashOTP(params: VerifyHashOTPAttributes): boolean {
   }
 
   return false
+}
+
+/**
+ *
+ * @param phone
+ * @param otp
+ * @param options
+ */
+export async function takeOverOTP(
+  phone: string,
+  otp: string,
+  options?: ReqOptions
+): Promise<void> {
+  const i18nOpt: string | TOptions = { lng: options?.lang }
+
+  const keyRedis = `${phone}`
+  const timeoutCache = ms('10m') // 10 minutes
+  const getCache: any = await redisProvider.get(keyRedis)
+  const limitVerifyOTP = 5
+  let cacheData = []
+
+  // Get Cache
+  if (!getCache) {
+    cacheData = [otp]
+  } else {
+    cacheData = [...getCache, otp]
+  }
+
+  // check takeover verify OTP
+  if (cacheData.length >= limitVerifyOTP) {
+    const message = i18nConfig.t('errors.login_back', i18nOpt)
+    throw new ResponseError.BadRequest(message)
+  }
+
+  console.log({ cacheData })
+
+  // Set Redis
+  await redisProvider.set(keyRedis, cacheData, {
+    timeout: timeoutCache,
+  })
 }
