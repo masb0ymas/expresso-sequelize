@@ -21,6 +21,22 @@ const invalidValues = [
 
 /**
  *
+ * @param length
+ * @returns
+ */
+export const getUniqueCodev2 = (length = 32): string => {
+  let result = ''
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const charactersLength = characters.length
+  for (let i = 0; i < length; i += 1) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  return result
+}
+
+/**
+ *
  * @param arrayData
  * @returns
  */
@@ -96,6 +112,19 @@ export function validateUUID(value: string, options?: ReqOptions): string {
  */
 export function isNumeric(value: any): boolean {
   return !_.isNaN(parseFloat(value)) && _.isFinite(value)
+}
+
+/**
+ *
+ * @param value
+ * @returns
+ */
+export function validateNumber(value: any): number {
+  if (isNumeric(Number(value))) {
+    return Number(value)
+  }
+
+  return 0
 }
 
 /**
