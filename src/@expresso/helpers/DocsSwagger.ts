@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { BASE_URL_SERVER } from '@config/baseURL'
 import {
   APP_NAME,
@@ -20,7 +21,6 @@ const baseSchemas = path.resolve(`${__dirname}/../docs/swagger/schemas`)
  */
 const getRoutesDocs = (basePath: string | Buffer): {} => {
   return fs.readdirSync(basePath).reduce((acc, file) => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const data = require(`${baseRoutes}/${file}`)
     acc = { ...acc, ...data }
 
@@ -35,7 +35,6 @@ const getRoutesDocs = (basePath: string | Buffer): {} => {
  */
 const getSchemaDocs = (basePath: string | Buffer): {} => {
   return fs.readdirSync(basePath).reduce((acc, file) => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const data = require(`${baseSchemas}/${file}`)
     acc = { ...acc, ...data }
 
