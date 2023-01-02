@@ -41,7 +41,7 @@
     "node": ">= 14.x"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.226.0",
+    "@aws-sdk/client-s3": "^3.241.0",
     "@aws-sdk/s3-request-presigner": "^3.226.0",
     "axios": "^1.2.1",
     "bcrypt": "^5.1.0",
