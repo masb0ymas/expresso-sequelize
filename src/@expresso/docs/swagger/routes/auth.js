@@ -10,7 +10,7 @@ module.exports = {
             schema: {
               type: 'object',
               properties: {
-                fullName: {
+                fullname: {
                   type: 'string',
                 },
                 email: {
@@ -18,16 +18,18 @@ module.exports = {
                 },
                 newPassword: {
                   type: 'string',
+                  format: 'password',
                 },
                 confirmNewPassword: {
                   type: 'string',
+                  format: 'password',
                 },
                 phone: {
                   type: 'string',
                 },
               },
               required: [
-                'fullName',
+                'fullname',
                 'email',
                 'newPassword',
                 'confirmNewPassword',
@@ -59,6 +61,7 @@ module.exports = {
                 },
                 password: {
                   type: 'string',
+                  format: 'password',
                 },
                 deviceToken: {
                   type: 'string',
