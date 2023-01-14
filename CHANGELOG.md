@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/masb0ymas/expresso/compare/v4.1.1...v4.2.0) (2023-01-14)
+
+
+### Features
+
+* add config gcs ([de52776](https://github.com/masb0ymas/expresso/commit/de52776556177d5892f2b5169fbaf1215452a979))
+
+
+### Bug Fixes
+
+* add sequelize config port ([16c0eae](https://github.com/masb0ymas/expresso/commit/16c0eae59239f7f71d5289be00e79528de2e8048))
+* change otp helper ([cddc018](https://github.com/masb0ymas/expresso/commit/cddc018dca54e98e20dad3b481e21884b40c22b2))
+* check gcs service account ([c163ebd](https://github.com/masb0ymas/expresso/commit/c163ebdc9446a78dc721dbed2e832be39357fe80))
+* client s3 config ([d8a6fa1](https://github.com/masb0ymas/expresso/commit/d8a6fa1886a21c4588635343350c10ea4ec55087))
+* date helper ([931512b](https://github.com/masb0ymas/expresso/commit/931512b53bf9971df79d8a9b9ca5e363a358f3e3))
+* docs swagger auth ([4ae6d74](https://github.com/masb0ymas/expresso/commit/4ae6d743611e711853c544d5d39592120c394f55))
+* docs swagger upload ([ea93d7e](https://github.com/masb0ymas/expresso/commit/ea93d7ed40a49bd7c1049dddbbe139a4daaf876b))
+* docs swagger user ([a4e1b72](https://github.com/masb0ymas/expresso/commit/a4e1b72eabb70777a9ad2434f8b6984a1fa8ee4d))
+* endpoint upload ([2acd658](https://github.com/masb0ymas/expresso/commit/2acd65809c8fb30ae9cbaf9c56233f4a81a18357))
+* env config ([0b61730](https://github.com/masb0ymas/expresso/commit/0b617300108b4d09cfdab106c85f085a5c638625))
+* env docker ([f849bf9](https://github.com/masb0ymas/expresso/commit/f849bf9a5bfe473e13194e43a6968a16edd48844))
+* env docker ([3e776b1](https://github.com/masb0ymas/expresso/commit/3e776b1e3975521c41eb1e96d9247d7d89389466))
+* error typing ([4c2a80e](https://github.com/masb0ymas/expresso/commit/4c2a80e59b114d8cdf81ec97ab9cb5a5381f3959))
+* field entity ([b808c29](https://github.com/masb0ymas/expresso/commit/b808c2945345b0fbc4f6f529c4f980bad7ae3827))
+* field fullname ([07855c2](https://github.com/masb0ymas/expresso/commit/07855c25e1a42c310ea0068da018dcb68fedde35))
+* field migration ([055851b](https://github.com/masb0ymas/expresso/commit/055851bc866f0d209ea213f4f58a5a2cfb23c6e8))
+* field not nullable ([69232ca](https://github.com/masb0ymas/expresso/commit/69232ca2edad387b885f97210915af37a484573a))
+* formatter helper ([f7f7e7a](https://github.com/masb0ymas/expresso/commit/f7f7e7a297760c91fd40b363a18f746d0a063de7))
+* helper formatter ([cd102ce](https://github.com/masb0ymas/expresso/commit/cd102ce960a869590ee7c6c62fd3f4cd39a66aad))
+* import initial gcs ([12a782d](https://github.com/masb0ymas/expresso/commit/12a782d7bd6588af771df36905e75d5276a30eb6))
+* improve dockerfile ([cdb3dbf](https://github.com/masb0ymas/expresso/commit/cdb3dbf13058ce4cb088ab5c41d6890128b882ab))
+* phone helper ([ae39784](https://github.com/masb0ymas/expresso/commit/ae39784234a57959482113929c943e9357051509))
+* remove auto indexing ([41dc047](https://github.com/masb0ymas/expresso/commit/41dc0477dbc6882b48b7837e5a907e02dc4993ab))
+* send mail helper ([12d78a1](https://github.com/masb0ymas/expresso/commit/12d78a1db16ccba0af74620c5a427e35ab5095ed))
+* swagger helper ([9d8eff5](https://github.com/masb0ymas/expresso/commit/9d8eff51f5243ae8a15407d996254d054bff1575))
+* target swc ([39faaf7](https://github.com/masb0ymas/expresso/commit/39faaf79c81b6bc68dfc53582a377d36d76aaed3))
+* typing dto find all ([aa288a4](https://github.com/masb0ymas/expresso/commit/aa288a4b0f35be7e22313c04a5d3512ecccd0a71))
+* typing helper with state ([4f6e178](https://github.com/masb0ymas/expresso/commit/4f6e17853cefefea8eb6d65f135da1817c9b1630))
+* typing with eslint ([0d944d9](https://github.com/masb0ymas/expresso/commit/0d944d9cb00a60a087634d3eea016e7880004671))
+* upload job ([2f1eece](https://github.com/masb0ymas/expresso/commit/2f1eece524495df4691ea0fed0af3b80313cbe23))
+
 ### [4.1.1](https://github.com/masb0ymas/expresso/compare/v4.1.0...v4.1.1) (2022-10-14)
 
 

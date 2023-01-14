@@ -4,11 +4,13 @@
 [![maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/masb0ymas/expresso/graphs/commit-activity)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/masb0ymas/expresso/blob/master/LICENSE.md)
 
-[![Version](https://img.shields.io/badge/Version-4.1.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso/releases/tag/v4.1.0)
+[![Version](https://img.shields.io/badge/Version-4.2.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso/releases/tag/v4.2.0)
 [![Express](https://img.shields.io/badge/Express-4.18.1-informational?logo=express&color=22272E)](https://expressjs.com/)
 ![Node](https://badges.aleen42.com/src/node.svg)
 ![Eslint](https://badges.aleen42.com/src/eslint.svg)
 ![TypeScript](https://badges.aleen42.com/src/typescript.svg)
+
+### [Check Repository expresso with TypeORM](https://github.com/masb0ymas/expresso-typeorm)
 
 ## Feature
 
