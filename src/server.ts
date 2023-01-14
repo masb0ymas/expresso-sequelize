@@ -13,7 +13,6 @@ import {
   DB_DATABASE,
   DB_SYNC,
   GCP_PROJECT_ID,
-  GCS_BUCKET_NAME,
 } from './config/env'
 import db from './database/data-source'
 import initialJobs from './jobs'
@@ -56,7 +55,7 @@ if (AWS_ACCESS_KEY && AWS_SECRET_KEY) {
 }
 
 // check if exist gcp project id & bucket
-if (GCP_PROJECT_ID && GCS_BUCKET_NAME) {
+if (GCP_PROJECT_ID) {
   // initial google cloud storage
   void initialGCS()
 }

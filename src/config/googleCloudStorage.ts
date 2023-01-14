@@ -11,7 +11,7 @@ const serviceAccountKey = path.resolve('./gcp-serviceAccount.json')
 const msgType = 'GCP - Service Account'
 
 // check file exist
-if (!fs.existsSync(serviceAccountKey)) {
+if (GCP_PROJECT_ID && !fs.existsSync(serviceAccountKey)) {
   console.log(logErrServer(msgType, 'is missing on root directory'))
 
   throw new Error(
@@ -19,7 +19,9 @@ if (!fs.existsSync(serviceAccountKey)) {
   )
 }
 
-console.log(logServer(msgType, serviceAccountKey))
+if (GCP_PROJECT_ID) {
+  console.log(logServer(msgType, serviceAccountKey))
+}
 
 // storage client
 export const storageClient = new Storage({
