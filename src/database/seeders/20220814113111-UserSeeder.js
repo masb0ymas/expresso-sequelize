@@ -19,17 +19,17 @@ console.log(
 
 const data = [
   {
-    fullName: 'Super Admin',
+    fullname: 'Super Admin',
     email: 'super.admin@mail.com',
     RoleId: ConstRole.ID_SUPER_ADMIN,
   },
   {
-    fullName: 'Admin',
+    fullname: 'Admin',
     email: 'admin@mail.com',
     RoleId: ConstRole.ID_ADMIN,
   },
   {
-    fullName: 'Test User',
+    fullname: 'Test User',
     email: 'test.user@mail.com',
     RoleId: ConstRole.ID_USER,
   },

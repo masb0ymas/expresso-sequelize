@@ -58,8 +58,8 @@ class SendMail {
   public static AccountRegistration(values: AccountRegistrationEntity): void {
     const _path = this.getPath('register.html')
 
-    const { fullName, email } = values
-    const subject = `${fullName}, Terima kasih telah mendaftar di App ${APP_NAME}`
+    const { fullname, email } = values
+    const subject = `${fullname}, Terima kasih telah mendaftar di App ${APP_NAME}`
 
     const data = { ...values }
 

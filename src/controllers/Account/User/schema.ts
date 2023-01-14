@@ -15,7 +15,7 @@ const createPassword = yup
 
 const create = yup.object({
   ...createPassword.fields,
-  fullName: yup.string().required('full name is required'),
+  fullname: yup.string().required('full name is required'),
   email: yup.string().email('invalid email').required('email is required'),
   phone: yup.string().nullable(),
   tokenVerify: yup.string().nullable(),

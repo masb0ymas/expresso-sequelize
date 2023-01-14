@@ -52,7 +52,7 @@ To be able to process data in html I use [handlebars](https://www.npmjs.com/pack
 ...
 
 <span style="font-size: 16px">
-  <b>Hai {{ fullName }},</b>
+  <b>Hai {{ fullname }},</b>
   <br /><br />
   Thank you for registering an account at
   <strong>{{ APP_NAME }}</strong>.
@@ -107,7 +107,7 @@ How to implement the send mail:
 // Initial Send an e-mail
 SendMail.AccountRegistration({
   email: value.email,
-  fullName: `${value.firstName} ${value.lastName}`,
+  fullname: `${value.firstName} ${value.lastName}`,
   token: randomToken.accessToken,
 })
 

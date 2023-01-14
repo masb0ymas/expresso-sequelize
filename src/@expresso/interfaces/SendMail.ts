@@ -1,6 +1,6 @@
 interface BaseSendMailEntity {
   email: string
-  fullName: string
+  fullname: string
 }
 
 export interface AccountRegistrationEntity extends BaseSendMailEntity {

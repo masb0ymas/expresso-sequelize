@@ -51,7 +51,7 @@ class AuthService {
       // send email notification
       SendMail.AccountRegistration({
         email: value.email,
-        fullName: value.fullName,
+        fullname: value.fullname,
         token: randomToken.accessToken,
       })
     }
