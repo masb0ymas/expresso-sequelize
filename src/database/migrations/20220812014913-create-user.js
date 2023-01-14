@@ -18,16 +18,18 @@ module.exports = {
         type: Sequelize.DATE,
       },
       deletedAt: {
-        allowNull: true,
         type: Sequelize.DATE,
       },
       fullname: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       email: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       password: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       phone: {

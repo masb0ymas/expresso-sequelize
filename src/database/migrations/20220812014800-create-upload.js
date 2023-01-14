@@ -18,22 +18,26 @@ module.exports = {
         type: Sequelize.DATE,
       },
       deletedAt: {
-        allowNull: true,
         type: Sequelize.DATE,
       },
       keyFile: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       filename: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       mimetype: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       size: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       signedURL: {
+        allowNull: false,
         type: Sequelize.TEXT,
       },
       expiryDateURL: {

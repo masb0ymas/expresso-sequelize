@@ -17,10 +17,10 @@ module.exports = {
         type: Sequelize.DATE,
       },
       deletedAt: {
-        allowNull: true,
         type: Sequelize.DATE,
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
     })
