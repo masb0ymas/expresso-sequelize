@@ -2,6 +2,7 @@ import 'module-alias/register'
 import './pathAlias'
 
 import initialAwsS3 from '@config/clientS3'
+import { initialGCS } from '@config/googleCloudStorage'
 import { logErrServer, logServer } from '@expresso/helpers/Formatter'
 import chalk from 'chalk'
 import App from './app'
@@ -11,6 +12,8 @@ import {
   DB_CONNECTION,
   DB_DATABASE,
   DB_SYNC,
+  GCP_PROJECT_ID,
+  GCS_BUCKET_NAME,
 } from './config/env'
 import db from './database/data-source'
 import initialJobs from './jobs'
@@ -52,11 +55,11 @@ if (AWS_ACCESS_KEY && AWS_SECRET_KEY) {
   void initialAwsS3()
 }
 
-// initial firebase admin
-// admin.initializeApp({ credential: admin.credential.cert(serviceAccountKey) })
-
-// initial firebase
-// initializeApp(initialFirebase)
+// check if exist gcp project id & bucket
+if (GCP_PROJECT_ID && GCS_BUCKET_NAME) {
+  // initial google cloud storage
+  void initialGCS()
+}
 
 // initial jobs
 initialJobs()
