@@ -51,12 +51,17 @@ module.exports = {
             schema: {
               type: 'object',
               properties: {
+                provider: {
+                  type: 'string',
+                  enum: ['s3', 'gcs'],
+                  description: 's3: Aws S3, gcs: Google Cloud Storage',
+                },
                 fileUpload: {
                   type: 'string',
                   format: 'binary',
                 },
               },
-              required: ['fileUpload'],
+              required: ['provider', 'fileUpload'],
             },
           },
         },
@@ -68,7 +73,44 @@ module.exports = {
       },
     },
   },
-  '/upload/presign-url': {
+  '/upload/s3/presign-url': {
+    post: {
+      tags: ['Upload'],
+      summary: 'Create New Upload',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      parameters: [
+        {
+          $ref: '#/components/parameters/lang',
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                keyFile: {
+                  type: 'string',
+                },
+              },
+              required: ['keyFile'],
+            },
+          },
+        },
+      },
+      responses: {
+        201: {
+          description: 'Create New Upload',
+        },
+      },
+    },
+  },
+  '/upload/gcs/presign-url': {
     post: {
       tags: ['Upload'],
       summary: 'Create New Upload',
@@ -277,12 +319,17 @@ module.exports = {
             schema: {
               type: 'object',
               properties: {
+                provider: {
+                  type: 'string',
+                  enum: ['s3', 'gcs'],
+                  description: 's3: Aws S3, gcs: Google Cloud Storage',
+                },
                 fileUpload: {
                   type: 'string',
                   format: 'binary',
                 },
               },
-              required: ['fileUpload'],
+              required: ['provider', 'fileUpload'],
             },
           },
         },
