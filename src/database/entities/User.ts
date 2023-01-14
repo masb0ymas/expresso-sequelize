@@ -10,6 +10,7 @@ import {
   DeletedAt,
   ForeignKey,
   HasMany,
+  Index,
   IsUUID,
   Scopes,
   Table,
@@ -21,10 +22,9 @@ import Session from './Session'
 import Upload from './Upload'
 
 interface UserEntity extends BaseEntity {
-  fullName: string
+  deletedAt?: Date | null
+  fullname: string
   email: string
-  newPassword?: string | null
-  confirmNewPassword?: string | null
   password?: string | null
   phone?: string | null
   tokenVerify?: string | null
@@ -32,6 +32,10 @@ interface UserEntity extends BaseEntity {
   isBlocked?: boolean | null
   UploadId?: string | null
   RoleId: string
+
+  // virtual field
+  newPassword?: string | null
+  confirmNewPassword?: string | null
 }
 
 export interface UserLoginAttributes {
@@ -60,13 +64,16 @@ export type UserAttributes = Omit<
 }))
 @Table({ tableName: 'user', paranoid: true })
 class User extends Base {
+  @Index
   @DeletedAt
   @Column
   deletedAt?: Date
 
+  @Index
   @Column
-  fullName: string
+  fullname: string
 
+  @Index
   @Unique
   @Column
   email: string
@@ -74,12 +81,15 @@ class User extends Base {
   @Column
   password?: string
 
+  @Index
   @Column({ type: DataType.STRING('20') })
   phone?: string
 
+  @Index
   @Column({ type: DataType.TEXT })
   tokenVerify?: string
 
+  @Index
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
@@ -87,6 +97,7 @@ class User extends Base {
   })
   isActive?: boolean
 
+  @Index
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
@@ -94,6 +105,7 @@ class User extends Base {
   })
   isBlocked?: boolean
 
+  @Index
   @IsUUID(4)
   @ForeignKey(() => Role)
   @Column({
@@ -106,6 +118,7 @@ class User extends Base {
   @BelongsTo(() => Role)
   Role: Role
 
+  @Index
   @IsUUID(4)
   @ForeignKey(() => Upload)
   @Column({

@@ -2,6 +2,7 @@ import {
   Column,
   CreatedAt,
   DataType,
+  Index,
   IsUUID,
   Model,
   PrimaryKey,
@@ -13,20 +14,22 @@ export interface BaseEntity {
   id?: string
   createdAt: Date
   updatedAt: Date
-  deletedAt?: Date | null
 }
 
 @Table({ tableName: 'base' })
 class Base extends Model {
+  @Index
   @IsUUID(4)
   @PrimaryKey
   @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
   id: string
 
+  @Index
   @CreatedAt
   @Column
   createdAt!: Date
 
+  @Index
   @UpdatedAt
   @Column
   updatedAt!: Date

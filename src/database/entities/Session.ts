@@ -3,21 +3,19 @@ import {
   Column,
   DataType,
   ForeignKey,
+  Index,
   IsUUID,
   Table,
 } from 'sequelize-typescript'
-import Base from './Base'
+import Base, { BaseEntity } from './Base'
 import User from './User'
 
-interface SessionEntity {
-  id?: string
+interface SessionEntity extends BaseEntity {
   UserId: string
   token: string
   ipAddress?: string | null
   device?: string | null
   platform?: string | null
-  createdAt: Date
-  updatedAt: Date
 }
 
 export type SessionAttributes = Omit<
@@ -27,6 +25,7 @@ export type SessionAttributes = Omit<
 
 @Table({ tableName: 'session' })
 class Session extends Base {
+  @Index
   @IsUUID(4)
   @ForeignKey(() => User)
   @Column({
@@ -39,7 +38,8 @@ class Session extends Base {
   @BelongsTo(() => User)
   User: User
 
-  @Column({ type: DataType.TEXT })
+  @Index
+  @Column({ type: DataType.TEXT, allowNull: false })
   token: string
 
   @Column
