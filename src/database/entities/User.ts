@@ -160,7 +160,7 @@ User.prototype.comparePassword = async function (
   return await new Promise((resolve, reject) => {
     const password = String(this.password)
 
-    void bcrypt.compare(currentPassword, password, function (err, isMatch) {
+    bcrypt.compare(currentPassword, password, function (err, isMatch) {
       if (err) reject(err)
       resolve(isMatch)
     })

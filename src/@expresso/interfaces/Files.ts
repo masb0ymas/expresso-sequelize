@@ -9,6 +9,4 @@ export interface FileAttributes {
   size: number
 }
 
-export interface FileInstance {
-  [key: string]: FileAttributes
-}
+export type FileInstance = Record<string, FileAttributes>

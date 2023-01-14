@@ -42,7 +42,7 @@ function getController(controllerPath: string, filePath: string): void {
  */
 export const getRoutes = (basePath: string | Buffer): void => {
   // loop main controller directory
-  return fs.readdirSync(basePath).forEach((file) => {
+  fs.readdirSync(basePath).forEach((file) => {
     const filePath = `${file}`
 
     const groupDir = `${basePath}/${file}`

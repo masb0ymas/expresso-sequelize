@@ -53,22 +53,19 @@ function generateEnv(value: string, regExp: RegExp): void {
 }
 
 function appKey(): void {
-  return generateEnv('APP_KEY', /APP_KEY=(.*)?/)
+  generateEnv('APP_KEY', /APP_KEY=(.*)?/)
 }
 
 function secretOTP(): void {
-  return generateEnv('SECRET_OTP', /SECRET_OTP=(.*)?/)
+  generateEnv('SECRET_OTP', /SECRET_OTP=(.*)?/)
 }
 
 function secretAccessToken(): void {
-  return generateEnv('JWT_SECRET_ACCESS_TOKEN', /JWT_SECRET_ACCESS_TOKEN=(.*)?/)
+  generateEnv('JWT_SECRET_ACCESS_TOKEN', /JWT_SECRET_ACCESS_TOKEN=(.*)?/)
 }
 
 function secretRefreshToken(): void {
-  return generateEnv(
-    'JWT_SECRET_REFRESH_TOKEN',
-    /JWT_SECRET_REFRESH_TOKEN=(.*)?/
-  )
+  generateEnv('JWT_SECRET_REFRESH_TOKEN', /JWT_SECRET_REFRESH_TOKEN=(.*)?/)
 }
 
 appKey()

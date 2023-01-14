@@ -51,7 +51,8 @@ const useMulter = (props: MulterSetupProps): multer.Multer => {
         const getExtension = allowedExt.join(', ') // .png, .jpg, .pdf
         const message = `Only ${getExtension} ext are allowed, please check your mimetype file`
 
-        return cb(new ResponseError.BadRequest(message))
+        cb(new ResponseError.BadRequest(message))
+        return
       }
 
       cb(null, true)

@@ -52,9 +52,7 @@ class Excel {
   public static convertToJson(
     path: string | Buffer,
     options?: OptionConvert
-  ): {
-    [key: string]: any[]
-  } {
+  ): Record<string, any[]> {
     const resultConvert = excelToJson({
       source: fs.readFileSync(path), // fs.readFileSync return a Buffer
       header: options?.header || {

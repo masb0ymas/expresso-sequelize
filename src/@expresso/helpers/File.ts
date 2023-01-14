@@ -26,7 +26,10 @@ export function readHTMLFile(filePath: string, callback: any): void {
  */
 export function writeFileStream(outputPath: string, fileStream: Buffer): void {
   fs.writeFile(outputPath, fileStream, function (err) {
-    if (err) return console.log(err)
+    if (err) {
+      console.log(err)
+      return
+    }
 
     console.log(logServer('path stream', 'generate file successfully'))
     console.log(chalk.cyan(outputPath))

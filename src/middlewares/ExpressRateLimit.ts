@@ -20,7 +20,8 @@ async function ExpressRateLimit(
 ): Promise<void | Response<any, Record<string, any>>> {
   try {
     await rateLimiter.consume(req.ip)
-    return next()
+    next()
+    return
   } catch (err) {
     const errType = `Limit Request Error:`
     const message = 'Too Many Requests'
