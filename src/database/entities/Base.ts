@@ -23,11 +23,11 @@ class Base extends Model {
   id: string
 
   @CreatedAt
-  @Column
+  @Column({ allowNull: false })
   createdAt!: Date
 
   @UpdatedAt
-  @Column
+  @Column({ allowNull: false })
   updatedAt!: Date
 }
 

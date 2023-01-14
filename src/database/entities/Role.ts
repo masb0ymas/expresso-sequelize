@@ -17,7 +17,7 @@ class Role extends Base {
   @Column
   deletedAt?: Date
 
-  @Column
+  @Column({ allowNull: false })
   name: string
 }
 

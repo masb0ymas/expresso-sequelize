@@ -22,22 +22,22 @@ class Upload extends Base {
   @Column
   deletedAt?: Date
 
-  @Column
+  @Column({ allowNull: false })
   keyFile: string
 
-  @Column
+  @Column({ allowNull: false })
   filename: string
 
-  @Column
+  @Column({ allowNull: false })
   mimetype: string
 
-  @Column({ type: DataType.INTEGER })
+  @Column({ type: DataType.INTEGER, allowNull: false })
   size: number
 
-  @Column({ type: DataType.TEXT })
+  @Column({ type: DataType.TEXT, allowNull: false })
   signedURL: string
 
-  @Column
+  @Column({ allowNull: false })
   expiryDateURL: Date
 }
 

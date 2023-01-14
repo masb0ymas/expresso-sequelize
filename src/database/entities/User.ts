@@ -67,14 +67,14 @@ class User extends Base {
   @Column
   deletedAt?: Date
 
-  @Column
+  @Column({ allowNull: false })
   fullname: string
 
   @Unique
-  @Column
+  @Column({ allowNull: false })
   email: string
 
-  @Column
+  @Column({ allowNull: false })
   password?: string
 
   @Column({ type: DataType.STRING('20') })
