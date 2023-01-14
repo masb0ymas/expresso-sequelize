@@ -10,7 +10,6 @@ import {
   DeletedAt,
   ForeignKey,
   HasMany,
-  Index,
   IsUUID,
   Scopes,
   Table,
@@ -64,16 +63,13 @@ export type UserAttributes = Omit<
 }))
 @Table({ tableName: 'user', paranoid: true })
 class User extends Base {
-  @Index
   @DeletedAt
   @Column
   deletedAt?: Date
 
-  @Index
   @Column
   fullname: string
 
-  @Index
   @Unique
   @Column
   email: string
@@ -81,15 +77,12 @@ class User extends Base {
   @Column
   password?: string
 
-  @Index
   @Column({ type: DataType.STRING('20') })
   phone?: string
 
-  @Index
   @Column({ type: DataType.TEXT })
   tokenVerify?: string
 
-  @Index
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
@@ -97,7 +90,6 @@ class User extends Base {
   })
   isActive?: boolean
 
-  @Index
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
@@ -105,7 +97,6 @@ class User extends Base {
   })
   isBlocked?: boolean
 
-  @Index
   @IsUUID(4)
   @ForeignKey(() => Role)
   @Column({
@@ -118,7 +109,6 @@ class User extends Base {
   @BelongsTo(() => Role)
   Role: Role
 
-  @Index
   @IsUUID(4)
   @ForeignKey(() => Upload)
   @Column({

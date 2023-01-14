@@ -3,7 +3,6 @@ import {
   Column,
   DataType,
   ForeignKey,
-  Index,
   IsUUID,
   Table,
 } from 'sequelize-typescript'
@@ -25,7 +24,6 @@ export type SessionAttributes = Omit<
 
 @Table({ tableName: 'session' })
 class Session extends Base {
-  @Index
   @IsUUID(4)
   @ForeignKey(() => User)
   @Column({
@@ -38,7 +36,6 @@ class Session extends Base {
   @BelongsTo(() => User)
   User: User
 
-  @Index
   @Column({ type: DataType.TEXT, allowNull: false })
   token: string
 
