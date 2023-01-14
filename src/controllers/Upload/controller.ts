@@ -5,6 +5,7 @@ import { arrayFormatter } from '@expresso/helpers/Formatter'
 import useMulter from '@expresso/hooks/useMulter'
 import { FileAttributes } from '@expresso/interfaces/Files'
 import HttpResponse from '@expresso/modules/Response/HttpResponse'
+import ResponseError from '@expresso/modules/Response/ResponseError'
 import Authorization from '@middlewares/Authorization'
 import PermissionAccess from '@middlewares/PermissionAccess'
 import route from '@routes/v1'
@@ -36,13 +37,27 @@ route.get(
 )
 
 route.post(
-  '/upload/presign-url',
+  '/upload/s3/presign-url',
   Authorization,
   asyncHandler(async function findById(req: Request, res: Response) {
     const { keyFile } = req.getBody()
 
-    // signed url from bucket S3
+    // Signed URL to S3 Bucket
     const signedUrl = await UploadService.getSignedUrlS3(keyFile)
+
+    const httpResponse = HttpResponse.get({ data: signedUrl })
+    res.status(200).json(httpResponse)
+  })
+)
+
+route.post(
+  '/upload/gcs/presign-url',
+  Authorization,
+  asyncHandler(async function findById(req: Request, res: Response) {
+    const { keyFile } = req.getBody()
+
+    // Signed URL to GCS Bucket
+    const signedUrl = await UploadService.getSignedUrlGCS(keyFile)
 
     const httpResponse = HttpResponse.get({ data: signedUrl })
     res.status(200).json(httpResponse)
@@ -74,27 +89,47 @@ route.post(
 
     const fieldUpload = _.get(formData, 'fileUpload', {}) as FileAttributes
 
-    let dataS3
-    let UploadData
+    let aws_s3_data
+    let gcs_data
+    let upload_data
 
     // Upload to AWS S3
     if (!_.isEmpty(fieldUpload) && !_.isEmpty(fieldUpload.path)) {
       const directory = formData.type ?? 'uploads'
 
-      const resUploadS3 = await UploadService.uploadFileWithSignedUrl(
-        fieldUpload,
-        directory
-      )
+      if (_.isEmpty(formData.provider)) {
+        throw new ResponseError.BadRequest('please choose upload provider')
+      }
 
-      dataS3 = resUploadS3.dataAwsS3
-      UploadData = resUploadS3.resUpload
+      // Upload to AWS S3
+      if (formData.provider === 's3') {
+        const resUpload = await UploadService.uploadFileS3WithSignedUrl({
+          fieldUpload,
+          directory,
+        })
+
+        aws_s3_data = resUpload.aws_s3_data
+        upload_data = resUpload.upload_data
+      }
+
+      // Upload to Google Cloud Storage
+      if (formData.provider === 'gcs') {
+        const resUpload = await UploadService.uploadFileGCSWithSignedUrl({
+          fieldUpload,
+          directory,
+        })
+
+        gcs_data = resUpload.gcs_data
+        upload_data = resUpload.upload_data
+      }
 
       deleteFile(fieldUpload.path)
     }
 
     const httpResponse = HttpResponse.created({
-      data: UploadData,
-      AwsS3: dataS3,
+      data: upload_data,
+      s3: aws_s3_data,
+      gcs: gcs_data,
     })
     res.status(201).json(httpResponse)
   })
@@ -111,33 +146,54 @@ route.put(
 
     const fieldUpload = _.get(formData, 'fileUpload', {}) as FileAttributes
 
-    let dataS3
-    let UploadData
+    let aws_s3_data
+    let gcs_data
+    let upload_data
 
     // Upload to AWS S3
     if (!_.isEmpty(fieldUpload) && !_.isEmpty(fieldUpload.path)) {
       const directory = formData.type ?? 'uploads'
 
-      const resUploadS3 = await UploadService.uploadFileWithSignedUrl(
-        fieldUpload,
-        directory,
-        id
-      )
+      if (_.isEmpty(formData.provider)) {
+        throw new ResponseError.BadRequest('please choose upload provider')
+      }
 
-      dataS3 = resUploadS3.dataAwsS3
-      UploadData = resUploadS3.resUpload
+      // Upload to AWS S3
+      if (formData.provider === 's3') {
+        const resUpload = await UploadService.uploadFileS3WithSignedUrl({
+          fieldUpload,
+          directory,
+          UploadId: id,
+        })
+
+        aws_s3_data = resUpload.aws_s3_data
+        upload_data = resUpload.upload_data
+      }
+
+      // Upload to Google Cloud Storage
+      if (formData.provider === 'gcs') {
+        const resUpload = await UploadService.uploadFileGCSWithSignedUrl({
+          fieldUpload,
+          directory,
+          UploadId: id,
+        })
+
+        gcs_data = resUpload.gcs_data
+        upload_data = resUpload.upload_data
+      }
 
       deleteFile(fieldUpload.path)
     } else {
       // get upload file
       const getUpload = await UploadService.findById(id)
 
-      UploadData = getUpload
+      upload_data = getUpload
     }
 
     const httpResponse = HttpResponse.updated({
-      data: UploadData,
-      AwsS3: dataS3,
+      data: upload_data,
+      s3: aws_s3_data,
+      gcs: gcs_data,
     })
     res.status(200).json(httpResponse)
   })

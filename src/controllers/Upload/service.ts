@@ -3,11 +3,11 @@ import {
   DeleteObjectCommandOutput,
   GetObjectCommand,
   PutObjectCommand,
-  PutObjectCommandOutput,
 } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { clientS3, s3ExpiresDate, s3ObjectExpired } from '@config/clientS3'
-import { APP_LANG, AWS_BUCKET_NAME } from '@config/env'
+import { APP_LANG, AWS_BUCKET_NAME, GCS_BUCKET_NAME } from '@config/env'
+import { gcsExpiresDate, storageClient } from '@config/googleCloudStorage'
 import { i18nConfig } from '@config/i18nextConfig'
 import Upload, { UploadAttributes } from '@database/entities/Upload'
 import {
@@ -16,11 +16,11 @@ import {
   validateUUID,
 } from '@expresso/helpers/Formatter'
 import { optionsYup } from '@expresso/helpers/Validation'
-import { FileAttributes } from '@expresso/interfaces/Files'
 import { DtoFindAll } from '@expresso/interfaces/Paginate'
 import { ReqOptions } from '@expresso/interfaces/ReqOptions'
 import ResponseError from '@expresso/modules/Response/ResponseError'
 import PluginSqlizeQuery from '@expresso/modules/SqlizeQuery/PluginSqlizeQuery'
+import { GetSignedUrlConfig, UploadOptions } from '@google-cloud/storage'
 import { endOfYesterday } from 'date-fns'
 import { Request } from 'express'
 import fs from 'fs'
@@ -28,12 +28,12 @@ import { TOptions } from 'i18next'
 import _ from 'lodash'
 import { Op } from 'sequelize'
 import { validate as uuidValidate } from 'uuid'
+import {
+  DtoUploadGCSWithSignedUrl,
+  DtoUploadS3WithSignedUrl,
+  UploadFileWithSignedURLEntity,
+} from './interface'
 import uploadSchema from './schema'
-
-interface DtoUploadWithSignedUrlEntity {
-  dataAwsS3: PutObjectCommandOutput
-  resUpload: Upload
-}
 
 class UploadService {
   /**
@@ -312,16 +312,37 @@ class UploadService {
 
   /**
    *
-   * @param fieldUpload
-   * @param directory
-   * @param UploadId
+   * @param keyFile
    * @returns
    */
-  public static async uploadFileWithSignedUrl(
-    fieldUpload: FileAttributes,
-    directory: string,
-    UploadId?: string | null
-  ): Promise<DtoUploadWithSignedUrlEntity> {
+  public static async getSignedUrlGCS(keyFile: string): Promise<string> {
+    const options: GetSignedUrlConfig = {
+      version: 'v2',
+      action: 'read',
+      expires: gcsExpiresDate,
+    }
+
+    // signed url from bucket google cloud storage
+    const data = await storageClient
+      .bucket(GCS_BUCKET_NAME)
+      .file(keyFile)
+      .getSignedUrl(options)
+
+    const signedURL = data[0]
+
+    return signedURL
+  }
+
+  /**
+   * Upload File Aws S3 with Signed URL
+   * @param values
+   * @returns
+   */
+  public static async uploadFileS3WithSignedUrl(
+    values: UploadFileWithSignedURLEntity
+  ): Promise<DtoUploadS3WithSignedUrl> {
+    const { fieldUpload, directory, UploadId } = values
+
     let resUpload
 
     const keyFile = `${directory}/${fieldUpload.filename}`
@@ -370,13 +391,79 @@ class UploadService {
       resUpload = await this.create(formUpload)
     }
 
-    return { dataAwsS3, resUpload }
+    const data = { aws_s3_data: dataAwsS3, upload_data: resUpload }
+
+    return data
+  }
+
+  /**
+   * Get Signed URL from Google Cloud Storage
+   * @param values
+   * @returns
+   */
+  public static async uploadFileGCSWithSignedUrl(
+    values: UploadFileWithSignedURLEntity
+  ): Promise<DtoUploadGCSWithSignedUrl> {
+    const { fieldUpload, directory, UploadId } = values
+
+    let resUpload
+
+    const keyFile = `${directory}/${fieldUpload.filename}`
+
+    // For a destination object that does not yet exist,
+    // set the ifGenerationMatch precondition to 0
+    // If the destination object already exists in your bucket, set instead a
+    // generation-match precondition using its generation number.
+    const generationMatchPrecondition = 0
+
+    const options: UploadOptions = {
+      destination: keyFile,
+      preconditionOpts: { ifGenerationMatch: generationMatchPrecondition },
+    }
+
+    // send file upload to google cloud storage
+    const gcsData = await storageClient
+      .bucket(GCS_BUCKET_NAME)
+      .upload(fieldUpload.path, options)
+
+    // signed url from bucket S3
+    const signedURL = await this.getSignedUrlGCS(keyFile)
+
+    const formUpload = {
+      ...fieldUpload,
+      keyFile,
+      signedURL,
+      expiryDateURL: gcsExpiresDate,
+    }
+
+    // check uuid
+    if (!_.isEmpty(UploadId) && uuidValidate(String(UploadId))) {
+      // find upload
+      const getUpload = await Upload.findOne({
+        where: { id: String(UploadId) },
+      })
+
+      // update file upload
+      if (getUpload) {
+        resUpload = await getUpload.update(formUpload)
+      } else {
+        // create new file
+        resUpload = await this.create(formUpload)
+      }
+    } else {
+      // create new file
+      resUpload = await this.create(formUpload)
+    }
+
+    const data = { gcs_data: gcsData[1], upload_data: resUpload }
+
+    return data
   }
 
   /**
    * Update Signed URL Aws S3
    */
-  public static async updateSignedUrl(): Promise<void> {
+  public static async updateSignedUrlS3(): Promise<void> {
     const getUploads = await Upload.findAll({
       where: { expiryDateURL: { [Op.lt]: endOfYesterday() } },
     })
@@ -396,6 +483,38 @@ class UploadService {
             const signedURL = await this.getSignedUrlS3(item.keyFile)
 
             const formUpload = { signedURL, expiryDateURL: s3ExpiresDate }
+
+            // update signed url & expires url
+            await item.update(formUpload)
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Update Signed URL Google Cloud Storage
+   */
+  public static async updateSignedUrlGCS(): Promise<void> {
+    const getUploads = await Upload.findAll({
+      where: { updatedAt: { [Op.lt]: endOfYesterday() } },
+    })
+
+    const chunkUploads = _.chunk(getUploads, 50)
+
+    // chunk uploads data
+    if (!_.isEmpty(chunkUploads)) {
+      for (let i = 0; i < chunkUploads.length; i += 1) {
+        const itemUploads = chunkUploads[i]
+
+        // check uploads
+        if (!_.isEmpty(itemUploads)) {
+          for (let i = 0; i < itemUploads.length; i += 1) {
+            const item = itemUploads[i]
+
+            const signedURL = await this.getSignedUrlS3(item.keyFile)
+
+            const formUpload = { signedURL, expiryDateURL: gcsExpiresDate }
 
             // update signed url & expires url
             await item.update(formUpload)
