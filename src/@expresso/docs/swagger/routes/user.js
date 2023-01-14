@@ -46,7 +46,7 @@ module.exports = {
             schema: {
               type: 'object',
               properties: {
-                fullName: {
+                fullname: {
                   type: 'string',
                 },
                 email: {
@@ -57,16 +57,18 @@ module.exports = {
                 },
                 newPassword: {
                   type: 'string',
+                  format: 'password',
                 },
                 confirmNewPassword: {
                   type: 'string',
+                  format: 'password',
                 },
                 RoleId: {
                   type: 'string',
                 },
               },
               required: [
-                'fullName',
+                'fullname',
                 'email',
                 'newPassword',
                 'confirmNewPassword',
@@ -234,7 +236,7 @@ module.exports = {
             schema: {
               type: 'object',
               properties: {
-                fullName: {
+                fullname: {
                   type: 'string',
                 },
                 email: {
@@ -247,7 +249,7 @@ module.exports = {
                   type: 'string',
                 },
               },
-              required: ['fullName', 'email', 'RoleId'],
+              required: ['fullname', 'email', 'RoleId'],
             },
           },
         },
