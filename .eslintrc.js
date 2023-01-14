@@ -38,6 +38,7 @@ module.exports = {
     '@typescript-eslint/no-useless-constructor': 'error',
     '@typescript-eslint/no-extraneous-class': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/naming-convention': 'off',
     'node/no-path-concat': 'off',
     'n/no-path-concat': 'off',
   },
