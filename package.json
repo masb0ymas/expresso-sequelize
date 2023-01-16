@@ -89,7 +89,7 @@
     "sequelize-cli": "^6.5.2",
     "sequelize-typescript": "^2.1.5",
     "slugify": "^1.6.5",
-    "swagger-jsdoc": "^6.2.7",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.0",
     "uuid": "^9.0.0",
     "winston": "^3.8.2",
