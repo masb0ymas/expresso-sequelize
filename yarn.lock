@@ -7832,10 +7832,10 @@ send@0.18.0:
     range-parser "~1.2.1"
     statuses "2.0.1"
 
-sequelize-cli@^6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-6.5.2.tgz#8c0b061a213a550ba812029c0fabeb5a38843d2c"
-  integrity sha512-ltXvQOxFFb9pVuDqPJYOS3/X32OVni9zK1S0d0JfloSjmCKZmMDFBWndZbcbJH0QBfyxTt7FLt/kSmKwTRlbsQ==
+sequelize-cli@^6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-6.6.0.tgz#f11588c93b53321637f8aedd5b10ed57d6d06482"
+  integrity sha512-FwTClhGRvXKanFRHMZbgfXOBV8UC2B3VkE0WOdW1n39/36PF4lWyurF95f246une/V4eaO3a7/Ywvy++3r+Jmg==
   dependencies:
     cli-color "^2.0.3"
     fs-extra "^9.1.0"
