@@ -78,7 +78,7 @@
     "nodemailer": "^6.9.0",
     "nodemailer-mailgun-transport": "^2.1.5",
     "npm-run-all": "^4.1.5",
-    "pg": "^8.8.0",
+    "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
     "randomstring": "^1.2.3",
     "rate-limiter-flexible": "^2.4.1",
