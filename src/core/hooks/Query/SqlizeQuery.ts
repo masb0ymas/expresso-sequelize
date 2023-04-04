@@ -168,8 +168,6 @@ export function transfromIncludeToQueryable(
     includes: Includeable[],
     parent?: IncludeOptions
   ): void {
-    console.log(includes, parent)
-
     for (let i = 0; i < includes.length; i += 1) {
       const include = includes[i] as CustomIncludeOptions
 
@@ -186,8 +184,6 @@ export function transfromIncludeToQueryable(
         model: curModel,
       } as unknown as IncludeOptions)
 
-      console.log(curModel, defaultName, data)
-
       if (parent) {
         // eslint-disable-next-line no-param-reassign
         parent.include = parent.include ?? []
@@ -201,8 +197,6 @@ export function transfromIncludeToQueryable(
       }
     }
   }
-
-  console.log({ result })
 
   wrapFiltered(includes)
   return result
