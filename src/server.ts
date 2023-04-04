@@ -1,64 +1,49 @@
 import 'module-alias/register'
 import './pathAlias'
 
-import initialAwsS3 from '@config/clientS3'
-import { initialGCS } from '@config/googleCloudStorage'
-import { logErrServer, logServer } from '@expresso/helpers/Formatter'
-import chalk from 'chalk'
-import App from './app'
 import {
-  AWS_ACCESS_KEY,
-  AWS_SECRET_KEY,
-  DB_CONNECTION,
-  DB_DATABASE,
-  DB_SYNC,
-  GCP_PROJECT_ID,
-} from './config/env'
-import db from './database/data-source'
-import initialJobs from './jobs'
+  SEQUELIZE_CONNECTION,
+  SEQUELIZE_DATABASE,
+  SEQUELIZE_SYNC,
+} from '@config/env'
+import db from '@database/data-source'
+import chalk from 'chalk'
+import { printLog } from 'expresso-core'
+import App from './app'
 
-const Server = new App()
+const server = new App()
 
+// connect to database
 db.sequelize
   .authenticate()
   .then(async () => {
-    const dbDialect = chalk.cyan(DB_CONNECTION)
-    const dbName = chalk.cyan(DB_DATABASE)
+    const dbDialect = chalk.cyan(SEQUELIZE_CONNECTION)
+    const dbName = chalk.cyan(SEQUELIZE_DATABASE)
 
     const msgType = `Sequelize`
     const message = `Connection ${dbDialect}: ${dbName} has been established successfully.`
 
-    console.log(logServer(msgType, message))
+    const logMessage = printLog(msgType, message)
+    console.log(logMessage)
 
     // not recommended when running in production mode
-    if (DB_SYNC) {
+    if (SEQUELIZE_SYNC) {
       await db.sequelize.sync({ force: true })
-      console.log(logServer(msgType, 'All Sync Database Successfully'))
+
+      const logMessage = printLog(msgType, 'All Sync Database Successfully')
+      console.log(logMessage)
     }
 
-    Server.run()
+    // run the express app
+    server.run()
   })
   .catch((err: any) => {
-    const dbDialect = chalk.cyan(DB_CONNECTION)
-    const dbName = chalk.cyan(DB_DATABASE)
+    const dbDialect = chalk.cyan(SEQUELIZE_CONNECTION)
+    const dbName = chalk.cyan(SEQUELIZE_DATABASE)
 
     const errType = `Sequelize Error:`
     const message = `Unable to connect to the database ${dbDialect}: ${dbName}`
 
-    console.log(logErrServer(errType, message), err)
+    const logMessage = printLog(errType, message)
+    console.log(logMessage, err)
   })
-
-// check if exist access & secret key aws
-if (AWS_ACCESS_KEY && AWS_SECRET_KEY) {
-  // initial client s3
-  void initialAwsS3()
-}
-
-// check if exist gcp project id & bucket
-if (GCP_PROJECT_ID) {
-  // initial google cloud storage
-  void initialGCS()
-}
-
-// initial jobs
-initialJobs()
