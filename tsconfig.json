@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Language and Environment */
-    "target": "es6",
+    "target": "esnext",
     "lib": ["es5", "es6"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -12,17 +12,14 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
-      "@expresso/*": ["@expresso/*"],
+      "@apps/*": ["apps/*"],
+      "@core/*": ["core/*"],
       "@config/*": ["config/*"],
-      "@controllers/*": ["controllers/*"],
       "@database/*": ["database/*"],
-      "@jobs/*": ["jobs/*"],
-      "@middlewares/*": ["middlewares/*"],
-      "@routes/*": ["routes/*"],
-      "@scripts/*": ["scripts/*"],
-      "@views/*": ["views/*"],
+      "@routes/*": ["routes/*"]
     },
     "typeRoots": ["./src/types"],
+    "types": ["jest"],
 
     /* JavaScript Support */
     "allowJs": true,
@@ -38,6 +35,7 @@
     /* Type Checking */
     "strict": true,
     "strictPropertyInitialization": false,
+    "useDefineForClassFields": false,
 
     /* Completeness */
     "skipLibCheck": true
