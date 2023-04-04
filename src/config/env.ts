@@ -1,70 +1,57 @@
-/* eslint-disable prettier/prettier */
 import 'dotenv/config'
-
-const invalidValues = [
-  null,
-  undefined,
-  '',
-  false,
-  0,
-  'false',
-  '0',
-  'null',
-  'undefined',
-]
-
-function validateBoolean(value: any): boolean {
-  if (invalidValues.includes(value)) {
-    return false
-  }
-
-  return true
-}
+import { validateBoolean } from 'expresso-core'
 
 // node env
 export const NODE_ENV = process.env.NODE_ENV ?? 'development'
 
 // app
-export const APP_KEY = process.env.APP_KEY
+export const APP_KEY = process.env.APP_KEY ?? undefined
 export const APP_NAME = process.env.APP_NAME ?? 'expresso'
 export const APP_LANG = process.env.APP_LANG ?? 'id'
 export const APP_PORT = Number(process.env.APP_PORT) ?? 8000
 
-// axios
 export const AXIOS_TIMEOUT = process.env.AXIOS_TIMEOUT ?? '5m'
-
-// rate limit request
 export const RATE_LIMIT = Number(process.env.RATE_LIMIT) ?? 100
 
 // otp
-export const SECRET_OTP: any = process.env.SECRET_OTP
+export const SECRET_OTP = process.env.SECRET_OTP ?? undefined
 export const EXPIRED_OTP = process.env.EXPIRED_OTP ?? '5m'
 
 // jwt access
-export const JWT_SECRET_ACCESS_TOKEN: any = process.env.JWT_SECRET_ACCESS_TOKEN
-export const JWT_ACCESS_TOKEN_EXPIRED = process.env.JWT_ACCESS_TOKEN_EXPIRED ?? '1d'
+export const JWT_SECRET_ACCESS_TOKEN =
+  process.env.JWT_SECRET_ACCESS_TOKEN ?? undefined
+export const JWT_ACCESS_TOKEN_EXPIRED =
+  process.env.JWT_ACCESS_TOKEN_EXPIRED ?? '1d'
 
 // jwt refresh
-export const JWT_SECRET_REFRESH_TOKEN: any = process.env.JWT_SECRET_REFRESH_TOKEN
-export const JWT_REFRESH_TOKEN_EXPIRED = process.env.JWT_REFRESH_TOKEN_EXPIRED ?? '7d'
+export const JWT_SECRET_REFRESH_TOKEN =
+  process.env.JWT_SECRET_REFRESH_TOKEN ?? undefined
+export const JWT_REFRESH_TOKEN_EXPIRED =
+  process.env.JWT_REFRESH_TOKEN_EXPIRED ?? '30d'
 
 // url staging
-export const URL_CLIENT_STAGING = process.env.URL_CLIENT_STAGING ?? 'https://sandbox.example.com'
-export const URL_SERVER_STAGING = process.env.URL_SERVER_STAGING ?? 'https://api-sandbox.example.com'
+export const URL_CLIENT_STAGING =
+  process.env.URL_CLIENT_STAGING ?? 'https://sandbox.example.com'
+export const URL_SERVER_STAGING =
+  process.env.URL_SERVER_STAGING ?? 'https://api-sandbox.example.com'
 
 // url production
-export const URL_CLIENT_PRODUCTION = process.env.URL_CLIENT_PRODUCTION ?? 'https://example.com'
-export const URL_SERVER_PRODUCTION = process.env.URL_SERVER_PRODUCTION ?? 'https://api.example.com'
+export const URL_CLIENT_PRODUCTION =
+  process.env.URL_CLIENT_PRODUCTION ?? 'https://example.com'
+export const URL_SERVER_PRODUCTION =
+  process.env.URL_SERVER_PRODUCTION ?? 'https://api.example.com'
 
 // database
-export const DB_CONNECTION = process.env.DB_CONNECTION ?? 'postgres'
-export const DB_HOST = process.env.DB_HOST ?? '127.0.0.1'
-export const DB_PORT = Number(process.env.DB_PORT) ?? 5432
-export const DB_DATABASE = process.env.DB_DATABASE ?? 'your_database'
-export const DB_USERNAME = process.env.DB_USERNAME ?? 'postgres'
-export const DB_PASSWORD = process.env.DB_PASSWORD ?? 'postgres'
-export const DB_SYNC = validateBoolean(process.env.DB_SYNC) ?? false
-export const DB_TIMEZONE = process.env.DB_TIMEZONE ?? '+07:00' // for mysql = +07:00, for postgres = Asia/Jakarta
+export const SEQUELIZE_CONNECTION =
+  process.env.SEQUELIZE_CONNECTION ?? 'postgres'
+export const SEQUELIZE_HOST = process.env.SEQUELIZE_HOST ?? '127.0.0.1'
+export const SEQUELIZE_PORT = Number(process.env.SEQUELIZE_PORT) ?? 5432
+export const SEQUELIZE_DATABASE = process.env.SEQUELIZE_DATABASE ?? 'expresso'
+export const SEQUELIZE_USERNAME = process.env.SEQUELIZE_USERNAME ?? 'postgres'
+export const SEQUELIZE_PASSWORD = process.env.SEQUELIZE_PASSWORD ?? 'postgres'
+export const SEQUELIZE_SYNC =
+  validateBoolean(process.env.SEQUELIZE_SYNC) ?? false
+export const SEQUELIZE_TIMEZONE = process.env.SEQUELIZE_TIMEZONE ?? 'UTC'
 
 // smtp
 export const MAIL_DRIVER = process.env.MAIL_DRIVER ?? 'smtp'
@@ -90,25 +77,10 @@ export const REDIS_HOST = process.env.REDIS_HOST ?? '127.0.0.1'
 export const REDIS_PORT = Number(process.env.REDIS_PORT) ?? 6379
 export const REDIS_PASSWORD = process.env.REDIS_PASSWORD ?? undefined
 
-// firebase
-export const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY ?? undefined
-export const FIREBASE_AUTH_DOMAIN = process.env.FIREBASE_AUTH_DOMAIN ?? undefined
-export const FIREBASE_DATABASE_URL = process.env.FIREBASE_DATABASE_URL ?? undefined
-export const FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID ?? undefined
-export const FIREBASE_STORAGE_BUCKET = process.env.FIREBASE_STORAGE_BUCKET ?? undefined
-export const FIREBASE_MESSAGING_SENDER_ID = process.env.FIREBASE_MESSAGING_SENDER_ID ?? undefined
-export const FIREBASE_APP_ID = process.env.FIREBASE_APP_ID ?? undefined
-export const FIREBASE_MEASUREMENT_ID = process.env.FIREBASE_MEASUREMENT_ID ?? undefined
-
-// aws s3
-export const AWS_ACCESS_KEY: any = process.env.AWS_ACCESS_KEY ?? undefined
-export const AWS_SECRET_KEY: any = process.env.AWS_SECRET_KEY ?? undefined
-export const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME ?? 'expresso'
-export const AWS_REGION = process.env.AWS_REGION ?? 'ap-southeast-1'
-export const AWS_S3_EXPIRED = process.env.AWS_S3_EXPIRED ?? '7d'
-
-// google cloud platform
-export const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID ?? undefined
-export const GCS_BUCKET_NAME = process.env.GCS_BUCKET_NAME ?? 'expresso'
-export const GCS_REGION = process.env.GCS_REGION ?? 'asia-southeast2'
-export const GCS_EXPIRED = process.env.GCS_EXPIRED ?? '7d'
+// storage
+export const STORAGE_PROVIDER = process.env.STORAGE_PROVIDER ?? 'minio'
+export const STORAGE_ACCESS_KEY = process.env.STORAGE_ACCESS_KEY ?? undefined
+export const STORAGE_SECRET_KEY = process.env.STORAGE_SECRET_KEY ?? undefined
+export const STORAGE_BUCKET_NAME = process.env.STORAGE_BUCKET_NAME ?? 'expresso'
+export const STORAGE_REGION = process.env.STORAGE_REGION ?? 'ap-southeast-1'
+export const STORAGE_SIGN_EXPIRED = process.env.STORAGE_SIGN_EXPIRED ?? '7d'
