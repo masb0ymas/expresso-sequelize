@@ -1,6 +1,16 @@
-import { formatDate } from '@expresso/helpers/Date'
+import { formatDate } from '@core/helpers/date'
+import chalk from 'chalk'
 import path from 'path'
-import winston from 'winston'
+import winston, { format } from 'winston'
+
+// custom format log console
+const myFormat = format.printf(({ level, message, label, timestamp }) => {
+  const logLabel = chalk.green(`[${label}]:`)
+  const logLevel = chalk.blue(`logger - ${level}`)
+  const logTime = chalk.cyan(timestamp)
+
+  return `${logLabel} ${logLevel} - ${logTime} ${message}`
+})
 
 // define the custom settings for each transport (file, console)
 const options = {
@@ -16,14 +26,15 @@ const options = {
   console: {
     level: 'debug',
     format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.simple()
+      format.label({ label: 'server' }),
+      format.timestamp({ format: 'DD/MMM/YYYY HH:mm:ss' }),
+      myFormat
     ),
   },
 }
 
 // instantiate a new Winston Logger with the settings defined above
-const winstonLogger = winston.createLogger({
+export const winstonLogger = winston.createLogger({
   transports: [
     new winston.transports.File(options.file),
     new winston.transports.Console(options.console),
@@ -37,5 +48,3 @@ export const winstonStream = {
     winstonLogger.info(message)
   },
 }
-
-export default winstonLogger
