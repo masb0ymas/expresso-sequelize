@@ -6,7 +6,7 @@ import {
   IsUUID,
   Table,
 } from 'sequelize-typescript'
-import Base, { BaseEntity } from './Base'
+import Base, { type BaseEntity } from './Base'
 import User from './User'
 
 interface SessionEntity extends BaseEntity {

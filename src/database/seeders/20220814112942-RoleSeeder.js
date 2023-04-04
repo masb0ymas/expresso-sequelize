@@ -1,7 +1,7 @@
 'use strict'
 
+const { default: ConstRole } = require('../../core/constants/ConstRole')
 const _ = require('lodash')
-const ConstRole = require('../../@expresso/constants/ConstRole')
 
 const data = [
   {

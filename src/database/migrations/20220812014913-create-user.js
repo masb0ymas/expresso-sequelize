@@ -74,6 +74,7 @@ module.exports = {
       name: 'UNIQUE_USERS_EMAIL',
     })
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('user')
   },

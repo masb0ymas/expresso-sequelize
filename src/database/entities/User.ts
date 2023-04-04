@@ -1,4 +1,3 @@
-import userSchema from '@controllers/Account/User/schema'
 import * as bcrypt from 'bcrypt'
 import {
   BeforeCreate,
@@ -15,10 +14,11 @@ import {
   Table,
   Unique,
 } from 'sequelize-typescript'
-import Base, { BaseEntity } from './Base'
+import Base, { type BaseEntity } from './Base'
 import Role from './Role'
 import Session from './Session'
 import Upload from './Upload'
+import userSchema from '@apps/schemas/user.schema'
 
 interface UserEntity extends BaseEntity {
   deletedAt?: Date | null
@@ -146,7 +146,6 @@ class User extends Base {
         formPassword
       )
 
-      // @ts-expect-error
       const hash = bcrypt.hashSync(validPassword, saltRounds)
       instance.setDataValue('password', hash)
     }

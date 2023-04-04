@@ -1,5 +1,5 @@
 import { Column, DeletedAt, Table } from 'sequelize-typescript'
-import Base, { BaseEntity } from './Base'
+import Base, { type BaseEntity } from './Base'
 
 interface RoleEntity extends BaseEntity {
   deletedAt?: Date | null

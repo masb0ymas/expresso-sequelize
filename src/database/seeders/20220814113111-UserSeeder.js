@@ -2,20 +2,15 @@
 
 const { v4: uuidv4 } = require('uuid')
 const bcrypt = require('bcrypt')
-const chalk = require('chalk')
 const _ = require('lodash')
-const randomstring = require('randomstring')
-const ConstRole = require('../../@expresso/constants/ConstRole')
+const { default: ConstRole } = require('../../core/constants/ConstRole')
+const { randomString, printLog } = require('expresso-core')
 
 const salt = 10
-const defaultPassword = randomstring.generate(10)
+const defaultPassword = randomString.generate(10)
 
-console.log(
-  `${chalk.green('[server]')} ${chalk.blue('Seed')} ${chalk.green(
-    'your default password: '
-  )}`,
-  { defaultPassword }
-)
+const logMessage = printLog('Seed', `your default password: ${defaultPassword}`)
+console.log(logMessage)
 
 const data = [
   {
