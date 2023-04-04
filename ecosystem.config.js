@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'expresso',
+      name: 'expresso-sequelize',
       script: 'npm run serve:production',
       instances: 1, // max instance = 0 | max
       exec_mode: 'fork',
