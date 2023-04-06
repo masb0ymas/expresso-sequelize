@@ -3,8 +3,7 @@ import { APP_LANG } from '@config/env'
 import { i18nConfig } from '@config/i18n'
 import { validateUUID } from '@core/helpers/formatter'
 import { optionsYup } from '@core/helpers/yup'
-import { makeIncludeQueryable } from '@core/hooks/Query/PluginSqlizeQuery'
-import useQuery from '@core/hooks/useQuery'
+import { useQuery } from '@core/hooks/useQuery'
 import { type DtoFindAll } from '@core/interface/Paginate'
 import { type ReqOptions } from '@core/interface/ReqOptions'
 import ResponseError from '@core/modules/response/ResponseError'
@@ -13,6 +12,7 @@ import Session from '@database/entities/Session'
 import User, { type UserAttributes } from '@database/entities/User'
 import { type Request } from 'express'
 import { validateBoolean, validateEmpty } from 'expresso-core'
+import { useSequelize } from 'expresso-query'
 import { type TOptions } from 'i18next'
 import _ from 'lodash'
 import { Op } from 'sequelize'
@@ -34,7 +34,10 @@ export default class UserService {
     const query = useQuery({
       entity: User,
       reqQuery,
-      includeRule: makeIncludeQueryable(reqQuery.filtered, relations),
+      includeRule: useSequelize.makeIncludeQueryable(
+        reqQuery.filtered,
+        relations
+      ),
     })
 
     const data = await User.findAll({
