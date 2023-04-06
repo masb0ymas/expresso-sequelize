@@ -1,55 +1,17 @@
-import {
-  type DtoQueryEntity,
-  type useQueryEntity,
-} from '@core/interface/QueryFiltered'
-import _ from 'lodash'
-import { type Includeable } from 'sequelize'
-import {
-  filterIncludeHandledOnly,
-  getFilteredQuery,
-  getPaginationQuery,
-  getSortedQuery,
-  injectRequireInclude,
-} from './Query/PluginSqlizeQuery'
+import { SEQUELIZE_CONNECTION } from '@config/env'
+import { type DtoQueryEntity } from '@core/interface/QueryFiltered'
+import { useSequelize } from 'expresso-query'
+import { type UseSequelizeQuery } from 'expresso-query/lib/interface'
 
-export default function useQuery(params: useQueryEntity): DtoQueryEntity {
-  const { entity, reqQuery, includeRule, options } = params
+type ConnectType = 'postgres' | 'mysql' | 'mariadb'
 
-  const { onBeforeBuild } = options ?? {}
+/**
+ * Create New Instance Query Sequelize from `expresso-query` Library
+ * @param params
+ * @returns
+ */
+export function useQuery(params: UseSequelizeQuery): DtoQueryEntity {
+  const connectType = SEQUELIZE_CONNECTION as ConnectType
 
-  const paginationQuery = getPaginationQuery()
-  const filteredQuery = getFilteredQuery(entity)
-  const sortedQuery = getSortedQuery()
-  const includeCountRule = filterIncludeHandledOnly({
-    include: includeRule,
-  })
-
-  const include = injectRequireInclude(
-    _.cloneDeep(includeRule) as Includeable[]
-  )
-
-  const includeCount = injectRequireInclude(
-    _.cloneDeep(includeCountRule) as Includeable[]
-  )
-
-  if (onBeforeBuild) {
-    onBeforeBuild({
-      filteredQuery,
-      paginationQuery,
-      sortedQuery,
-    })
-  }
-
-  const pagination = paginationQuery.build(reqQuery)
-  const filter = filteredQuery.build(reqQuery.filtered)
-  const sort = sortedQuery.build(reqQuery.sorted)
-
-  return {
-    include,
-    includeCount,
-    where: filter,
-    order: sort,
-    offset: pagination.offset,
-    limit: pagination.limit,
-  }
+  return useSequelize.queryBulider(params, { dialect: connectType })
 }
