@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.1](https://github.com/masb0ymas/expresso-sequelize/compare/v5.0.0...v5.0.1) (2023-04-06)
+
+
+### Bug Fixes
+
+* change import useQuery ([7530912](https://github.com/masb0ymas/expresso-sequelize/commit/7530912503c236580956f144edd012223bd5f3e3))
+* implementation useSequelize ([7fc9b6d](https://github.com/masb0ymas/expresso-sequelize/commit/7fc9b6dc1bc2bd5727654afc9cfbb6d44d09e51d))
+* remove console ([b3d4716](https://github.com/masb0ymas/expresso-sequelize/commit/b3d4716a088e1d892a5a7e935c24cc3f71ba6abf))
+* remove unuse file ([ddbbd49](https://github.com/masb0ymas/expresso-sequelize/commit/ddbbd49178963b0047383914fc55618a254a2c8c))
+
 ## [5.0.0](https://github.com/masb0ymas/expresso-sequelize/compare/v4.1.1...v5.0.0) (2023-04-04)
 
 
