@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.2](https://github.com/masb0ymas/expresso-sequelize/compare/v5.0.1...v5.0.2) (2023-04-10)
+
+
+### Bug Fixes
+
+* add github sponsor ([7094efe](https://github.com/masb0ymas/expresso-sequelize/commit/7094efe44dbdad2333481ea90835daf42229c7e5))
+* improve config axios ([77bd89f](https://github.com/masb0ymas/expresso-sequelize/commit/77bd89f0ac045ca18fbeb590ed8a8b0084d506c5))
+
+
+### Other Commit
+
+* improve middleware auth ([65a54ee](https://github.com/masb0ymas/expresso-sequelize/commit/65a54ee6dae2150cd3d63feb7b4063bb78506bd8))
+* improve this.application ([e396e76](https://github.com/masb0ymas/expresso-sequelize/commit/e396e76c22a9f763acba6b148c7416c77d7c75e9))
+
 ### [5.0.1](https://github.com/masb0ymas/expresso-sequelize/compare/v5.0.0...v5.0.1) (2023-04-06)
 
 

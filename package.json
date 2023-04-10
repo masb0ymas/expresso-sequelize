@@ -1,6 +1,6 @@
 {
   "name": "expresso-sequelize",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "expresso sequelize, postgesql, redis, aws s3",
   "main": "./dist/server.js",
   "private": true,
