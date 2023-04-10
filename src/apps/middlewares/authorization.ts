@@ -1,3 +1,4 @@
+import SessionService from '@apps/services/Account/session.service'
 import { extractToken, verifyToken } from '@core/helpers/token'
 import { type NextFunction, type Request, type Response } from 'express'
 import { printLog } from 'expresso-core'
@@ -18,13 +19,17 @@ async function authorization(
   const getToken = extractToken(req)
   const token = verifyToken(String(getToken))
 
-  if (_.isEmpty(token?.data)) {
+  const getSession = await SessionService.getByToken(String(getToken))
+
+  if (_.isEmpty(token?.data) || _.isEmpty(getSession)) {
     const logMessage = printLog('Permission :', 'Unauthorized', {
       label: 'error',
     })
     console.log(logMessage)
 
-    return res.status(401).json({ code: 401, message: token?.message })
+    return res
+      .status(401)
+      .json({ code: 401, message: 'Unauthorized, invalid jwt' })
   }
 
   req.setState({ userLogin: token?.data })
