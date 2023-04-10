@@ -160,4 +160,17 @@ export default class SessionService {
     const data = await this.findById(id, { ...options })
     await Session.destroy({ where: { id: data.id } })
   }
+
+  /**
+   *
+   * @param token
+   * @returns
+   */
+  public static async getByToken(token: string): Promise<Session[]> {
+    const data = await Session.findAll({
+      where: { token },
+    })
+
+    return data
+  }
 }
