@@ -90,25 +90,25 @@ function createAxios(baseURL: string): AxiosInstance {
 }
 
 class FetchAxios {
-  private axiosInstance: AxiosInstance | null
-  private readonly baseURL: string
+  private _axiosInstance: AxiosInstance | null
+  private readonly _baseURL: string
 
   constructor(baseURL: string) {
-    this.baseURL = baseURL
-    this.axiosInstance = null
+    this._baseURL = baseURL
+    this._axiosInstance = null
   }
 
   /**
    * Default Config Axios
    */
   public get default(): AxiosInstance {
-    if (!this.axiosInstance) {
-      this.axiosInstance = createAxios(this.baseURL)
+    if (!this._axiosInstance) {
+      this._axiosInstance = createAxios(this._baseURL)
 
-      return this.axiosInstance
+      return this._axiosInstance
     }
 
-    return this.axiosInstance
+    return this._axiosInstance
   }
 }
 
