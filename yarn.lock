@@ -6959,10 +6959,10 @@ internal-slot@^1.0.5:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-ioredis-mock@^8.4.0:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/ioredis-mock/-/ioredis-mock-8.4.0.tgz#872d7ab1b8ee210094a677f0c1334815f09df775"
-  integrity sha512-ZB+Wj9kzYbYcPrU2Xr61Fo+Fcc8Y1/sAnc/8sCKhyi69C4lQf7cdTEqiqRwneICX2OwgGtpCw8Udr7GEyZixOQ==
+ioredis-mock@^8.5.0:
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/ioredis-mock/-/ioredis-mock-8.5.0.tgz#0a9aa968ce888e19e1a27b848d80de9ffec312fb"
+  integrity sha512-mtYmuQTta9gjlSUvI7imWpP7axR08DyW1WdVn80NthYIzSJeAWI5dd5rU1rVYc22/dVvJGx87SaoE3Zf6Rr8lA==
   dependencies:
     "@ioredis/as-callback" "^3.0.0"
     "@ioredis/commands" "^1.2.0"
