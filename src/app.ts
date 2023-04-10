@@ -41,52 +41,54 @@ const optCors: cors.CorsOptions = {
 }
 
 class App {
-  private readonly application: Application
-  private readonly port: number | string
+  private readonly _application: Application
+  private readonly _port: number | string
 
   constructor() {
-    this.application = Express()
-    this.port = APP_PORT
+    this._application = Express()
+    this._port = APP_PORT
 
     // enabled
-    this.plugins()
-    this.initializeProvider()
+    this._plugins()
+    this._initializeProvider()
 
     // docs swagger disable for production mode
     if (NODE_ENV !== 'production') {
-      this.docsSwagger()
+      this._docsSwagger()
     }
 
-    this.routes()
+    this._routes()
   }
 
   /**
    * Express Plugins
    */
-  private plugins(): void {
-    this.application.use(helmet())
-    this.application.use(cors(optCors))
-    this.application.use(logger('combined', { stream: winstonStream }))
-    this.application.use(
+  private _plugins(): void {
+    this._application.use(helmet())
+    this._application.use(cors(optCors))
+    this._application.use(logger('combined', { stream: winstonStream }))
+    this._application.use(
       Express.json({ limit: '200mb', type: 'application/json' })
     )
-    this.application.use(Express.urlencoded({ extended: true }))
-    this.application.use(cookieParser())
-    this.application.use(compression())
-    this.application.use(Express.static(path.resolve(`${__dirname}/../public`)))
-    this.application.use(hpp())
-    this.application.use(requestIp.mw())
-    this.application.use(userAgent.express())
-    this.application.use(i18nextMiddleware.handle(i18nConfig))
-    this.application.use(expressRateLimit())
-    this.application.use(expressWithState())
-    this.application.use(expressUserAgent())
+    this._application.use(Express.urlencoded({ extended: true }))
+    this._application.use(cookieParser())
+    this._application.use(compression())
+    this._application.use(
+      Express.static(path.resolve(`${__dirname}/../public`))
+    )
+    this._application.use(hpp())
+    this._application.use(requestIp.mw())
+    this._application.use(userAgent.express())
+    this._application.use(i18nextMiddleware.handle(i18nConfig))
+    this._application.use(expressRateLimit())
+    this._application.use(expressWithState())
+    this._application.use(expressUserAgent())
   }
 
   /**
    * Initialize Service Provider
    */
-  private initializeProvider(): void {
+  private _initializeProvider(): void {
     // initialize storage service
     void storageService.initialize()
 
@@ -102,14 +104,17 @@ class App {
   /**
    * Docs Swaggers
    */
-  private docsSwagger(): void {
-    this.application.get('/v1/api-docs.json', (req: Request, res: Response) => {
-      res.setHeader('Content-Type', 'application/json')
-      res.send(swaggerSpec)
-    })
+  private _docsSwagger(): void {
+    this._application.get(
+      '/v1/api-docs.json',
+      (req: Request, res: Response) => {
+        res.setHeader('Content-Type', 'application/json')
+        res.send(swaggerSpec)
+      }
+    )
 
-    this.application.use('/v1/api-docs', swaggerUI.serve)
-    this.application.get(
+    this._application.use('/v1/api-docs', swaggerUI.serve)
+    this._application.get(
       '/v1/api-docs',
       swaggerUI.setup(swaggerSpec, optionsSwaggerUI)
     )
@@ -118,11 +123,11 @@ class App {
   /**
    * Setup Routes
    */
-  private routes(): void {
-    this.application.use(indexRoutes)
+  private _routes(): void {
+    this._application.use(indexRoutes)
 
     // Catch error 404 endpoint not found
-    this.application.use('*', function (req: Request, _res: Response) {
+    this._application.use('*', function (req: Request, _res: Response) {
       const method = req.method
       const url = req.originalUrl
       const host = req.hostname
@@ -140,19 +145,19 @@ class App {
    * @returns
    */
   public app(): Application {
-    return this.application
+    return this._application
   }
 
   /**
    * Run Express App
    */
   public run(): void {
-    this.application.use(expressErrorYup)
-    this.application.use(expressErrorSequelize)
-    this.application.use(expressErrorResponse)
+    this._application.use(expressErrorYup)
+    this._application.use(expressErrorSequelize)
+    this._application.use(expressErrorResponse)
 
     // Error handler
-    this.application.use(function (err: any, req: Request, res: Response) {
+    this._application.use(function (err: any, req: Request, res: Response) {
       // Set locals, only providing error in development
       res.locals.message = err.message
       res.locals.error = req.app.get('env') === 'development' ? err : {}
@@ -170,8 +175,8 @@ class App {
     })
 
     // setup port
-    this.application.set('port', this.port)
-    const server = http.createServer(this.application)
+    this._application.set('port', this._port)
+    const server = http.createServer(this._application)
 
     const onError = (error: { syscall: string; code: string }): void => {
       if (error.syscall !== 'listen') {
@@ -179,9 +184,9 @@ class App {
       }
 
       const bind =
-        typeof this.port === 'string'
-          ? `Pipe ${this.port}`
-          : `Port ${this.port}`
+        typeof this._port === 'string'
+          ? `Pipe ${this._port}`
+          : `Port ${this._port}`
 
       // handle specific listen errors with friendly messages
       switch (error.code) {
@@ -213,7 +218,7 @@ class App {
     }
 
     // Run listener
-    server.listen(this.port)
+    server.listen(this._port)
     server.on('error', onError)
     server.on('listening', onListening)
   }
