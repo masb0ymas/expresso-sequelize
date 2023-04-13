@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.3](https://github.com/masb0ymas/expresso-sequelize/compare/v5.0.2...v5.0.3) (2023-04-13)
+
+
+### Bug Fixes
+
+* bug import docs ([9d1a2bc](https://github.com/masb0ymas/expresso-sequelize/commit/9d1a2bc2d7acd8b4e6ea97e588d9102d2e44ab0f))
+* move docs to apps ([4a7b289](https://github.com/masb0ymas/expresso-sequelize/commit/4a7b289ca0c66b938b7c7a58da7b5ab1f3379492))
+
 ### [5.0.2](https://github.com/masb0ymas/expresso-sequelize/compare/v5.0.1...v5.0.2) (2023-04-10)
 
 
