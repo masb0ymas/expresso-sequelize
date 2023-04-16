@@ -147,6 +147,47 @@ export default class UserService {
   }
 
   /**
+   *
+   * @param id
+   * @param formData
+   * @param options
+   */
+  public static async changePassword(
+    id: string,
+    formData: Partial<UserAttributes>,
+    options?: ReqOptions
+  ): Promise<void> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
+    const value = userSchema.changePassword.validateSync(formData, optionsYup)
+
+    const newId = validateUUID(id, { ...options })
+    const getUser = await User.scope('withPassword').findOne({
+      where: { id: newId },
+    })
+
+    // check user account
+    if (!getUser) {
+      const message = i18nConfig.t('errors.account_not_found', i18nOpt)
+      throw new ResponseError.NotFound(message)
+    }
+
+    const matchPassword = await getUser.comparePassword(value.currentPassword)
+
+    // compare password
+    if (!matchPassword) {
+      const message = i18nConfig.t('errors.incorrect_current_pass', i18nOpt)
+      throw new ResponseError.BadRequest(message)
+    }
+
+    // update password
+    await getUser.update({
+      ...getUser,
+      password: value.confirmNewPassword,
+    })
+  }
+
+  /**
    * Restore
    * @param id
    * @param options
