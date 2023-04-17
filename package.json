@@ -61,7 +61,7 @@
     "express-useragent": "^1.0.15",
     "expresso-core": "^0.4.0",
     "expresso-hooks": "^0.4.0",
-    "expresso-provider": "^0.4.1",
+    "expresso-provider": "^0.4.2",
     "expresso-query": "^0.4.1",
     "handlebars": "^4.7.7",
     "helmet": "^6.1.5",
