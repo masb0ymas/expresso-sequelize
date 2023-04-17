@@ -5166,14 +5166,14 @@ expresso-provider@^0.4.1:
     nodemailer "^6.9.1"
     nodemailer-mailgun-transport "^2.1.5"
 
-expresso-query@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/expresso-query/-/expresso-query-0.4.1.tgz#67745e6a08df837ed3dcf7c4d3c53d62c8bebef7"
-  integrity sha512-neyDOzFq+LgCmx6fbLMi/J52ZMVCkAlQ16pCuaMoGJZc+WRyBODLCfxz9KZeVW+9i7MgjICC+WFhQQCT+i/Y5A==
+expresso-query@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/expresso-query/-/expresso-query-0.4.3.tgz#e3b84b2cec8d5234054325abdf701c86f695fddf"
+  integrity sha512-1r2U6J/Tb55KFye/LmWzjngWxc/5B6Wn1xCW3FyZOlI9OxVP5fLaugHLIC0AO/d1eiuy0hOQXpzj9uyfzPG2Rg==
   dependencies:
     lodash "^4.17.21"
     sequelize "^6.31.0"
-    typeorm "^0.3.14"
+    typeorm "^0.3.15"
     uuid "^9.0.0"
 
 ext-list@^2.0.0:
@@ -10105,10 +10105,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
-typeorm@^0.3.14:
-  version "0.3.14"
-  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.3.14.tgz#d46bc685aa92d0caf910849f22753ef319822327"
-  integrity sha512-tEPEN8qmA2a2wmjkaDcWBZ6LsECHofJW2vaCQMklYs+4JRJMAJ5FfbPIWMbhJ3ANJGMtLAmU1GfC8rLFIpbWsg==
+typeorm@^0.3.15:
+  version "0.3.15"
+  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.3.15.tgz#8548cba64b746a0eadeab65b18ea21cd31ac7468"
+  integrity sha512-R4JSw8QjDP1W+ypeRz/XrCXIqubrLSnNAzJAp9EQSQIPHTv+YmUHZis8g08lOwFpuhqL9m8jkPSz8GWEKlU/ow==
   dependencies:
     "@sqltools/formatter" "^1.2.5"
     app-root-path "^3.1.0"

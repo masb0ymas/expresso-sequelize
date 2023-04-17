@@ -62,7 +62,7 @@
     "expresso-core": "^0.4.0",
     "expresso-hooks": "^0.4.0",
     "expresso-provider": "^0.4.1",
-    "expresso-query": "^0.4.1",
+    "expresso-query": "^0.4.3",
     "handlebars": "^4.7.7",
     "helmet": "^6.1.5",
     "hpp": "^0.2.3",
