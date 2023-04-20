@@ -1,4 +1,5 @@
 import { Mail } from 'expresso-provider'
+import { type MailDriverType } from 'expresso-provider/lib/mail'
 import {
   APP_NAME,
   MAIL_DRIVER,
@@ -8,7 +9,7 @@ import {
   MAIL_USERNAME,
 } from './env'
 
-const mailDriver = MAIL_DRIVER as 'smtp' | 'gmail'
+const mailDriver = MAIL_DRIVER as MailDriverType
 
 export const mailService = new Mail({
   appName: APP_NAME,

@@ -83,6 +83,48 @@ module.exports = {
       },
     },
   },
+  '/user/change-password': {
+    post: {
+      tags: ['User'],
+      summary: 'Change Password',
+      security: [
+        {
+          auth_token: [],
+        },
+      ],
+      requestBody: {
+        required: true,
+        content: {
+          'application/x-www-form-urlencoded': {
+            schema: {
+              type: 'object',
+              properties: {
+                currentPassword: {
+                  type: 'string',
+                },
+                newPassword: {
+                  type: 'string',
+                },
+                confirmNewPassword: {
+                  type: 'string',
+                },
+              },
+              required: [
+                'currentPassword',
+                'newPassword',
+                'confirmNewPassword',
+              ],
+            },
+          },
+        },
+      },
+      responses: {
+        201: {
+          description: 'Change Password',
+        },
+      },
+    },
+  },
   '/user/multiple/restore': {
     post: {
       tags: ['User'],

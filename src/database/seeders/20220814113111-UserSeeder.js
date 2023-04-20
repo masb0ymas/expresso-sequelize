@@ -4,10 +4,10 @@ const { v4: uuidv4 } = require('uuid')
 const bcrypt = require('bcrypt')
 const _ = require('lodash')
 const { default: ConstRole } = require('../../core/constants/ConstRole')
-const { randomString, printLog } = require('expresso-core')
+const { printLog } = require('expresso-core')
 
 const salt = 10
-const defaultPassword = randomString.generate(10)
+const defaultPassword = 'Padang123'
 
 const logMessage = printLog('Seed', `your default password: ${defaultPassword}`)
 console.log(logMessage)

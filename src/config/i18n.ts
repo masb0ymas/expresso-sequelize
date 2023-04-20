@@ -10,7 +10,7 @@ void i18next.use(i18nextBackend).init(
     ns: ['translation'],
     defaultNS: 'translation',
     backend: {
-      loadPath: 'public/locales/{{lng}}/{{ns}}.json',
+      loadPath: 'assets/locales/{{lng}}/{{ns}}.json',
     },
   },
   (err, _t) => {
