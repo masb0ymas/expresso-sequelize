@@ -75,7 +75,7 @@ export class OTP {
    * @param params
    * @param options
    */
-  public static async takeOverOTP(
+  public static async takeOver(
     params: HashOTPEntity,
     options?: ReqOptions
   ): Promise<void> {
