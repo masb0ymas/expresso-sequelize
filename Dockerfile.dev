@@ -56,6 +56,7 @@ ENV TZ=Asia/Jakarta
 RUN apk add nano
 
 COPY --from=builder /temp-build/public ./public
+COPY --from=builder /temp-build/assets ./assets
 COPY --from=builder /temp-build/node_modules ./node_modules
 COPY --from=builder /temp-build/package.json ./package.json
 COPY --from=builder /temp-build/dist ./dist
