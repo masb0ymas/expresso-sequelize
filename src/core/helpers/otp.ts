@@ -1,97 +1,114 @@
 import { EXPIRED_OTP, SECRET_OTP } from '@config/env'
+import { i18nConfig } from '@config/i18n'
 import { redisService } from '@config/redis'
-import crypto from 'crypto'
+import { type ReqOptions } from '@core/interface/ReqOptions'
+import ResponseError from '@core/modules/response/ResponseError'
 import { ms } from 'expresso-core'
+import { useOTP } from 'expresso-hooks'
+import { type TOptions } from 'i18next'
 
 interface HashOTPEntity {
   phone: string
   otp: string | number
 }
 
-interface VerifyHashOTPEntity extends HashOTPEntity {
-  hash: string
-}
+export class OTP {
+  private static readonly _useOTP = new useOTP()
+  private static readonly _secretKey = String(SECRET_OTP)
+  private static readonly _expires = EXPIRED_OTP
 
-/**
- *
- * @param params
- * @returns
- */
-export function createHashOTP({ phone, otp }: HashOTPEntity): string {
-  const ttl = ms(EXPIRED_OTP) // 5 Minutes in miliseconds
-  const expires = Date.now() + Number(ttl) // timestamp to 5 minutes in the future
-  const data = `${phone}.${otp}.${expires}` // phone.otp.expiry_timestamp
+  /**
+   *
+   * @param payload
+   * @returns
+   */
+  public static hash(payload: string): string {
+    const result = this._useOTP.hash(payload, { secretKey: this._secretKey })
 
-  const hash = crypto
-    .createHmac('sha256', String(SECRET_OTP))
-    .update(data)
-    .digest('hex') // creating SHA256 hash of the data
-  const result = `${hash}.${expires}` // Hash.expires, format to send to the user
-
-  return result
-}
-
-/**
- *
- * @param params
- * @returns
- */
-export function verifyHashOTP(params: VerifyHashOTPEntity): boolean {
-  const { phone, otp, hash } = params
-  const [hashValue, expires] = hash.split('.')
-
-  // Check if expiry time has passed
-  const now = Date.now()
-  if (now > parseInt(expires)) return false
-
-  // Calculate new hash with the same key and the same algorithm
-  const data = `${phone}.${otp}.${expires}`
-  const newHash = crypto
-    .createHmac('sha256', String(SECRET_OTP))
-    .update(data)
-    .digest('hex')
-
-  // Match the hashes
-  if (newHash === hashValue) {
-    return true
+    return result
   }
 
-  return false
-}
+  /**
+   *
+   * @param payload
+   * @returns
+   */
+  public static hashOTP(payload: string): string {
+    const result = this._useOTP.hashOTP(payload, {
+      expires: this._expires,
+      secretKey: this._secretKey,
+    })
 
-/**
- *
- * @param params
- */
-export async function takeOverOTP(params: HashOTPEntity): Promise<void> {
-  const { phone, otp } = params
-
-  const keyRedis = `${phone}`
-  const expires = ms('10m')
-  const limit = 5
-
-  const getRedis: string | null = await redisService.get(keyRedis)
-
-  let storeRedis = []
-
-  // Get Cache
-  if (!getRedis) {
-    storeRedis = [otp]
-  } else {
-    storeRedis = [...getRedis, otp]
+    return result
   }
 
-  // Check Takeover Verify OTP
-  if (storeRedis.length >= limit) {
-    throw new Error(
-      'you have entered the wrong otp, please try again in 10 minutes'
-    )
+  /**
+   *
+   * @param payload
+   * @param hash
+   * @returns
+   */
+  public static compare(payload: string, hash: string): boolean {
+    const result = this._useOTP.compare(payload, hash, {
+      secretKey: this._secretKey,
+    })
+
+    return result
   }
 
-  console.log({ storeRedis })
+  /**
+   *
+   * @param payload
+   * @param hash
+   * @returns
+   */
+  public static verifyHash(payload: string, hash: string): boolean {
+    const result = this._useOTP.verifyHash(payload, hash, {
+      secretKey: this._secretKey,
+    })
 
-  // Set Redis
-  await redisService.set(keyRedis, JSON.stringify(storeRedis), {
-    timeout: expires,
-  })
+    return result
+  }
+
+  /**
+   *
+   * @param params
+   * @param options
+   */
+  public static async takeOverOTP(
+    params: HashOTPEntity,
+    options?: ReqOptions
+  ): Promise<void> {
+    const i18nOpt: string | TOptions = { lng: options?.lang }
+
+    const { phone, otp } = params
+
+    const keyRedis = `${phone}`
+    const expires = ms('10m')
+    const limit = 5
+
+    const getRedis: string | null = await redisService.get(keyRedis)
+
+    let storeRedis = []
+
+    // Get Cache
+    if (!getRedis) {
+      storeRedis = [otp]
+    } else {
+      storeRedis = [...getRedis, otp]
+    }
+
+    // Check Takeover Verify OTP
+    if (storeRedis.length >= limit) {
+      const message = i18nConfig.t('errors.login_back', i18nOpt)
+      throw new ResponseError.BadRequest(message)
+    }
+
+    console.log({ storeRedis })
+
+    // Set Redis
+    await redisService.set(keyRedis, JSON.stringify(storeRedis), {
+      timeout: expires,
+    })
+  }
 }
