@@ -1,26 +1,32 @@
 import { type DtoLogin } from '@apps/interface/Dto'
 import userSchema from '@apps/schemas/user.schema'
-import { MAIL_PASSWORD, MAIL_USERNAME } from '@config/env'
+import {
+  JWT_ACCESS_TOKEN_EXPIRED,
+  JWT_SECRET_ACCESS_TOKEN,
+  MAIL_PASSWORD,
+  MAIL_USERNAME,
+} from '@config/env'
 import { i18nConfig } from '@config/i18n'
 import ConstRole from '@core/constants/ConstRole'
 import SendMail from '@core/helpers/sendMails'
-import { generateToken, verifyToken } from '@core/helpers/token'
 import { optionsYup } from '@core/helpers/yup'
 import { type ReqOptions } from '@core/interface/ReqOptions'
 import ResponseError from '@core/modules/response/ResponseError'
+import Role from '@database/entities/Role'
+import Session from '@database/entities/Session'
+import Upload from '@database/entities/Upload'
 import User, {
   type LoginAttributes,
   type UserLoginAttributes,
 } from '@database/entities/User'
 import { validateEmpty } from 'expresso-core'
+import { useToken } from 'expresso-hooks'
+import { type ExpiresType } from 'expresso-hooks/lib/token/interface'
 import { type TOptions } from 'i18next'
 import _ from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 import SessionService from '../Account/session.service'
 import UserService from '../Account/user.service'
-import Role from '@database/entities/Role'
-import Upload from '@database/entities/Upload'
-import Session from '@database/entities/Session'
 
 export default class AuthService {
   /**
@@ -30,7 +36,12 @@ export default class AuthService {
    */
   public static async signUp(formData: any): Promise<User> {
     const uid = uuidv4()
-    const { token } = generateToken({ token: uid })
+
+    const { token } = useToken.generate({
+      value: { token: uid },
+      secretKey: String(JWT_SECRET_ACCESS_TOKEN),
+      expires: JWT_ACCESS_TOKEN_EXPIRED as ExpiresType,
+    })
 
     let RoleId = ConstRole.ID_USER
 
@@ -107,7 +118,12 @@ export default class AuthService {
     }
 
     const payloadToken = { uid: getUser.id }
-    const { token, expiresIn } = generateToken(payloadToken)
+
+    const { token, expiresIn } = useToken.generate({
+      value: payloadToken,
+      secretKey: String(JWT_SECRET_ACCESS_TOKEN),
+      expires: JWT_ACCESS_TOKEN_EXPIRED as ExpiresType,
+    })
 
     const message = i18nConfig.t('success.login', i18nOpt)
 
@@ -136,7 +152,11 @@ export default class AuthService {
     options?: ReqOptions
   ): Promise<User | null> {
     const getSession = await SessionService.findByUserToken(UserId, token)
-    const validateToken = verifyToken(getSession.token)
+
+    const validateToken = useToken.verify({
+      token: String(getSession.token),
+      secretKey: String(JWT_SECRET_ACCESS_TOKEN),
+    })
 
     const userToken = validateToken?.data as UserLoginAttributes
 
