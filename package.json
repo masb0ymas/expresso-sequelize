@@ -136,7 +136,7 @@
     "ioredis-mock": "^8.7.0",
     "jest": "^29.5.0",
     "nodemon": "^2.0.22",
-    "prettier": "^2.8.7",
+    "prettier": "^2.8.8",
     "rimraf": "^4.4.1",
     "standard-version": "^9.5.0",
     "supertest": "^6.3.3",
