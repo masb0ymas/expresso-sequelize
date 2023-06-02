@@ -8,15 +8,10 @@
 
     /* Modules */
     "module": "commonjs",
-    "rootDir": "./src",
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "@apps/*": ["apps/*"],
-      "@core/*": ["core/*"],
-      "@config/*": ["config/*"],
-      "@database/*": ["database/*"],
-      "@routes/*": ["routes/*"]
+      "~/*": ["./src/*"]
     },
     "typeRoots": ["./src/types"],
     "types": ["jest"],

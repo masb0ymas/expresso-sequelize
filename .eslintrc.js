@@ -21,17 +21,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'new-cap': 'off',
     'no-new': 'off',
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-        mjs: 'never',
-      },
-    ],
+    'import/extensions': 'off',
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',

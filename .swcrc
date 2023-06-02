@@ -9,11 +9,7 @@
         "dynamicImport": false
       },
       "paths": {
-        "@apps/*": ["dist/apps/*"],
-        "@core/*": ["dist/core/*"],
-        "@config/*": ["dist/config/*"],
-        "@database/*": ["dist/database/*"],
-        "@routes/*": ["dist/routes/*"]
+        "~/*": ["dist/*"]
       },
       "target": "es2022",
       "loose": true,
@@ -43,11 +39,7 @@
         "dynamicImport": false
       },
       "paths": {
-        "@apps/*": ["dist/apps/*"],
-        "@core/*": ["dist/core/*"],
-        "@config/*": ["dist/config/*"],
-        "@database/*": ["dist/database/*"],
-        "@routes/*": ["dist/routes/*"]
+        "~/*": ["dist/*"]
       },
       "target": "es2022",
       "loose": true,
