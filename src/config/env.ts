@@ -79,6 +79,7 @@ export const REDIS_PASSWORD = process.env.REDIS_PASSWORD ?? undefined
 
 // storage
 export const STORAGE_PROVIDER = process.env.STORAGE_PROVIDER ?? 'minio'
+export const STORAGE_HOST = process.env.STORAGE_HOST ?? '127.0.0.1'
 export const STORAGE_ACCESS_KEY = process.env.STORAGE_ACCESS_KEY ?? undefined
 export const STORAGE_SECRET_KEY = process.env.STORAGE_SECRET_KEY ?? undefined
 export const STORAGE_BUCKET_NAME = process.env.STORAGE_BUCKET_NAME ?? 'expresso'
