@@ -1,6 +1,6 @@
-import { i18nConfig } from '@config/i18n'
-import { type ReqOptions } from '@core/interface/ReqOptions'
 import { type TOptions } from 'i18next'
+import { i18nConfig } from '~/config/i18n'
+import { type ReqOptions } from '~/core/interface/ReqOptions'
 
 type DataResponseEntity<TData> = {
   message?: string

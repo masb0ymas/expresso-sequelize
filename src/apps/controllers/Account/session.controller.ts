@@ -1,10 +1,10 @@
-import authorization from '@apps/middlewares/authorization'
-import SessionService from '@apps/services/Account/session.service'
-import { APP_LANG } from '@config/env'
-import asyncHandler from '@core/helpers/asyncHandler'
-import HttpResponse from '@core/modules/response/HttpResponse'
-import route from '@routes/v1'
 import { type Request, type Response } from 'express'
+import authorization from '~/apps/middlewares/authorization'
+import SessionService from '~/apps/services/Account/session.service'
+import { APP_LANG } from '~/config/env'
+import asyncHandler from '~/core/helpers/asyncHandler'
+import HttpResponse from '~/core/modules/response/HttpResponse'
+import route from '~/routes/v1'
 
 route.get(
   '/session',

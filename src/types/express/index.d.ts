@@ -1,4 +1,4 @@
-import type withState from '@core/helpers/withState'
+import type withState from '~/core/helpers/withState'
 
 declare global {
   namespace Express {

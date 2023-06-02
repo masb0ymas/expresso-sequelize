@@ -1,9 +1,9 @@
-import { APP_NAME, NODE_ENV } from '@config/env'
-import { BASE_URL_SERVER } from '@core/constants/baseURL'
 import fs from 'fs'
 import _ from 'lodash'
 import path from 'path'
 import swaggerJSDoc from 'swagger-jsdoc'
+import { APP_NAME, NODE_ENV } from '~/config/env'
+import { BASE_URL_SERVER } from '~/core/constants/baseURL'
 
 const baseRouteDocs = path.resolve(`${__dirname}/../../apps/docs/routes`)
 const baseSchemaDocs = path.resolve(`${__dirname}/../../apps/docs/schemas`)

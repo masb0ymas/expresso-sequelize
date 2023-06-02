@@ -1,6 +1,6 @@
-import UploadService from '@apps/services/Upload/upload.service'
 import { printLog } from 'expresso-core'
 import cron from 'node-cron'
+import UploadService from '~/apps/services/Upload/upload.service'
 
 export class UploadJob {
   /**

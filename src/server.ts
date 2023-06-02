@@ -1,14 +1,14 @@
 import 'module-alias/register'
 import './pathAlias'
 
+import chalk from 'chalk'
+import { printLog } from 'expresso-core'
 import {
   SEQUELIZE_CONNECTION,
   SEQUELIZE_DATABASE,
   SEQUELIZE_SYNC,
-} from '@config/env'
-import db from '@database/data-source'
-import chalk from 'chalk'
-import { printLog } from 'expresso-core'
+} from '~/config/env'
+import db from '~/database/data-source'
 import App from './app'
 
 const server = new App()

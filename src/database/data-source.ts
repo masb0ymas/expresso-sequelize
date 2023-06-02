@@ -12,7 +12,7 @@ import {
   SEQUELIZE_PORT,
   SEQUELIZE_TIMEZONE,
   SEQUELIZE_USERNAME,
-} from '@config/env'
+} from '~/config/env'
 
 const pathEnv = path.resolve('.env')
 
