@@ -1,11 +1,11 @@
-import { EXPIRED_OTP, SECRET_OTP } from '@config/env'
-import { i18nConfig } from '@config/i18n'
-import { redisService } from '@config/redis'
-import { type ReqOptions } from '@core/interface/ReqOptions'
-import ResponseError from '@core/modules/response/ResponseError'
 import { ms } from 'expresso-core'
 import { useOTP } from 'expresso-hooks'
 import { type TOptions } from 'i18next'
+import { EXPIRED_OTP, SECRET_OTP } from '~/config/env'
+import { i18nConfig } from '~/config/i18n'
+import { redisService } from '~/config/redis'
+import { type ReqOptions } from '~/core/interface/ReqOptions'
+import ResponseError from '~/core/modules/response/ResponseError'
 
 interface HashOTPEntity {
   phone: string

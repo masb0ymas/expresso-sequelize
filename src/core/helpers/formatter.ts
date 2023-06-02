@@ -1,8 +1,8 @@
-import { i18nConfig } from '@config/i18n'
-import { type ReqOptions } from '@core/interface/ReqOptions'
-import ResponseError from '@core/modules/response/ResponseError'
 import { type TOptions } from 'i18next'
 import { validate as uuidValidate } from 'uuid'
+import { i18nConfig } from '~/config/i18n'
+import { type ReqOptions } from '~/core/interface/ReqOptions'
+import ResponseError from '~/core/modules/response/ResponseError'
 
 /**
  *

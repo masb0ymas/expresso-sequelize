@@ -1,11 +1,11 @@
-import { APP_NAME } from '@config/env'
-import { mailService } from '@config/mail'
-import { type AccountRegistrationEntity } from '@core/interface/SendMail'
-import ResponseError from '@core/modules/response/ResponseError'
 import { printLog, readHTMLFile } from 'expresso-core'
 import fs from 'fs'
 import Handlebars from 'handlebars'
 import path from 'path'
+import { APP_NAME } from '~/config/env'
+import { mailService } from '~/config/mail'
+import { type AccountRegistrationEntity } from '~/core/interface/SendMail'
+import ResponseError from '~/core/modules/response/ResponseError'
 
 class SendMail {
   /**

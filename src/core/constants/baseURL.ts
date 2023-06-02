@@ -5,7 +5,7 @@ import {
   URL_CLIENT_STAGING,
   URL_SERVER_PRODUCTION,
   URL_SERVER_STAGING,
-} from '@config/env'
+} from '~/config/env'
 
 const URL_CLIENT: object | any = {
   development: 'http://localhost:3000',

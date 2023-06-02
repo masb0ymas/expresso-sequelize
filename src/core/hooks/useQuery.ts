@@ -1,7 +1,7 @@
-import { SEQUELIZE_CONNECTION } from '@config/env'
-import { type DtoQueryEntity } from '@core/interface/QueryFiltered'
 import { useSequelize } from 'expresso-query'
 import { type UseSequelizeQuery } from 'expresso-query/lib/interface'
+import { SEQUELIZE_CONNECTION } from '~/config/env'
+import { type DtoQueryEntity } from '~/core/interface/QueryFiltered'
 
 type ConnectType = 'postgres' | 'mysql' | 'mariadb'
 

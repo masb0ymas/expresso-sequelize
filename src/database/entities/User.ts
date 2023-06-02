@@ -14,11 +14,11 @@ import {
   Table,
   Unique,
 } from 'sequelize-typescript'
+import userSchema from '~/apps/schemas/user.schema'
 import Base, { type BaseEntity } from './Base'
 import Role from './Role'
 import Session from './Session'
 import Upload from './Upload'
-import userSchema from '@apps/schemas/user.schema'
 
 interface UserEntity extends BaseEntity {
   deletedAt?: Date | null

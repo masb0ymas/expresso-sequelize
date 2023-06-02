@@ -1,13 +1,13 @@
-import authorization from '@apps/middlewares/authorization'
-import permissionAccess from '@apps/middlewares/permissionAccess'
-import RoleService from '@apps/services/Account/role.service'
-import { APP_LANG } from '@config/env'
-import ConstRole from '@core/constants/ConstRole'
-import asyncHandler from '@core/helpers/asyncHandler'
-import HttpResponse from '@core/modules/response/HttpResponse'
-import route from '@routes/v1'
 import { type Request, type Response } from 'express'
 import { arrayFormatter } from 'expresso-core'
+import authorization from '~/apps/middlewares/authorization'
+import permissionAccess from '~/apps/middlewares/permissionAccess'
+import RoleService from '~/apps/services/Account/role.service'
+import { APP_LANG } from '~/config/env'
+import ConstRole from '~/core/constants/ConstRole'
+import asyncHandler from '~/core/helpers/asyncHandler'
+import HttpResponse from '~/core/modules/response/HttpResponse'
+import route from '~/routes/v1'
 
 route.get(
   '/role',

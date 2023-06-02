@@ -1,7 +1,7 @@
-import { formatDate } from '@core/helpers/date'
 import chalk from 'chalk'
 import path from 'path'
 import winston, { format } from 'winston'
+import { formatDate } from '~/core/helpers/date'
 
 // custom format log console
 const myFormat = format.printf(({ level, message, label, timestamp }) => {

@@ -1,8 +1,8 @@
-import ResponseError from '@core/modules/response/ResponseError'
 import axios, { type AxiosError, type AxiosInstance } from 'axios'
 import chalk from 'chalk'
 import { ms, printLog } from 'expresso-core'
 import _ from 'lodash'
+import ResponseError from '~/core/modules/response/ResponseError'
 import { AXIOS_TIMEOUT } from './env'
 import { redisService } from './redis'
 

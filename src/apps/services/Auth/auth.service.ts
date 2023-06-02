@@ -1,30 +1,30 @@
-import { type DtoLogin } from '@apps/interface/Dto'
-import userSchema from '@apps/schemas/user.schema'
-import {
-  JWT_ACCESS_TOKEN_EXPIRED,
-  JWT_SECRET_ACCESS_TOKEN,
-  MAIL_PASSWORD,
-  MAIL_USERNAME,
-} from '@config/env'
-import { i18nConfig } from '@config/i18n'
-import ConstRole from '@core/constants/ConstRole'
-import SendMail from '@core/helpers/sendMails'
-import { optionsYup } from '@core/helpers/yup'
-import { type ReqOptions } from '@core/interface/ReqOptions'
-import ResponseError from '@core/modules/response/ResponseError'
-import Role from '@database/entities/Role'
-import Session from '@database/entities/Session'
-import Upload from '@database/entities/Upload'
-import User, {
-  type LoginAttributes,
-  type UserLoginAttributes,
-} from '@database/entities/User'
 import { validateEmpty } from 'expresso-core'
 import { useToken } from 'expresso-hooks'
 import { type ExpiresType } from 'expresso-hooks/lib/token/interface'
 import { type TOptions } from 'i18next'
 import _ from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
+import { type DtoLogin } from '~/apps/interface/Dto'
+import userSchema from '~/apps/schemas/user.schema'
+import {
+  JWT_ACCESS_TOKEN_EXPIRED,
+  JWT_SECRET_ACCESS_TOKEN,
+  MAIL_PASSWORD,
+  MAIL_USERNAME,
+} from '~/config/env'
+import { i18nConfig } from '~/config/i18n'
+import ConstRole from '~/core/constants/ConstRole'
+import SendMail from '~/core/helpers/sendMails'
+import { optionsYup } from '~/core/helpers/yup'
+import { type ReqOptions } from '~/core/interface/ReqOptions'
+import ResponseError from '~/core/modules/response/ResponseError'
+import Role from '~/database/entities/Role'
+import Session from '~/database/entities/Session'
+import Upload from '~/database/entities/Upload'
+import User, {
+  type LoginAttributes,
+  type UserLoginAttributes,
+} from '~/database/entities/User'
 import SessionService from '../Account/session.service'
 import UserService from '../Account/user.service'
 

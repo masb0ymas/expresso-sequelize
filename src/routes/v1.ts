@@ -1,6 +1,6 @@
-import { getRoutes } from '@core/helpers/routing'
 import Express from 'express'
 import path from 'path'
+import { getRoutes } from '~/core/helpers/routing'
 
 const route = Express.Router()
 

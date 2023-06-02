@@ -1,7 +1,7 @@
-import ResponseError from '@core/modules/response/ResponseError'
 import { type NextFunction, type Request, type Response } from 'express'
 import _ from 'lodash'
 import multer from 'multer'
+import ResponseError from '~/core/modules/response/ResponseError'
 
 interface DtoErrorResponse {
   code: number

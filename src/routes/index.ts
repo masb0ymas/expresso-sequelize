@@ -1,10 +1,10 @@
-import { NODE_ENV } from '@config/env'
-import { BASE_URL_SERVER } from '@core/constants/baseURL'
-import { formatDateTime } from '@core/helpers/date'
-import HttpResponse from '@core/modules/response/HttpResponse'
-import ResponseError from '@core/modules/response/ResponseError'
-import v1Routes from '@routes/v1'
 import Express, { type Request, type Response } from 'express'
+import { NODE_ENV } from '~/config/env'
+import { BASE_URL_SERVER } from '~/core/constants/baseURL'
+import { formatDateTime } from '~/core/helpers/date'
+import HttpResponse from '~/core/modules/response/HttpResponse'
+import ResponseError from '~/core/modules/response/ResponseError'
+import v1Routes from '~/routes/v1'
 
 const route = Express.Router()
 

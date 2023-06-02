@@ -1,24 +1,3 @@
-import { Jobs } from '@apps/jobs'
-import expressErrorResponse from '@apps/middlewares/expressErrorResponse'
-import expressErrorSequelize from '@apps/middlewares/expressErrorSequelize'
-import expressErrorYup from '@apps/middlewares/expressErrorYups'
-import { expressRateLimit } from '@apps/middlewares/expressRateLimit'
-import { expressWithState } from '@apps/middlewares/expressWithState'
-import { expressUserAgent } from '@apps/middlewares/userAgent'
-import {
-  APP_NAME,
-  APP_PORT,
-  MAIL_PASSWORD,
-  MAIL_USERNAME,
-  NODE_ENV,
-} from '@config/env'
-import { i18nConfig } from '@config/i18n'
-import { winstonLogger, winstonStream } from '@config/logger'
-import { mailService } from '@config/mail'
-import { storageService } from '@config/storage'
-import allowedOrigins from '@core/constants/allowedOrigins'
-import { optionsSwaggerUI, swaggerSpec } from '@core/helpers/docsSwagger'
-import ResponseError from '@core/modules/response/ResponseError'
 import chalk from 'chalk'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
@@ -34,6 +13,27 @@ import logger from 'morgan'
 import path from 'path'
 import requestIp from 'request-ip'
 import swaggerUI from 'swagger-ui-express'
+import { Jobs } from '~/apps/jobs'
+import expressErrorResponse from '~/apps/middlewares/expressErrorResponse'
+import expressErrorSequelize from '~/apps/middlewares/expressErrorSequelize'
+import expressErrorYup from '~/apps/middlewares/expressErrorYups'
+import { expressRateLimit } from '~/apps/middlewares/expressRateLimit'
+import { expressWithState } from '~/apps/middlewares/expressWithState'
+import { expressUserAgent } from '~/apps/middlewares/userAgent'
+import {
+  APP_NAME,
+  APP_PORT,
+  MAIL_PASSWORD,
+  MAIL_USERNAME,
+  NODE_ENV,
+} from '~/config/env'
+import { i18nConfig } from '~/config/i18n'
+import { winstonLogger, winstonStream } from '~/config/logger'
+import { mailService } from '~/config/mail'
+import { storageService } from '~/config/storage'
+import allowedOrigins from '~/core/constants/allowedOrigins'
+import { optionsSwaggerUI, swaggerSpec } from '~/core/helpers/docsSwagger'
+import ResponseError from '~/core/modules/response/ResponseError'
 import indexRoutes from './routes'
 
 const optCors: cors.CorsOptions = {

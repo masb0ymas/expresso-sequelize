@@ -1,9 +1,9 @@
-import SessionService from '@apps/services/Account/session.service'
-import { JWT_SECRET_ACCESS_TOKEN } from '@config/env'
 import { type NextFunction, type Request, type Response } from 'express'
 import { printLog } from 'expresso-core'
 import { useToken } from 'expresso-hooks'
 import _ from 'lodash'
+import SessionService from '~/apps/services/Account/session.service'
+import { JWT_SECRET_ACCESS_TOKEN } from '~/config/env'
 
 /**
  * Authorization
