@@ -734,10 +734,10 @@
     "@aws-sdk/types" "3.342.0"
     tslib "^2.5.0"
 
-"@aws-sdk/s3-request-presigner@^3.337.0", "@aws-sdk/s3-request-presigner@^3.344.0":
-  version "3.344.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/s3-request-presigner/-/s3-request-presigner-3.344.0.tgz#2be43e9e92b86ec4339f53069274281ccba32fbe"
-  integrity sha512-aaCVSW8K0kLMboPEPmezPTOz1maypsdjfJQw/Bl5YJVA7P7l6KBN2ndlNl5nbcyXoWpIG8JdEVtzWD/3z4N3aw==
+"@aws-sdk/s3-request-presigner@^3.337.0", "@aws-sdk/s3-request-presigner@^3.345.0":
+  version "3.345.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/s3-request-presigner/-/s3-request-presigner-3.345.0.tgz#3e1e82123b57eae816bc3132c23244b4272d327d"
+  integrity sha512-xtmYp0d5OzYoiXo2Vw4JtIyW40OvFU68keC4p4Ik9ttQVVQIQ9kgphxBGAYezgcXNBbxeZ/VJUZuP7SkbVlyWA==
   dependencies:
     "@aws-sdk/middleware-endpoint" "3.344.0"
     "@aws-sdk/protocol-http" "3.342.0"
@@ -804,17 +804,10 @@
     "@aws-sdk/types" "3.342.0"
     tslib "^2.5.0"
 
-"@aws-sdk/types@3.342.0":
+"@aws-sdk/types@3.342.0", "@aws-sdk/types@^3.222.0":
   version "3.342.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.342.0.tgz#0bcba3b5966f28e0725122697a19ece8647afbec"
   integrity sha512-5uyXVda/AgUpdZNJ9JPHxwyxr08miPiZ/CKSMcRdQVjcNnrdzY9m/iM9LvnQT44sQO+IEEkF2IoZIWvZcq199A==
-  dependencies:
-    tslib "^2.5.0"
-
-"@aws-sdk/types@^3.222.0":
-  version "3.303.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.303.0.tgz#6ac0e4ea2fec9d82e4e8a18d31f5c4767b222a21"
-  integrity sha512-H+Cy8JDTsK87MID6MJbV9ad5xdS9YvaLZSeveC2Zs1WNu2Rp6X9j+mg3EqDSmBKUQVAFRy2b+CSKkH3nnBMedw==
   dependencies:
     tslib "^2.5.0"
 
