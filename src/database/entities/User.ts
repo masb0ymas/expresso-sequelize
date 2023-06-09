@@ -14,27 +14,27 @@ import {
   Table,
   Unique,
 } from 'sequelize-typescript'
-import userSchema from '~/apps/schemas/user.schema'
-import Base, { type BaseEntity } from './Base'
+import userSchema from '~/app/schema/user.schema'
+import Base, { type IBaseEntity } from './Base'
 import Role from './Role'
 import Session from './Session'
 import Upload from './Upload'
 
-interface UserEntity extends BaseEntity {
-  deletedAt?: Date | null
+interface UserEntity extends IBaseEntity {
+  deleted_at?: Date | null
   fullname: string
   email: string
   password?: string | null
   phone?: string | null
-  tokenVerify?: string | null
-  isActive?: boolean | null
-  isBlocked?: boolean | null
-  UploadId?: string | null
-  RoleId: string
+  token_verify?: string | null
+  is_active?: boolean | null
+  is_blocked?: boolean | null
+  upload_id?: string | null
+  role_id: string
 
   // virtual field
-  newPassword?: string | null
-  confirmNewPassword?: string | null
+  new_password?: string | null
+  confirm_new_password?: string | null
 }
 
 export interface UserLoginAttributes {
@@ -43,19 +43,19 @@ export interface UserLoginAttributes {
 
 export type CreatePassword = Pick<
   UserEntity,
-  'newPassword' | 'confirmNewPassword'
+  'new_password' | 'confirm_new_password'
 >
 
 export type LoginAttributes = Pick<UserEntity, 'email' | 'password'>
 
 export type UserAttributes = Omit<
   UserEntity,
-  'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+  'id' | 'created_at' | 'updated_at' | 'deleted_at'
 >
 
 @DefaultScope(() => ({
   attributes: {
-    exclude: ['password', 'tokenVerify'],
+    exclude: ['password', 'token_verify'],
   },
 }))
 @Scopes(() => ({
@@ -65,7 +65,7 @@ export type UserAttributes = Omit<
 class User extends Base {
   @DeletedAt
   @Column
-  deletedAt?: Date
+  deleted_at?: Date
 
   @Column({ allowNull: false })
   fullname: string
@@ -81,21 +81,21 @@ class User extends Base {
   phone?: string
 
   @Column({ type: DataType.TEXT })
-  tokenVerify?: string
+  token_verify?: string
 
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
     defaultValue: false,
   })
-  isActive?: boolean
+  is_active?: boolean
 
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
     defaultValue: false,
   })
-  isBlocked?: boolean
+  is_blocked?: boolean
 
   @IsUUID(4)
   @ForeignKey(() => Role)
@@ -104,10 +104,10 @@ class User extends Base {
     defaultValue: DataType.UUIDV4,
     allowNull: false,
   })
-  RoleId: string
+  role_id: string
 
   @BelongsTo(() => Role)
-  Role: Role
+  role: Role
 
   @IsUUID(4)
   @ForeignKey(() => Upload)
@@ -115,34 +115,34 @@ class User extends Base {
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
   })
-  UploadId: string
+  upload_id: string
 
   // many to one
   @BelongsTo(() => Upload)
-  Upload?: Upload
+  upload?: Upload
 
   // one to many
   @HasMany(() => Session)
-  Sessions: Session[]
+  sessions: Session[]
 
   @Column({ type: DataType.VIRTUAL })
-  newPassword: string
+  new_password: string
 
   @Column({ type: DataType.VIRTUAL })
-  confirmNewPassword: string
+  confirm_new_password: string
 
-  comparePassword: (currentPassword: string) => Promise<boolean>
+  comparePassword: (current_password: string) => Promise<boolean>
 
   @BeforeUpdate
   @BeforeCreate
   static setUserPassword(instance: User): void {
-    const { newPassword, confirmNewPassword } = instance
+    const { new_password, confirm_new_password } = instance
     const saltRounds = 10
 
-    if (newPassword ?? confirmNewPassword) {
-      const formPassword = { newPassword, confirmNewPassword }
+    if (new_password ?? confirm_new_password) {
+      const formPassword = { new_password, confirm_new_password }
       const validPassword = userSchema.createPassword.validateSyncAt(
-        'confirmNewPassword',
+        'confirm_new_password',
         formPassword
       )
 
@@ -154,12 +154,12 @@ class User extends Base {
 
 // compare password
 User.prototype.comparePassword = async function (
-  currentPassword: string
+  current_password: string
 ): Promise<boolean> {
   return await new Promise((resolve, reject) => {
     const password = String(this.password)
 
-    bcrypt.compare(currentPassword, password, function (err, isMatch) {
+    bcrypt.compare(current_password, password, function (err, isMatch) {
       if (err) reject(err)
       resolve(isMatch)
     })

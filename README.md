@@ -1,10 +1,10 @@
-# expresso with Sequelize
+# expresso with TypeORM
 
-[![documentation](https://img.shields.io/badge/Documentation-yes-brightgreen.svg)](https://github.com/masb0ymas/expresso-sequelize#readme)
-[![maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/masb0ymas/expresso-sequelize/graphs/commit-activity)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/masb0ymas/expresso-sequelize/blob/master/LICENSE.md)
+[![documentation](https://img.shields.io/badge/Documentation-yes-brightgreen.svg)](https://github.com/masb0ymas/expresso-typeorm#readme)
+[![maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/masb0ymas/expresso-typeorm/graphs/commit-activity)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/masb0ymas/expresso-typeorm/blob/master/LICENSE.md)
 
-[![version](https://img.shields.io/badge/Version-5.0.3-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso-sequelize/releases/tag/v5.0.3)
+[![version](https://img.shields.io/badge/Version-4.3.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso-typeorm/releases/tag/v4.3.0)
 [![Express](https://img.shields.io/badge/Express-4.18.2-informational?logo=express&color=22272E)](https://expressjs.com/)
 ![Node](https://badges.aleen42.com/src/node.svg)
 ![Eslint](https://badges.aleen42.com/src/eslint.svg)
@@ -13,11 +13,12 @@
 
 ## Feature
 
-- [TypeScript](https://github.com/microsoft/TypeScript) `4.9.x`
-- [Sequelize](https://github.com/sequelize/sequelize) `6.x`
+- [TypeScript](https://github.com/microsoft/TypeScript) `5.1.x`
+- [TypeORM](https://github.com/typeorm/typeorm) `0.3.x`
 - [Nodemailer](https://github.com/nodemailer/nodemailer) `6.x`
 - [Handlebars](https://github.com/wycats/handlebars.js) for templating HTML
 - [Yup](https://github.com/jquense/yup) for validation schema `1.x`
+- [SWC](https://github.com/swc-project/swc) for build runtime app `1.3.x`
 - JavaScript Style [Standard with TypeScript](https://github.com/standard/eslint-config-standard-with-typescript)
 - Formating code using [Prettier](https://github.com/prettier/prettier) Integration [Eslint](https://github.com/prettier/eslint-config-prettier) and [TypeScript Eslint](https://github.com/typescript-eslint/typescript-eslint#readme)
 - Using [Module Alias](https://github.com/ilearnio/module-alias) for simplify the require/import paths
@@ -30,8 +31,12 @@
 1. Clone this repository
 2. Duplicate `.env.example` to `.env`
 3. Setup database settings inside `.env` file
-4. Create your database ( manual )
+4. Create your database ( manual ) or run `yarn db:create && yarn db:reset`
 5. Run `yarn dev` command
+6. Run watch command `yarn dev:watch`
+7. Release your app for *Production* or *Staging* with `yarn release`
+8. Build your code with Docker `docker build -t yourname/express:v1.0.0 .`
+9. Run with docker image `docker run -p 7000:8000 -d yourname/express:v1.0.0`
 
 ## Author
 

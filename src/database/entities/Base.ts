@@ -9,10 +9,10 @@ import {
   UpdatedAt,
 } from 'sequelize-typescript'
 
-export interface BaseEntity {
+export interface IBaseEntity {
   id?: string
-  createdAt: Date
-  updatedAt: Date
+  created_at: Date
+  updated_at: Date
 }
 
 @Table({ tableName: 'base' })
@@ -24,11 +24,11 @@ class Base extends Model {
 
   @CreatedAt
   @Column({ allowNull: false })
-  createdAt!: Date
+  created_at!: Date
 
   @UpdatedAt
   @Column({ allowNull: false })
-  updatedAt!: Date
+  updated_at!: Date
 }
 
 export default Base

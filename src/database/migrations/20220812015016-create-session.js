@@ -8,15 +8,15 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      UserId: {
+      user_id: {
         allowNull: false,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -29,13 +29,19 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT,
       },
-      ipAddress: {
+      ip_address: {
         type: Sequelize.STRING,
       },
       device: {
         type: Sequelize.STRING,
       },
       platform: {
+        type: Sequelize.STRING,
+      },
+      latitude: {
+        type: Sequelize.STRING,
+      },
+      longitude: {
         type: Sequelize.STRING,
       },
     })

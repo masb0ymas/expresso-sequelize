@@ -1,8 +1,16 @@
 import { Redis } from 'expresso-provider'
-import { REDIS_HOST, REDIS_PASSWORD, REDIS_PORT } from './env'
+import { env } from './env'
 
+/**
+ * Initialize Redis Service Config
+ */
 export const redisService = new Redis({
-  host: REDIS_HOST,
-  port: REDIS_PORT,
-  password: REDIS_PASSWORD,
+  // Redis Host
+  host: env.REDIS_HOST,
+
+  // Redis Port
+  port: env.REDIS_PORT,
+
+  // Redis Password
+  password: env.REDIS_PASSWORD,
 })

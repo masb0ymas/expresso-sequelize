@@ -9,15 +9,15 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      deletedAt: {
+      deleted_at: {
         type: Sequelize.DATE,
       },
       fullname: {
@@ -35,20 +35,20 @@ module.exports = {
       phone: {
         type: Sequelize.STRING('20'),
       },
-      tokenVerify: {
+      token_verify: {
         type: Sequelize.TEXT,
       },
-      isActive: {
+      is_active: {
         allowNull: false,
         defaultValue: false,
         type: Sequelize.BOOLEAN,
       },
-      isBlocked: {
+      is_blocked: {
         allowNull: false,
         defaultValue: false,
         type: Sequelize.BOOLEAN,
       },
-      RoleId: {
+      role_id: {
         allowNull: false,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -57,7 +57,7 @@ module.exports = {
           key: 'id',
         },
       },
-      UploadId: {
+      upload_id: {
         allowNull: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,

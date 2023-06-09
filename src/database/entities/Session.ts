@@ -6,20 +6,22 @@ import {
   IsUUID,
   Table,
 } from 'sequelize-typescript'
-import Base, { type BaseEntity } from './Base'
+import Base, { type IBaseEntity } from './Base'
 import User from './User'
 
-interface SessionEntity extends BaseEntity {
-  UserId: string
+interface SessionEntity extends IBaseEntity {
+  user_id: string
   token: string
-  ipAddress?: string | null
+  ip_address?: string | null
   device?: string | null
   platform?: string | null
+  latitude?: string | null
+  longitude?: string | null
 }
 
 export type SessionAttributes = Omit<
   SessionEntity,
-  'id' | 'createdAt' | 'updatedAt'
+  'id' | 'created_at' | 'updated_at'
 >
 
 @Table({ tableName: 'session' })
@@ -31,22 +33,28 @@ class Session extends Base {
     defaultValue: DataType.UUIDV4,
     allowNull: false,
   })
-  UserId: string
+  user_id: string
 
   @BelongsTo(() => User)
-  User: User
+  user: User
 
   @Column({ type: DataType.TEXT, allowNull: false })
   token: string
 
   @Column
-  ipAddress?: string
+  ip_address?: string
 
   @Column
   device?: string
 
   @Column
   platform?: string
+
+  @Column
+  latitude?: string
+
+  @Column
+  longitude?: string
 }
 
 export default Session

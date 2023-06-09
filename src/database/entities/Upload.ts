@@ -1,29 +1,29 @@
 import { Column, DataType, DeletedAt, Table } from 'sequelize-typescript'
-import Base, { type BaseEntity } from './Base'
+import Base, { type IBaseEntity } from './Base'
 
-interface UploadEntity extends BaseEntity {
-  deletedAt?: Date | null
-  keyFile: string
+interface UploadEntity extends IBaseEntity {
+  deleted_at?: Date | null
+  key_file: string
   filename: string
   mimetype: string
   size: number
-  signedURL: string
-  expiryDateURL: Date
+  signed_url: string
+  expiry_date_url: Date
 }
 
 export type UploadAttributes = Omit<
   UploadEntity,
-  'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+  'id' | 'created_at' | 'updated_at' | 'deleted_at'
 >
 
 @Table({ tableName: 'upload', paranoid: true })
 class Upload extends Base {
   @DeletedAt
   @Column
-  deletedAt?: Date
+  deleted_at?: Date
 
   @Column({ allowNull: false })
-  keyFile: string
+  key_file: string
 
   @Column({ allowNull: false })
   filename: string
@@ -35,10 +35,10 @@ class Upload extends Base {
   size: number
 
   @Column({ type: DataType.TEXT, allowNull: false })
-  signedURL: string
+  signed_url: string
 
   @Column({ allowNull: false })
-  expiryDateURL: Date
+  expiry_date_url: Date
 }
 
 export default Upload

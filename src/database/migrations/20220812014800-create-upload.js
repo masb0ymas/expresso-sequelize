@@ -9,18 +9,18 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      deletedAt: {
+      deleted_at: {
         type: Sequelize.DATE,
       },
-      keyFile: {
+      key_file: {
         allowNull: false,
         type: Sequelize.STRING,
       },
@@ -36,11 +36,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      signedURL: {
+      signed_url: {
         allowNull: false,
         type: Sequelize.TEXT,
       },
-      expiryDateURL: {
+      expiry_date_url: {
         allowNull: false,
         type: Sequelize.DATE,
       },

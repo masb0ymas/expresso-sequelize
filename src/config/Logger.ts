@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import path from 'path'
 import winston, { format } from 'winston'
-import { formatDate } from '~/core/helpers/date'
+import { formatDate } from '~/core/utils/date'
 
 // custom format log console
 const myFormat = format.printf(({ level, message, label, timestamp }) => {
@@ -21,7 +21,6 @@ const options = {
     handleExceptions: true,
     maxsize: 5 * 1024 * 1024, // 5MB
     maxFiles: 5,
-    colorize: false,
   },
   console: {
     level: 'debug',

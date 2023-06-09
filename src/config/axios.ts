@@ -3,10 +3,10 @@ import chalk from 'chalk'
 import { ms, printLog } from 'expresso-core'
 import _ from 'lodash'
 import ResponseError from '~/core/modules/response/ResponseError'
-import { AXIOS_TIMEOUT } from './env'
+import { env } from './env'
 import { redisService } from './redis'
 
-const timeout = ms(AXIOS_TIMEOUT)
+const timeout = ms(env.AXIOS_TIMEOUT)
 
 /**
  * Create Axios Instance

@@ -4,15 +4,7 @@ import chalk from 'chalk'
 import fs from 'fs'
 import path from 'path'
 import { Sequelize, type SequelizeOptions } from 'sequelize-typescript'
-import {
-  SEQUELIZE_CONNECTION,
-  SEQUELIZE_DATABASE,
-  SEQUELIZE_HOST,
-  SEQUELIZE_PASSWORD,
-  SEQUELIZE_PORT,
-  SEQUELIZE_TIMEZONE,
-  SEQUELIZE_USERNAME,
-} from '~/config/env'
+import { env } from '~/config/env'
 
 const pathEnv = path.resolve('.env')
 
@@ -25,20 +17,19 @@ if (!fs.existsSync(pathEnv)) {
 }
 
 const sequelizeOptions: SequelizeOptions = {
-  // @ts-expect-error
-  dialect: SEQUELIZE_CONNECTION,
-  host: SEQUELIZE_HOST,
-  port: SEQUELIZE_PORT,
-  logQueryParameters: true,
-  timezone: SEQUELIZE_TIMEZONE,
+  dialect: env.SEQUELIZE_CONNECTION,
+  host: env.SEQUELIZE_HOST,
+  port: env.SEQUELIZE_PORT,
+  logQueryParameters: env.SEQUELIZE_LOGGING,
+  timezone: env.SEQUELIZE_TIMEZONE,
   models: [`${__dirname}/entities`],
   // repositoryMode: true,
 }
 
 const sequelize = new Sequelize(
-  SEQUELIZE_DATABASE,
-  SEQUELIZE_USERNAME,
-  SEQUELIZE_PASSWORD,
+  env.SEQUELIZE_DATABASE,
+  env.SEQUELIZE_USERNAME,
+  env.SEQUELIZE_PASSWORD,
   { ...sequelizeOptions }
 )
 

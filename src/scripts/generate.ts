@@ -3,6 +3,11 @@ import { printLog, randomString } from 'expresso-core'
 import fs from 'fs'
 import path from 'path'
 
+/**
+ *
+ * @param value
+ * @param regExp
+ */
 function generateEnv(value: string, regExp: RegExp): void {
   const pathRes = path.resolve('.env')
 
