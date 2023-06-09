@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/masb0ymas/expresso-sequelize/compare/v5.0.3...v5.1.0) (2023-06-09)
+
+
+### Features
+
+* add endpoint user change password ([995b808](https://github.com/masb0ymas/expresso-sequelize/commit/995b808feece036c519411ca677053d580a15565))
+
+
+### Bug Fixes
+
+* change config logger ([873b0f9](https://github.com/masb0ymas/expresso-sequelize/commit/873b0f9c32bde34592185c20970b53cb821867eb))
+* config root ([f904873](https://github.com/masb0ymas/expresso-sequelize/commit/f9048733b54c1fce8a9b60ef9b9c84ee427c9713))
+* default user pass seeder ([285b5df](https://github.com/masb0ymas/expresso-sequelize/commit/285b5dfba6a13d09bd129f546b147f9a4179bea3))
+* env ([f516543](https://github.com/masb0ymas/expresso-sequelize/commit/f516543c2863296845611ff3394dc753e61046bf))
+* func takeOver otp ([cc491f5](https://github.com/masb0ymas/expresso-sequelize/commit/cc491f59b1709faaa044c86354a528fbfb26404b))
+* implementation expresso-hooks useToken ([bce4ce4](https://github.com/masb0ymas/expresso-sequelize/commit/bce4ce487c1733d60289ec05cdc57bdcc36c8dba))
+* mail config ([e19a616](https://github.com/masb0ymas/expresso-sequelize/commit/e19a616532e030855c3d2d0dc64d4e09cb4a7498))
+* mv translate to assets ([7359178](https://github.com/masb0ymas/expresso-sequelize/commit/735917806b8a98751f925cf01ed9a3975a8e80fd))
+* remove unuse helper token ([fc31d31](https://github.com/masb0ymas/expresso-sequelize/commit/fc31d31f81d98ddca47ee27b17e32dbb1b77e8fd))
+* rename config logger ([3c39927](https://github.com/masb0ymas/expresso-sequelize/commit/3c399275b0af4c070673b42b6b8af8d1063b8b4c))
+* root config ([4606d23](https://github.com/masb0ymas/expresso-sequelize/commit/4606d2366f859b0256c81df29f8ce34194ed000b))
+* script db:reset ([861119b](https://github.com/masb0ymas/expresso-sequelize/commit/861119b01bdf925656bc62acb93ea38384edea56))
+* translation ([1b65781](https://github.com/masb0ymas/expresso-sequelize/commit/1b65781c9085bbf4c39026aeed783ca81e37ab1d))
+* update env ([36a468a](https://github.com/masb0ymas/expresso-sequelize/commit/36a468aa63aa4f1581221cb346d51f0e3674b349))
+
+
+### Other Commit
+
+* fixing import alias ([de9aa80](https://github.com/masb0ymas/expresso-sequelize/commit/de9aa8074c9258d7517e66ee58125397cc60ecb3))
+* improve base code ([4655c81](https://github.com/masb0ymas/expresso-sequelize/commit/4655c8123c7bc6c459d61ab540b903577ae69232))
+* improve helper otp ([f80d8d4](https://github.com/masb0ymas/expresso-sequelize/commit/f80d8d4e597cc45e8e33b8804c3a568f2b5c8b84))
+
 ### [5.0.3](https://github.com/masb0ymas/expresso-sequelize/compare/v5.0.2...v5.0.3) (2023-04-13)
 
 
