@@ -13,8 +13,8 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "typeRoots": ["./src/types"],
-    "types": ["jest"],
+    "typeRoots": ["./src/core/types"],
+    // "types": ["jest"],
 
     /* JavaScript Support */
     "allowJs": true,
