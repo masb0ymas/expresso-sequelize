@@ -1,6 +1,6 @@
 import { type TOptions } from 'i18next'
-import { i18nConfig } from '~/config/i18n'
-import { type ReqOptions } from '~/core/interface/ReqOptions'
+import { i18n } from '~/config/i18n'
+import { type IReqOptions } from '~/core/interface/ReqOptions'
 
 type DataResponseEntity<TData> = {
   message?: string
@@ -38,10 +38,10 @@ class HttpResponse {
    */
   public static get<TData>(
     dataResponse: DataResponseEntity<TData>,
-    options?: ReqOptions
+    options?: IReqOptions
   ): DtoHttpResponse<TData> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
-    const message = i18nConfig.t('success.data_received', i18nOpt)
+    const message = i18n.t('success.data_received', i18nOpt)
 
     return this.baseResponse({ message, ...dataResponse })
   }
@@ -54,10 +54,10 @@ class HttpResponse {
    */
   public static created<TData>(
     dataResponse: DataResponseEntity<TData>,
-    options?: ReqOptions
+    options?: IReqOptions
   ): DtoHttpResponse<TData> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
-    const message = i18nConfig.t('success.data_added', i18nOpt)
+    const message = i18n.t('success.data_added', i18nOpt)
 
     return this.baseResponse({ code: 201, message, ...dataResponse })
   }
@@ -70,10 +70,10 @@ class HttpResponse {
    */
   public static updated<TData>(
     dataResponse: DataResponseEntity<TData>,
-    options?: ReqOptions
+    options?: IReqOptions
   ): DtoHttpResponse<TData> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
-    const message = i18nConfig.t('success.data_updated', i18nOpt)
+    const message = i18n.t('success.data_updated', i18nOpt)
 
     return this.baseResponse({ message, ...dataResponse })
   }
@@ -86,10 +86,10 @@ class HttpResponse {
    */
   public static deleted<TData>(
     dataResponse: DataResponseEntity<TData>,
-    options?: ReqOptions
+    options?: IReqOptions
   ): DtoHttpResponse<TData> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
-    const message = i18nConfig.t('success.data_deleted', i18nOpt)
+    const message = i18n.t('success.data_deleted', i18nOpt)
 
     return this.baseResponse({ message, ...dataResponse })
   }

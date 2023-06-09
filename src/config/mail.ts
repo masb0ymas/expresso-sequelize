@@ -1,21 +1,26 @@
 import { Mail } from 'expresso-provider'
 import { type MailDriverType } from 'expresso-provider/lib/mail'
-import {
-  APP_NAME,
-  MAIL_DRIVER,
-  MAIL_HOST,
-  MAIL_PASSWORD,
-  MAIL_PORT,
-  MAIL_USERNAME,
-} from './env'
+import { env } from './env'
 
-const mailDriver = MAIL_DRIVER as MailDriverType
-
+/**
+ * Initialize Mail Service Config
+ */
 export const mailService = new Mail({
-  appName: APP_NAME,
-  driver: mailDriver,
-  host: MAIL_HOST,
-  port: MAIL_PORT,
-  username: String(MAIL_USERNAME),
-  password: MAIL_PASSWORD,
+  // Your App Name
+  appName: env.APP_NAME,
+
+  // Mail Driver support 'smtp' | 'gmail'
+  driver: env.MAIL_DRIVER as MailDriverType,
+
+  // Mail Host
+  host: env.MAIL_HOST,
+
+  // Mail Port
+  port: env.MAIL_PORT,
+
+  // Mail Username
+  username: env.MAIL_USERNAME,
+
+  // Mail Password
+  password: env.MAIL_PASSWORD,
 })

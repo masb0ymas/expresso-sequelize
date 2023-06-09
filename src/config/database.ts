@@ -1,19 +1,11 @@
-import {
-  SEQUELIZE_CONNECTION,
-  SEQUELIZE_DATABASE,
-  SEQUELIZE_HOST,
-  SEQUELIZE_PASSWORD,
-  SEQUELIZE_PORT,
-  SEQUELIZE_TIMEZONE,
-  SEQUELIZE_USERNAME,
-} from './env'
+import { env } from './env'
 
 module.exports = {
-  username: SEQUELIZE_USERNAME,
-  password: SEQUELIZE_PASSWORD,
-  database: SEQUELIZE_DATABASE,
-  host: SEQUELIZE_HOST,
-  port: SEQUELIZE_PORT,
-  dialect: SEQUELIZE_CONNECTION,
-  timezone: SEQUELIZE_TIMEZONE,
+  username: env.SEQUELIZE_USERNAME,
+  password: env.SEQUELIZE_PASSWORD,
+  database: env.SEQUELIZE_DATABASE,
+  host: env.SEQUELIZE_HOST,
+  port: env.SEQUELIZE_PORT,
+  dialect: env.SEQUELIZE_CONNECTION,
+  timezone: env.SEQUELIZE_TIMEZONE,
 }

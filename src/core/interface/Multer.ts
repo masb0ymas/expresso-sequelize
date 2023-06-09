@@ -1,4 +1,4 @@
-export interface MulterConfigEntity {
+export interface IMulterConfig {
   dest?: string
   allowedExt?: string[]
   allowedMimetype?: string[]

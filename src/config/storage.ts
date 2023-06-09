@@ -3,28 +3,42 @@ import {
   type StorageExpires,
   type StorageType,
 } from 'expresso-provider/lib/storage'
-import {
-  STORAGE_ACCESS_KEY,
-  STORAGE_BUCKET_NAME,
-  STORAGE_HOST,
-  STORAGE_PROVIDER,
-  STORAGE_REGION,
-  STORAGE_SECRET_KEY,
-  STORAGE_SIGN_EXPIRED,
-} from './env'
+import { env } from './env'
 
-const storageProvider = STORAGE_PROVIDER as StorageType
-const storageSignExpired = STORAGE_SIGN_EXPIRED as StorageExpires
-
+/**
+ * Initialize Storage Service Config
+ */
 export const storageService = new Storage({
-  provider: storageProvider,
-  host: STORAGE_HOST,
-  accessKey: String(STORAGE_ACCESS_KEY),
-  secretKey: STORAGE_SECRET_KEY,
-  bucket: STORAGE_BUCKET_NAME,
-  region: STORAGE_REGION,
-  expires: storageSignExpired,
+  // Storage Provider support 'minio' | 's3' | 'gcs
+  provider: env.STORAGE_PROVIDER as StorageType,
+
+  // Storage Host for MinIO
+  // host: env.STORAGE_HOST,
+
+  // Storage Port for MinIO
+  // port: env.STORAGE_PORT,
+
+  // Storage Access Key
+  accessKey: env.STORAGE_ACCESS_KEY,
+
+  // Storage Secret Key
+  secretKey: env.STORAGE_SECRET_KEY,
+
+  // Storage Bucket Name
+  bucket: env.STORAGE_BUCKET_NAME,
+
+  // Storage Region support 'minio' | 's3' | 'gcs
+  region: env.STORAGE_REGION,
+
+  // Storage Sign Expired '1d' | '2d' | '3d' | '4d' | '5d' | '6d' | '7d'
+  expires: env.STORAGE_SIGN_EXPIRED as StorageExpires,
+
+  // Storage Options for MinIO
   // options: {
-  //   useSSL: true, // use this options for MinIO
+  //   // use this options for MinIO
+  //   useSSL: true,
+
+  //   // use this options for Google Cloud Storage ( serviceAccount.json )
+  //   filePath: './your_path/serviceAccount.json',
   // },
 })

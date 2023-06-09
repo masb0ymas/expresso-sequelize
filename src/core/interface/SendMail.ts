@@ -1,6 +1,6 @@
-interface BaseSendMailEntity {
+interface IBaseSendMailEntity {
   email: string
   fullname: string
 }
 
-export type AccountRegistrationEntity = BaseSendMailEntity
+export type TMailRegistrationEntity = IBaseSendMailEntity
