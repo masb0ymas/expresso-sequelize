@@ -8,8 +8,8 @@ dependencies:
     specifier: ^3.345.0
     version: 3.345.0
   '@google-cloud/storage':
-    specifier: ^6.10.1
-    version: 6.10.1
+    specifier: ^6.11.0
+    version: 6.11.0
   axios:
     specifier: ^1.4.0
     version: 1.4.0
@@ -1988,8 +1988,8 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /@google-cloud/storage@6.10.1:
-    resolution: {integrity: sha512-EtLlT0YbXtrbUxaNbEfTyTytrjELtl4i42flf8COg+Hu5+apdNjsFO9XEY39wshxAuVjLf4fCSm7GTSW+BD3gQ==}
+  /@google-cloud/storage@6.11.0:
+    resolution: {integrity: sha512-p5VX5K2zLTrMXlKdS1CiQNkKpygyn7CBFm5ZvfhVj6+7QUsjWvYx9YDMkYXdarZ6JDt4cxiu451y9QUIH82ZTw==}
     engines: {node: '>=12'}
     dependencies:
       '@google-cloud/paginator': 3.0.7
@@ -5785,7 +5785,7 @@ packages:
     dependencies:
       '@aws-sdk/client-s3': 3.345.0
       '@aws-sdk/s3-request-presigner': 3.345.0
-      '@google-cloud/storage': 6.10.1
+      '@google-cloud/storage': 6.11.0
       chalk: 4.1.2
       convert-excel-to-json: 1.7.0
       date-fns: 2.30.0
@@ -6121,7 +6121,7 @@ packages:
       uuid: 9.0.0
     optionalDependencies:
       '@google-cloud/firestore': 6.6.1
-      '@google-cloud/storage': 6.10.1
+      '@google-cloud/storage': 6.11.0
     transitivePeerDependencies:
       - encoding
       - supports-color
