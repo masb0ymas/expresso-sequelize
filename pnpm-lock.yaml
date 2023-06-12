@@ -5057,8 +5057,8 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /dottie@2.0.3:
-    resolution: {integrity: sha512-4liA0PuRkZWQFQjwBypdxPfZaRWiv5tkhMXY2hzsa2pNf5s7U3m9cwUchfNKe8wZQxdGPQQzO6Rm2uGe0rvohQ==}
+  /dottie@2.0.4:
+    resolution: {integrity: sha512-iz64WUOmp/ECQhWMJjTWFzJN/wQ7RJ5v/a6A2OiCwjaGCpNo66WGIjlSf+IULO9DQd0b4cFawLOTbiKSrpKodw==}
     dev: false
 
   /duplexer2@0.1.4:
@@ -10072,7 +10072,7 @@ packages:
       '@types/debug': 4.1.8
       '@types/validator': 13.7.17
       debug: 4.3.4
-      dottie: 2.0.3
+      dottie: 2.0.4
       inflection: 1.13.4
       lodash: 4.17.21
       moment: 2.29.4
