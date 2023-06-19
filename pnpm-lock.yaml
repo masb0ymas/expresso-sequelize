@@ -122,14 +122,14 @@ dependencies:
     specifier: ^3.3.0
     version: 3.3.0
   sequelize:
-    specifier: ^6.32.0
-    version: 6.32.0(pg-hstore@2.3.4)(pg@8.11.0)
+    specifier: ^6.32.1
+    version: 6.32.1(pg-hstore@2.3.4)(pg@8.11.0)
   sequelize-cli:
     specifier: ^6.6.1
     version: 6.6.1
   sequelize-typescript:
     specifier: ^2.1.5
-    version: 2.1.5(@types/node@20.2.5)(@types/validator@13.7.17)(reflect-metadata@0.1.13)(sequelize@6.32.0)
+    version: 2.1.5(@types/node@20.2.5)(@types/validator@13.7.17)(reflect-metadata@0.1.13)(sequelize@6.32.1)
   slugify:
     specifier: ^1.6.6
     version: 1.6.6
@@ -5057,8 +5057,8 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /dottie@2.0.3:
-    resolution: {integrity: sha512-4liA0PuRkZWQFQjwBypdxPfZaRWiv5tkhMXY2hzsa2pNf5s7U3m9cwUchfNKe8wZQxdGPQQzO6Rm2uGe0rvohQ==}
+  /dottie@2.0.6:
+    resolution: {integrity: sha512-iGCHkfUc5kFekGiqhe8B/mdaurD+lakO9txNnTvKtA6PISrw86LgqHvRzWYPyoE2Ph5aMIrCw9/uko6XHTKCwA==}
     dev: false
 
   /duplexer2@0.1.4:
@@ -5863,7 +5863,7 @@ packages:
     resolution: {integrity: sha512-81E5Ej8TxPIpTPttLIcOmdrJjogDYTQsZoQJmvgm63ZYC3KGuZQHzoKgR2ejhD/c+S1FLAfqVdvDIfB+PeWq2g==}
     dependencies:
       lodash: 4.17.21
-      sequelize: 6.32.0(pg-hstore@2.3.4)(pg@8.11.0)
+      sequelize: 6.32.1(pg-hstore@2.3.4)(pg@8.11.0)
       typeorm: 0.3.15(pg@8.11.0)(ts-node@10.9.1)
       uuid: 9.0.0
     transitivePeerDependencies:
@@ -10020,7 +10020,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: false
 
-  /sequelize-typescript@2.1.5(@types/node@20.2.5)(@types/validator@13.7.17)(reflect-metadata@0.1.13)(sequelize@6.32.0):
+  /sequelize-typescript@2.1.5(@types/node@20.2.5)(@types/validator@13.7.17)(reflect-metadata@0.1.13)(sequelize@6.32.1):
     resolution: {integrity: sha512-x1CNODct8gJyfZPwEZBU5uVGNwgJI2Fda913ZxD5ZtCSRyTDPBTS/0uXciF+MlCpyqjpmoCAPtudQWzw579bzA==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -10033,11 +10033,11 @@ packages:
       '@types/validator': 13.7.17
       glob: 7.2.0
       reflect-metadata: 0.1.13
-      sequelize: 6.32.0(pg-hstore@2.3.4)(pg@8.11.0)
+      sequelize: 6.32.1(pg-hstore@2.3.4)(pg@8.11.0)
     dev: false
 
-  /sequelize@6.32.0(pg-hstore@2.3.4)(pg@8.11.0):
-    resolution: {integrity: sha512-gMd1M6kPANyrCeU/vtgEP5gnse7sVsiKbJyz7p4huuW8zZcRopj47UlglvdrMuIoqksZmsUPfApmMo6ZlJpcvg==}
+  /sequelize@6.32.1(pg-hstore@2.3.4)(pg@8.11.0):
+    resolution: {integrity: sha512-3Iv0jruv57Y0YvcxQW7BE56O7DC1BojcfIrqh6my+IQwde+9u/YnuYHzK+8kmZLhLvaziRT1eWu38nh9yVwn/g==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       ibm_db: '*'
@@ -10072,7 +10072,7 @@ packages:
       '@types/debug': 4.1.8
       '@types/validator': 13.7.17
       debug: 4.3.4
-      dottie: 2.0.3
+      dottie: 2.0.6
       inflection: 1.13.4
       lodash: 4.17.21
       moment: 2.29.4
