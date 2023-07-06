@@ -16,7 +16,7 @@ import User, {
 } from '~/database/entities/User'
 import { type DtoLogin } from '../interface/dto/Auth'
 import userSchema from '../schema/user.schema'
-import OpenStreetMapService from './providers/osm.service'
+import OpenStreetMapService from './provider/osm.service'
 import SessionService from './session.service'
 import UserService from './user.service'
 

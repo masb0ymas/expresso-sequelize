@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express'
 import authorization from '~/app/middleware/authorization'
-import OpenStreetMapService from '~/app/service/providers/osm.service'
+import OpenStreetMapService from '~/app/service/provider/osm.service'
 import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
 import route from '~/routes/v1'
