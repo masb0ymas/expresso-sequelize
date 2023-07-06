@@ -1,18 +1,21 @@
 import 'reflect-metadata'
 
-import chalk from 'chalk'
+import { blue } from 'colorette'
 import fs from 'fs'
 import path from 'path'
 import { Sequelize, type SequelizeOptions } from 'sequelize-typescript'
 import { env } from '~/config/env'
+import { logger } from '~/config/pino'
 
 const pathEnv = path.resolve('.env')
 
 if (!fs.existsSync(pathEnv)) {
-  const envExample = chalk.cyan('.env.example')
-  const envLocal = chalk.cyan('.env')
+  const envExample = blue('.env.example')
+  const envLocal = blue('.env')
 
   const message = `Missing env!!!\nCopy / Duplicate ${envExample} root directory to ${envLocal}`
+  logger.info(`${message}`)
+
   throw new Error(message)
 }
 
