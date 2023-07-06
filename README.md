@@ -4,7 +4,7 @@
 [![maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/masb0ymas/expresso-typeorm/graphs/commit-activity)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/masb0ymas/expresso-typeorm/blob/master/LICENSE.md)
 
-[![version](https://img.shields.io/badge/Version-5.1.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso-typeorm/releases/tag/v5.1.0)
+[![version](https://img.shields.io/badge/Version-5.2.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso-typeorm/releases/tag/v5.2.0)
 [![Express](https://img.shields.io/badge/Express-4.18.2-informational?logo=express&color=22272E)](https://expressjs.com/)
 ![Node](https://badges.aleen42.com/src/node.svg)
 ![Eslint](https://badges.aleen42.com/src/eslint.svg)
@@ -17,13 +17,12 @@
 - [Sequelize](https://github.com/sequelize/sequelize) `6.x`
 - [Nodemailer](https://github.com/nodemailer/nodemailer) `6.x`
 - [Handlebars](https://github.com/wycats/handlebars.js) for templating HTML
-- [Yup](https://github.com/jquense/yup) for validation schema `1.x`
+- [Zod](https://github.com/colinhacks/zod) for validation schema `3.x`
 - [SWC](https://github.com/swc-project/swc) for build runtime app `1.3.x`
 - JavaScript Style [Standard with TypeScript](https://github.com/standard/eslint-config-standard-with-typescript)
 - Formating code using [Prettier](https://github.com/prettier/prettier) Integration [Eslint](https://github.com/prettier/eslint-config-prettier) and [TypeScript Eslint](https://github.com/typescript-eslint/typescript-eslint#readme)
-- Using [Module Alias](https://github.com/ilearnio/module-alias) for simplify the require/import paths
 - Documentation with [Swagger](https://github.com/swagger-api/swagger-ui) OpenApi `3.x`
-- Generate Log File with [Winston](https://github.com/winstonjs/winston)
+- Logger with [Pino](https://github.com/pinojs/pino)
 - [Convensional Commit](https://www.conventionalcommits.org/en/v1.0.0/) with [Husky](https://github.com/typicode/husky) & [Commitlint](https://github.com/conventional-changelog/commitlint)
 
 ## Steps to run this project:
