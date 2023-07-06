@@ -1,6 +1,6 @@
-import chalk from 'chalk'
-import { printLog } from 'expresso-core'
+import { green } from 'colorette'
 import fs from 'fs'
+import { logger } from '~/config/pino'
 import { capitalizeFirstLetter } from '../utils/formatter'
 
 /**
@@ -10,14 +10,12 @@ import { capitalizeFirstLetter } from '../utils/formatter'
  */
 function _getController(controllerPath: string, filePath: string): void {
   if (fs.existsSync(controllerPath)) {
-    const msgType = 'Routes'
+    const msgType = green('routes')
 
-    const routeDir = chalk.cyan(filePath)
-    const message = `Controller ${routeDir} Registered`
+    const routeDir = green(filePath)
+    const message = `controller ${routeDir} registered`
 
-    const logMessage = printLog(msgType, message)
-
-    console.log(logMessage)
+    logger.info(`${msgType} - ${message}`)
 
     // require controller
     require(controllerPath)
@@ -35,7 +33,7 @@ export const getRoutes = (basePath: string): void => {
   if (checkTS ?? checkJS) {
     // loop main controller directory
     fs.readdirSync(basePath).forEach((file) => {
-      const regexExt = /.ts|.js/
+      const regexExt = /^.*\.(ts|js)$/
       const matchFile = file.match(regexExt)
 
       const controllerPath = `${basePath}/${file}`

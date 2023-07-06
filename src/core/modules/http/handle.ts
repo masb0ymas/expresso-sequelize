@@ -1,7 +1,7 @@
-import chalk from 'chalk'
-import { printLog } from 'expresso-core'
+import { blue, cyan, green } from 'colorette'
 import type http from 'http'
 import { env } from '~/config/env'
+import { logger } from '~/config/pino'
 
 export function httpHandle(
   server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>,
@@ -45,14 +45,13 @@ export function httpHandle(
     const addr = server.address()
     const bind = typeof addr === 'string' ? `${addr}` : `${addr?.port}`
 
-    const host = chalk.cyan(`http://localhost:${bind}`)
-    const nodeEnv = chalk.blue(env.NODE_ENV)
+    const host = cyan(`http://localhost:${bind}`)
+    const nodeEnv = blue(env.NODE_ENV)
 
-    const msgType = `${env.APP_NAME}`
-    const message = `Server listening on ${host} ⚡️ & Env: ${nodeEnv} 🚀`
+    const msgType = green(`${env.APP_NAME}`)
+    const message = `server listening on ${host} ⚡️ & env: ${nodeEnv} 🚀`
 
-    const logMessage = printLog(msgType, message)
-    console.log(logMessage)
+    logger.info(`${msgType} - ${message}`)
   }
 
   return { onError, onListening }
