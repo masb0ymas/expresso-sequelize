@@ -60,6 +60,7 @@ COPY --from=builder /temp-build/assets ./assets
 COPY --from=builder /temp-build/node_modules ./node_modules
 COPY --from=builder /temp-build/package.json ./package.json
 COPY --from=builder /temp-build/dist ./dist
+COPY --from=builder /temp-build/logs ./logs
 COPY --from=builder /temp-build/.env ./.env
 
 # initial app

@@ -5,4 +5,3 @@ Dockerfile.dev
 /node_modules
 /dist
 /coverage
-/logs
