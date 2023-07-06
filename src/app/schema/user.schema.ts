@@ -1,50 +1,87 @@
-import * as yup from 'yup'
+import { z } from 'zod'
 
-const createPassword = yup
-  .object({
-    new_password: yup
+const passwordForm = z.object({
+  new_password: z.string().min(8, 'new_password at least 8 characters'),
+  confirm_new_password: z.string().min(8, 'new_password at least 8 characters'),
+})
+
+const createPassword = passwordForm.refine(
+  (data) => data.new_password === data.confirm_new_password,
+  {
+    message: "passwords don't match",
+    path: ['confirm_new_password'], // path of error
+  }
+)
+
+const changePassword = passwordForm
+  .extend({
+    current_password: z
       .string()
-      .min(8, 'at least 8 characters')
-      .oneOf([yup.ref('confirm_new_password')], 'passwords are not the same'),
-    confirm_new_password: yup
+      .min(8, 'current_password at least 8 characters'),
+  })
+  .refine((data) => data.new_password === data.confirm_new_password, {
+    message: "passwords don't match",
+    path: ['confirm_new_password'], // path of error
+  })
+
+const create = passwordForm
+  .extend({
+    fullname: z
+      .string({
+        required_error: 'fullname is required',
+        invalid_type_error: 'fullname must be a string',
+      })
+      .min(2, "fullname can't be empty"),
+
+    email: z
+      .string({
+        required_error: 'email is required',
+        invalid_type_error: 'email must be a string',
+      })
+      .email({ message: 'invalid email address' })
+      .min(2, "email can't be empty"),
+
+    phone: z.string().nullable(),
+    token_verify: z.string().nullable(),
+    upload_id: z
       .string()
-      .min(8, 'at least 8 characters')
-      .oneOf([yup.ref('new_password')], 'passwords are not the same'),
-  })
-  .required()
+      .uuid({ message: 'upload_id invalid uuid format' })
+      .nullable(),
 
-const changePassword = createPassword
-  .shape({
-    current_password: yup.string().min(8, 'at least 8 characters').required(),
-  })
-  .required()
+    is_active: z.boolean({
+      required_error: 'is_active is required',
+      invalid_type_error: 'is_active must be a boolean',
+    }),
 
-const create = createPassword
-  .shape({
-    fullname: yup.string().required('full name is required'),
-    email: yup.string().email('invalid email').required('email is required'),
-    phone: yup.string().nullable(),
-    token_verify: yup.string().nullable(),
-    upload_id: yup.string().nullable(),
-    is_active: yup.boolean().required('is active is required'),
-    role_id: yup.string().required('role is required'),
+    role_id: z
+      .string({
+        required_error: 'role_id is required',
+        invalid_type_error: 'role_id must be a string',
+      })
+      .uuid({ message: 'role_id invalid uuid format' })
+      .min(2, `role_id can't be empty`),
   })
-  .required()
+  .refine((data) => data.new_password === data.confirm_new_password, {
+    message: "passwords don't match",
+    path: ['confirm_new_password'], // path of error
+  })
 
-const login = yup
-  .object({
-    email: yup.string().email('invalid email').required('email is required'),
-    password: yup.string().required('password is required'),
-    latitude: yup.string().nullable(),
-    longitude: yup.string().nullable(),
-  })
-  .required()
+const login = z.object({
+  email: z
+    .string()
+    .email({ message: 'invalid email address' })
+    .min(2, "email can't be empty"),
+
+  password: z.string().min(2, "password can't be empty"),
+  latitude: z.string().nullable(),
+  longitude: z.string().nullable(),
+})
 
 const userSchema = {
-  createPassword,
-  changePassword,
   create,
   register: create,
+  createPassword,
+  changePassword,
   login,
 }
 

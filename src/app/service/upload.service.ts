@@ -1,8 +1,10 @@
 import { sub } from 'date-fns'
 import { type Request } from 'express'
+import { validateBoolean } from 'expresso-core'
+import { type TypeMinio } from 'expresso-provider/lib/storage'
 import { type TOptions } from 'i18next'
 import _ from 'lodash'
-import type * as Minio from 'minio'
+import { Op } from 'sequelize'
 import { validate as uuidValidate } from 'uuid'
 import { env } from '~/config/env'
 import { i18n } from '~/config/i18n'
@@ -12,12 +14,9 @@ import { type DtoFindAll } from '~/core/interface/dto/Paginate'
 import { useQuery } from '~/core/modules/hooks/useQuery'
 import ResponseError from '~/core/modules/response/ResponseError'
 import { validateUUID } from '~/core/utils/formatter'
-import { yupOptions } from '~/core/utils/yup'
 import Upload, { type UploadAttributes } from '~/database/entities/Upload'
 import { type UploadFileEntity } from '../interface/Upload'
 import uploadSchema from '../schema/upload.schema'
-import { validateBoolean } from 'expresso-core'
-import { Op } from 'sequelize'
 
 export default class UploadService {
   /**
@@ -108,7 +107,7 @@ export default class UploadService {
    * @returns
    */
   public static async create(formData: UploadAttributes): Promise<Upload> {
-    const value = uploadSchema.create.validateSync(formData, yupOptions)
+    const value = uploadSchema.create.parse(formData)
 
     const data = await Upload.create(value)
 
@@ -129,10 +128,7 @@ export default class UploadService {
   ): Promise<Upload> {
     const data = await this.findById(id, { ...options })
 
-    const value = uploadSchema.create.validateSync(
-      { ...data, ...formData },
-      yupOptions
-    )
+    const value = uploadSchema.create.parse({ ...data, ...formData })
 
     const newData = await data.update({ ...data, ...value })
 
@@ -314,10 +310,11 @@ export default class UploadService {
     const { expiryDate } = storageService.expiresObject()
     const signed_url = await storageService.getPresignedURL(key_file)
 
-    const value = uploadSchema.create.validateSync(
-      { ...data, signed_url, expiry_date_url: expiryDate },
-      yupOptions
-    )
+    const value = uploadSchema.create.parse({
+      ...data,
+      signed_url,
+      expiry_date_url: expiryDate,
+    })
 
     const newData = await data.update({ ...data, ...value })
 
@@ -339,7 +336,7 @@ export default class UploadService {
     const key_file = `${directory}/${fieldUpload.filename}`
 
     const { data: storageResponse, signedURL: signed_url } =
-      await storageService.uploadFile<Minio.Client>(fieldUpload, directory)
+      await storageService.uploadFile<TypeMinio>(fieldUpload, directory)
 
     const formUpload = {
       ...fieldUpload,

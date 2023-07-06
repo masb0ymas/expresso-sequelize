@@ -141,12 +141,9 @@ class User extends Base {
 
     if (new_password ?? confirm_new_password) {
       const formPassword = { new_password, confirm_new_password }
-      const validPassword = userSchema.createPassword.validateSyncAt(
-        'confirm_new_password',
-        formPassword
-      )
+      const validPassword = userSchema.createPassword.parse(formPassword)
 
-      const hash = bcrypt.hashSync(validPassword, saltRounds)
+      const hash = bcrypt.hashSync(validPassword.new_password, saltRounds)
       instance.setDataValue('password', hash)
     }
   }

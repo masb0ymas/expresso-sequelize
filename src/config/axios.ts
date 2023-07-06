@@ -1,10 +1,10 @@
 import axios, { type AxiosError, type AxiosInstance } from 'axios'
-import chalk from 'chalk'
-import { ms, printLog } from 'expresso-core'
+import { red } from 'colorette'
+import { ms } from 'expresso-core'
 import _ from 'lodash'
 import ResponseError from '~/core/modules/response/ResponseError'
 import { env } from './env'
-import { redisService } from './redis'
+import { logger } from './pino'
 
 const timeout = ms(env.AXIOS_TIMEOUT)
 
@@ -17,14 +17,8 @@ function createAxios(baseURL: string): AxiosInstance {
   const axiosInstance = axios.create({ baseURL, timeout })
 
   // Interceptiors Request
-  axiosInstance.interceptors.request.use(async (config) => {
+  axiosInstance.interceptors.request.use((config) => {
     const currentConfig = { ...config }
-
-    const storeToken = await redisService.get<string>('token')
-
-    if (storeToken) {
-      currentConfig.headers.Authorization = storeToken
-    }
 
     return currentConfig
   })
@@ -39,28 +33,25 @@ function createAxios(baseURL: string): AxiosInstance {
       const statusCode = _.get(error, 'response.status', null)
       const message = _.get(error, 'response.data.message', null)
 
-      const errAxios = (type: string): string => chalk.red(`Axios Err: ${type}`)
+      const errAxios = (type: string): string => red(`Axios Err: ${type}`)
 
       if (statusCode === 401) {
         const errType = errAxios('Unauhtorized')
-        const logMessage = printLog(errType, `${message}`, { label: 'error' })
-        console.log(logMessage)
+        logger.error(`${errType}, ${message}`)
 
         throw new ResponseError.Unauthorized(`${message}`)
       }
 
       if (statusCode === 400) {
         const errType = errAxios('Bad Request')
-        const logMessage = printLog(errType, `${message}`, { label: 'error' })
-        console.log(logMessage)
+        logger.error(`${errType}, ${message}`)
 
         throw new ResponseError.BadRequest(`${message}`)
       }
 
       if (statusCode === 404) {
         const errType = errAxios('Not Found')
-        const logMessage = printLog(errType, `${message}`, { label: 'error' })
-        console.log(logMessage)
+        logger.error(`${errType}, ${message}`)
 
         throw new ResponseError.NotFound(`${message}`)
       }
@@ -70,8 +61,7 @@ function createAxios(baseURL: string): AxiosInstance {
       if (!handleError) {
         if (error.code === 'ECONNREFUSED') {
           const errType = errAxios('Service Unavailable')
-          const logMessage = printLog(errType, `${message}`, { label: 'error' })
-          console.log(logMessage)
+          logger.error(`${errType}, ${message}`)
 
           throw new ResponseError.InternalServer('Service Unavailable')
         }

@@ -1,6 +1,3 @@
-import 'module-alias/register'
-import '~/core/modules/pathAlias'
-
 import http from 'http'
 import { App } from './config/app'
 import { env } from './config/env'

@@ -1,8 +1,9 @@
+import { green } from 'colorette'
 import { type NextFunction, type Request, type Response } from 'express'
-import { printLog } from 'expresso-core'
 import { useToken } from 'expresso-hooks'
 import _ from 'lodash'
 import { env } from '~/config/env'
+import { logger } from '~/config/pino'
 import SessionService from '../service/session.service'
 
 /**
@@ -29,10 +30,8 @@ async function authorization(
   const getSession = await SessionService.getByToken(String(getToken))
 
   if (_.isEmpty(token?.data) || _.isEmpty(getSession)) {
-    const logMessage = printLog('Permission :', 'Unauthorized', {
-      label: 'error',
-    })
-    console.log(logMessage)
+    const msgType = green('permission')
+    logger.error(`${msgType} - unauthorized invalid jwt`)
 
     return res
       .status(401)

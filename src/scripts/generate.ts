@@ -1,7 +1,10 @@
-import chalk from 'chalk'
-import { printLog, randomString } from 'expresso-core'
+import { green, red } from 'colorette'
+import { createDirNotExist, randomString } from 'expresso-core'
 import fs from 'fs'
 import path from 'path'
+import { logger } from '~/config/pino'
+
+const msgType = green('script')
 
 /**
  *
@@ -12,12 +15,14 @@ function generateEnv(value: string, regExp: RegExp): void {
   const pathRes = path.resolve('.env')
 
   if (!fs.existsSync(pathRes)) {
-    const errType = chalk.red('Missing env!!!')
-    throw new Error(
-      `${errType}\nCopy / Duplicate ${chalk.cyan(
-        '.env.example'
-      )} root directory to ${chalk.cyan('.env')}`
-    )
+    const errType = red('Missing env!!!')
+    const message = `Copy / Duplicate ${green(
+      '.env.example'
+    )} root directory to ${green('.env')}`
+
+    logger.error(`${msgType} - ${errType}, ${message}`)
+
+    throw new Error(message)
   }
 
   const contentEnv = fs.readFileSync(pathRes, { encoding: 'utf-8' })
@@ -30,16 +35,25 @@ function generateEnv(value: string, regExp: RegExp): void {
     const replaceContent = contentEnv.replace(regExp, valueEnv)
     fs.writeFileSync(`${pathRes}`, replaceContent)
 
-    const logMessage = printLog(`Refresh ${value}`, `= ${uniqueCode}`)
-    console.log(logMessage)
+    logger.info(`${msgType} - refresh ${value} = ${uniqueCode}`)
   } else {
     // Generate value
     const extraContent = `${valueEnv}\n\n${contentEnv}`
     fs.writeFileSync(`${pathRes}`, extraContent)
 
-    const logMessage = printLog(`Generate ${value}`, `= ${uniqueCode}`)
-    console.log(logMessage)
+    logger.info(`${msgType} - generate ${value} = ${uniqueCode}`)
   }
+}
+
+const listDirectory = [
+  'public/uploads/temp',
+  'public/uploads/excel',
+  'temp/logs',
+]
+
+for (let i = 0; i < listDirectory.length; i += 1) {
+  const dir = listDirectory[i]
+  createDirNotExist(dir)
 }
 
 // generate app key

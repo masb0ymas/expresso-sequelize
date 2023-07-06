@@ -1,21 +1,19 @@
-import chalk from 'chalk'
+import { blue, green } from 'colorette'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express, { type Application, type Request, type Response } from 'express'
 import userAgent from 'express-useragent'
-import { printLog } from 'expresso-core'
 import helmet from 'helmet'
 import hpp from 'hpp'
 import i18nextMiddleware from 'i18next-http-middleware'
-import logger from 'morgan'
 import path from 'path'
 import requestIp from 'request-ip'
 import swaggerUI from 'swagger-ui-express'
 import { Jobs } from '~/app/job'
 import expressErrorResponse from '~/app/middleware/expressErrorResponse'
 import expressErrorSequelize from '~/app/middleware/expressErrorSequelize'
-import expressErrorYup from '~/app/middleware/expressErrorYups'
+import expressErrorZod from '~/app/middleware/expressErrorZod'
 import { expressRateLimit } from '~/app/middleware/expressRateLimit'
 import { expressUserAgent } from '~/app/middleware/expressUserAgent'
 import { expressWithState } from '~/app/middleware/expressWithState'
@@ -26,8 +24,8 @@ import indexRoutes from '../routes'
 import { corsOptions } from './cors'
 import { env } from './env'
 import { i18n } from './i18n'
-import { winstonLogger, winstonStream } from './logger'
 import { mailService } from './mail'
+import { httpLogger, logger } from './pino'
 import { storageService } from './storage'
 
 /**
@@ -59,13 +57,12 @@ export class App {
   private _plugins(): void {
     this._app.use(helmet())
     this._app.use(cors(corsOptions))
-
-    this._app.use(logger('combined', { stream: winstonStream }))
+    this._app.use(httpLogger())
+    this._app.use(compression())
+    this._app.use(cookieParser())
     this._app.use(express.json({ limit: '200mb', type: 'application/json' }))
     this._app.use(express.urlencoded({ extended: true }))
     this._app.use(express.static(path.resolve(`${__dirname}/../../public`)))
-    this._app.use(cookieParser())
-    this._app.use(compression())
     this._app.use(hpp())
     this._app.use(requestIp.mw())
     this._app.use(userAgent.express())
@@ -130,41 +127,34 @@ export class App {
   }
 
   /**
-   * Return this Application Bootstrap
-   * @returns
+   * Initialize Database
    */
-  public app(): Application {
-    return this._app
-  }
-
   private _database(): void {
-    const dbDialect = chalk.cyan(env.SEQUELIZE_CONNECTION)
-    const dbName = chalk.cyan(env.SEQUELIZE_DATABASE)
+    const dbDialect = blue(env.SEQUELIZE_CONNECTION)
+    const dbName = blue(env.SEQUELIZE_DATABASE)
 
     // connect to database
     db.sequelize
       .authenticate()
       .then(async () => {
-        const msgType = `Sequelize`
-        const message = `Connection ${dbDialect}: ${dbName} has been established successfully.`
+        const msgType = green(`sequelize`)
+        const message = `connection ${dbDialect}: ${dbName} has been established successfully.`
 
-        const logMessage = printLog(msgType, message)
-        console.log(logMessage)
+        logger.info(`${msgType} - ${message}`)
 
         // not recommended when running in production mode
         if (env.SEQUELIZE_SYNC) {
           await db.sequelize.sync({ force: true })
 
-          const logMessage = printLog(msgType, 'All Sync Database Successfully')
-          console.log(logMessage)
+          logger.info(`${msgType} - all sync database successfully`)
         }
       })
       .catch((err: any) => {
-        const errType = `Sequelize Error:`
-        const message = `Unable to connect to the database ${dbDialect}: ${dbName}`
+        const errType = `sequelize error:`
+        const message = `unable to connect to the database ${dbDialect}: ${dbName}`
 
-        const logMessage = printLog(errType, message)
-        console.log(logMessage, err)
+        logger.error(`${errType} - ${message}`)
+        console.log(err)
       })
   }
 
@@ -172,32 +162,14 @@ export class App {
    * Create Bootstrap App
    */
   public create(): Application {
-    this._app.use(expressErrorYup)
+    this._app.use(expressErrorZod)
     this._app.use(expressErrorSequelize)
     this._app.use(expressErrorResponse)
-
-    // error handler
-    this._app.use(function (err: any, req: Request, res: Response) {
-      // Set locals, only providing error in development
-      res.locals.message = err.message
-      res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-      // Add this line to include winston logging
-      winstonLogger.error(
-        `${err.status || 500} - ${err.message} - ${req.originalUrl} - ${
-          req.method
-        } - ${req.ip}`
-      )
-
-      // Render the error page
-      res.status(err.status || 500)
-      res.render('error')
-    })
 
     // set port
     this._app.set('port', this._port)
 
     // return this application
-    return this.app()
+    return this._app
   }
 }

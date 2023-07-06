@@ -1,6 +1,7 @@
-import { printLog } from 'expresso-core'
+import { green } from 'colorette'
 import i18next from 'i18next'
 import i18nextBackend from 'i18next-fs-backend'
+import { logger } from './pino'
 
 /**
  * i18n
@@ -22,8 +23,8 @@ void i18next.use(i18nextBackend).init(
       return
     }
 
-    const logMessage = printLog('i18next', 'is ready...')
-    console.log(logMessage)
+    const msgType = green(`i18next`)
+    logger.info(`${msgType} - translation is ready...`)
   }
 )
 

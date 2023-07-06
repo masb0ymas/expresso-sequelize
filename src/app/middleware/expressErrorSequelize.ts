@@ -1,7 +1,8 @@
+import { green } from 'colorette'
 import { type NextFunction, type Request, type Response } from 'express'
-import { printLog } from 'expresso-core'
 import _ from 'lodash'
 import { BaseError, EmptyResultError, ValidationError } from 'sequelize'
+import { logger } from '~/config/pino'
 
 function msg(message: string): string {
   return `Sequelize Error: ${message}`
@@ -25,7 +26,8 @@ async function expressErrorSequelize(
       const errors: any[] = _.get(err, 'errors', [])
       const errorMessage = _.get(errors, '0.message', null)
 
-      console.log(printLog('Sequelize Error:', String(errorMessage)))
+      const msgType = green('sequelize error:')
+      logger.error(`${msgType} - ${errorMessage}`)
 
       const dataError = {
         code: 400,
