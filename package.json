@@ -1,6 +1,6 @@
 {
   "name": "expresso-sequelize",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "expressjs, typescript, sequelize, gcp, aws, minio",
   "main": "./dist/main.js",
   "scripts": {

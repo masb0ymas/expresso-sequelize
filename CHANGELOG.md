@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/masb0ymas/expresso-sequelize/compare/v5.1.0...v5.2.0) (2023-07-06)
+
+
+### Features
+
+* add pino logger ([3926034](https://github.com/masb0ymas/expresso-sequelize/commit/392603408d190c4138bb06866852ea6096a11293))
+
+
+### Bug Fixes
+
+* change dirname ([41db646](https://github.com/masb0ymas/expresso-sequelize/commit/41db6466717319c7369d15250b2e5292a279250e))
+* change yup to zod ([9abc052](https://github.com/masb0ymas/expresso-sequelize/commit/9abc052976d4ff2380846df697b72653386dce6f))
+* database ([0137d95](https://github.com/masb0ymas/expresso-sequelize/commit/0137d95409ceed931f891866cefbb64b393bafee))
+* job ([8649474](https://github.com/masb0ymas/expresso-sequelize/commit/864947431bdab4e7a7edb3f8f218e113e3c1281b))
+* update controller ([3039e0b](https://github.com/masb0ymas/expresso-sequelize/commit/3039e0b799ce8f572f75b1e7558af2dd1b03d696))
+* update core ([4f2a643](https://github.com/masb0ymas/expresso-sequelize/commit/4f2a6431e2225e60aee9cd1cd097dd68d51b107e))
+* update dockerfile ([f01d5ad](https://github.com/masb0ymas/expresso-sequelize/commit/f01d5adca80363418e27268fec959fdf1e87edd2))
+* update main ts ([b30c039](https://github.com/masb0ymas/expresso-sequelize/commit/b30c039752d82a8b41693945a182780debecf944))
+* update middleware ([ee377e9](https://github.com/masb0ymas/expresso-sequelize/commit/ee377e9ce53bdd2eeba1bb2c37e9ef20795fd60b))
+* update script ([6a7e5b8](https://github.com/masb0ymas/expresso-sequelize/commit/6a7e5b82130a90dab0e3df354bc32a2e060104e5))
+* update service ([5f600b3](https://github.com/masb0ymas/expresso-sequelize/commit/5f600b327e48858a46b1ddc61a72ef3c6ea6530f))
+
 ## [5.1.0](https://github.com/masb0ymas/expresso-sequelize/compare/v5.0.3...v5.1.0) (2023-06-09)
 
 
