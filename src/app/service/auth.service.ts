@@ -10,14 +10,13 @@ import ConstRole from '~/core/constants/ConstRole'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
 import ResponseError from '~/core/modules/response/ResponseError'
 import SendMail from '~/core/utils/sendMails'
-import { yupOptions } from '~/core/utils/yup'
 import User, {
   type UserLoginAttributes,
   type LoginAttributes,
 } from '~/database/entities/User'
 import { type DtoLogin } from '../interface/dto/Auth'
 import userSchema from '../schema/user.schema'
-import OpenStreetMapService from './Provider/osm.service'
+import OpenStreetMapService from './providers/osm.service'
 import SessionService from './session.service'
 import UserService from './user.service'
 
@@ -51,7 +50,7 @@ export default class AuthService {
       role_id,
     }
 
-    const value = userSchema.register.validateSync(newFormData, yupOptions)
+    const value = userSchema.register.parse(newFormData)
 
     const formRegister: any = {
       ...value,
@@ -83,7 +82,7 @@ export default class AuthService {
   ): Promise<DtoLogin> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    const value = userSchema.login.validateSync(formData, yupOptions)
+    const value = userSchema.login.parse(formData)
 
     const getUser = await User.scope('withPassword').findOne({
       where: { email: value.email },

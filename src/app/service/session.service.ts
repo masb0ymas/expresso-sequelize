@@ -10,7 +10,6 @@ import { type DtoFindAll } from '~/core/interface/dto/Paginate'
 import { useQuery } from '~/core/modules/hooks/useQuery'
 import ResponseError from '~/core/modules/response/ResponseError'
 import { validateUUID } from '~/core/utils/formatter'
-import { yupOptions } from '~/core/utils/yup'
 import Session, { type SessionAttributes } from '~/database/entities/Session'
 import User from '~/database/entities/User'
 import sessionSchema from '../schema/session.schema'
@@ -115,8 +114,7 @@ export default class SessionService {
    * @returns
    */
   public static async create(formData: SessionAttributes): Promise<Session> {
-    const value = sessionSchema.create.validateSync(formData, yupOptions)
-
+    const value = sessionSchema.create.parse(formData)
     const data = await Session.create(value)
 
     return data
@@ -136,11 +134,7 @@ export default class SessionService {
   ): Promise<Session | undefined> {
     const data = await this.findById(id, { ...options })
 
-    const value = sessionSchema.create.validateSync(
-      { ...data, ...formData },
-      yupOptions
-    )
-
+    const value = sessionSchema.create.parse({ ...data, ...formData })
     const newData = await data.update({ ...data, ...value })
 
     return newData
@@ -153,7 +147,7 @@ export default class SessionService {
   public static async createOrUpdate(
     formData: SessionAttributes
   ): Promise<void> {
-    const value = sessionSchema.create.validateSync(formData, yupOptions)
+    const value = sessionSchema.create.parse(formData)
 
     // check session
     const data = await Session.findOne({

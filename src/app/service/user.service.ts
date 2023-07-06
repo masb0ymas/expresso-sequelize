@@ -11,7 +11,6 @@ import { type DtoFindAll } from '~/core/interface/dto/Paginate'
 import { useQuery } from '~/core/modules/hooks/useQuery'
 import ResponseError from '~/core/modules/response/ResponseError'
 import { validateUUID } from '~/core/utils/formatter'
-import { yupOptions } from '~/core/utils/yup'
 import Role from '~/database/entities/Role'
 import Session from '~/database/entities/Session'
 import Upload from '~/database/entities/Upload'
@@ -112,10 +111,10 @@ export default class UserService {
    * @returns
    */
   public static async create(formData: UserAttributes): Promise<User> {
-    const value = userSchema.create.validateSync(
-      { ...formData, phone: validateEmpty(formData.phone) },
-      yupOptions
-    )
+    const value = userSchema.create.parse({
+      ...formData,
+      phone: validateEmpty(formData.phone),
+    })
 
     const data = await User.create(value)
 
@@ -141,7 +140,7 @@ export default class UserService {
       await this.validateEmail(String(formData.email), { ...options })
     }
 
-    const value = userSchema.create.validateSync(formData, yupOptions)
+    const value = userSchema.create.parse(formData)
 
     const newFormData = {
       ...data,
@@ -168,7 +167,7 @@ export default class UserService {
   ): Promise<void> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    const value = userSchema.changePassword.validateSync(formData, yupOptions)
+    const value = userSchema.changePassword.parse(formData)
 
     const newId = validateUUID(id, { ...options })
     const getUser = await User.scope('withPassword').findOne({

@@ -10,7 +10,6 @@ import { type DtoFindAll } from '~/core/interface/dto/Paginate'
 import { useQuery } from '~/core/modules/hooks/useQuery'
 import ResponseError from '~/core/modules/response/ResponseError'
 import { validateUUID } from '~/core/utils/formatter'
-import { yupOptions } from '~/core/utils/yup'
 import Role, { type RoleAttributes } from '~/database/entities/Role'
 import roleSchema from '../schema/role.schema'
 
@@ -70,7 +69,7 @@ export default class RoleService {
    * @returns
    */
   public static async create(formData: RoleAttributes): Promise<Role> {
-    const value = roleSchema.create.validateSync(formData, yupOptions)
+    const value = roleSchema.create.parse(formData)
 
     const data = await Role.create(value)
 
@@ -91,10 +90,7 @@ export default class RoleService {
   ): Promise<Role> {
     const data = await this.findById(id, { ...options })
 
-    const value = roleSchema.create.validateSync(
-      { ...data, ...formData },
-      yupOptions
-    )
+    const value = roleSchema.create.parse({ ...data, ...formData })
 
     const newData = await data.update({ ...data, ...value })
 
