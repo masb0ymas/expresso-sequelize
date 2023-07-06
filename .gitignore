@@ -1,7 +1,6 @@
 /dist
 /node_modules
 /coverage
-/logs
 /public/output
 /public/temp
 /public/uploads
