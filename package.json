@@ -114,7 +114,7 @@
     "@types/node": "^20.4.0",
     "@types/node-cron": "^3.0.8",
     "@types/qs": "^6.9.7",
-    "@types/request-ip": "^0.0.37",
+    "@types/request-ip": "^0.0.38",
     "@types/supertest": "^2.0.12",
     "@types/swagger-jsdoc": "^6.0.1",
     "@types/swagger-ui-express": "^4.1.3",
