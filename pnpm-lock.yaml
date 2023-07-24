@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   axios:
     specifier: ^1.4.0
@@ -41,8 +45,8 @@ dependencies:
     specifier: ^1.0.15
     version: 1.0.15
   expresso-core:
-    specifier: ^0.7.4
-    version: 0.7.4
+    specifier: ^0.7.5
+    version: 0.7.5
   expresso-hooks:
     specifier: ^0.7.4
     version: 0.7.4
@@ -5780,8 +5784,8 @@ packages:
       - supports-color
     dev: false
 
-  /expresso-core@0.7.4:
-    resolution: {integrity: sha512-12cNe3t70VJqYCupEqyAjoOdEOWZkETsWeVBYseS6lusw2ChEPSnKXbB1YQ320l5bj97zfxjE+0Ws/J1xfZSRg==}
+  /expresso-core@0.7.5:
+    resolution: {integrity: sha512-aePVPQwtRZBogOg39fRAumZqrbZI49ByAdRW+nMODWMeYr8cDegdodGhOhi9KS61uI73l2z1Il1LghtamU92Sw==}
     dependencies:
       colorette: 2.0.20
       libphonenumber-js: 1.10.37

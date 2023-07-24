@@ -5308,16 +5308,16 @@ express@^4.18.2:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-expresso-core@^0.7.4:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/expresso-core/-/expresso-core-0.7.4.tgz#19a0d19370b29cca6043ca7dbd6eb90de4385879"
-  integrity sha512-12cNe3t70VJqYCupEqyAjoOdEOWZkETsWeVBYseS6lusw2ChEPSnKXbB1YQ320l5bj97zfxjE+0Ws/J1xfZSRg==
+expresso-core@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/expresso-core/-/expresso-core-0.7.5.tgz#6a7cb3b6bcb721de1e52336445faa334f32c33fa"
+  integrity sha512-aePVPQwtRZBogOg39fRAumZqrbZI49ByAdRW+nMODWMeYr8cDegdodGhOhi9KS61uI73l2z1Il1LghtamU92Sw==
   dependencies:
     colorette "^2.0.20"
     libphonenumber-js "^1.10.37"
     lodash "^4.17.21"
     pino "^8.14.1"
-    pino-pretty "^10.0.0"
+    pino-pretty "^10.1.0"
 
 expresso-hooks@^0.7.4:
   version "0.7.4"
@@ -8812,27 +8812,7 @@ pino-http@^8.3.3:
     pino-std-serializers "^6.0.0"
     process-warning "^2.0.0"
 
-pino-pretty@^10.0.0:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-10.0.1.tgz#54a11182068949ff3069f1f7857f297a14926e58"
-  integrity sha512-yrn00+jNpkvZX/NrPVCPIVHAfTDy3ahF0PND9tKqZk4j9s+loK8dpzrJj4dGb7i+WLuR50ussuTAiWoMWU+qeA==
-  dependencies:
-    colorette "^2.0.7"
-    dateformat "^4.6.3"
-    fast-copy "^3.0.0"
-    fast-safe-stringify "^2.1.1"
-    help-me "^4.0.1"
-    joycon "^3.1.1"
-    minimist "^1.2.6"
-    on-exit-leak-free "^2.1.0"
-    pino-abstract-transport "^1.0.0"
-    pump "^3.0.0"
-    readable-stream "^4.0.0"
-    secure-json-parse "^2.4.0"
-    sonic-boom "^3.0.0"
-    strip-json-comments "^3.1.1"
-
-pino-pretty@^10.1.0:
+pino-pretty@^10.0.0, pino-pretty@^10.1.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-10.1.0.tgz#d6917ca014338e56b4e6442fcf7dea8d83a4b081"
   integrity sha512-9gAgVHCVTEq0ThcjoXkOICYQgdqh1h90WSuVAnNeCrRrefJInUvMbpDfy6PlsI29Nbu9UW9CGkUHztrR1A9N+A==
