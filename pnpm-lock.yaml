@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   axios:
     specifier: ^1.4.0
@@ -50,8 +54,8 @@ dependencies:
     specifier: ^0.7.4
     version: 0.7.4
   expresso-query:
-    specifier: ^0.7.4
-    version: 0.7.4(pg-hstore@2.3.4)(pg@8.11.1)(ts-node@10.9.1)
+    specifier: ^0.7.5
+    version: 0.7.5(pg-hstore@2.3.4)(pg@8.11.1)(ts-node@10.9.1)
   handlebars:
     specifier: ^4.7.7
     version: 4.7.7
@@ -5884,12 +5888,12 @@ packages:
       - whiskers
     dev: false
 
-  /expresso-query@0.7.4(pg-hstore@2.3.4)(pg@8.11.1)(ts-node@10.9.1):
-    resolution: {integrity: sha512-jUTpw6i4RPSYUWB4FmaANINZEx7BasYMAPbfFrri+kGnLm4sOFkhNWoOTmYYjJlMdXpk6Z18wiAVRIGzuJLWkg==}
+  /expresso-query@0.7.5(pg-hstore@2.3.4)(pg@8.11.1)(ts-node@10.9.1):
+    resolution: {integrity: sha512-Zfq+8F6MGCnpkkW6wSDcMlRNauNxt3zETYm+CG/o7nLQ+U20fkHMP4kaxwgzMbBNz+V7jA0OtvO2Gs82EHH7vA==}
     dependencies:
       lodash: 4.17.21
       sequelize: 6.32.1(pg-hstore@2.3.4)(pg@8.11.1)
-      typeorm: 0.3.15(pg@8.11.1)(ts-node@10.9.1)
+      typeorm: 0.3.17(pg@8.11.1)(ts-node@10.9.1)
       uuid: 9.0.0
     transitivePeerDependencies:
       - '@google-cloud/spanner'
@@ -11107,8 +11111,8 @@ packages:
   /typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
-  /typeorm@0.3.15(pg@8.11.1)(ts-node@10.9.1):
-    resolution: {integrity: sha512-R4JSw8QjDP1W+ypeRz/XrCXIqubrLSnNAzJAp9EQSQIPHTv+YmUHZis8g08lOwFpuhqL9m8jkPSz8GWEKlU/ow==}
+  /typeorm@0.3.17(pg@8.11.1)(ts-node@10.9.1):
+    resolution: {integrity: sha512-UDjUEwIQalO9tWw9O2A4GU+sT3oyoUXheHJy4ft+RFdnRdQctdQ34L9SqE2p7LdwzafHx1maxT+bqXON+Qnmig==}
     engines: {node: '>= 12.9.0'}
     hasBin: true
     peerDependencies:
@@ -11170,6 +11174,7 @@ packages:
       buffer: 6.0.3
       chalk: 4.1.2
       cli-highlight: 2.1.11
+      date-fns: 2.30.0
       debug: 4.3.4
       dotenv: 16.3.1
       glob: 8.1.0
