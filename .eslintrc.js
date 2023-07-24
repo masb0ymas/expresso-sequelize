@@ -1,5 +1,9 @@
 module.exports = {
-  extends: ['standard-with-typescript', 'plugin:prettier/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
   plugins: ['prettier', '@typescript-eslint'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,12 +21,15 @@ module.exports = {
     'func-names': 'off',
     'no-console': 'off',
     'consistent-return': 'off',
-    'no-unused-vars': ['error', { args: 'none' }],
+    'no-unused-vars': 'off',
     'no-underscore-dangle': 'off',
     'no-useless-constructor': 'off',
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
