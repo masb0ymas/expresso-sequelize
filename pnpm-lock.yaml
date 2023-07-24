@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   axios:
     specifier: ^1.4.0
@@ -47,8 +51,8 @@ dependencies:
     specifier: ^0.7.4
     version: 0.7.4
   expresso-provider:
-    specifier: ^0.7.4
-    version: 0.7.4
+    specifier: ^0.7.5
+    version: 0.7.5
   expresso-query:
     specifier: ^0.7.4
     version: 0.7.4(pg-hstore@2.3.4)(pg@8.11.1)(ts-node@10.9.1)
@@ -4044,7 +4048,7 @@ packages:
     engines: {node: '>=0.8'}
     hasBin: true
     dependencies:
-      commander: 2.15.1
+      commander: 2.20.3
       printj: 1.1.2
     dev: false
 
@@ -5803,8 +5807,8 @@ packages:
       - supports-color
     dev: false
 
-  /expresso-provider@0.7.4:
-    resolution: {integrity: sha512-xbMCxVmY9QxMwcSxd9lAM8+mC9x8gx5Fxqt167KN7mmqKOwdAiML2Fw1LUh39qa6SOu5YbPB2ozHWM747705dg==}
+  /expresso-provider@0.7.5:
+    resolution: {integrity: sha512-ItRUcPXaEDB0s+/kLfPWaQE9wp9Bv+KjK7WW5HeQo8IvNwz/bpPJ4FwCbw1PDaKg/H9FnRScgz4YrXaq+ovNBQ==}
     dependencies:
       '@aws-sdk/client-s3': 3.374.0
       '@aws-sdk/s3-request-presigner': 3.375.0
