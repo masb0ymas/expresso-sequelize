@@ -5319,17 +5319,17 @@ expresso-core@^0.7.4:
     pino "^8.14.1"
     pino-pretty "^10.0.0"
 
-expresso-hooks@^0.7.4:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/expresso-hooks/-/expresso-hooks-0.7.4.tgz#c7618b9298a04a07ff61ee12f6ecac5f50a850d0"
-  integrity sha512-xUMZ5jj/tg/8wNKiVyZhED4WJ5bFAJoSQnTE/gJ3Xfw3DNkpDnfb72jblUJGDbH7giCzHV2tyAc+Gw+5fZufgQ==
+expresso-hooks@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/expresso-hooks/-/expresso-hooks-0.7.5.tgz#1040c26cc59f194e1c12630ad20db2724627a281"
+  integrity sha512-CLcRVDBWmXIU+e/rU4FjTA3EY21ZPd/lNh8aQktIb7cdZbueq5F/kGzy6ULuARwOgFtPx5ybmXFD2+/ELNSbHQ==
   dependencies:
     colorette "^2.0.20"
     express "^4.18.2"
-    jsonwebtoken "^9.0.0"
+    jsonwebtoken "^9.0.1"
     multer "1.4.5-lts.1"
     pino "^8.14.1"
-    pino-pretty "^10.0.0"
+    pino-pretty "^10.1.0"
 
 expresso-provider@^0.7.4:
   version "0.7.4"
@@ -7381,10 +7381,10 @@ jsonparse@^1.2.0:
   resolved "https://registry.yarnpkg.com/jsonparse/-/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
   integrity sha512-POQXvpdL69+CluYsillJ7SUhKvytYjW9vG/GKpnf+xP8UWgYEM/RaMzHHofbALDiKbbP1W8UEYmgGl39WkPZsg==
 
-jsonwebtoken@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-9.0.0.tgz#d0faf9ba1cc3a56255fe49c0961a67e520c1926d"
-  integrity sha512-tuGfYXxkQGDPnLJ7SibiQgVgeDgfbPq2k2ICcbgqW8WxWLBAxKQM/ZCu/IT8SOSwmaYl4dpTFCW5xZv7YbbWUw==
+jsonwebtoken@^9.0.0, jsonwebtoken@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-9.0.1.tgz#81d8c901c112c24e497a55daf6b2be1225b40145"
+  integrity sha512-K8wx7eJ5TPvEjuiVSkv167EVboBDv9PZdDoF7BgeQnBLVvZWW9clr2PsQHVJDTKaEIH5JBIwHujGcHp7GgI2eg==
   dependencies:
     jws "^3.2.2"
     lodash "^4.17.21"
@@ -8812,27 +8812,7 @@ pino-http@^8.3.3:
     pino-std-serializers "^6.0.0"
     process-warning "^2.0.0"
 
-pino-pretty@^10.0.0:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-10.0.1.tgz#54a11182068949ff3069f1f7857f297a14926e58"
-  integrity sha512-yrn00+jNpkvZX/NrPVCPIVHAfTDy3ahF0PND9tKqZk4j9s+loK8dpzrJj4dGb7i+WLuR50ussuTAiWoMWU+qeA==
-  dependencies:
-    colorette "^2.0.7"
-    dateformat "^4.6.3"
-    fast-copy "^3.0.0"
-    fast-safe-stringify "^2.1.1"
-    help-me "^4.0.1"
-    joycon "^3.1.1"
-    minimist "^1.2.6"
-    on-exit-leak-free "^2.1.0"
-    pino-abstract-transport "^1.0.0"
-    pump "^3.0.0"
-    readable-stream "^4.0.0"
-    secure-json-parse "^2.4.0"
-    sonic-boom "^3.0.0"
-    strip-json-comments "^3.1.1"
-
-pino-pretty@^10.1.0:
+pino-pretty@^10.0.0, pino-pretty@^10.1.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-10.1.0.tgz#d6917ca014338e56b4e6442fcf7dea8d83a4b081"
   integrity sha512-9gAgVHCVTEq0ThcjoXkOICYQgdqh1h90WSuVAnNeCrRrefJInUvMbpDfy6PlsI29Nbu9UW9CGkUHztrR1A9N+A==

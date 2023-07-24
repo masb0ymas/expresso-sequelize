@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   axios:
     specifier: ^1.4.0
@@ -44,8 +48,8 @@ dependencies:
     specifier: ^0.7.4
     version: 0.7.4
   expresso-hooks:
-    specifier: ^0.7.4
-    version: 0.7.4
+    specifier: ^0.7.5
+    version: 0.7.5
   expresso-provider:
     specifier: ^0.7.4
     version: 0.7.4
@@ -5790,8 +5794,8 @@ packages:
       pino-pretty: 10.1.0
     dev: false
 
-  /expresso-hooks@0.7.4:
-    resolution: {integrity: sha512-xUMZ5jj/tg/8wNKiVyZhED4WJ5bFAJoSQnTE/gJ3Xfw3DNkpDnfb72jblUJGDbH7giCzHV2tyAc+Gw+5fZufgQ==}
+  /expresso-hooks@0.7.5:
+    resolution: {integrity: sha512-CLcRVDBWmXIU+e/rU4FjTA3EY21ZPd/lNh8aQktIb7cdZbueq5F/kGzy6ULuARwOgFtPx5ybmXFD2+/ELNSbHQ==}
     dependencies:
       colorette: 2.0.20
       express: 4.18.2
