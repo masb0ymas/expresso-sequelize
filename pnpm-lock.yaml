@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   axios:
     specifier: ^1.4.0
@@ -95,8 +99,8 @@ dependencies:
     specifier: ^8.3.3
     version: 8.3.3
   pino-pretty:
-    specifier: ^10.1.0
-    version: 10.1.0
+    specifier: ^10.2.0
+    version: 10.2.0
   pm2:
     specifier: ^5.3.0
     version: 5.3.0
@@ -5787,7 +5791,7 @@ packages:
       libphonenumber-js: 1.10.37
       lodash: 4.17.21
       pino: 8.14.1
-      pino-pretty: 10.1.0
+      pino-pretty: 10.2.0
     dev: false
 
   /expresso-hooks@0.7.4:
@@ -5798,7 +5802,7 @@ packages:
       jsonwebtoken: 9.0.1
       multer: 1.4.5-lts.1
       pino: 8.14.1
-      pino-pretty: 10.1.0
+      pino-pretty: 10.2.0
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -5823,7 +5827,7 @@ packages:
       nodemailer: 6.9.4
       nodemailer-mailgun-transport: 2.1.5(handlebars@4.7.7)(lodash@4.17.21)
       pino: 8.14.1
-      pino-pretty: 10.1.0
+      pino-pretty: 10.2.0
       xlsx: '@cdn.sheetjs.com/xlsx-0.19.3/xlsx-0.19.3.tgz'
     transitivePeerDependencies:
       - '@aws-sdk/signature-v4-crt'
@@ -9273,8 +9277,8 @@ packages:
       process-warning: 2.2.0
     dev: false
 
-  /pino-pretty@10.1.0:
-    resolution: {integrity: sha512-9gAgVHCVTEq0ThcjoXkOICYQgdqh1h90WSuVAnNeCrRrefJInUvMbpDfy6PlsI29Nbu9UW9CGkUHztrR1A9N+A==}
+  /pino-pretty@10.2.0:
+    resolution: {integrity: sha512-tRvpyEmGtc2D+Lr3FulIZ+R1baggQ4S3xD2Ar93KixFEDx6SEAUP3W5aYuEw1C73d6ROrNcB2IXLteW8itlwhA==}
     hasBin: true
     dependencies:
       colorette: 2.0.20
