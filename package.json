@@ -61,7 +61,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
-    "express-rate-limit": "^6.8.0",
+    "express-rate-limit": "^6.8.1",
     "express-useragent": "^1.0.15",
     "expresso-core": "^0.7.4",
     "expresso-hooks": "^0.7.4",

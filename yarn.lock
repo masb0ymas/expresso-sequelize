@@ -5261,10 +5261,10 @@ express-async-handler@^1.2.0:
   resolved "https://registry.yarnpkg.com/express-async-handler/-/express-async-handler-1.2.0.tgz#ffc9896061d90f8d2e71a2d2b8668db5b0934391"
   integrity sha512-rCSVtPXRmQSW8rmik/AIb2P0op6l7r1fMW538yyvTMltCO4xQEWMmobfrIxN2V1/mVrgxB8Az3reYF6yUZw37w==
 
-express-rate-limit@^6.8.0:
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-6.8.0.tgz#4f1f8238ba209caee2a43be921813f1b70e29beb"
-  integrity sha512-yVeDWczkh8qgo9INJB1tT4j7LFu+n6ei/oqSMsqpsUIGYjTM+gk+Q3wv19TMUdo8chvus8XohAuOhG7RYRM9ZQ==
+express-rate-limit@^6.8.1:
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-6.8.1.tgz#f614bc3a7040fe6f75dc3198536f4cc13526f989"
+  integrity sha512-xJyudsE60CsDShK74Ni1MxsldYaIoivmG3ieK2tAckMsYCBewEuGalss6p/jHmFFnqM9xd5ojE0W2VlanxcOKg==
 
 express-useragent@^1.0.15:
   version "1.0.15"
