@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.1](https://github.com/masb0ymas/expresso-sequelize/compare/v5.2.0...v5.2.1) (2023-08-06)
+
+
+### Bug Fixes
+
+* improve .eslintrc ([72cd389](https://github.com/masb0ymas/expresso-sequelize/commit/72cd38996b0f3bc668d782a9ad4e7d7a793f07d4))
+* improve database migration & seeder .ts ([14a857f](https://github.com/masb0ymas/expresso-sequelize/commit/14a857f43aa4a51fce97fcf47ef7862f57e02f32))
+
 ## [5.2.0](https://github.com/masb0ymas/expresso-sequelize/compare/v5.1.0...v5.2.0) (2023-07-06)
 
 
