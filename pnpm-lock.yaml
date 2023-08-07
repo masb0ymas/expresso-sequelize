@@ -62,8 +62,8 @@ dependencies:
     specifier: ^0.2.3
     version: 0.2.3
   i18next:
-    specifier: ^23.4.1
-    version: 23.4.1
+    specifier: ^23.4.2
+    version: 23.4.2
   i18next-fs-backend:
     specifier: ^2.1.5
     version: 2.1.5
@@ -89,13 +89,13 @@ dependencies:
     specifier: ^2.3.4
     version: 2.3.4
   pino:
-    specifier: ^8.14.1
+    specifier: ^8.15.0
     version: 8.15.0
   pino-http:
-    specifier: ^8.3.3
+    specifier: ^8.4.0
     version: 8.4.0
   pino-pretty:
-    specifier: ^10.1.0
+    specifier: ^10.2.0
     version: 10.2.0
   pm2:
     specifier: ^5.3.0
@@ -4040,7 +4040,7 @@ packages:
     engines: {node: '>=0.8'}
     hasBin: true
     dependencies:
-      commander: 2.20.3
+      commander: 2.15.1
       printj: 1.1.2
     dev: false
 
@@ -6960,8 +6960,8 @@ packages:
     resolution: {integrity: sha512-PSeLXQXr9Qiv9Q3GCWCoIJenKVbxCcVsXb7VMp/mOprV4gu+AMJT7VHw4+QEf6oYW6GU31QSLnfDpLNoSMtx3g==}
     dev: false
 
-  /i18next@23.4.1:
-    resolution: {integrity: sha512-07ekE7hbUrbxTYj97VnBzyhKcGURTJC9p4iWTwCVC8t63T+YrgqQmb/n1LBQMivZYwR61pqS+PC0G2rtENycyQ==}
+  /i18next@23.4.2:
+    resolution: {integrity: sha512-hkVPHKFLtn9iewdqHDiU+MGVIBk+bVFn5usw7CIeCn/SBcVKGTItGdjNPm2B8Lnz42CeHUlnSOTgsr5vbITjhA==}
     dependencies:
       '@babel/runtime': 7.22.6
     dev: false
