@@ -109,7 +109,7 @@
     "@types/express-useragent": "^1.0.2",
     "@types/hpp": "^0.2.2",
     "@types/jest": "^29.5.3",
-    "@types/lodash": "^4.14.196",
+    "@types/lodash": "^4.14.197",
     "@types/multer": "^1.4.7",
     "@types/node": "^20.4.8",
     "@types/node-cron": "^3.0.8",
