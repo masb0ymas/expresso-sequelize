@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.2](https://github.com/masb0ymas/expresso-sequelize/compare/v5.2.1...v5.2.2) (2023-09-07)
+
+
+### Bug Fixes
+
+* add script post release ([c2b9799](https://github.com/masb0ymas/expresso-sequelize/commit/c2b97999773d847c24c85a07515502b6f1f51c84))
+* bug user seeder ([85b949b](https://github.com/masb0ymas/expresso-sequelize/commit/85b949be41f7187dfa9403a44f1d6717f7d24495))
+* improve mail config ([d70a6e7](https://github.com/masb0ymas/expresso-sequelize/commit/d70a6e7157dae34d974ff0ef0fa0057390f6ce04))
+* update package ([a06d586](https://github.com/masb0ymas/expresso-sequelize/commit/a06d58631ba1798b21ab2878e93fe3ba77bb1851))
+* update swc config ([cde7ca5](https://github.com/masb0ymas/expresso-sequelize/commit/cde7ca5a796f4f3aeab41762bfa0fbf140dab312))
+
 ### [5.2.1](https://github.com/masb0ymas/expresso-sequelize/compare/v5.2.0...v5.2.1) (2023-08-06)
 
 
