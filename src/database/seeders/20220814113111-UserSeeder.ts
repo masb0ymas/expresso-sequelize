@@ -9,9 +9,9 @@ import { logger } from '~/config/pino'
 import { default as ConstRole } from '~/core/constants/ConstRole'
 
 const salt = 10
-const defaultPassword = green('Padang123')
+const defaultPassword = 'Padang123'
 
-logger.info(`Seed - your default password: ${defaultPassword}`)
+logger.info(`Seed - your default password: ${green(defaultPassword)}`)
 
 const data = [
   {
@@ -41,7 +41,7 @@ if (!_.isEmpty(data)) {
       ...item,
       id: uuidv4(),
       is_active: true,
-      password: hashSync(String(defaultPassword), salt),
+      password: hashSync(defaultPassword, salt),
       created_at: new Date(),
       updated_at: new Date(),
     })
