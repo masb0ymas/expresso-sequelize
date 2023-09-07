@@ -30,6 +30,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "prerelease": "npm run prebuild",
+    "postrelease": "git push --follow-tags origin main",
     "release": "standard-version",
     "release:pre": "npm run release -- --prerelease",
     "release:patch": "npm run release -- --release-as patch",
