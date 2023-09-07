@@ -1,11 +1,11 @@
-import { Mail } from 'expresso-provider'
-import { type MailDriverType } from 'expresso-provider/lib/mail'
+import { SMTP } from 'expresso-provider'
+import { type MailDriverType } from 'expresso-provider/lib/smtp'
 import { env } from './env'
 
 /**
  * Initialize Mail Service Config
  */
-export const mailService = new Mail({
+export const mailService = new SMTP({
   // Your App Name
   appName: env.APP_NAME,
 
