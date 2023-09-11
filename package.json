@@ -113,7 +113,7 @@
     "@types/jest": "^29.5.4",
     "@types/lodash": "^4.14.198",
     "@types/multer": "^1.4.7",
-    "@types/node": "^20.5.9",
+    "@types/node": "^20.6.0",
     "@types/node-cron": "^3.0.8",
     "@types/qs": "^6.9.8",
     "@types/request-ip": "^0.0.38",
