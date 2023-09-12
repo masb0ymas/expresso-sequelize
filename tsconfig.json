@@ -14,7 +14,7 @@
       "~/*": ["./src/*"]
     },
     "typeRoots": ["./src/core/types"],
-    // "types": ["jest"],
+    // "types": ["bun-types"],
 
     /* JavaScript Support */
     "allowJs": true,
