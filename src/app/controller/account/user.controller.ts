@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import { arrayFormatter } from 'expresso-core'
 import authorization from '~/app/middleware/authorization'
-import permissionAccess from '~/app/middleware/permissionAccess'
+import { permissionAccess } from '~/app/middleware/permission'
 import UserService from '~/app/service/user.service'
 import { env } from '~/config/env'
 import ConstRole from '~/core/constants/ConstRole'
