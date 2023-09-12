@@ -10,7 +10,7 @@ import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
 import route from '~/routes/v1'
 import authorization from '../middleware/authorization'
-import permissionAccess from '../middleware/permissionAccess'
+import { permissionAccess } from '../middleware/permission'
 import UploadService from '../service/upload.service'
 
 route.get(
