@@ -1,4 +1,3 @@
-import * as bcrypt from 'bcrypt'
 import {
   BeforeCreate,
   BeforeUpdate,
@@ -15,6 +14,7 @@ import {
   Unique,
 } from 'sequelize-typescript'
 import userSchema from '~/app/schema/user.schema'
+import { hashing } from '~/config/hashing'
 import Base, { type IBaseEntity } from './Base'
 import Role from './Role'
 import Session from './Session'
@@ -135,15 +135,14 @@ class User extends Base {
 
   @BeforeUpdate
   @BeforeCreate
-  static setUserPassword(instance: User): void {
+  static async setUserPassword(instance: User): Promise<void> {
     const { new_password, confirm_new_password } = instance
-    const saltRounds = 10
 
     if (new_password ?? confirm_new_password) {
       const formPassword = { new_password, confirm_new_password }
       const validPassword = userSchema.createPassword.parse(formPassword)
 
-      const hash = bcrypt.hashSync(validPassword.new_password, saltRounds)
+      const hash = await hashing.hash(validPassword.new_password)
       instance.setDataValue('password', hash)
     }
   }
@@ -153,14 +152,10 @@ class User extends Base {
 User.prototype.comparePassword = async function (
   current_password: string
 ): Promise<boolean> {
-  return await new Promise((resolve, reject) => {
-    const password = String(this.password)
+  const password = String(this.password)
 
-    bcrypt.compare(current_password, password, function (err, isMatch) {
-      if (err) reject(err)
-      resolve(isMatch)
-    })
-  })
+  const compare = await hashing.verify(password, current_password)
+  return compare
 }
 
 export default User

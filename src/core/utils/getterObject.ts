@@ -3,7 +3,7 @@ import _ from 'lodash'
 function getterObject<
   TObject extends object,
   TKey extends keyof TObject,
-  TDefault
+  TDefault,
 >(
   object: TObject | null | undefined,
   path?: TKey | [TKey] | string,

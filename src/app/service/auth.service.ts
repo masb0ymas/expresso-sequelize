@@ -13,6 +13,7 @@ import SendMail from '~/core/utils/sendMails'
 import User, {
   type UserLoginAttributes,
   type LoginAttributes,
+  UserAttributes,
 } from '~/database/entities/User'
 import { type DtoLogin } from '../interface/dto/Auth'
 import userSchema from '../schema/user.schema'
@@ -42,12 +43,13 @@ export default class AuthService {
       role_id = ConstRole.ID_USER
     }
 
-    const newFormData = {
+    const newFormData: UserAttributes = {
       ...formData,
       is_active: false,
       phone: validateEmpty(formData.phone),
       token_verify: token,
       role_id,
+      upload_id: null,
     }
 
     const value = userSchema.register.parse(newFormData)
