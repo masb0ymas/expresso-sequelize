@@ -79,7 +79,13 @@ export class App {
    */
   private _provider(): void {
     // storage
-    void storageService.initialize()
+    if (
+      env.STORAGE_PROVIDER &&
+      env.STORAGE_ACCESS_KEY &&
+      env.STORAGE_SECRET_KEY
+    ) {
+      void storageService.initialize()
+    }
 
     // mail
     if (env.MAIL_USERNAME && env.MAIL_PASSWORD) {
