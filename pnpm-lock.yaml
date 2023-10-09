@@ -96,8 +96,8 @@ dependencies:
     specifier: ^8.5.0
     version: 8.5.0
   pino-pretty:
-    specifier: ^10.2.0
-    version: 10.2.0
+    specifier: ^10.2.3
+    version: 10.2.3
   pm2:
     specifier: ^5.3.0
     version: 5.3.0
@@ -6025,7 +6025,7 @@ packages:
       libphonenumber-js: 1.10.45
       lodash: 4.17.21
       pino: 8.15.3
-      pino-pretty: 10.2.0
+      pino-pretty: 10.2.3
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -6041,7 +6041,7 @@ packages:
       lodash: 4.17.21
       multer: 1.4.5-lts.1
       pino: 8.15.3
-      pino-pretty: 10.2.0
+      pino-pretty: 10.2.3
       slugify: 1.6.6
     transitivePeerDependencies:
       - supports-color
@@ -6068,7 +6068,7 @@ packages:
       nodemailer: 6.9.5
       nodemailer-mailgun-transport: 2.1.5(handlebars@4.7.8)(lodash@4.17.21)
       pino: 8.15.3
-      pino-pretty: 10.2.0
+      pino-pretty: 10.2.3
       xlsx: '@cdn.sheetjs.com/xlsx-0.19.3/xlsx-0.19.3.tgz'
     transitivePeerDependencies:
       - arc-templates
@@ -9794,8 +9794,8 @@ packages:
       process-warning: 2.2.0
     dev: false
 
-  /pino-pretty@10.2.0:
-    resolution: {integrity: sha512-tRvpyEmGtc2D+Lr3FulIZ+R1baggQ4S3xD2Ar93KixFEDx6SEAUP3W5aYuEw1C73d6ROrNcB2IXLteW8itlwhA==}
+  /pino-pretty@10.2.3:
+    resolution: {integrity: sha512-4jfIUc8TC1GPUfDyMSlW1STeORqkoxec71yhxIpLDQapUu8WOuoz2TTCoidrIssyz78LZC69whBMPIKCMbi3cw==}
     hasBin: true
     dependencies:
       colorette: 2.0.20
