@@ -36,8 +36,8 @@ dependencies:
     specifier: ^1.2.0
     version: 1.2.0
   express-rate-limit:
-    specifier: ^7.0.2
-    version: 7.0.2(express@4.18.2)
+    specifier: ^7.1.2
+    version: 7.1.2(express@4.18.2)
   express-useragent:
     specifier: ^1.0.15
     version: 1.0.15
@@ -5963,8 +5963,8 @@ packages:
     resolution: {integrity: sha512-rCSVtPXRmQSW8rmik/AIb2P0op6l7r1fMW538yyvTMltCO4xQEWMmobfrIxN2V1/mVrgxB8Az3reYF6yUZw37w==}
     dev: false
 
-  /express-rate-limit@7.0.2(express@4.18.2):
-    resolution: {integrity: sha512-EZoojG9civtJ6GRR7vE0JErow5q/ltbIl0RGbYhrNJKwBC9/kp2HckpdAvQkkE0sRAAtFDBvILvwZSR2kQroDw==}
+  /express-rate-limit@7.1.2(express@4.18.2):
+    resolution: {integrity: sha512-uvkFt5JooXDhUhrfgqXLyIsAMRCtU1o8W/p0Q2p5U2ude7fEOfFaP0kSYbHOHmPbA9ZEm1JqrRne3vL9pVCBXA==}
     engines: {node: '>= 16'}
     peerDependencies:
       express: ^4 || ^5
