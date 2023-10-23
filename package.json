@@ -115,7 +115,7 @@
     "@types/node-cron": "^3.0.9",
     "@types/qs": "^6.9.8",
     "@types/request-ip": "^0.0.39",
-    "@types/supertest": "^2.0.13",
+    "@types/supertest": "^2.0.15",
     "@types/swagger-jsdoc": "^6.0.1",
     "@types/swagger-ui-express": "^4.1.4",
     "@types/uuid": "^9.0.4",
