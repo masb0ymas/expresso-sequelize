@@ -51,8 +51,8 @@ dependencies:
     specifier: ^0.9.0
     version: 0.9.0
   expresso-query:
-    specifier: ^0.9.0
-    version: 0.9.0(pg-hstore@2.3.4)(pg@8.11.3)(ts-node@10.9.1)
+    specifier: ^0.10.1
+    version: 0.10.1(pg-hstore@2.3.4)(pg@8.11.3)(ts-node@10.9.1)
   handlebars:
     specifier: ^4.7.8
     version: 4.7.8
@@ -6128,8 +6128,8 @@ packages:
       - whiskers
     dev: false
 
-  /expresso-query@0.9.0(pg-hstore@2.3.4)(pg@8.11.3)(ts-node@10.9.1):
-    resolution: {integrity: sha512-RUn3+REflO9Pmee03HOfKZ4Ftu69aIt7xcwqz9Sq5bg1ym5wkvsL6L6OvLcP6XDxMySlhKez50ihsYksUN1EKA==}
+  /expresso-query@0.10.1(pg-hstore@2.3.4)(pg@8.11.3)(ts-node@10.9.1):
+    resolution: {integrity: sha512-42XM/+uKy6nkbK5sBtBXok3/e9lOGJIB0RpbpWdIKPgAtZ4CrTDOCEegewXBE1HXUClwbdEALWErb5ZhplE6eQ==}
     dependencies:
       lodash: 4.17.21
       sequelize: 6.33.0(pg-hstore@2.3.4)(pg@8.11.3)
