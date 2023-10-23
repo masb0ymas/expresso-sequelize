@@ -200,8 +200,8 @@ devDependencies:
     specifier: ^4.1.4
     version: 4.1.4
   '@types/uuid':
-    specifier: ^9.0.4
-    version: 9.0.4
+    specifier: ^9.0.6
+    version: 9.0.6
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.7.3
     version: 6.7.3(@typescript-eslint/parser@6.7.3)(eslint@8.50.0)(typescript@5.2.2)
@@ -3162,8 +3162,8 @@ packages:
       '@types/serve-static': 1.15.3
     dev: true
 
-  /@types/uuid@9.0.4:
-    resolution: {integrity: sha512-zAuJWQflfx6dYJM62vna+Sn5aeSWhh3OB+wfUEACNcqUSc0AGc5JKl+ycL1vrH7frGTXhJchYjE1Hak8L819dA==}
+  /@types/uuid@9.0.6:
+    resolution: {integrity: sha512-BT2Krtx4xaO6iwzwMFUYvWBWkV2pr37zD68Vmp1CDV196MzczBRxuEpD6Pr395HAgebC/co7hOphs53r8V7jew==}
     dev: true
 
   /@types/validator@13.11.2:
