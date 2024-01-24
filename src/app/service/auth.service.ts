@@ -1,6 +1,6 @@
 import { validateEmpty } from 'expresso-core'
 import { useToken } from 'expresso-hooks'
-import { type ExpiresType } from 'expresso-hooks/lib/token/interface'
+import { ExpiresType } from 'expresso-hooks/lib/token/types'
 import { type TOptions } from 'i18next'
 import _ from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
@@ -11,9 +11,9 @@ import { type IReqOptions } from '~/core/interface/ReqOptions'
 import ResponseError from '~/core/modules/response/ResponseError'
 import SendMail from '~/core/utils/sendMails'
 import User, {
-  type UserLoginAttributes,
+  type UserAttributes,
   type LoginAttributes,
-  UserAttributes,
+  type UserLoginAttributes,
 } from '~/database/entities/User'
 import { type DtoLogin } from '../interface/dto/Auth'
 import userSchema from '../schema/user.schema'

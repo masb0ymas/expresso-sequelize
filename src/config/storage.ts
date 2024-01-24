@@ -1,8 +1,8 @@
 import { Storage } from 'expresso-provider'
 import {
-  type StorageExpires,
-  type StorageType,
-} from 'expresso-provider/lib/storage'
+  StorageExpires,
+  StorageType,
+} from 'expresso-provider/lib/storage/types'
 import { env } from './env'
 
 /**
@@ -35,10 +35,12 @@ export const storageService = new Storage({
 
   // Storage Options for MinIO
   // options: {
-  //   // use this options for MinIO
+
+  // use this options for MinIO
   //   useSSL: true,
 
-  //   // use this options for Google Cloud Storage ( serviceAccount.json )
+  // use this options for Google Cloud Storage ( serviceAccount.json )
   //   filePath: './your_path/serviceAccount.json',
+
   // },
 })

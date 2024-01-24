@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { arrayFormatter, deleteFile } from 'expresso-core'
 import { useMulter } from 'expresso-hooks'
-import { type FileAttributes } from 'expresso-provider/lib/interface'
+import { FileAttributes } from 'expresso-provider/lib/storage/types'
 import _ from 'lodash'
 import { env } from '~/config/env'
 import ConstRole from '~/core/constants/ConstRole'

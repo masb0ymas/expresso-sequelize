@@ -1,8 +1,8 @@
 import { useSequelize } from 'expresso-query'
 import {
-  type DtoSequelizeQuery,
-  type IUseSequelizeQuery,
-} from 'expresso-query/lib/interface'
+  DtoSequelizeQuery,
+  UseQuerySequelize,
+} from 'expresso-query/lib/sequelize/types'
 import { env } from '~/config/env'
 
 type ConnectType = 'postgres' | 'mysql' | 'mariadb'
@@ -12,7 +12,7 @@ type ConnectType = 'postgres' | 'mysql' | 'mariadb'
  * @param params
  * @returns
  */
-export function useQuery(params: IUseSequelizeQuery): DtoSequelizeQuery {
+export function useQuery(params: UseQuerySequelize): DtoSequelizeQuery {
   const dialect = env.SEQUELIZE_CONNECTION as ConnectType
 
   return useSequelize.queryBulider(params, { dialect })

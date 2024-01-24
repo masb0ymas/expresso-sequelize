@@ -1,7 +1,7 @@
 import { sub } from 'date-fns'
 import { type Request } from 'express'
 import { validateBoolean } from 'expresso-core'
-import { type TypeMinio } from 'expresso-provider/lib/storage'
+import { TypeMinio } from 'expresso-provider/lib/storage/types'
 import { type TOptions } from 'i18next'
 import _ from 'lodash'
 import { Op } from 'sequelize'
