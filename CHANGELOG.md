@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0](https://github.com/masb0ymas/expresso-sequelize/compare/v5.2.2...v5.3.0) (2024-01-24)
+
+
+### Features
+
+* add hashing config ([28516ab](https://github.com/masb0ymas/expresso-sequelize/commit/28516ab7c0d1030b40feb99a79de7969b842e4f6))
+
+
+### Bug Fixes
+
+* check storage initialize ([02620d4](https://github.com/masb0ymas/expresso-sequelize/commit/02620d4eca734d8fef9e1ff17905d830ed1497a4))
+* entity user ([b688a20](https://github.com/masb0ymas/expresso-sequelize/commit/b688a20e744d951a52328848fecdc70e17892ce9))
+* improve middleware permission ([74934d3](https://github.com/masb0ymas/expresso-sequelize/commit/74934d304b7f6710522a1a51a7d24505aa8d02ef))
+* improve seeder ([42a64b5](https://github.com/masb0ymas/expresso-sequelize/commit/42a64b50a9bede085af89715873d36c6ebd91654))
+* lint files ([75aa71e](https://github.com/masb0ymas/expresso-sequelize/commit/75aa71ef26eb71a4f07045153a89698c82770802))
+* minor bug update package ([13ee298](https://github.com/masb0ymas/expresso-sequelize/commit/13ee2989fc14f5a5870bc7c5fb3f6dae1eb769a8))
+* update auth service ([75909fa](https://github.com/masb0ymas/expresso-sequelize/commit/75909fa0925030468145468d16e8de2cf8565a47))
+* update package ([25c1c8f](https://github.com/masb0ymas/expresso-sequelize/commit/25c1c8facf9fb6736bcf2ba264bb7ad0e1f45a64))
+* update package ([613ed23](https://github.com/masb0ymas/expresso-sequelize/commit/613ed233f9efbc7e2e67ef4b50a4834830fd8773))
+
 ### [5.2.2](https://github.com/masb0ymas/expresso-sequelize/compare/v5.2.1...v5.2.2) (2023-09-07)
 
 
