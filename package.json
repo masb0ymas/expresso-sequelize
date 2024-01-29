@@ -52,7 +52,7 @@
     "node": ">= 16.x"
   },
   "dependencies": {
-    "axios": "^1.6.5",
+    "axios": "^1.6.7",
     "colorette": "^2.0.20",
     "compression": "^1.7.4",
     "concurrently": "^8.2.2",
