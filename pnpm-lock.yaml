@@ -63,8 +63,8 @@ dependencies:
     specifier: ^0.2.3
     version: 0.2.3
   i18next:
-    specifier: ^23.7.18
-    version: 23.7.18
+    specifier: ^23.8.1
+    version: 23.8.1
   i18next-fs-backend:
     specifier: ^2.3.1
     version: 2.3.1
@@ -7251,8 +7251,8 @@ packages:
     resolution: {integrity: sha512-BqATaFCMVHJYZX4cBmhvpBqZNvnvjjmcSzxJvLWTwgJ4gn5kwYoyVikn7AB5kxiQrFjSuZsjDFv76CdsAHwpZw==}
     dev: false
 
-  /i18next@23.7.18:
-    resolution: {integrity: sha512-b9N2KjRCYQNlUvE1Kc83g8knyUkL5NiZQOp9BsTR/v/LXk6Fzz+doOzTg2/826XK28mCgBkYLNAtixjE58qpCw==}
+  /i18next@23.8.1:
+    resolution: {integrity: sha512-Yhe6oiJhigSh64ev7nVVywu7vHjuUG41MRmFKNwphbkadqTL1ozZFBQISflY7/ju+gL6I/SPfI1GgWQh1yYArA==}
     dependencies:
       '@babel/runtime': 7.23.8
     dev: false
