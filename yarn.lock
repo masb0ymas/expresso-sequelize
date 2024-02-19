@@ -4766,10 +4766,10 @@ dot-prop@^5.1.0:
   dependencies:
     is-obj "^2.0.0"
 
-dotenv@^16.0.3, dotenv@^16.3.1, dotenv@^16.4.0:
-  version "16.4.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.4.0.tgz#ac21c3fcaad2e7832a1cd0c0e4e8e52225ecda0e"
-  integrity sha512-WvImr5kpN5NGNn7KaDjJnLTh5rDVLZiDf/YLA8T1ZEZEBZNEDOE+mnkS0PVjPax8ZxBP5zC5SLMB3/9VV5de9g==
+dotenv@^16.0.3, dotenv@^16.3.1, dotenv@^16.4.4:
+  version "16.4.4"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.4.4.tgz#a26e7bb95ebd36272ebb56edb80b826aecf224c1"
+  integrity sha512-XvPXc8XAQThSjAbY6cQ/9PcBXmFoWuw1sQ3b8HqUCR6ziGXjkTi//kB9SWa2UwqlgdAIuRqAa/9hVljzPehbYg==
 
 dotgitignore@^2.1.0:
   version "2.1.0"
