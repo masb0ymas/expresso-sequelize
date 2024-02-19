@@ -71,7 +71,7 @@
     "handlebars": "^4.7.8",
     "helmet": "^7.1.0",
     "hpp": "^0.2.3",
-    "i18next": "^23.7.18",
+    "i18next": "^23.9.0",
     "i18next-fs-backend": "^2.3.1",
     "i18next-http-middleware": "^3.5.0",
     "lodash": "^4.17.21",
