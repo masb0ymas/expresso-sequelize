@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.3.1](https://github.com/masb0ymas/expresso-sequelize/compare/v5.3.0...v5.3.1) (2024-08-28)
+
+
+### Bug Fixes
+
+* improve database ([0c9f2f9](https://github.com/masb0ymas/expresso-sequelize/commit/0c9f2f975bcab7982412c0cd5cecd480f57c4d92))
+* update config app & routes ([3cb6526](https://github.com/masb0ymas/expresso-sequelize/commit/3cb65260fd5bc2979cb0e8438fe5525dd8f11606))
+* update env ([f151f84](https://github.com/masb0ymas/expresso-sequelize/commit/f151f8413b5929f2b05f46a9132baf231828bfa8))
+* update minor ([c400335](https://github.com/masb0ymas/expresso-sequelize/commit/c400335f725d4506146d23063ee73ff189605783))
+* update minor middleware & job ([4848a13](https://github.com/masb0ymas/expresso-sequelize/commit/4848a132f3a0176428b8a8bf685f46c38965c99b))
+
+
+### Other Commit
+
+* add base service ([364a1d3](https://github.com/masb0ymas/expresso-sequelize/commit/364a1d300a550d9b195cb8b557b4705d1d332213))
+
 ## [5.3.0](https://github.com/masb0ymas/expresso-sequelize/compare/v5.2.2...v5.3.0) (2024-01-24)
 
 
