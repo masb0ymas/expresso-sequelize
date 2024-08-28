@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import _ from 'lodash'
 import multer from 'multer'
-import ResponseError from '~/core/modules/response/ResponseError'
+import ErrorResponse from '~/core/modules/response/ErrorResponse'
 
 interface DtoErrorResponse {
   code: number
@@ -38,7 +38,7 @@ async function expressErrorResponse(
   }
 
   // catch from global error
-  if (err instanceof ResponseError.BaseResponse) {
+  if (err instanceof ErrorResponse.BaseResponse) {
     return res
       .status(err.statusCode)
       .json(generateErrorResponse(err, err.statusCode))

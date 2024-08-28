@@ -4,7 +4,13 @@ import { useToken } from 'expresso-hooks'
 import _ from 'lodash'
 import { env } from '~/config/env'
 import { logger } from '~/config/pino'
+import Session from '~/database/entities/Session'
 import SessionService from '../service/session.service'
+
+const newSessionService = new SessionService({
+  entity: 'session',
+  repository: Session,
+})
 
 /**
  * Authorization
@@ -27,7 +33,7 @@ async function authorization(
   })
 
   // check session from token header
-  const getSession = await SessionService.getByToken(String(getToken))
+  const getSession = await newSessionService.getByToken(String(getToken))
 
   if (_.isEmpty(token?.data) || _.isEmpty(getSession)) {
     const msgType = green('permission')
