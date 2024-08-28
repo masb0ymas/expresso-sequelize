@@ -2,28 +2,29 @@ import { green } from 'colorette'
 import _ from 'lodash'
 import { DataTypes, QueryInterface } from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
+import { env } from '~/config/env'
 import { hashing } from '~/config/hashing'
 import { logger } from '~/config/pino'
 import { default as ConstRole } from '~/core/constants/ConstRole'
 
-const defaultPassword = 'Padang123'
+const defaultPassword = env.APP_PASSWORD
 
 logger.info(`Seed - your default password: ${green(defaultPassword)}`)
 
 const data = [
   {
     fullname: 'Super Admin',
-    email: 'super.admin@mail.com',
+    email: 'super.admin@example.com',
     role_id: ConstRole.ID_SUPER_ADMIN,
   },
   {
     fullname: 'Admin',
-    email: 'admin@mail.com',
+    email: 'admin@example.com',
     role_id: ConstRole.ID_ADMIN,
   },
   {
-    fullname: 'Test User',
-    email: 'test.user@mail.com',
+    fullname: 'User',
+    email: 'user@example.com',
     role_id: ConstRole.ID_USER,
   },
 ]
