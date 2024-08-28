@@ -2,7 +2,7 @@ import axios, { type AxiosError, type AxiosInstance } from 'axios'
 import { red } from 'colorette'
 import { ms } from 'expresso-core'
 import _ from 'lodash'
-import ResponseError from '~/core/modules/response/ResponseError'
+import ErrorResponse from '~/core/modules/response/ErrorResponse'
 import { env } from './env'
 import { logger } from './pino'
 
@@ -39,21 +39,21 @@ function createAxios(baseURL: string): AxiosInstance {
         const errType = errAxios('Unauhtorized')
         logger.error(`${errType}, ${message}`)
 
-        throw new ResponseError.Unauthorized(`${message}`)
+        throw new ErrorResponse.Unauthorized(`${message}`)
       }
 
       if (statusCode === 400) {
         const errType = errAxios('Bad Request')
         logger.error(`${errType}, ${message}`)
 
-        throw new ResponseError.BadRequest(`${message}`)
+        throw new ErrorResponse.BadRequest(`${message}`)
       }
 
       if (statusCode === 404) {
         const errType = errAxios('Not Found')
         logger.error(`${errType}, ${message}`)
 
-        throw new ResponseError.NotFound(`${message}`)
+        throw new ErrorResponse.NotFound(`${message}`)
       }
 
       const handleError = error?.response?.headers?.handleError
@@ -63,13 +63,13 @@ function createAxios(baseURL: string): AxiosInstance {
           const errType = errAxios('Service Unavailable')
           logger.error(`${errType}, ${message}`)
 
-          throw new ResponseError.InternalServer('Service Unavailable')
+          throw new ErrorResponse.InternalServer('Service Unavailable')
         }
 
         const errMessage: any = error.response?.data ?? error.message
         console.log(errAxios(errMessage))
 
-        throw new ResponseError.BadRequest(errMessage)
+        throw new ErrorResponse.BadRequest(errMessage)
       }
 
       return await Promise.reject(error)

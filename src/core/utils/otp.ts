@@ -5,7 +5,7 @@ import { env } from '~/config/env'
 import { i18n } from '~/config/i18n'
 import { redisService } from '~/config/redis'
 import { type IReqOptions } from '../interface/ReqOptions'
-import ResponseError from '../modules/response/ResponseError'
+import ErrorResponse from '../modules/response/ErrorResponse'
 
 interface HashOTPEntity {
   phone: string
@@ -101,7 +101,7 @@ export class OTP {
     // Check Takeover Verify OTP
     if (storeRedis.length >= limit) {
       const message = i18n.t('errors.login_back', i18nOpt)
-      throw new ResponseError.BadRequest(message)
+      throw new ErrorResponse.BadRequest(message)
     }
 
     console.log({ storeRedis })

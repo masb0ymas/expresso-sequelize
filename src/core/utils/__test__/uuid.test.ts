@@ -1,5 +1,5 @@
 import { afterAll, describe, expect, test } from '@jest/globals'
-import { validateUUID } from '../formatter'
+import { validateUUID } from '../uuid'
 
 describe('helpers formatter test', () => {
   afterAll(async () => {

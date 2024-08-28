@@ -2,21 +2,17 @@ import { blue, green } from 'colorette'
 import { randomUUID } from 'node:crypto'
 import { pino } from 'pino'
 import PinoHttp, { type HttpLogger } from 'pino-http'
-import { formatDate } from '~/core/utils/date'
 import { env } from './env'
 
-export const logger = pino(
-  {
-    level: env.NODE_ENV === 'production' ? 'info' : 'debug',
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-      },
+export const logger = pino({
+  level: env.NODE_ENV === 'production' ? 'info' : 'debug',
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
     },
   },
-  pino.destination(`./logs/pino-${formatDate(new Date())}.log`)
-)
+})
 
 /**
  * Http Logger

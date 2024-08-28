@@ -5,7 +5,7 @@ import InternalServer from '../errors/InternalServer'
 import NotFound from '../errors/NotFound'
 import Unauthorized from '../errors/Unauthorized'
 
-const ResponseError = {
+const ErrorResponse = {
   BadRequest,
   BaseResponse,
   Forbidden,
@@ -14,4 +14,4 @@ const ResponseError = {
   Unauthorized,
 }
 
-export default ResponseError
+export default ErrorResponse

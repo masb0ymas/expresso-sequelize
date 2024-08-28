@@ -7,7 +7,7 @@ import { env } from '~/config/env'
 import { mailService } from '~/config/mail'
 import { logger } from '~/config/pino'
 import { type TMailRegistrationEntity } from '../interface/SendMail'
-import ResponseError from '../modules/response/ResponseError'
+import ErrorResponse from '../modules/response/ErrorResponse'
 
 class SendMail {
   /**
@@ -40,7 +40,7 @@ class SendMail {
     data: string | any
   ): Promise<void> {
     if (!fs.existsSync(_path)) {
-      throw new ResponseError.BadRequest('invalid template path ')
+      throw new ErrorResponse.BadRequest('invalid template path ')
     }
 
     const html = await readHTMLFile(_path)

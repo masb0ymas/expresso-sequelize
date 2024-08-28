@@ -1,7 +1,7 @@
 import { green } from 'colorette'
 import fs from 'fs'
 import { logger } from '~/config/pino'
-import { capitalizeFirstLetter } from '../utils/formatter'
+import { capitalizeFirstLetter } from '../utils/string'
 
 /**
  * Get Controller from Route Path

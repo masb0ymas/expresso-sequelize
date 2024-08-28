@@ -1,4 +1,4 @@
-import { describe, test, expect } from '@jest/globals'
+import { describe, expect, test } from '@jest/globals'
 import { formatDate, formatDateTime } from '../date'
 
 describe('helpers date test', () => {
@@ -6,7 +6,7 @@ describe('helpers date test', () => {
     const anyValue = '02-11-2023'
     const expectValue = '11-02-2023'
 
-    const data = formatDate(anyValue)
+    const data = formatDate(anyValue, 'dd-MM-yyyy')
 
     expect(data).toEqual(expectValue)
   })
