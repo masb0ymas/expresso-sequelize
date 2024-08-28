@@ -2,17 +2,25 @@ import { type Request, type Response } from 'express'
 import { arrayFormatter } from 'expresso-core'
 import authorization from '~/app/middleware/authorization'
 import { permissionAccess } from '~/app/middleware/permission'
+import userSchema from '~/app/schema/user.schema'
 import UserService from '~/app/service/user.service'
 import { env } from '~/config/env'
 import ConstRole from '~/core/constants/ConstRole'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
 import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
-import { type UserLoginAttributes } from '~/database/entities/User'
-import route from '~/routes/v1'
+import User, { type UserLoginAttributes } from '~/database/entities/User'
+import v1Route from '~/routes/v1'
+
+const route = v1Route
+const routePath = `/user`
+const newUserService = new UserService({
+  entity: 'user',
+  repository: User,
+})
 
 route.get(
-  '/user',
+  `${routePath}`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function findAll(req: Request, res: Response) {
@@ -20,7 +28,7 @@ route.get(
     const defaultLang = lang ?? env.APP_LANG
     const options: IReqOptions = { lang: defaultLang }
 
-    const data = await UserService.findAll(req)
+    const data = await newUserService.findAll(req)
 
     const httpResponse = HttpResponse.get(data, options)
     res.status(200).json(httpResponse)
@@ -28,7 +36,7 @@ route.get(
 )
 
 route.get(
-  '/user/:id',
+  `${routePath}/:id`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function findOne(req: Request, res: Response) {
@@ -37,8 +45,7 @@ route.get(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    const data = await UserService.findById(id, options)
+    const data = await newUserService.findById(id, options)
 
     const httpResponse = HttpResponse.get({ data }, options)
     res.status(200).json(httpResponse)
@@ -46,7 +53,7 @@ route.get(
 )
 
 route.post(
-  '/user',
+  `${routePath}`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function create(req: Request, res: Response) {
@@ -55,8 +62,7 @@ route.post(
     const options: IReqOptions = { lang: defaultLang }
 
     const formData = req.getBody()
-
-    const data = await UserService.create(formData)
+    const data = await newUserService.create(formData)
 
     const httpResponse = HttpResponse.created({ data }, options)
     res.status(201).json(httpResponse)
@@ -64,15 +70,14 @@ route.post(
 )
 
 route.post(
-  '/user/change-password',
+  `${routePath}/change-password`,
   authorization,
   asyncHandler(async function create(req: Request, res: Response) {
     const userLogin = req.getState('userLogin') as UserLoginAttributes
     const user_id = userLogin.uid
 
     const formData = req.getBody()
-
-    await UserService.changePassword(user_id, formData)
+    await newUserService.changePassword(user_id, formData)
 
     const httpResponse = HttpResponse.updated({})
     res.status(200).json(httpResponse)
@@ -80,7 +85,7 @@ route.post(
 )
 
 route.put(
-  '/user/:id',
+  `${routePath}/:id`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function update(req: Request, res: Response) {
@@ -91,7 +96,8 @@ route.put(
     const { id } = req.getParams()
     const formData = req.getBody()
 
-    const data = await UserService.update(id, formData, options)
+    const newFormData = userSchema.create.parse(formData)
+    const data = await newUserService.update(id, newFormData, options)
 
     const httpResponse = HttpResponse.updated({ data }, options)
     res.status(200).json(httpResponse)
@@ -99,7 +105,7 @@ route.put(
 )
 
 route.put(
-  '/user/restore/:id',
+  `${routePath}/restore/:id`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function restore(req: Request, res: Response) {
@@ -108,8 +114,7 @@ route.put(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    await UserService.restore(id, options)
+    await newUserService.restore(id, options)
 
     const httpResponse = HttpResponse.updated({}, options)
     res.status(200).json(httpResponse)
@@ -117,7 +122,7 @@ route.put(
 )
 
 route.delete(
-  '/user/soft-delete/:id',
+  `${routePath}/soft-delete/:id`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function softDelete(req: Request, res: Response) {
@@ -126,8 +131,7 @@ route.delete(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    await UserService.softDelete(id, options)
+    await newUserService.softDelete(id, options)
 
     const httpResponse = HttpResponse.deleted({}, options)
     res.status(200).json(httpResponse)
@@ -135,7 +139,7 @@ route.delete(
 )
 
 route.delete(
-  '/user/force-delete/:id',
+  `${routePath}/force-delete/:id`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function forceDelete(req: Request, res: Response) {
@@ -144,8 +148,7 @@ route.delete(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    await UserService.forceDelete(id, options)
+    await newUserService.forceDelete(id, options)
 
     const httpResponse = HttpResponse.deleted({}, options)
     res.status(200).json(httpResponse)
@@ -153,7 +156,7 @@ route.delete(
 )
 
 route.post(
-  '/user/multiple/restore',
+  `${routePath}/multiple/restore`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
@@ -163,8 +166,7 @@ route.post(
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
-
-    await UserService.multipleRestore(arrayIds, options)
+    await newUserService.multipleRestore(arrayIds, options)
 
     const httpResponse = HttpResponse.updated({}, options)
     res.status(200).json(httpResponse)
@@ -172,7 +174,7 @@ route.post(
 )
 
 route.post(
-  '/user/multiple/soft-delete',
+  `${routePath}/multiple/soft-delete`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
@@ -182,8 +184,7 @@ route.post(
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
-
-    await UserService.multipleSoftDelete(arrayIds, options)
+    await newUserService.multipleSoftDelete(arrayIds, options)
 
     const httpResponse = HttpResponse.deleted({}, options)
     res.status(200).json(httpResponse)
@@ -191,7 +192,7 @@ route.post(
 )
 
 route.post(
-  '/user/multiple/force-delete',
+  `${routePath}/multiple/force-delete`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function multipleForceDelete(req: Request, res: Response) {
@@ -201,8 +202,7 @@ route.post(
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
-
-    await UserService.multipleForceDelete(arrayIds, options)
+    await newUserService.multipleForceDelete(arrayIds, options)
 
     const httpResponse = HttpResponse.deleted({}, options)
     res.status(200).json(httpResponse)

@@ -1,4 +1,4 @@
-import { validateEmpty } from 'expresso-core'
+import { validate } from 'expresso-core'
 import { useToken } from 'expresso-hooks'
 import { ExpiresType } from 'expresso-hooks/lib/token/types'
 import { type TOptions } from 'i18next'
@@ -8,11 +8,12 @@ import { env } from '~/config/env'
 import { i18n } from '~/config/i18n'
 import ConstRole from '~/core/constants/ConstRole'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
-import ResponseError from '~/core/modules/response/ResponseError'
+import ErrorResponse from '~/core/modules/response/ErrorResponse'
 import SendMail from '~/core/utils/sendMails'
+import Session from '~/database/entities/Session'
 import User, {
-  type UserAttributes,
   type LoginAttributes,
+  type UserAttributes,
   type UserLoginAttributes,
 } from '~/database/entities/User'
 import { type DtoLogin } from '../interface/dto/Auth'
@@ -21,13 +22,25 @@ import OpenStreetMapService from './provider/osm.service'
 import SessionService from './session.service'
 import UserService from './user.service'
 
+const newUserService = new UserService({
+  entity: 'user',
+  repository: User,
+})
+
+const newSessionService = new SessionService({
+  entity: 'session',
+  repository: Session,
+})
+
+const newOSMService = new OpenStreetMapService()
+
 export default class AuthService {
   /**
    *
    * @param formData
    * @returns
    */
-  public static async signUp(formData: any): Promise<User> {
+  public async signUp(formData: any): Promise<User> {
     const uid = uuidv4()
 
     const { token } = useToken.generate({
@@ -46,7 +59,7 @@ export default class AuthService {
     const newFormData: UserAttributes = {
       ...formData,
       is_active: false,
-      phone: validateEmpty(formData.phone),
+      phone: validate.empty(formData.phone),
       token_verify: token,
       role_id,
       upload_id: null,
@@ -78,7 +91,7 @@ export default class AuthService {
    * @param options
    * @returns
    */
-  public static async signIn(
+  public async signIn(
     formData: LoginAttributes,
     options?: IReqOptions
   ): Promise<DtoLogin> {
@@ -93,13 +106,13 @@ export default class AuthService {
     // check user account
     if (!getUser) {
       const message = i18n.t('errors.account_not_found', i18nOpt)
-      throw new ResponseError.NotFound(message)
+      throw new ErrorResponse.NotFound(message)
     }
 
     // check active account
     if (!getUser.is_active) {
       const message = i18n.t('errors.please_check_your_email', i18nOpt)
-      throw new ResponseError.BadRequest(message)
+      throw new ErrorResponse.BadRequest(message)
     }
 
     const matchPassword = await getUser.comparePassword(value.password)
@@ -107,14 +120,14 @@ export default class AuthService {
     // compare password
     if (!matchPassword) {
       const message = i18n.t('errors.incorrect_email_or_pass', i18nOpt)
-      throw new ResponseError.BadRequest(message)
+      throw new ErrorResponse.BadRequest(message)
     }
 
     const user_id = getUser.id
 
     if (value.latitude && value.longitude) {
       // get address from lat long maps
-      const response = await OpenStreetMapService.getByCoordinate(
+      const response = await newOSMService.getByCoordinate(
         String(value.latitude),
         String(value.longitude)
       )
@@ -153,12 +166,12 @@ export default class AuthService {
    * @param options
    * @returns
    */
-  public static async verifySession(
+  public async verifySession(
     user_id: string,
     token: string,
     options?: IReqOptions
   ): Promise<User | null> {
-    const getSession = await SessionService.findByUserToken(user_id, token)
+    const getSession = await newSessionService.findByUserToken(user_id, token)
 
     const validateToken = useToken.verify({
       token: getSession.token,
@@ -168,7 +181,9 @@ export default class AuthService {
     const userToken = validateToken?.data as UserLoginAttributes
 
     if (!_.isEmpty(userToken.uid)) {
-      const getUser = await UserService.findById(userToken.uid, { ...options })
+      const getUser = await newUserService.findById(userToken.uid, {
+        ...options,
+      })
 
       return getUser
     }
@@ -183,17 +198,17 @@ export default class AuthService {
    * @param options
    * @returns
    */
-  public static async logout(
+  public async logout(
     user_id: string,
     token: string,
     options?: IReqOptions
   ): Promise<string> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    const getUser = await UserService.findById(user_id, { ...options })
+    const getUser = await newUserService.findById(user_id, { ...options })
 
     // clean session
-    await SessionService.deleteByUserToken(getUser.id, token)
+    await newSessionService.deleteByUserToken(getUser.id, token)
     const message = i18n.t('success.logout', i18nOpt)
 
     return message

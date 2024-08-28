@@ -103,7 +103,7 @@ module.exports = {
       },
     },
   },
-  '/logout': {
+  '/auth/logout': {
     post: {
       tags: ['Account - Auth'],
       summary: 'Logout',

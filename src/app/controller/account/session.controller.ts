@@ -5,17 +5,25 @@ import { env } from '~/config/env'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
 import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
-import route from '~/routes/v1'
+import Session from '~/database/entities/Session'
+import v1Route from '~/routes/v1'
+
+const route = v1Route
+const routePath = `/session`
+const newSessionService = new SessionService({
+  entity: 'session',
+  repository: Session,
+})
 
 route.get(
-  '/session',
+  `${routePath}`,
   authorization,
   asyncHandler(async function findAll(req: Request, res: Response) {
     const { lang } = req.getQuery()
     const defaultLang = lang ?? env.APP_LANG
     const options: IReqOptions = { lang: defaultLang }
 
-    const data = await SessionService.findAll(req)
+    const data = await newSessionService.findAll(req)
 
     const httpResponse = HttpResponse.get(data, options)
     res.status(200).json(httpResponse)
@@ -23,7 +31,7 @@ route.get(
 )
 
 route.get(
-  '/session/:id',
+  `${routePath}/:id`,
   authorization,
   asyncHandler(async function findOne(req: Request, res: Response) {
     const { lang } = req.getQuery()
@@ -31,8 +39,7 @@ route.get(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    const data = await SessionService.findById(id, options)
+    const data = await newSessionService.findById(id, options)
 
     const httpResponse = HttpResponse.get({ data }, options)
     res.status(200).json(httpResponse)
@@ -40,7 +47,7 @@ route.get(
 )
 
 route.post(
-  '/session',
+  `${routePath}`,
   authorization,
   asyncHandler(async function create(req: Request, res: Response) {
     const { lang } = req.getQuery()
@@ -48,8 +55,7 @@ route.post(
     const options: IReqOptions = { lang: defaultLang }
 
     const formData = req.getBody()
-
-    const data = await SessionService.create(formData)
+    const data = await newSessionService.create(formData)
 
     const httpResponse = HttpResponse.created({ data }, options)
     res.status(201).json(httpResponse)
@@ -57,7 +63,7 @@ route.post(
 )
 
 route.delete(
-  '/session/:id',
+  `${routePath}/:id`,
   authorization,
   asyncHandler(async function forceDelete(req: Request, res: Response) {
     const { lang } = req.getQuery()
@@ -65,8 +71,7 @@ route.delete(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    await SessionService.delete(id, options)
+    await newSessionService.delete(id, options)
 
     const httpResponse = HttpResponse.deleted({}, options)
     res.status(200).json(httpResponse)

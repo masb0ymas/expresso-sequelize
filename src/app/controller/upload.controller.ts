@@ -8,20 +8,28 @@ import ConstRole from '~/core/constants/ConstRole'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
 import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
-import route from '~/routes/v1'
+import Upload from '~/database/entities/Upload'
+import v1Route from '~/routes/v1'
 import authorization from '../middleware/authorization'
 import { permissionAccess } from '../middleware/permission'
 import UploadService from '../service/upload.service'
 
+const route = v1Route
+const routePath = `/upload`
+const newUploadService = new UploadService({
+  entity: 'upload',
+  repository: Upload,
+})
+
 route.get(
-  '/upload',
+  `${routePath}`,
   authorization,
   asyncHandler(async function findAll(req: Request, res: Response) {
     const { lang } = req.getQuery()
     const defaultLang = lang ?? env.APP_LANG
     const options: IReqOptions = { lang: defaultLang }
 
-    const data = await UploadService.findAll(req)
+    const data = await newUploadService.findAll(req)
 
     const httpResponse = HttpResponse.get(data, options)
     res.status(200).json(httpResponse)
@@ -29,7 +37,7 @@ route.get(
 )
 
 route.get(
-  '/upload/:id',
+  `${routePath}/:id`,
   authorization,
   asyncHandler(async function findOne(req: Request, res: Response) {
     const { lang } = req.getQuery()
@@ -37,8 +45,7 @@ route.get(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    const data = await UploadService.findById(id, options)
+    const data = await newUploadService.findById(id, options)
 
     const httpResponse = HttpResponse.get({ data }, options)
     res.status(200).json(httpResponse)
@@ -61,7 +68,7 @@ const setFileToBody = asyncHandler(async function setFileToBody(
 })
 
 route.post(
-  '/upload',
+  `${routePath}`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   uploadFile,
@@ -72,7 +79,6 @@ route.post(
     const options: IReqOptions = { lang: defaultLang }
 
     const formData = req.getBody()
-
     const fieldUpload = _.get(formData, 'file_upload', {}) as FileAttributes
 
     let data
@@ -80,7 +86,7 @@ route.post(
     if (!_.isEmpty(fieldUpload) && !_.isEmpty(fieldUpload.path)) {
       const directory = formData.type ?? 'temp'
 
-      data = await UploadService.uploadFile({
+      data = await newUploadService.uploadFile({
         fieldUpload,
         directory,
       })
@@ -101,7 +107,7 @@ route.post(
 )
 
 route.post(
-  '/upload/presign-url',
+  `${routePath}/presign-url`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function presigned_url(req: Request, res: Response) {
@@ -110,8 +116,7 @@ route.post(
     const options: IReqOptions = { lang: defaultLang }
 
     const { key_file } = req.getBody()
-
-    const data = await UploadService.getPresignedURL(key_file, options)
+    const data = await newUploadService.getPresignedURL(key_file, options)
 
     const httpResponse = HttpResponse.updated({ data }, options)
     res.status(200).json(httpResponse)
@@ -119,7 +124,7 @@ route.post(
 )
 
 route.put(
-  '/upload/:id',
+  `${routePath}/:id`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   uploadFile,
@@ -139,7 +144,7 @@ route.put(
     if (!_.isEmpty(fieldUpload) && !_.isEmpty(fieldUpload.path)) {
       const directory = formData.type ?? 'temp'
 
-      data = await UploadService.uploadFile({
+      data = await newUploadService.uploadFile({
         fieldUpload,
         directory,
         upload_id: id,
@@ -161,7 +166,7 @@ route.put(
 )
 
 route.put(
-  '/upload/restore/:id',
+  `${routePath}/restore/:id`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function restore(req: Request, res: Response) {
@@ -170,8 +175,7 @@ route.put(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    await UploadService.restore(id, options)
+    await newUploadService.restore(id, options)
 
     const httpResponse = HttpResponse.updated({}, options)
     res.status(200).json(httpResponse)
@@ -179,7 +183,7 @@ route.put(
 )
 
 route.delete(
-  '/upload/soft-delete/:id',
+  `${routePath}/soft-delete/:id`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function softDelete(req: Request, res: Response) {
@@ -188,8 +192,7 @@ route.delete(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    await UploadService.softDelete(id, options)
+    await newUploadService.softDelete(id, options)
 
     const httpResponse = HttpResponse.deleted({}, options)
     res.status(200).json(httpResponse)
@@ -197,7 +200,7 @@ route.delete(
 )
 
 route.delete(
-  '/upload/force-delete/:id',
+  `${routePath}/force-delete/:id`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function forceDelete(req: Request, res: Response) {
@@ -206,8 +209,7 @@ route.delete(
     const options: IReqOptions = { lang: defaultLang }
 
     const { id } = req.getParams()
-
-    await UploadService.forceDelete(id, options)
+    await newUploadService.forceDelete(id, options)
 
     const httpResponse = HttpResponse.deleted({}, options)
     res.status(200).json(httpResponse)
@@ -215,7 +217,7 @@ route.delete(
 )
 
 route.post(
-  '/upload/multiple/restore',
+  `${routePath}/multiple/restore`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function multipleRestore(req: Request, res: Response) {
@@ -225,8 +227,7 @@ route.post(
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
-
-    await UploadService.multipleRestore(arrayIds, options)
+    await newUploadService.multipleRestore(arrayIds, options)
 
     const httpResponse = HttpResponse.updated({}, options)
     res.status(200).json(httpResponse)
@@ -234,7 +235,7 @@ route.post(
 )
 
 route.post(
-  '/upload/multiple/soft-delete',
+  `${routePath}/multiple/soft-delete`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function multipleSoftDelete(req: Request, res: Response) {
@@ -244,8 +245,7 @@ route.post(
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
-
-    await UploadService.multipleSoftDelete(arrayIds, options)
+    await newUploadService.multipleSoftDelete(arrayIds, options)
 
     const httpResponse = HttpResponse.deleted({}, options)
     res.status(200).json(httpResponse)
@@ -253,7 +253,7 @@ route.post(
 )
 
 route.post(
-  '/upload/multiple/force-delete',
+  `${routePath}/multiple/force-delete`,
   authorization,
   permissionAccess(ConstRole.ROLE_ADMIN),
   asyncHandler(async function multipleForceDelete(req: Request, res: Response) {
@@ -263,8 +263,7 @@ route.post(
 
     const formData = req.getBody()
     const arrayIds = arrayFormatter(formData.ids)
-
-    await UploadService.multipleForceDelete(arrayIds, options)
+    await newUploadService.multipleForceDelete(arrayIds, options)
 
     const httpResponse = HttpResponse.deleted({}, options)
     res.status(200).json(httpResponse)
