@@ -2,7 +2,7 @@ import express, { type Request, type Response } from 'express'
 import { env } from '~/config/env'
 import { BASE_URL_SERVER } from '~/core/constants/baseURL'
 import HttpResponse from '~/core/modules/response/HttpResponse'
-import ResponseError from '~/core/modules/response/ResponseError'
+import ErrorResponse from '~/core/modules/response/ErrorResponse'
 import { formatDateTime } from '~/core/utils/date'
 import v1Routes from '~/routes/v1'
 
@@ -54,7 +54,7 @@ route.get('/v1', function (req: Request, res: Response) {
 
   const endpoint = `${host}${url}`
 
-  throw new ResponseError.Forbidden(
+  throw new ErrorResponse.Forbidden(
     `Forbidden, wrong access method ${method} endpoint: ${endpoint}`
   )
 })

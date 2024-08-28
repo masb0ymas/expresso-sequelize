@@ -5,15 +5,15 @@ import swaggerJSDoc from 'swagger-jsdoc'
 import { env } from '~/config/env'
 import { BASE_URL_SERVER } from '../constants/baseURL'
 
-const baseRouteDocs = path.resolve(`${__dirname}/../../app/docs/routes`)
-const baseSchemaDocs = path.resolve(`${__dirname}/../../app/docs/schemas`)
+const _pathRouteDocs = path.resolve(`${__dirname}/../../app/docs/routes`)
+const _pathSchemaDocs = path.resolve(`${__dirname}/../../app/docs/schemas`)
 
 /**
  * Get Route Docs
  * @param _path
  * @returns
  */
-function getDocsSwaggers(_path: string | Buffer): Record<string, unknown> {
+function _getDocsSwaggers(_path: string | Buffer): Record<string, unknown> {
   return fs.readdirSync(_path).reduce((acc, file) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const data = require(`${_path}/${file}`)
@@ -23,8 +23,8 @@ function getDocsSwaggers(_path: string | Buffer): Record<string, unknown> {
   }, {})
 }
 
-const docsRoutes = getDocsSwaggers(baseRouteDocs)
-const docsSchemas = getDocsSwaggers(baseSchemaDocs)
+const routesDocs = _getDocsSwaggers(_pathRouteDocs)
+const schemaDocs = _getDocsSwaggers(_pathSchemaDocs)
 
 const baseURLServer = [
   {
@@ -69,7 +69,7 @@ export const swaggerOptions = {
             'JWT Authorization header using the JWT scheme. Example: “Authorization: JWT {token}”',
         },
       },
-      schemas: docsSchemas,
+      schemas: schemaDocs,
       parameters: {
         page: {
           in: 'query',
@@ -105,7 +105,7 @@ export const swaggerOptions = {
         },
       },
     },
-    paths: docsRoutes,
+    paths: routesDocs,
   },
   apis: [],
 }

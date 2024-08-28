@@ -1,4 +1,3 @@
-import { blue, green } from 'colorette'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
@@ -18,15 +17,15 @@ import { expressRateLimit } from '~/app/middleware/expressRateLimit'
 import { expressUserAgent } from '~/app/middleware/expressUserAgent'
 import { expressWithState } from '~/app/middleware/expressWithState'
 import { optionsSwaggerUI, swaggerSpec } from '~/core/modules/docsSwagger'
-import ResponseError from '~/core/modules/response/ResponseError'
-import db from '~/database/data-source'
+import ErrorResponse from '~/core/modules/response/ErrorResponse'
 import indexRoutes from '../routes'
 import { corsOptions } from './cors'
 import { env } from './env'
 import { i18n } from './i18n'
 import { mailService } from './mail'
-import { httpLogger, logger } from './pino'
+import { httpLogger } from './pino'
 import { storageService } from './storage'
+import { storageExists } from '~/core/utils/boolean'
 
 /**
  * Initialize Bootsrap Application
@@ -41,7 +40,6 @@ export class App {
 
     this._plugins()
     this._provider()
-    this._database()
 
     // docs swagger disable for production mode
     if (env.NODE_ENV !== 'production') {
@@ -78,12 +76,10 @@ export class App {
    * Initialize Provider
    */
   private _provider(): void {
+    const storage_exists = storageExists()
+
     // storage
-    if (
-      env.STORAGE_PROVIDER &&
-      env.STORAGE_ACCESS_KEY &&
-      env.STORAGE_SECRET_KEY
-    ) {
+    if (storage_exists) {
       void storageService.initialize()
     }
 
@@ -126,42 +122,10 @@ export class App {
 
       const endpoint = `${host}${url}`
 
-      throw new ResponseError.NotFound(
+      throw new ErrorResponse.NotFound(
         `Sorry, the ${endpoint} HTTP method ${method} resource you are looking for was not found.`
       )
     })
-  }
-
-  /**
-   * Initialize Database
-   */
-  private _database(): void {
-    const dbDialect = blue(env.SEQUELIZE_CONNECTION)
-    const dbName = blue(env.SEQUELIZE_DATABASE)
-
-    // connect to database
-    db.sequelize
-      .authenticate()
-      .then(async () => {
-        const msgType = green(`sequelize`)
-        const message = `connection ${dbDialect}: ${dbName} has been established successfully.`
-
-        logger.info(`${msgType} - ${message}`)
-
-        // not recommended when running in production mode
-        if (env.SEQUELIZE_SYNC) {
-          await db.sequelize.sync({ force: true })
-
-          logger.info(`${msgType} - all sync database successfully`)
-        }
-      })
-      .catch((err: any) => {
-        const errType = `sequelize error:`
-        const message = `unable to connect to the database ${dbDialect}: ${dbName}`
-
-        logger.error(`${errType} - ${message}`)
-        console.log(err)
-      })
   }
 
   /**
