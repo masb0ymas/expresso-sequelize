@@ -2,13 +2,9 @@ import { green } from 'colorette'
 import cron from 'node-cron'
 import { env } from '~/config/env'
 import { logger } from '~/config/pino'
-import Upload from '~/database/entities/Upload'
 import UploadService from '../service/upload.service'
 
-const newUploadService = new UploadService({
-  entity: 'upload',
-  repository: Upload,
-})
+const newUploadService = new UploadService()
 
 export class UploadJob {
   /**

@@ -19,6 +19,10 @@ import BaseService from './base.service'
 const relations = [{ model: User }]
 
 export default class SessionService extends BaseService {
+  constructor() {
+    super({ entity: 'session', repository: Session })
+  }
+
   /**
    *
    * @param req

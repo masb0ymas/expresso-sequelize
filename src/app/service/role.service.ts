@@ -3,6 +3,10 @@ import roleSchema from '../schema/role.schema'
 import BaseService from './base.service'
 
 export default class RoleService extends BaseService {
+  constructor() {
+    super({ entity: 'role', repository: Role })
+  }
+
   /**
    *
    * @param formData

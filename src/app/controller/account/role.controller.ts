@@ -9,15 +9,11 @@ import ConstRole from '~/core/constants/ConstRole'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
 import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
-import Role from '~/database/entities/Role'
 import v1Route from '~/routes/v1'
 
 const route = v1Route
 const routePath = `/role`
-const newRoleService = new RoleService({
-  entity: 'role',
-  repository: Role,
-})
+const newRoleService = new RoleService()
 
 route.get(
   `${routePath}`,

@@ -8,7 +8,6 @@ import ConstRole from '~/core/constants/ConstRole'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
 import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
-import Upload from '~/database/entities/Upload'
 import v1Route from '~/routes/v1'
 import authorization from '../middleware/authorization'
 import { permissionAccess } from '../middleware/permission'
@@ -16,10 +15,7 @@ import UploadService from '../service/upload.service'
 
 const route = v1Route
 const routePath = `/upload`
-const newUploadService = new UploadService({
-  entity: 'upload',
-  repository: Upload,
-})
+const newUploadService = new UploadService()
 
 route.get(
   `${routePath}`,

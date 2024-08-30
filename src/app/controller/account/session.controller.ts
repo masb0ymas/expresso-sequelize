@@ -5,15 +5,11 @@ import { env } from '~/config/env'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
 import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
-import Session from '~/database/entities/Session'
 import v1Route from '~/routes/v1'
 
 const route = v1Route
 const routePath = `/session`
-const newSessionService = new SessionService({
-  entity: 'session',
-  repository: Session,
-})
+const newSessionService = new SessionService()
 
 route.get(
   `${routePath}`,

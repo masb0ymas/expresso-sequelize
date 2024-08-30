@@ -8,7 +8,6 @@ import { type DtoUserAgent } from '~/core/interface/dto/UserAgent'
 import ErrorResponse from '~/core/modules/response/ErrorResponse'
 import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
-import Session from '~/database/entities/Session'
 import { type UserLoginAttributes } from '~/database/entities/User'
 import v1Route from '~/routes/v1'
 import authorization from '../middleware/authorization'
@@ -18,10 +17,7 @@ import SessionService from '../service/session.service'
 const route = v1Route
 const routePath = `/auth`
 const newAuthService = new AuthService()
-const newSessionService = new SessionService({
-  entity: 'session',
-  repository: Session,
-})
+const newSessionService = new SessionService()
 
 route.post(
   `${routePath}/sign-up`,

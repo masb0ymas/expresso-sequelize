@@ -9,15 +9,12 @@ import ConstRole from '~/core/constants/ConstRole'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
 import HttpResponse from '~/core/modules/response/HttpResponse'
 import { asyncHandler } from '~/core/utils/asyncHandler'
-import User, { type UserLoginAttributes } from '~/database/entities/User'
+import { type UserLoginAttributes } from '~/database/entities/User'
 import v1Route from '~/routes/v1'
 
 const route = v1Route
 const routePath = `/user`
-const newUserService = new UserService({
-  entity: 'user',
-  repository: User,
-})
+const newUserService = new UserService()
 
 route.get(
   `${routePath}`,

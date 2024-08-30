@@ -10,7 +10,6 @@ import ConstRole from '~/core/constants/ConstRole'
 import { type IReqOptions } from '~/core/interface/ReqOptions'
 import ErrorResponse from '~/core/modules/response/ErrorResponse'
 import SendMail from '~/core/utils/sendMails'
-import Session from '~/database/entities/Session'
 import User, {
   type LoginAttributes,
   type UserAttributes,
@@ -22,16 +21,8 @@ import OpenStreetMapService from './provider/osm.service'
 import SessionService from './session.service'
 import UserService from './user.service'
 
-const newUserService = new UserService({
-  entity: 'user',
-  repository: User,
-})
-
-const newSessionService = new SessionService({
-  entity: 'session',
-  repository: Session,
-})
-
+const newUserService = new UserService()
+const newSessionService = new SessionService()
 const newOSMService = new OpenStreetMapService()
 
 export default class AuthService {

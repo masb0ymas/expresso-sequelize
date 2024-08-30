@@ -25,13 +25,17 @@ const relations: Includeable[] = [
 ]
 
 export default class UserService extends BaseService {
+  constructor() {
+    super({ entity: 'user', repository: User })
+  }
+
   /**
    *
    * @param req
    * @returns
    */
   public async findAll(req: Request): Promise<DtoFindAll<User>> {
-    // OVERRIDE FIND ALL FUNCTION
+    // OVERRIDE FIND ALL
     await super.findAll(req)
 
     const reqQuery = req.getQuery()
@@ -106,6 +110,9 @@ export default class UserService extends BaseService {
     formData: UserAttributes,
     options?: IReqOptions
   ): Promise<User> {
+    // OVERRIDE UPDATE
+    await super.update(id, formData, options)
+
     const data = await this._findOne(id, { ...options })
 
     // validate email from request

@@ -14,6 +14,10 @@ import uploadSchema from '../schema/upload.schema'
 import BaseService from './base.service'
 
 export default class UploadService extends BaseService {
+  constructor() {
+    super({ entity: 'upload', repository: Upload })
+  }
+
   /**
    *
    * @param key_file
@@ -26,7 +30,7 @@ export default class UploadService extends BaseService {
   ): Promise<Upload> {
     const i18nOpt: string | TOptions = { lng: options?.lang }
 
-    const data = await Upload.findOne({
+    const data = await this.repository.findOne({
       where: { key_file },
       paranoid: options?.paranoid,
     })
@@ -52,7 +56,6 @@ export default class UploadService extends BaseService {
     const value = uploadSchema.create.parse(formData)
 
     const data = await Upload.create(value)
-
     return data
   }
 

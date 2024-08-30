@@ -4,13 +4,9 @@ import { useToken } from 'expresso-hooks'
 import _ from 'lodash'
 import { env } from '~/config/env'
 import { logger } from '~/config/pino'
-import Session from '~/database/entities/Session'
 import SessionService from '../service/session.service'
 
-const newSessionService = new SessionService({
-  entity: 'session',
-  repository: Session,
-})
+const newSessionService = new SessionService()
 
 /**
  * Authorization
