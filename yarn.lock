@@ -3500,10 +3500,10 @@ axios@^1.3.3:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
-axios@^1.7.5:
-  version "1.7.5"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.5.tgz#21eed340eb5daf47d29b6e002424b3e88c8c54b1"
-  integrity sha512-fZu86yCo+svH3uqJ/yTdQ0QHpQu5oL+/QE+QPSv6BZSkDAoky9vytxp7u5qk83OJFS3kEBcesWni9WTZAv3tSw==
+axios@^1.7.7:
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.7.tgz#2f554296f9892a72ac8d8e4c5b79c14a91d0a47f"
+  integrity sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==
   dependencies:
     follow-redirects "^1.15.6"
     form-data "^4.0.0"
@@ -5533,10 +5533,10 @@ express@^4.19.2:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-expresso-core@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/expresso-core/-/expresso-core-0.12.1.tgz#5a002ae15c7e994cc304d9c206b6d6d2e676118f"
-  integrity sha512-h1B8AVLrkJOlTf/HtVNG1zu6GDCd35c7HIxfrVGhcUIHSRe9+c08oIXztEj5jSGPCuYUczaUoHYTaXlOgTIrWw==
+expresso-core@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/expresso-core/-/expresso-core-0.12.2.tgz#d03a9765a69b8a6610a885071be3b9ca9083a165"
+  integrity sha512-HON5OijyBR+0XR4GGBXR7/fCLIIu7FsfGllzY79CBVC/WigETzB3iw68c45g6qKGfCKtHVFO33w/YQyvNBfVeQ==
   dependencies:
     argon2 "^0.31.2"
     bcrypt "^5.1.1"
@@ -5547,10 +5547,10 @@ expresso-core@^0.12.1:
     pino "^8.21.0"
     pino-pretty "^10.3.1"
 
-expresso-hooks@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/expresso-hooks/-/expresso-hooks-0.12.1.tgz#29da339aa62b0a881933eb24094530128ee33acd"
-  integrity sha512-NOXKxFFpudffdSRaHBeA1iZj80ZtC6M3yyle+INrUYzaCBM+d6rS1DIf2ffYq3jQVHmmHs9zbv6obKtL3QInuQ==
+expresso-hooks@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/expresso-hooks/-/expresso-hooks-0.12.2.tgz#71a7884341e41482d8923070d7a228aed10d587b"
+  integrity sha512-RyDvkTqZHgm8zQOpvunVJL4zRN0mff758RyjMe0Q8OErvZJ7KjikgNVrwNaukoc9IJLYvDr3urWts+ZKWN8DfQ==
   dependencies:
     colorette "^2.0.20"
     express "^4.19.2"
@@ -5560,10 +5560,10 @@ expresso-hooks@^0.12.1:
     multer "1.4.5-lts.1"
     slugify "^1.6.6"
 
-expresso-provider@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/expresso-provider/-/expresso-provider-0.12.1.tgz#34c4bd150bc91932687bfffcc7c9f73220d2cc89"
-  integrity sha512-ten2NbjwS87gELU7Vb/GuR44gwb4NCisp/y1t6Ji9wFP8vPSKoN7m2TgoI7cDVfB+YlUn7pOdH0S8ihPZP88eA==
+expresso-provider@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/expresso-provider/-/expresso-provider-0.12.2.tgz#c37ae2722c09af2053cdea71e4001a0158a42ccd"
+  integrity sha512-uRd7VDjuNFG7ff7LnMo2xmBq/0VZLOK8r0+Il7yHF2yH1wT5IHD22qXFr4A0fISLKGV4y5xxIi9JR5yk9RtGHw==
   dependencies:
     "@aws-sdk/client-s3" "^3.637.0"
     "@aws-sdk/s3-request-presigner" "^3.637.0"
@@ -5584,10 +5584,10 @@ expresso-provider@^0.12.1:
     nodemailer-mailgun-transport "^2.1.5"
     xlsx "https://cdn.sheetjs.com/xlsx-0.19.3/xlsx-0.19.3.tgz"
 
-expresso-query@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/expresso-query/-/expresso-query-0.12.1.tgz#777b51cabaee94b88934945f1cb1ae6a8a82a24a"
-  integrity sha512-+f3NKez7rpg1OrgcHTSq2ospHtp3nOaNvSYWJkEDCj/7AWKuyqKLN+iauNLBnLo6q1USTSTHonjO7v3sdrxL3w==
+expresso-query@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/expresso-query/-/expresso-query-0.12.2.tgz#6cbb722a3df89a30827189dc75a7aea6a8193997"
+  integrity sha512-rmYuVaVgWuuJIuI/Ws78BxnNZLqnyDXF3EXnNPjVtv/wUod6ho9M1tngekMV9yft1qrAl5sDBLhhHhlOozQdSA==
   dependencies:
     lodash "^4.17.21"
     sequelize "^6.37.3"

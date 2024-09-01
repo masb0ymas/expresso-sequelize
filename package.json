@@ -52,7 +52,7 @@
     "node": ">= 16.x"
   },
   "dependencies": {
-    "axios": "^1.7.5",
+    "axios": "^1.7.7",
     "colorette": "^2.0.20",
     "compression": "^1.7.4",
     "concurrently": "^8.2.2",
@@ -64,10 +64,10 @@
     "express-async-handler": "^1.2.0",
     "express-rate-limit": "^7.4.0",
     "express-useragent": "^1.0.15",
-    "expresso-core": "^0.12.1",
-    "expresso-hooks": "^0.12.1",
-    "expresso-provider": "^0.12.1",
-    "expresso-query": "^0.12.1",
+    "expresso-core": "^0.12.2",
+    "expresso-hooks": "^0.12.2",
+    "expresso-provider": "^0.12.2",
+    "expresso-query": "^0.12.2",
     "handlebars": "^4.7.8",
     "helmet": "^7.1.0",
     "hpp": "^0.2.3",
