@@ -2,5 +2,11 @@
   "eslint.alwaysShowStatus": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  }
+  },
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "eslint.codeActionsOnSave.rules": ["no-unused-vars", "no-undef"],
+  "eslint.format.enable": true
 }
