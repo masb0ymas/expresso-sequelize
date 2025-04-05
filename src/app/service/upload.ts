@@ -1,14 +1,16 @@
 import { sub } from 'date-fns'
 import _ from 'lodash'
-import { LessThanOrEqual } from 'typeorm'
+import { Model, ModelStatic, Op } from 'sequelize'
 import { validate as uuidValidate } from 'uuid'
 import { storage } from '~/config/storage'
 import ErrorResponse from '~/lib/http/errors'
 import { FileParams } from '~/lib/storage/types'
-import { AppDataSource } from '../database/connection'
 import { Upload } from '../database/entity/upload'
 import { UploadSchema, uploadSchema } from '../database/schema/upload'
 import BaseService from './base'
+
+// Define a type that ensures Upload is recognized as a Sequelize Model
+type UploadModel = Upload & Model
 
 type UploadFileParams = {
   file: FileParams
@@ -16,10 +18,10 @@ type UploadFileParams = {
   upload_id?: string
 }
 
-export default class UploadService extends BaseService<Upload> {
+export default class UploadService extends BaseService<UploadModel> {
   constructor() {
     super({
-      repository: AppDataSource.getRepository(Upload),
+      repository: Upload as unknown as ModelStatic<UploadModel>,
       schema: uploadSchema,
       model: 'upload',
     })
@@ -46,7 +48,7 @@ export default class UploadService extends BaseService<Upload> {
     const signedUrl = storage.presignedUrl(record.keyfile)
 
     const value = uploadSchema.parse({ ...record, signed_url: signedUrl })
-    const data = await this.repository.save(value)
+    const data = await this.repository.update(value, { where: { id: record.id } })
 
     return data
   }
@@ -61,11 +63,11 @@ export default class UploadService extends BaseService<Upload> {
       const record = await this.repository.findOne({ where: { id: upload_id } })
 
       if (record) {
-        return this.repository.save({ ...record, ...values })
+        return record.update({ ...record, ...values })
       }
     }
 
-    return this.repository.save(values)
+    return this.repository.create(values)
   }
 
   /**
@@ -94,10 +96,10 @@ export default class UploadService extends BaseService<Upload> {
   async updateSignedUrl() {
     const fiveDaysAgo = sub(new Date(), { days: 5 })
 
-    const records = await this.repository.find({
-      where: { updated_at: LessThanOrEqual(fiveDaysAgo) },
-      take: 10,
-      order: { updated_at: 'ASC' },
+    const records = await this.repository.findAll({
+      where: { updated_at: { [Op.lte]: fiveDaysAgo } },
+      limit: 10,
+      order: [['updated_at', 'ASC']],
     })
 
     const { expiryDate } = storage.expiresObject()
@@ -111,8 +113,7 @@ export default class UploadService extends BaseService<Upload> {
           expiry_date_url: expiryDate,
         }
 
-        // @ts-expect-error
-        await this.repository.save(formValues)
+        await record.update({ ...record, ...formValues })
       }
     }
   }

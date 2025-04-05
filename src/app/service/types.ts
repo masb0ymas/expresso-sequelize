@@ -1,8 +1,8 @@
-import { z } from "zod"
-import { ObjectLiteral, Repository } from "typeorm"
+import { Model, ModelStatic } from 'sequelize'
+import { z } from 'zod'
 
-export type BaseServiceParams<T extends ObjectLiteral> = {
-  repository: Repository<T>
+export type BaseServiceParams<T extends Model> = {
+  repository: ModelStatic<T>
   schema: z.ZodType<any>
   model: string
 }
@@ -14,7 +14,7 @@ export type FindParams = {
   sorted: any
 }
 
-export type DtoFindAll<T extends ObjectLiteral> = {
+export type DtoFindAll<T extends Model> = {
   data: T[]
   total: number
 }

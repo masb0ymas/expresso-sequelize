@@ -1,12 +1,15 @@
-import { AppDataSource } from '../database/connection'
+import { Model, ModelStatic } from 'sequelize'
 import { Role } from '../database/entity/role'
 import { roleSchema } from '../database/schema/role'
 import BaseService from './base'
 
-export default class RoleService extends BaseService<Role> {
+// Define a type that ensures Role is recognized as a Sequelize Model
+type RoleModel = Role & Model
+
+export default class RoleService extends BaseService<RoleModel> {
   constructor() {
     super({
-      repository: AppDataSource.getRepository(Role),
+      repository: Role as unknown as ModelStatic<RoleModel>,
       schema: roleSchema,
       model: 'role',
     })

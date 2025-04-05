@@ -8,7 +8,7 @@ import hpp from 'hpp'
 import path from 'path'
 import requestIp from 'request-ip'
 import expressErrorHandle from '~/app/middleware/error-handle'
-import expressErrorTypeorm from '~/app/middleware/error-typeorm'
+import expressErrorSequelize from '~/app/middleware/error-sequelize'
 import expressErrorValidation from '~/app/middleware/error-validation'
 import expressRateLimit from '~/app/middleware/rate-limit'
 import expressUserAgent from '~/app/middleware/user-agent'
@@ -68,7 +68,7 @@ export class App {
     this._app.use(expressErrorValidation)
 
     // @ts-expect-error
-    this._app.use(expressErrorTypeorm)
+    this._app.use(expressErrorSequelize)
 
     // @ts-expect-error
     this._app.use(expressErrorHandle)

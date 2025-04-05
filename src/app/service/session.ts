@@ -1,21 +1,23 @@
 import { subDays } from 'date-fns'
-import { LessThanOrEqual } from 'typeorm'
+import { Model, ModelStatic, Op } from 'sequelize'
 import ErrorResponse from '~/lib/http/errors'
 import { validate } from '~/lib/validate'
-import { AppDataSource } from '../database/connection'
 import { Session } from '../database/entity/session'
 import { SessionSchema, sessionSchema } from '../database/schema/session'
 import BaseService from './base'
+
+// Define a type that ensures Session is recognized as a Sequelize Model
+type SessionModel = Session & Model
 
 type FindByUserTokenParams = {
   user_id: string
   token: string
 }
 
-export default class SessionService extends BaseService<Session> {
+export default class SessionService extends BaseService<SessionModel> {
   constructor() {
     super({
-      repository: AppDataSource.getRepository(Session),
+      repository: Session as unknown as ModelStatic<SessionModel>,
       schema: sessionSchema,
       model: 'session',
     })
@@ -29,12 +31,10 @@ export default class SessionService extends BaseService<Session> {
     const session = await this.repository.findOne({ where: { user_id: values.user_id } })
 
     if (session) {
-      // @ts-expect-error
-      await this.repository.save({ ...session, ...values })
+      await session.update({ ...session, ...values })
     }
 
-    // @ts-expect-error
-    await this.repository.save(values)
+    await this.repository.create(values)
   }
 
   /**
@@ -69,7 +69,7 @@ export default class SessionService extends BaseService<Session> {
    */
   async deleteByUserToken({ user_id, token }: FindByUserTokenParams): Promise<void> {
     const newUserId = validate.uuid(user_id)
-    await this.repository.delete({ user_id: newUserId, token })
+    await this.repository.destroy({ where: { user_id: newUserId, token } })
   }
 
   /**
@@ -77,6 +77,6 @@ export default class SessionService extends BaseService<Session> {
    */
   async deleteExpiredSession() {
     const subSevenDays = subDays(new Date(), 7)
-    await this.repository.delete({ created_at: LessThanOrEqual(subSevenDays) })
+    await this.repository.destroy({ where: { created_at: { [Op.lte]: subSevenDays } } })
   }
 }
