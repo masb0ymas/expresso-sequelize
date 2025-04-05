@@ -16,8 +16,9 @@ import expressWithState from '~/app/middleware/with-state'
 import { Route } from '~/app/routes/route'
 import { allowedCors } from '~/lib/constant/allowed-cors'
 import ErrorResponse from '~/lib/http/errors'
-import { __dirname } from '~/lib/string'
 import { httpLogger } from './logger'
+
+const dirname = path.join(__dirname, '../../')
 
 export class App {
   private _app: Application
@@ -32,7 +33,7 @@ export class App {
     this._app.use(httpLogger)
     this._app.use(express.json({ limit: '20mb', type: 'application/json' }))
     this._app.use(express.urlencoded({ extended: true }))
-    this._app.use(express.static(path.resolve(`${__dirname}/public`)))
+    this._app.use(express.static(path.resolve(`${dirname}/public`)))
     this._app.use(compression())
     this._app.use(cookieParser())
     this._app.use(helmet())

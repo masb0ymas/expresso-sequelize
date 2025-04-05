@@ -1,15 +1,16 @@
 import express, { Request, Response } from 'express'
+import path from 'path'
 import { asyncHandler } from '~/lib/async-handler'
 import HttpResponse from '~/lib/http/response'
-import { __dirname, require } from '~/lib/string'
 import { v1Route } from './v1'
 
 const route = express.Router()
+const dirname = path.join(__dirname, '../../../')
 
 function versioning() {
-  const node_modules = `${__dirname}/node_modules`
+  const node_modules = `${dirname}/node_modules`
   const express = require(`${node_modules}/express/package.json`).version
-  const app = require(`${__dirname}/package.json`).version
+  const app = require(`${dirname}/package.json`).version
 
   return { express: `v${express}`, app: `v${app}` }
 }
