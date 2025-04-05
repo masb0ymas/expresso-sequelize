@@ -29,6 +29,14 @@ Base API using [express-api](https://github.com/masb0ymas/express-api)
 - **Logging** with [Pino](https://github.com/pinojs/pino)
 - **Containerization** with [Docker](https://www.docker.com/)
 
+## Getting Started
+
+### Prerequisites
+
+- Node.js >= 20.x
+- PostgreSQL
+- Docker (optional)
+
 ## Module System
 
 - By default, the `main` branch uses CommonJs (`type: commonjs`)
@@ -49,7 +57,13 @@ Base API using [express-api](https://github.com/masb0ymas/express-api)
    cp .env.example .env
    ```
 
-   Then configure database settings in the `.env` file
+   Then configure database settings in the `.env` file.
+
+   or you can generate .env with command:
+
+   ```bash
+   yarn secret
+   ```
 
 3. **Install dependencies**
 
