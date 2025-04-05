@@ -15,7 +15,7 @@ import {
 } from 'sequelize-typescript'
 import Hashing from '~/config/hashing'
 import { createPasswordSchema } from '../schema/user'
-import { Base } from './base'
+import { BaseSchema } from './base'
 import { Role } from './role'
 import { Session } from './session'
 import { Upload } from './upload'
@@ -31,7 +31,7 @@ const hashing = new Hashing()
   withPassword: {},
 }))
 @Table({ tableName: 'user', paranoid: true })
-export class User extends Base {
+export class User extends BaseSchema {
   @DeletedAt
   @Column
   deleted_at?: Date

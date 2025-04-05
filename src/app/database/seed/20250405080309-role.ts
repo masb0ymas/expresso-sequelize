@@ -20,26 +20,24 @@ const data = [
 ]
 
 /** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
-    const formData: any[] = []
+export async function up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
+  const formData: any[] = []
 
-    if (!isEmpty(data)) {
-      for (let i = 0; i < data.length; i += 1) {
-        const item = data[i]
+  if (!isEmpty(data)) {
+    for (let i = 0; i < data.length; i += 1) {
+      const item = data[i]
 
-        formData.push({
-          ...item,
-          created_at: new Date(),
-          updated_at: new Date(),
-        })
-      }
+      formData.push({
+        ...item,
+        created_at: new Date(),
+        updated_at: new Date(),
+      })
     }
+  }
 
-    await queryInterface.bulkInsert('role', formData)
-  },
+  await queryInterface.bulkInsert('role', formData)
+}
 
-  async down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
-    await queryInterface.bulkDelete('role', {})
-  },
+export async function down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
+  await queryInterface.bulkDelete('role', {})
 }

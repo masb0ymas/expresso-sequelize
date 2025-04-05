@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Base } from '../entity/base'
+import { BaseSchema } from '../entity/base'
 
 // Schema
 const passwordSchema = z.object({
@@ -76,7 +76,7 @@ export const loginSchema = z.object({
 
 // Type
 export type UserSchema = Omit<z.infer<typeof userSchema>, 'new_password' | 'confirm_new_password'> &
-  Partial<Base> & {
+  Partial<BaseSchema> & {
     deleted_at: Date | null
   }
 

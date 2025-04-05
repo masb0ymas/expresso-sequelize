@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Base } from '../entity/base'
+import { BaseSchema } from '../entity/base'
 
 // Schema
 export const uploadSchema = z.object({
@@ -23,6 +23,6 @@ export const uploadSchema = z.object({
 
 // Type
 export type UploadSchema = z.infer<typeof uploadSchema> &
-  Partial<Base> & {
+  Partial<BaseSchema> & {
     deleted_at?: Date | null
   }

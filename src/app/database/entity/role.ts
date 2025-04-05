@@ -1,8 +1,8 @@
 import { Column, DeletedAt, Table } from 'sequelize-typescript'
-import { Base } from './base'
+import { BaseSchema } from './base'
 
 @Table({ tableName: 'role', paranoid: true })
-export class Role extends Base {
+export class Role extends BaseSchema {
   @DeletedAt
   @Column
   deleted_at?: Date

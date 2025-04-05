@@ -3,11 +3,12 @@ import 'reflect-metadata'
 import { Sequelize, type SequelizeOptions } from 'sequelize-typescript'
 import { env } from '~/config/env'
 import { logger } from '~/config/logger'
+import { __dirname } from '~/lib/string'
 
-const connectionType: 'postgres' | 'mysql' = 'postgres'
+type ConnectionType = 'postgres' | 'mysql'
 
 const sequelizeOptions: SequelizeOptions = {
-  dialect: env.SEQUELIZE_CONNECTION as typeof connectionType,
+  dialect: env.SEQUELIZE_CONNECTION as ConnectionType,
   host: env.SEQUELIZE_HOST,
   port: env.SEQUELIZE_PORT,
   username: env.SEQUELIZE_USERNAME,
@@ -15,7 +16,7 @@ const sequelizeOptions: SequelizeOptions = {
   database: env.SEQUELIZE_DATABASE,
   logQueryParameters: env.SEQUELIZE_LOGGING,
   timezone: env.SEQUELIZE_TIMEZONE,
-  models: [`${__dirname}/entity`],
+  models: [`${__dirname}/dist/app/database/entity`],
 }
 
 const sequelize = new Sequelize({ ...sequelizeOptions })
@@ -28,7 +29,7 @@ export const initDatabase = async () => {
 
     // not recommended when running in production mode
     if (env.SEQUELIZE_SYNC) {
-      await sequelize.sync({ logging: true, force: true })
+      await sequelize.sync({ force: true })
       logger.info(`Sync database successfully`)
     }
   } catch (error: any) {

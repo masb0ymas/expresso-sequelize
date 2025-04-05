@@ -33,31 +33,29 @@ const data = [
 ]
 
 /** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
-    const password = await hashing.hash(defaultPassword)
+export async function up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
+  const password = await hashing.hash(defaultPassword)
 
-    const formData: any[] = []
+  const formData: any[] = []
 
-    if (!_.isEmpty(data)) {
-      for (let i = 0; i < data.length; i += 1) {
-        const item = data[i]
+  if (!_.isEmpty(data)) {
+    for (let i = 0; i < data.length; i += 1) {
+      const item = data[i]
 
-        formData.push({
-          ...item,
-          id: uuidv4(),
-          is_active: true,
-          password,
-          created_at: new Date(),
-          updated_at: new Date(),
-        })
-      }
+      formData.push({
+        ...item,
+        id: uuidv4(),
+        is_active: true,
+        password,
+        created_at: new Date(),
+        updated_at: new Date(),
+      })
     }
+  }
 
-    await queryInterface.bulkInsert('user', formData)
-  },
+  await queryInterface.bulkInsert('user', formData)
+}
 
-  async down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
-    await queryInterface.bulkDelete('user', {})
-  },
+export async function down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
+  await queryInterface.bulkDelete('user', {})
 }

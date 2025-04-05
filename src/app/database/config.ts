@@ -1,6 +1,6 @@
 import { env } from '~/config/env'
 
-module.exports = {
+export default {
   username: env.SEQUELIZE_USERNAME,
   password: env.SEQUELIZE_PASSWORD,
   database: env.SEQUELIZE_DATABASE,
