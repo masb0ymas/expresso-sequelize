@@ -5,6 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/masb0ymas/express-api-sequelize/blob/master/LICENSE.md)
 [![Version](https://img.shields.io/badge/Version-6.0.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/express-api-sequelize/releases/tag/v6.0.0)
 [![Express](https://img.shields.io/badge/Express-4.21.2-informational?logo=express&color=22272E)](https://expressjs.com/)
+
 ![Node](https://badges.aleen42.com/src/node.svg)
 ![Eslint](https://badges.aleen42.com/src/eslint.svg)
 ![TypeScript](https://badges.aleen42.com/src/typescript.svg)
