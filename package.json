@@ -1,6 +1,6 @@
 {
   "name": "express-api-sequelize",
-  "version": "6.0.0-0",
+  "version": "5.3.1",
   "description": "A simple Express API with TypeScript, Sequelize, and PostgreSQL",
   "main": "src/main.ts",
   "private": true,
@@ -80,8 +80,6 @@
     "slugify": "^1.6.6",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "typeorm": "^0.3.21",
-    "typeorm-extension": "^3.7.0",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
