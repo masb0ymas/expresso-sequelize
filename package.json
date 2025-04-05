@@ -4,7 +4,7 @@
   "description": "A simple Express API with TypeScript, Sequelize, and PostgreSQL",
   "main": "src/main.ts",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "secret": "chmod +x ./script/secret.sh && bash ./script/secret.sh",
     "start": "nodemon --exec node ./dist/main.js",
