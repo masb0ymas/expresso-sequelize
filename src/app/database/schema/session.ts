@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { BaseSchema } from '../entity/base'
+import { Base } from '../entity/base'
 
 // Schema
 export const sessionSchema = z.object({
@@ -18,4 +18,4 @@ export const sessionSchema = z.object({
 })
 
 // Type
-export type SessionSchema = z.infer<typeof sessionSchema> & BaseSchema
+export type SessionSchema = z.infer<typeof sessionSchema> & Base
