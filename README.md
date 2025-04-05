@@ -1,10 +1,10 @@
-# [express-api](https://github.com/masb0ymas/express-api) with TypeORM
+# [express-api](https://github.com/masb0ymas/express-api) with Sequelize
 
-[![documentation](https://img.shields.io/badge/Documentation-yes-brightgreen.svg)](https://github.com/masb0ymas/expresso-typeorm#readme)
-[![maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/masb0ymas/expresso-typeorm/graphs/commit-activity)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/masb0ymas/expresso-typeorm/blob/master/LICENSE.md)
+[![documentation](https://img.shields.io/badge/Documentation-yes-brightgreen.svg)](https://github.com/masb0ymas/express-api-sequelize#readme)
+[![maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/masb0ymas/express-api-sequelize/graphs/commit-activity)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/masb0ymas/express-api-sequelize/blob/master/LICENSE.md)
 
-[![version](https://img.shields.io/badge/Version-5.0.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso-typeorm/releases/tag/v5.0.0)
+[![version](https://img.shields.io/badge/Version-6.0.0-0.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/express-api-sequelize/releases/tag/v6.0.0)
 [![Express](https://img.shields.io/badge/Express-4.21.2-informational?logo=express&color=22272E)](https://expressjs.com/)
 ![Node](https://badges.aleen42.com/src/node.svg)
 ![Eslint](https://badges.aleen42.com/src/eslint.svg)
@@ -14,7 +14,7 @@
 ## Feature
 
 - [TypeScript](https://github.com/microsoft/TypeScript) `5.8.x`
-- [TypeORM](https://github.com/typeorm/typeorm) `0.3.x`
+- [Sequelize](https://github.com/sequelize/sequelize) `6.x`
 - [Nodemailer](https://github.com/nodemailer/nodemailer) `6.x`
 - [Handlebars](https://github.com/wycats/handlebars.js) for templating HTML
 - [Zod](https://github.com/colinhacks/zod) for validation schema `3.x`
