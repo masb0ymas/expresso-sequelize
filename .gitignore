@@ -4,6 +4,9 @@
 /public/output
 /public/temp
 /public/uploads
+/temp
+
+.husky
 
 package-lock.json
 yarn-error.log

@@ -1,0 +1,182 @@
+{
+  "/v1/role": {
+    "get": {
+      "tags": ["Role"],
+      "summary": "Get All Role",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        { "$ref": "#/components/parameters/page" },
+        { "$ref": "#/components/parameters/pageSize" },
+        { "$ref": "#/components/parameters/filtered" },
+        { "$ref": "#/components/parameters/sorted" }
+      ],
+      "responses": {
+        "200": { "description": "Find all records" },
+        "400": { "description": "Something went wrong" },
+        "500": { "description": "Internal Server Error" }
+      }
+    },
+    "post": {
+      "tags": ["Role"],
+      "summary": "Create New Role",
+      "security": [{ "auth_token": [] }],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/x-www-form-urlencoded": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"]
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": { "description": "Create new records" },
+        "400": { "description": "Something went wrong" },
+        "422": { "description": "Unprocessable Entity" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/role/{id}": {
+    "get": {
+      "tags": ["Role"],
+      "summary": "Get Role By Id",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Role Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Get record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    },
+    "put": {
+      "tags": ["Role"],
+      "summary": "Update Data Role",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Role Id"
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/x-www-form-urlencoded": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"]
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": { "description": "Update record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "422": { "description": "Unprocessable Entity" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/role/restore/{id}": {
+    "put": {
+      "tags": ["Role"],
+      "summary": "Restore Role By Id",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Role Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Restore record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/role/soft-delete/{id}": {
+    "delete": {
+      "tags": ["Role"],
+      "summary": "Soft Delete Role By Id",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Role Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Soft Delete record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/role/force-delete/{id}": {
+    "delete": {
+      "tags": ["Role"],
+      "summary": "Force Delete Role By Id ( Forever )",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Role Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Force Delete record by id ( Forever )" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  }
+}

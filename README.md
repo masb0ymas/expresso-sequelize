@@ -1,11 +1,11 @@
-# expresso with Sequelize
+# [express-api](https://github.com/masb0ymas/express-api) with TypeORM
 
 [![documentation](https://img.shields.io/badge/Documentation-yes-brightgreen.svg)](https://github.com/masb0ymas/expresso-typeorm#readme)
 [![maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/masb0ymas/expresso-typeorm/graphs/commit-activity)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/masb0ymas/expresso-typeorm/blob/master/LICENSE.md)
 
-[![version](https://img.shields.io/badge/Version-5.2.1-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso-typeorm/releases/tag/v5.2.1)
-[![Express](https://img.shields.io/badge/Express-4.18.2-informational?logo=express&color=22272E)](https://expressjs.com/)
+[![version](https://img.shields.io/badge/Version-5.0.0-blue.svg?cacheSeconds=2592000)](https://github.com/masb0ymas/expresso-typeorm/releases/tag/v5.0.0)
+[![Express](https://img.shields.io/badge/Express-4.21.2-informational?logo=express&color=22272E)](https://expressjs.com/)
 ![Node](https://badges.aleen42.com/src/node.svg)
 ![Eslint](https://badges.aleen42.com/src/eslint.svg)
 ![TypeScript](https://badges.aleen42.com/src/typescript.svg)
@@ -13,17 +13,20 @@
 
 ## Feature
 
-- [TypeScript](https://github.com/microsoft/TypeScript) `5.1.x`
-- [Sequelize](https://github.com/sequelize/sequelize) `6.x`
+- [TypeScript](https://github.com/microsoft/TypeScript) `5.8.x`
+- [TypeORM](https://github.com/typeorm/typeorm) `0.3.x`
 - [Nodemailer](https://github.com/nodemailer/nodemailer) `6.x`
 - [Handlebars](https://github.com/wycats/handlebars.js) for templating HTML
 - [Zod](https://github.com/colinhacks/zod) for validation schema `3.x`
-- [SWC](https://github.com/swc-project/swc) for build runtime app `1.3.x`
 - JavaScript Style [Standard with TypeScript](https://github.com/standard/eslint-config-standard-with-typescript)
 - Formating code using [Prettier](https://github.com/prettier/prettier) Integration [Eslint](https://github.com/prettier/eslint-config-prettier) and [TypeScript Eslint](https://github.com/typescript-eslint/typescript-eslint#readme)
 - Documentation with [Swagger](https://github.com/swagger-api/swagger-ui) OpenApi `3.x`
 - Logger with [Pino](https://github.com/pinojs/pino)
 - [Convensional Commit](https://www.conventionalcommits.org/en/v1.0.0/) with [Husky](https://github.com/typicode/husky) & [Commitlint](https://github.com/conventional-changelog/commitlint)
+
+## Note
+
+By Default branch `main` using `type: module`. If you want to use `CommonJS` you must clone the branch `commonjs`
 
 ## Steps to run this project:
 
@@ -33,13 +36,12 @@
 4. Create your database ( manual ) or run `yarn db:create && yarn db:reset`
 5. Run `yarn dev` command
 6. Run watch command `yarn dev:watch`
-7. Release your app for *Production* or *Staging* with `yarn release`
-8. Build your code with Docker `docker build -t yourname/express:v1.0.0 .`
-9. Run with docker image `docker run -p 7000:8000 -d yourname/express:v1.0.0`
+7. Enable commitlint with husky `yarn husky install`
+8. Release your app for *Production* or *Staging* with `yarn release`
+9. Build your code with Docker `docker build -t yourname/express:v1.0.0 .`
+10. Run with docker image `docker run -p 7000:8000 -d yourname/express:v1.0.0`
 
 ## Author
-
-[**masb0ymas** (Resume)](https://resume.masb0ymas.com)
 
 [![Github](https://badges.aleen42.com/src/github.svg)](https://github.com/masb0ymas)
 [![Twitter](https://badges.aleen42.com/src/twitter.svg)](https://twitter.com/masb0ymas)

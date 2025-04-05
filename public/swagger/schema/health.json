@@ -1,0 +1,31 @@
+{
+  "Health": {
+    "type": "object",
+    "properties": {
+      "date": {
+        "type": "string"
+      },
+      "node": {
+        "type": "string"
+      },
+      "express": {
+        "type": "string"
+      },
+      "api": {
+        "type": "string"
+      },
+      "platform": {
+        "type": "string"
+      },
+      "uptime": {
+        "type": "string"
+      },
+      "cpu_usage": {
+        "type": "string"
+      },
+      "memory": {
+        "type": "string"
+      }
+    }
+  }
+}

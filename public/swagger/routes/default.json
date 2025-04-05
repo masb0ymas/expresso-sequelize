@@ -1,0 +1,34 @@
+{
+  "/": {
+    "get": {
+      "tags": ["Default"],
+      "summary": "Default Route",
+      "security": [
+        {
+          "auth_token": []
+        }
+      ],
+      "responses": {
+        "200": { "description": "Find all records" },
+        "400": { "description": "Something went wrong" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/health": {
+    "get": {
+      "tags": ["Default"],
+      "summary": "Default Route",
+      "security": [
+        {
+          "auth_token": []
+        }
+      ],
+      "responses": {
+        "200": { "description": "Find all records" },
+        "400": { "description": "Something went wrong" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  }
+}

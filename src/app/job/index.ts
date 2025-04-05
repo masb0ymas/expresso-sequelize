@@ -1,20 +1,19 @@
-import { UploadJob } from './upload.job'
+import SessionJob from './session'
+import UploadJob from './upload'
 
-export class Jobs {
-  /**
-   * Initialize Jobs
-   */
-  public static initialize(): void {
-    // run upload task
-    this._uploadTask()
+export default class Job {
+  static initialize() {
+    this._sessionJob()
+    this._uploadJob()
   }
 
-  /**
-   * Upload Task
-   */
-  private static _uploadTask(): void {
-    // Upload Job
-    const getTask = UploadJob.getTask()
-    getTask.start()
+  private static _sessionJob() {
+    const task = SessionJob.removeSession()
+    task.start()
+  }
+
+  private static _uploadJob() {
+    const task = UploadJob.updateSignedUrl()
+    task.start()
   }
 }
