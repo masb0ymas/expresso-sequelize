@@ -1,0 +1,184 @@
+{
+  "/v1/upload": {
+    "get": {
+      "tags": ["Upload"],
+      "summary": "Get All Upload",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        { "$ref": "#/components/parameters/page" },
+        { "$ref": "#/components/parameters/pageSize" },
+        { "$ref": "#/components/parameters/filtered" },
+        { "$ref": "#/components/parameters/sorted" }
+      ],
+      "responses": {
+        "200": { "description": "Find all records" },
+        "400": { "description": "Something went wrong" },
+        "500": { "description": "Internal Server Error" }
+      }
+    },
+    "post": {
+      "tags": ["Upload"],
+      "summary": "Create New Upload",
+      "security": [{ "auth_token": [] }],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "file_upload": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "required": ["file_upload"]
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": { "description": "Create new records" },
+        "400": { "description": "Something went wrong" },
+        "422": { "description": "Unprocessable Entity" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/upload/{id}": {
+    "get": {
+      "tags": ["Upload"],
+      "summary": "Get Upload By Id",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Upload Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Get record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    },
+    "put": {
+      "tags": ["Upload"],
+      "summary": "Update Data Upload",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Upload Id"
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "file_upload": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "required": ["file_upload"]
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": { "description": "Update record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "422": { "description": "Unprocessable Entity" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/upload/restore/{id}": {
+    "put": {
+      "tags": ["Upload"],
+      "summary": "Restore Upload By Id",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Upload Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Restore record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/upload/soft-delete/{id}": {
+    "delete": {
+      "tags": ["Upload"],
+      "summary": "Soft Delete Upload By Id",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Upload Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Soft Delete record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/upload/force-delete/{id}": {
+    "delete": {
+      "tags": ["Upload"],
+      "summary": "Force Delete Upload By Id ( Forever )",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "Upload Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Force Delete record by id ( Forever )" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  }
+}

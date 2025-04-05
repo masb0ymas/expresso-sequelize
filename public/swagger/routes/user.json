@@ -1,0 +1,236 @@
+{
+  "/v1/user": {
+    "get": {
+      "tags": ["User"],
+      "summary": "Get All User",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        { "$ref": "#/components/parameters/page" },
+        { "$ref": "#/components/parameters/pageSize" },
+        { "$ref": "#/components/parameters/filtered" },
+        { "$ref": "#/components/parameters/sorted" }
+      ],
+      "responses": {
+        "200": { "description": "Find all records" },
+        "400": { "description": "Something went wrong" },
+        "500": { "description": "Internal Server Error" }
+      }
+    },
+    "post": {
+      "tags": ["User"],
+      "summary": "Create New User",
+      "security": [{ "auth_token": [] }],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/x-www-form-urlencoded": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullname": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "token_verify": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "is_active": {
+                  "type": "boolean"
+                },
+                "is_blocked": {
+                  "type": "boolean"
+                },
+                "role_id": {
+                  "type": "string"
+                },
+                "upload_id": {
+                  "type": "string"
+                }
+              },
+              "required": ["fullname", "email", "password", "role_id"]
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": { "description": "Create new records" },
+        "400": { "description": "Something went wrong" },
+        "422": { "description": "Unprocessable Entity" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/user/{id}": {
+    "get": {
+      "tags": ["User"],
+      "summary": "Get User By Id",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "User Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Get record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    },
+    "put": {
+      "tags": ["User"],
+      "summary": "Update Data User",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "User Id"
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/x-www-form-urlencoded": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullname": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "token_verify": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "is_active": {
+                  "type": "boolean"
+                },
+                "is_blocked": {
+                  "type": "boolean"
+                },
+                "role_id": {
+                  "type": "string"
+                },
+                "upload_id": {
+                  "type": "string"
+                }
+              },
+              "required": ["fullname", "email", "password", "role_id"]
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": { "description": "Update record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "422": { "description": "Unprocessable Entity" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/user/restore/{id}": {
+    "put": {
+      "tags": ["User"],
+      "summary": "Restore User By Id",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "User Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Restore record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/user/soft-delete/{id}": {
+    "delete": {
+      "tags": ["User"],
+      "summary": "Soft Delete User By Id",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "User Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Soft Delete record by id" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  },
+  "/v1/user/force-delete/{id}": {
+    "delete": {
+      "tags": ["User"],
+      "summary": "Force Delete User By Id ( Forever )",
+      "security": [{ "auth_token": [] }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "User Id"
+        }
+      ],
+      "responses": {
+        "200": { "description": "Force Delete record by id ( Forever )" },
+        "400": { "description": "Something went wrong" },
+        "404": { "description": "Record not found" },
+        "500": { "description": "Internal Server Error" }
+      }
+    }
+  }
+}

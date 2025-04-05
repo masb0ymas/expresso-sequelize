@@ -1,54 +1,36 @@
-import { blue, green } from 'colorette'
-import { logger } from 'expresso-core'
 import http from 'http'
+import { initDatabase } from './app/database/connection'
+import Job from './app/job'
 import { App } from './config/app'
 import { env } from './config/env'
-import { httpHandle } from './core/modules/http/handle'
-import db from './database/datasource'
+import { storage } from './config/storage'
+import { storageExists } from './lib/boolean'
+import { httpHandle } from './lib/http/handle'
 
-function bootstrap(): void {
+function bootstrap() {
   const port = env.APP_PORT
-
-  // create express app
-  const app = new App().create()
-
+  const app = new App().create
   const server = http.createServer(app)
+  const isStorageEnabled = storageExists()
+
+  // initial database
+  initDatabase()
+
+  // initial storage
+  if (isStorageEnabled) {
+    storage.initialize()
+  }
+
+  // initial job
+  Job.initialize()
 
   // http handle
   const { onError, onListening } = httpHandle(server, port)
 
-  const dbDialect = blue(env.SEQUELIZE_CONNECTION)
-  const dbName = blue(env.SEQUELIZE_DATABASE)
-
-  // connect to database
-  db.sequelize
-    .authenticate()
-    .then(async () => {
-      const msgType = green(`sequelize`)
-      const message = `connection ${dbDialect}: ${dbName} has been established successfully.`
-
-      logger.info(`${msgType} - ${message}`)
-
-      // not recommended when running in production mode
-      if (env.SEQUELIZE_SYNC) {
-        await db.sequelize.sync({ force: true })
-
-        logger.info(`${msgType} - all sync database successfully`)
-      }
-
-      // run server listen
-      server.listen(port)
-      server.on('error', onError)
-      server.on('listening', onListening)
-    })
-    .catch((err: any) => {
-      const errType = `sequelize error:`
-      const message = `unable to connect to the database ${dbDialect}: ${dbName}`
-      console.log(err)
-
-      logger.error(`${errType} - ${message}`)
-      process.exit(1)
-    })
+  // run server listen
+  server.listen(port)
+  server.on('error', onError)
+  server.on('listening', onListening)
 }
 
 bootstrap()

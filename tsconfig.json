@@ -7,14 +7,13 @@
     "experimentalDecorators": true,
 
     /* Modules */
-    "module": "commonjs",
+    "module": "ESNext",
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
       "~/*": ["./src/*"]
     },
-    "typeRoots": ["./src/core/types"],
-    // "types": ["bun-types"],
+    "typeRoots": ["./src/lib/types"],
 
     /* JavaScript Support */
     "allowJs": true,
@@ -34,6 +33,10 @@
 
     /* Completeness */
     "skipLibCheck": true
+  },
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]
