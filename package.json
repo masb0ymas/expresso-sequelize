@@ -1,6 +1,6 @@
 {
   "name": "express-api-sequelize",
-  "version": "6.0.0-0",
+  "version": "6.0.0-1",
   "description": "A simple Express API with TypeScript, Sequelize, and PostgreSQL",
   "main": "src/main.ts",
   "private": true,
