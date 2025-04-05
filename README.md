@@ -17,22 +17,22 @@ Base API using [express-api](https://github.com/masb0ymas/express-api)
 
 - **[TypeScript](https://github.com/microsoft/TypeScript)** `5.8.x` - Type-safe JavaScript
 - **[Sequelize](https://github.com/sequelize/sequelize)** `6.x` - Powerful ORM for SQL databases
+- **[Express](https://expressjs.com/)** `4.21.x` - Fast, unopinionated web framework
 - **[Nodemailer](https://github.com/nodemailer/nodemailer)** `6.x` - Email sending made simple
-- **[Handlebars](https://github.com/wycats/handlebars.js)** - HTML templating engine
 - **[Zod](https://github.com/colinhacks/zod)** `3.x` - TypeScript-first schema validation
+- **[PostgreSQL](https://www.postgresql.org/)** - Advanced open source database
 - **Code Quality**
   - JavaScript Style with [Standard with TypeScript](https://github.com/standard/eslint-config-standard-with-typescript)
   - Code formatting with [Prettier](https://github.com/prettier/prettier)
   - [ESLint](https://github.com/prettier/eslint-config-prettier) and [TypeScript ESLint](https://github.com/typescript-eslint/typescript-eslint) integration
 - **API Documentation** with [Swagger](https://github.com/swagger-api/swagger-ui) OpenAPI `3.x`
 - **Logging** with [Pino](https://github.com/pinojs/pino)
-- **Git Workflow** with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), [Husky](https://github.com/typicode/husky) & [Commitlint](https://github.com/conventional-changelog/commitlint)
-- **Containerization** with Docker
+- **Containerization** with [Docker](https://www.docker.com/)
 
 ## Module System
 
-- By default, the `main` branch uses ES Modules (`type: module`)
-- For CommonJS, use the `commonjs` branch
+- By default, the `main` branch uses CommonJs (`type: commonjs`)
+- For ES Module pending implementation because of Sequelize issue.
 
 ## Getting Started
 
@@ -77,11 +77,6 @@ Base API using [express-api](https://github.com/masb0ymas/express-api)
    yarn dev:watch
    ```
 
-6. **Enable Git hooks**
-   ```bash
-   yarn husky install
-   ```
-
 ## Deployment
 
 ### Release Process
@@ -99,6 +94,15 @@ docker build -t yourname/express:v1.0.0 .
 # Run the container
 docker run -p 7000:8000 -d yourname/express:v1.0.0
 ```
+
+## Scripts
+
+- `npm run dev` - Start development server with hot reloading
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run db:create` - Create database
+- `npm run db:reset` - Reset database schema
+- `npm run release` - Release a new version
 
 ## Author
 
