@@ -29,9 +29,7 @@ Base API using [express-api](https://github.com/masb0ymas/express-api)
 - **Logging** with [Pino](https://github.com/pinojs/pino)
 - **Containerization** with [Docker](https://www.docker.com/)
 
-## Getting Started
-
-### Prerequisites
+## Prerequisites
 
 - Node.js >= 20.x
 - PostgreSQL
