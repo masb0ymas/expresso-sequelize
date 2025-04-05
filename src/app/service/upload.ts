@@ -5,7 +5,7 @@ import { validate as uuidValidate } from 'uuid'
 import { storage } from '~/config/storage'
 import ErrorResponse from '~/lib/http/errors'
 import { FileParams } from '~/lib/storage/types'
-import { Upload } from '../database/entity/upload'
+import Upload from '../database/entity/upload'
 import { UploadSchema, uploadSchema } from '../database/schema/upload'
 import BaseService from './base'
 

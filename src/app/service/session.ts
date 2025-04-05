@@ -2,7 +2,7 @@ import { subDays } from 'date-fns'
 import { Model, ModelStatic, Op } from 'sequelize'
 import ErrorResponse from '~/lib/http/errors'
 import { validate } from '~/lib/validate'
-import { Session } from '../database/entity/session'
+import Session from '../database/entity/session'
 import { SessionSchema, sessionSchema } from '../database/schema/session'
 import BaseService from './base'
 

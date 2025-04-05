@@ -3,7 +3,6 @@ import 'reflect-metadata'
 import { Sequelize, type SequelizeOptions } from 'sequelize-typescript'
 import { env } from '~/config/env'
 import { logger } from '~/config/logger'
-import { __dirname } from '~/lib/string'
 
 type ConnectionType = 'postgres' | 'mysql'
 
@@ -16,7 +15,7 @@ const sequelizeOptions: SequelizeOptions = {
   database: env.SEQUELIZE_DATABASE,
   logQueryParameters: env.SEQUELIZE_LOGGING,
   timezone: env.SEQUELIZE_TIMEZONE,
-  models: [`${__dirname}/dist/app/database/entity`],
+  models: [`${__dirname}/entity`],
 }
 
 const sequelize = new Sequelize({ ...sequelizeOptions })

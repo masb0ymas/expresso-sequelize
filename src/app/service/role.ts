@@ -1,5 +1,5 @@
 import { Model, ModelStatic } from 'sequelize'
-import { Role } from '../database/entity/role'
+import Role from '../database/entity/role'
 import { roleSchema } from '../database/schema/role'
 import BaseService from './base'
 

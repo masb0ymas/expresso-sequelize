@@ -1,8 +1,8 @@
 import { Column, DataType, DeletedAt, Table } from 'sequelize-typescript'
-import { BaseSchema } from './base'
+import BaseSchema from './base'
 
 @Table({ tableName: 'upload', paranoid: true })
-export class Upload extends BaseSchema {
+export default class Upload extends BaseSchema {
   @DeletedAt
   @Column
   deleted_at?: Date

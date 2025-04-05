@@ -16,7 +16,7 @@ export interface IBaseEntity {
 }
 
 @Table({ tableName: 'base' })
-export class BaseSchema extends Model {
+export default class BaseSchema extends Model {
   @IsUUID(4)
   @PrimaryKey
   @Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })

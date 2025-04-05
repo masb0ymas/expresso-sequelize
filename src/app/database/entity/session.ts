@@ -1,9 +1,9 @@
 import { BelongsTo, Column, DataType, ForeignKey, IsUUID, Table } from 'sequelize-typescript'
-import { User } from './user'
-import { BaseSchema } from './base'
+import User from './user'
+import BaseSchema from './base'
 
 @Table({ tableName: 'session' })
-export class Session extends BaseSchema {
+export default class Session extends BaseSchema {
   @IsUUID(4)
   @ForeignKey(() => User)
   @Column({

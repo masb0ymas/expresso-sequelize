@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { BaseSchema } from '../entity/base'
+import BaseSchema from '../entity/base'
 
 // Schema
 export const sessionSchema = z.object({
