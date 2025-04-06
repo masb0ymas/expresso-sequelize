@@ -23,3 +23,12 @@ export function storageExists(): boolean {
       return false
   }
 }
+
+/**
+ * Check if mail is enabled
+ */
+export function mailExists(): boolean {
+  return Boolean(
+    env.MAIL_HOST && env.MAIL_PORT && env.MAIL_USERNAME && env.MAIL_PASSWORD && env.MAIL_FROM
+  )
+}
