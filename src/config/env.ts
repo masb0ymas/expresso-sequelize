@@ -30,4 +30,12 @@ export const env = {
 
   JWT_SECRET: process.env.JWT_SECRET || 'your_secret_key',
   JWT_EXPIRES: process.env.JWT_EXPIRES || '7d',
+
+  MAIL_DRIVER: process.env.MAIL_DRIVER || 'smtp',
+  MAIL_HOST: process.env.MAIL_HOST || 'smtp.mailtrap.io',
+  MAIL_PORT: validate.number(process.env.MAIL_PORT) || 587,
+  MAIL_FROM: process.env.MAIL_FROM || ' ',
+  MAIL_USERNAME: process.env.MAIL_USERNAME || ' ',
+  MAIL_PASSWORD: process.env.MAIL_PASSWORD || ' ',
+  MAIL_ENCRYPTION: process.env.MAIL_ENCRYPTION || ' ',
 }
