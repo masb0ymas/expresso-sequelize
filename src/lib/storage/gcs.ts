@@ -5,9 +5,8 @@ import fs from 'fs'
 import path from 'path'
 import { logger } from '~/config/logger'
 import { ms } from '../date'
+import { currentDir } from '../string'
 import { GoogleCloudStorageParams, UploadFileParams } from './types'
-
-const dirname = path.join(__dirname, '../../../')
 
 export default class GoogleCloudStorage {
   public client: GCS.Storage
@@ -21,7 +20,7 @@ export default class GoogleCloudStorage {
     this._access_key = params.access_key
     this._bucket = params.bucket
     this._expires = params.expires
-    this._filepath = path.resolve(`${dirname}/${params.filepath}`)
+    this._filepath = path.resolve(`${currentDir}/${params.filepath}`)
 
     const msgType = `${green('storage - google cloud storage')}`
 

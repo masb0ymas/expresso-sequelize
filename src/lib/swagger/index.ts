@@ -3,10 +3,10 @@ import _ from 'lodash'
 import path from 'path'
 import swaggerJSDoc from 'swagger-jsdoc'
 import { env } from '~/config/env'
+import { currentDir } from '../string'
 
-const dirname = path.join(__dirname, '../../../', 'public', 'swagger')
-const _pathRouteDocs = path.resolve(`${dirname}/routes`)
-const _pathSchemaDocs = path.resolve(`${dirname}/schema`)
+const _pathRouteDocs = path.resolve(`${currentDir}/public/swagger/routes`)
+const _pathSchemaDocs = path.resolve(`${currentDir}/public/swagger/schema`)
 
 function _getDocsSwaggers(_path: string | Buffer): Record<string, unknown> {
   return fs.readdirSync(_path).reduce((acc, file) => {
