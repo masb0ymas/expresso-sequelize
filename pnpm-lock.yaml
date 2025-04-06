@@ -56,6 +56,9 @@ importers:
       express-useragent:
         specifier: ^1.0.15
         version: 1.0.15
+      handlebars:
+        specifier: ^4.7.8
+        version: 4.7.8
       helmet:
         specifier: ^8.1.0
         version: 8.1.0
@@ -77,6 +80,9 @@ importers:
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
+      nodemailer:
+        specifier: ^6.10.0
+        version: 6.10.0
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -165,6 +171,9 @@ importers:
       '@types/node-cron':
         specifier: ^3.0.11
         version: 3.0.11
+      '@types/nodemailer':
+        specifier: ^6.4.17
+        version: 6.4.17
       '@types/request-ip':
         specifier: ^0.0.41
         version: 0.0.41
@@ -979,6 +988,9 @@ packages:
 
   '@types/node@22.14.0':
     resolution: {integrity: sha512-Kmpl+z84ILoG+3T/zQFyAJsU6EPTmOCj8/2+83fSN6djd6I4o7uOuGIH6vq3PrjY5BGitSbFuMN18j3iknubbA==, tarball: https://registry.npmjs.org/@types/node/-/node-22.14.0.tgz}
+
+  '@types/nodemailer@6.4.17':
+    resolution: {integrity: sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww==, tarball: https://registry.npmjs.org/@types/nodemailer/-/nodemailer-6.4.17.tgz}
 
   '@types/parse-path@7.0.3':
     resolution: {integrity: sha512-LriObC2+KYZD3FzCrgWGv/qufdUy4eXrxcLgQMfYXgPbLIecKIsVBaQgUPmxSSLcjmYbDTQbMgr6qr6l/eb7Bg==, tarball: https://registry.npmjs.org/@types/parse-path/-/parse-path-7.0.3.tgz}
@@ -1998,6 +2010,11 @@ packages:
     resolution: {integrity: sha512-pCcEwRi+TKpMlxAQObHDQ56KawURgyAf6jtIY046fJ5tIv3zDe/LEIubckAO8fj6JnAxLdmWkUfNyulQ2iKdEw==, tarball: https://registry.npmjs.org/gtoken/-/gtoken-7.1.0.tgz}
     engines: {node: '>=14.0.0'}
 
+  handlebars@4.7.8:
+    resolution: {integrity: sha512-vafaFqs8MZkRrSX7sFVUdo3ap/eNiLnb4IakshzvP56X5Nr1iGKAIqdX6tMlm6HcNRIkr6AxO5jFEoJzzpT8aQ==, tarball: https://registry.npmjs.org/handlebars/-/handlebars-4.7.8.tgz}
+    engines: {node: '>=0.4.7'}
+    hasBin: true
+
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==, tarball: https://registry.npmjs.org/has-bigints/-/has-bigints-1.1.0.tgz}
     engines: {node: '>= 0.4'}
@@ -2621,6 +2638,9 @@ packages:
     resolution: {integrity: sha512-myRT3DiWPHqho5PrJaIRyaMv2kgYf0mUVgBNOYMuCH5Ki1yEiQaf/ZJuQ62nvpc44wL5WDbTX7yGJi1Neevw8w==, tarball: https://registry.npmjs.org/negotiator/-/negotiator-0.6.4.tgz}
     engines: {node: '>= 0.6'}
 
+  neo-async@2.6.2:
+    resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==, tarball: https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz}
+
   netmask@2.0.2:
     resolution: {integrity: sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==, tarball: https://registry.npmjs.org/netmask/-/netmask-2.0.2.tgz}
     engines: {node: '>= 0.4.0'}
@@ -2655,6 +2675,10 @@ packages:
   node-gyp-build@4.8.4:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==, tarball: https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.8.4.tgz}
     hasBin: true
+
+  nodemailer@6.10.0:
+    resolution: {integrity: sha512-SQ3wZCExjeSatLE/HBaXS5vqUOQk6GtBdIIKxiFdmm01mOQZX/POJkO3SUX1wDiYcwUOJwT23scFSC9fY2H8IA==, tarball: https://registry.npmjs.org/nodemailer/-/nodemailer-6.10.0.tgz}
+    engines: {node: '>=6.0.0'}
 
   nodemon@3.1.9:
     resolution: {integrity: sha512-hdr1oIb2p6ZSxu3PB2JWWYS7ZQ0qvaZsc3hK8DR8f02kRzc8rjYmxAIvdz+aYC+8F2IjNaB7HMcSDg8nQpJxyg==, tarball: https://registry.npmjs.org/nodemon/-/nodemon-3.1.9.tgz}
@@ -3591,6 +3615,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  uglify-js@3.19.3:
+    resolution: {integrity: sha512-v3Xu+yuwBXisp6QYTcH4UbH+xYJXqnq2m/LtQVWKWzYc1iehYnLixoQDN9FH6/j9/oybfd6W9Ghwkl8+UMKTKQ==, tarball: https://registry.npmjs.org/uglify-js/-/uglify-js-3.19.3.tgz}
+    engines: {node: '>=0.8.0'}
+    hasBin: true
+
   umzug@2.3.0:
     resolution: {integrity: sha512-Z274K+e8goZK8QJxmbRPhl89HPO1K+ORFtm6rySPhFKfKc5GHhqdzD0SGhSWHkzoXasqJuItdhorSvY7/Cgflw==, tarball: https://registry.npmjs.org/umzug/-/umzug-2.3.0.tgz}
     engines: {node: '>=6.0.0'}
@@ -3729,6 +3758,9 @@ packages:
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==, tarball: https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.5.tgz}
     engines: {node: '>=0.10.0'}
+
+  wordwrap@1.0.0:
+    resolution: {integrity: sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==, tarball: https://registry.npmjs.org/wordwrap/-/wordwrap-1.0.0.tgz}
 
   wrap-ansi@6.2.0:
     resolution: {integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==, tarball: https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-6.2.0.tgz}
@@ -5047,6 +5079,10 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  '@types/nodemailer@6.4.17':
+    dependencies:
+      '@types/node': 22.14.0
+
   '@types/parse-path@7.0.3': {}
 
   '@types/qs@6.9.18': {}
@@ -6302,6 +6338,15 @@ snapshots:
       - encoding
       - supports-color
 
+  handlebars@4.7.8:
+    dependencies:
+      minimist: 1.2.8
+      neo-async: 2.6.2
+      source-map: 0.6.1
+      wordwrap: 1.0.0
+    optionalDependencies:
+      uglify-js: 3.19.3
+
   has-bigints@1.1.0: {}
 
   has-flag@3.0.0: {}
@@ -6889,6 +6934,8 @@ snapshots:
 
   negotiator@0.6.4: {}
 
+  neo-async@2.6.2: {}
+
   netmask@2.0.2: {}
 
   new-github-release-url@2.0.0:
@@ -6910,6 +6957,8 @@ snapshots:
       whatwg-url: 5.0.0
 
   node-gyp-build@4.8.4: {}
+
+  nodemailer@6.10.0: {}
 
   nodemon@3.1.9:
     dependencies:
@@ -7676,8 +7725,7 @@ snapshots:
     dependencies:
       atomic-sleep: 1.0.0
 
-  source-map@0.6.1:
-    optional: true
+  source-map@0.6.1: {}
 
   spdx-correct@3.2.0:
     dependencies:
@@ -7960,6 +8008,9 @@ snapshots:
 
   typescript@5.8.3: {}
 
+  uglify-js@3.19.3:
+    optional: true
+
   umzug@2.3.0:
     dependencies:
       bluebird: 3.7.2
@@ -8114,6 +8165,8 @@ snapshots:
       '@types/node': 22.14.0
 
   word-wrap@1.2.5: {}
+
+  wordwrap@1.0.0: {}
 
   wrap-ansi@6.2.0:
     dependencies:
