@@ -18,11 +18,8 @@ route.post(
   '/sign-up',
   asyncHandler(async (req: Request, res: Response) => {
     const values = req.getBody()
-    const record = await service.register(values)
-    const httpResponse = HttpResponse.created({
-      data: record,
-      message: 'User registered successfully',
-    })
+    await service.register(values)
+    const httpResponse = HttpResponse.created({ message: 'User registered successfully' })
     res.status(201).json(httpResponse)
   })
 )
